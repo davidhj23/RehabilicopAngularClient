@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/assets/app.css"],"names":[],"mappings":"AAAA;IACI,gBAAgB;CACnB;;AAED;IACI,gBAAgB","file":"app.6a224ec1be72090edbc9.css","sourcesContent":["a {\n    cursor: pointer;\n}\n\n.help-block {\n    font-size: 12px;\n}\n\n\n// WEBPACK FOOTER //\n// ./src/assets/app.css"],"sourceRoot":""}

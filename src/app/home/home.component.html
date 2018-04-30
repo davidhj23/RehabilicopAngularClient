@@ -1,0 +1,5 @@
+﻿<dashboard-header (onCollapse)='onCollapse($event)'></dashboard-header>
+
+<sidebar [ngClass]="{ 'sidenav-toggled': isCollapsed }" class="app sidebar-mini rtl pace-done"></sidebar>
+
+<router-outlet></router-outlet>
