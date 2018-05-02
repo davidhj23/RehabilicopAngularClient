@@ -2,11 +2,11 @@
 
 @Component({
     moduleId: module.id.toString(),
-    selector: 'home',
-    templateUrl: 'home.component.html'
+    selector: 'layout',
+    templateUrl: 'layout.component.html'
 })
 
-export class HomeComponent implements OnInit {    
+export class LayoutComponent implements OnInit {    
     isCollapsed = false; 
 
     constructor() {                

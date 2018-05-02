@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { User } from '../_models/index';
+import { User } from '../../_models/index';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 

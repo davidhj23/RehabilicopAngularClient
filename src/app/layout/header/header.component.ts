@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User } from '../_models/index';
-import { UserService, AuthenticationService } from '../_services/index';
-import { VisibleGuard } from '../_guards/index';
+import { User } from '../../_models/index';
+import { UserService, AuthenticationService } from '../../_services/index';
+import { VisibleGuard } from '../../_guards/index';
 
 import {Idle, DEFAULT_INTERRUPTSOURCES} from '@ng-idle/core';
 import {Keepalive} from '@ng-idle/keepalive';
@@ -15,11 +15,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 
 export class HeaderComponent implements OnInit {
-
-    @Output() onCollapse: EventEmitter<any> = new EventEmitter();
-    collapse() {
-        this.onCollapse.emit(null);
-    }
     
     constructor(public userService: UserService, 
                 private visibleGuard: VisibleGuard,
@@ -33,6 +28,11 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {        
     }
 
+    @Output() onCollapse: EventEmitter<any> = new EventEmitter();
+    collapse() {
+        this.onCollapse.emit(null);
+    }
+    
     cerrarSesion() {
         this.idle.stop();
         this.idle.ngOnDestroy();       

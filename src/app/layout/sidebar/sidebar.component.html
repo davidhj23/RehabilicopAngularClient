@@ -1,0 +1,14 @@
+<aside class="app-sidebar">  
+  <ul class="app-menu">    
+    <li class="treeview" [class.is-expanded]="showMenu === 'pages'" permission="seguridad">
+      <a class="app-menu__item" (click)="addExpandClass('pages')" [routerLink]="" data-toggle="treeview">
+        <i class="app-menu__icon fa fa-lock"></i>
+        <span class="app-menu__label">Seguridad</span>
+        <i class="treeview-indicator fa fa-angle-right"></i>
+      </a>
+      <ul class="treeview-menu" permission="roles">
+        <li><a class="treeview-item" [routerLink]="['/layout/roles']"><i class="icon fa fa-circle-o"></i> Roles</a></li>    
+      </ul>
+    </li>    
+  </ul>
+</aside>

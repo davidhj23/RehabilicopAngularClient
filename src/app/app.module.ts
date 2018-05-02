@@ -3,25 +3,29 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { NguiDatetimePickerModule } from '@ngui/datetime-picker';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { DataTableModule } from "angular2-datatable";
+import { FileUploader, FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import { ToastyModule } from 'ng2-toasty';
+
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AlertComponent, UpperCaseTextComponent, PermissionComponent } from './_directives/index';
-import { ToastyModule } from 'ng2-toasty';
-import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { AuthGuard, VisibleGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService } from './_services/index';
-import { HomeComponent } from './home/index';
+
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
-import { HeaderComponent } from './header/index';
-import { SidebarComponent } from './sidebar/index';
-import { UploadComponent } from './upload/index';
-import { NguiDatetimePickerModule } from '@ngui/datetime-picker';
-import { FileUploader, FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
-import { DataTableModule } from "angular2-datatable";
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LayoutComponent } from './layout/index';
+import { HeaderComponent } from './layout/header/index';
+import { SidebarComponent } from './layout/sidebar/index';
+import { RolesComponent } from './layout/roles/index';
+import { UploadComponent } from './layout/upload/index';
 
 @NgModule({
     imports: [
@@ -40,13 +44,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         AlertComponent,
         UpperCaseTextComponent,
         PermissionComponent,
-        HomeComponent,
-        LoginComponent,
-        RegisterComponent,
-        HeaderComponent,
-        SidebarComponent,
         FileSelectDirective,
         FileDropDirective,
+
+        LoginComponent,
+        RegisterComponent,
+
+        LayoutComponent,
+        HeaderComponent,
+        SidebarComponent,
+        RolesComponent,        
         UploadComponent
     ],
     providers: [

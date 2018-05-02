@@ -6,11 +6,21 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class SidebarComponent implements OnInit {   
-    public isCollapsed = false;
+    
+    showMenu: string = '';
+
     constructor() {
         
     }
 
     ngOnInit() {        
+    }
+
+    addExpandClass(element: any) {
+        if (element === this.showMenu) {
+            this.showMenu = '0';
+        } else {
+            this.showMenu = element;
+        }
     }
 }
