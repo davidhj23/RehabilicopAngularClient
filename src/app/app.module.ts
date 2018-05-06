@@ -16,7 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AlertComponent, UpperCaseTextComponent, PermissionComponent } from './_directives/index';
 import { AuthGuard, VisibleGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService } from './_services/index';
+import { AlertService, AuthenticationService, UserService, RolService } from './_services/index';
 
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
@@ -61,7 +61,8 @@ import { UploadComponent } from './layout/upload/index';
         VisibleGuard,
         AlertService,
         AuthenticationService,
-        UserService
+        UserService,
+        RolService
     ],
     bootstrap: [AppComponent]
 })

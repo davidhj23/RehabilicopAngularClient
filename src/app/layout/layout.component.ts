@@ -7,7 +7,7 @@
 })
 
 export class LayoutComponent implements OnInit {    
-    isCollapsed = false; 
+    isCollapsed = false;
 
     constructor() {                
     }
