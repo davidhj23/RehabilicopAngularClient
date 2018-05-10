@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/index';
 
 import { LayoutComponent } from './layout/index';
 import { RolesComponent } from './layout/roles/index';
+import { OpcionesComponent } from './layout/listas/opciones/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -18,8 +19,8 @@ const appRoutes: Routes = [
         canActivate: [AuthGuard], 
         data : { permission: ["layout"]},
         children: 
-            [{ path: 'roles', component: RolesComponent, canActivate: [AuthGuard], data : { permission: ["roles"] }}
-            ] 
+            [{ path: 'roles', component: RolesComponent, canActivate: [AuthGuard], data : { permission: ["roles"] }},
+             { path: 'opciones', component: OpcionesComponent, canActivate: [AuthGuard], data : { permission: ["opciones"] }}] 
     }, 
 
     // otherwise redirect to home

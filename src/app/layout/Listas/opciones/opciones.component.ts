@@ -1,21 +1,21 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Rol, ErrorMessage } from '../../_models';
+import { Opcion, ErrorMessage } from '../../../_models';
 import { Router } from '@angular/router';
-import { RolService, AlertService } from '../../_services';
+import { OpcionService, AlertService } from '../../../_services';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    selector: 'roles',
-    templateUrl: 'roles.component.html',
+    selector: 'opciones',
+    templateUrl: 'opciones.component.html',
 })
 
-export class RolesComponent implements OnInit {   
+export class OpcionesComponent implements OnInit {   
     
-    roles: Rol[] = [];
-    temp: Rol[] = [];
+    opciones: Opcion[] = [];
+    temp: Opcion[] = [];
 
-    rol: Rol = new Rol();
+    opcion: Opcion = new Opcion();
     errorMessage: ErrorMessage[] = [];
     rowsOnPage = 5;
 
@@ -24,7 +24,7 @@ export class RolesComponent implements OnInit {
     loading = false;        
 
     constructor(
-        private rolService: RolService,
+        private opcionService: OpcionService,
         private router: Router,
         private alertService: AlertService,
         private ngbModal: NgbModal) {
@@ -32,25 +32,25 @@ export class RolesComponent implements OnInit {
     }
 
     ngOnInit() {        
-        this.loadAllRoles();        
+        this.loadAllOpciones();        
     }
 
-    private loadAllRoles() {        
-        this.rolService.getAll().subscribe(
-            roles => { 
-                this.roles = roles; 
-                this.temp = this.roles;
+    private loadAllOpciones() {        
+        this.opcionService.getAll().subscribe(
+            opciones => { 
+                this.opciones = opciones; 
+                this.temp = this.opciones;
             });
     }
 
     create() {
         this.showLoading(true);
         if(this.model.hiddenId == undefined){           
-            this.rolService.create(this.model)
+            this.opcionService.create(this.model)
                 .subscribe(
                     data => {
                         this.model.nombre = '';
-                        this.loadAllRoles();
+                        this.loadAllOpciones();
                         this.showLoading(false);
                     },
                     error => {
@@ -62,13 +62,13 @@ export class RolesComponent implements OnInit {
                     });
         }
         else{            
-            this.model.idRol = this.model.hiddenId;
-            this.rolService.update(this.model)
+            this.model.idOpcion = this.model.hiddenId;
+            this.opcionService.update(this.model)
                 .subscribe(
                     data => {
                         this.model.hiddenId = '';
                         this.model.nombre = '';
-                        this.loadAllRoles();
+                        this.loadAllOpciones();
                         this.showLoading(false);
                     },
                     error => {
@@ -93,9 +93,9 @@ export class RolesComponent implements OnInit {
     delete(id: number, content: any) {        
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
-            this.rolService.delete(id)
+            this.opcionService.delete(id)
                 .subscribe(data => {                    
-                    this.loadAllRoles();                    
+                    this.loadAllOpciones();                    
                     this.showLoading(false);
                 }, error => {                    
                     this.error = JSON.parse(error._body);                      
@@ -120,6 +120,6 @@ export class RolesComponent implements OnInit {
             return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
         }); 
 
-        this.roles = temp;
+        this.opciones = temp;
     }
 }

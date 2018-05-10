@@ -9,14 +9,15 @@ import { DataTableModule } from "angular2-datatable";
 import { FileUploader, FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { ToastyModule } from 'ng2-toasty';
 
-import { AppComponent }  from './app.component';
-import { routing }        from './app.routing';
+import { AppComponent } from './app.component';
+import { routing } from './app.routing';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AlertComponent, UpperCaseTextComponent, PermissionComponent } from './_directives/index';
 import { AuthGuard, VisibleGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService, RolService } from './_services/index';
+import { OpcionService } from './_services/index';
 
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
@@ -25,16 +26,19 @@ import { LayoutComponent } from './layout/index';
 import { HeaderComponent } from './layout/header/index';
 import { SidebarComponent } from './layout/sidebar/index';
 import { RolesComponent } from './layout/roles/index';
+import { OpcionesComponent } from './layout/listas/opciones/index';
+
 import { UploadComponent } from './layout/upload/index';
 
 @NgModule({
     imports: [
-        BrowserModule,
-        DataTableModule,
+        BrowserModule,        
         FormsModule,
         NguiDatetimePickerModule,
         HttpClientModule,
         routing,
+        DataTableModule,
+
         ToastyModule.forRoot(),
         NgIdleKeepaliveModule.forRoot(),
         NgbModule.forRoot()
@@ -53,7 +57,9 @@ import { UploadComponent } from './layout/upload/index';
         LayoutComponent,
         HeaderComponent,
         SidebarComponent,
-        RolesComponent,        
+        RolesComponent,  
+        OpcionesComponent,
+        
         UploadComponent
     ],
     providers: [
@@ -62,7 +68,8 @@ import { UploadComponent } from './layout/upload/index';
         AlertService,
         AuthenticationService,
         UserService,
-        RolService
+        RolService,
+        OpcionService
     ],
     bootstrap: [AppComponent]
 })

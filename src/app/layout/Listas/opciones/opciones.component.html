@@ -9,12 +9,12 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-lock"></i> Roles</h1>
-        <p>Módulo de gestión de Roles, Aquí usted podrá crear, editar y eliminar Roles</p>
+        <h1><i class="fa fa-lock"></i>Opciones</h1>
+        <p>Módulo de gestión de Opciones, Aquí usted podrá crear, editar y eliminar Opciones</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/roles']">Roles</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/opciones']">Opciones</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="error">
@@ -52,7 +52,7 @@
               </div>          
             </div>
             <table class="table table-hover table-bordered" 
-                  [mfData]="roles" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                  [mfData]="opciones" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
                 <tr>
                   <th>Id</th>
@@ -60,13 +60,13 @@
                   <th>Acciones</th>              
                 </tr>
               </thead>
-              <tbody *ngFor="let rol of mf.data">
+              <tbody *ngFor="let opcion of mf.data">
                 <tr>
-                  <td class="rowTd">{{rol.idRol}}</td>
-                  <td class="rowTd">{{rol.nombre}}</td>
+                  <td class="rowTd">{{opcion.idOpcion}}</td>
+                  <td class="rowTd">{{opcion.nombre}}</td>
                   <td class="rowTd">                  
-                      <a class="btn" (click)="edit(rol.idRol, rol.nombre)" permission="editar rol"><i class="fa fa-pencil"></i></a>
-                      <a class="btn" (click)="delete(rol.idRol, content)" permission="eliminar rol"><i class="fa fa-times"></i></a>                  
+                      <a class="btn" (click)="edit(opcion.idOpcion, opcion.nombre)" permission="editar opcion"><i class="fa fa-pencil"></i></a>
+                      <a class="btn" (click)="delete(opcion.idOpcion, content)" permission="eliminar opcion"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            
               </tbody>
@@ -86,13 +86,13 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Eliminar Rol</h4>
+      <h4 class="modal-title">Eliminar Opción</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
-      <p>¿Está seguro de querer eliminar este Rol?</p>
+      <p>¿Está seguro de querer eliminar esta Opción?</p>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>

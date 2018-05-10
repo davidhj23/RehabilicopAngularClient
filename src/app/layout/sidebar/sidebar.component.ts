@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 
 export class SidebarComponent implements OnInit {   
     
-    showMenu: string = '';
+    showSeguridad: string = '';
+    showListas: string = '';
 
     constructor() {
         
@@ -16,11 +17,19 @@ export class SidebarComponent implements OnInit {
     ngOnInit() {        
     }
 
-    addExpandClass(element: any) {
-        if (element === this.showMenu) {
-            this.showMenu = '0';
+    expandSeguridad(element: any) {
+        if (element === this.showSeguridad) {
+            this.showSeguridad = '0';
         } else {
-            this.showMenu = element;
+            this.showSeguridad = element;
+        }
+    }
+
+    expandListas(element: any) {
+        if (element === this.showListas) {
+            this.showListas = '0';
+        } else {
+            this.showListas = element;
         }
     }
 }
