@@ -1,4 +1,4 @@
-import {User} from './index'
+import { User } from './index'
 
 export class TipoDocumento{
     idTipoDocumento: number;

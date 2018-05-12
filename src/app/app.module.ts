@@ -14,21 +14,26 @@ import { routing } from './app.routing';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { AlertComponent, UpperCaseTextComponent, PermissionComponent } from './_directives/index';
+import { UpperCaseTextComponent, PermissionComponent } from './_directives/index';
 import { AuthGuard, VisibleGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService, RolService } from './_services/index';
-import { OpcionService } from './_services/index';
+
+import { 
+    AuthenticationService, 
+    UserService, 
+    RolService, 
+    OpcionService, 
+    SedeService } from './_services/index';
 
 import { LoginComponent } from './login/index';
-import { RegisterComponent } from './register/index';
 
 import { LayoutComponent } from './layout/index';
-import { HeaderComponent } from './layout/header/index';
-import { SidebarComponent } from './layout/sidebar/index';
-import { RolesComponent } from './layout/roles/index';
-import { OpcionesComponent } from './layout/listas/opciones/index';
+import { HeaderComponent } from './layout/shared/header/index';
+import { SidebarComponent } from './layout/shared/sidebar/index';
 
-import { UploadComponent } from './layout/upload/index';
+import { RolesComponent } from './layout/seguridad/roles/index';
+
+import { OpcionesComponent } from './layout/listas/opciones/index';
+import { SedesComponent } from './layout/listas/sedes/index';
 
 @NgModule({
     imports: [
@@ -44,32 +49,32 @@ import { UploadComponent } from './layout/upload/index';
         NgbModule.forRoot()
     ],
     declarations: [
-        AppComponent,
-        AlertComponent,
+        AppComponent,        
         UpperCaseTextComponent,
         PermissionComponent,
         FileSelectDirective,
         FileDropDirective,
 
         LoginComponent,
-        RegisterComponent,
 
         LayoutComponent,
         HeaderComponent,
         SidebarComponent,
+
         RolesComponent,  
         OpcionesComponent,
-        
-        UploadComponent
+        SedesComponent
     ],
     providers: [
         AuthGuard,
         VisibleGuard,
-        AlertService,
+
         AuthenticationService,
         UserService,
+
         RolService,
-        OpcionService
+        OpcionService,
+        SedeService
     ],
     bootstrap: [AppComponent]
 })

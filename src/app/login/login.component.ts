@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AlertService, AuthenticationService } from '../_services/index';
-import {AppComponent} from '../app.component';
-import {ToastyService} from 'ng2-toasty';
+import { AuthenticationService } from '../_services/index';
+import { AppComponent} from '../app.component';
+import { ToastyService} from 'ng2-toasty';
 import { UserService } from "../_services/user.service";
 
 import {Idle, DEFAULT_INTERRUPTSOURCES} from '@ng-idle/core';
@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private userService: UserService,
-        private alertService: AlertService,
         private toastyService:ToastyService,
         private http: HttpClient,
         private idle: Idle) {}
@@ -77,8 +76,7 @@ export class LoginComponent implements OnInit {
                     });
                 },
                 error => {
-                    this.error = 'Usuario y/o clave incorrecta'
-                    this.alertService.error(error);
+                    this.error = 'Usuario y/o clave incorrecta'                    
                     this.loading = false;
                 });
     }    

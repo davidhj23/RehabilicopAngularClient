@@ -1,4 +1,4 @@
-import {Rol} from './index'
+import { Rol } from './index'
 
 export class Permiso{
     idPermiso: number;

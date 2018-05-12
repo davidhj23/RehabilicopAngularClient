@@ -1,21 +1,21 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Opcion, ErrorMessage } from '../../../_models';
+import { Sede, ErrorMessage } from '../../../_models';
 import { Router } from '@angular/router';
-import { OpcionService } from '../../../_services';
+import { SedeService } from '../../../_services';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    selector: 'opciones',
-    templateUrl: 'opciones.component.html',
+    selector: 'sedes',
+    templateUrl: 'sedes.component.html',
 })
 
-export class OpcionesComponent implements OnInit {   
+export class SedesComponent implements OnInit {   
     
-    opciones: Opcion[] = [];
-    temp: Opcion[] = [];
+    sedes: Sede[] = [];
+    temp: Sede[] = [];
 
-    opcion: Opcion = new Opcion();
+    sede: Sede = new Sede();
     errorMessage: ErrorMessage[] = [];
     rowsOnPage = 5;
 
@@ -24,32 +24,32 @@ export class OpcionesComponent implements OnInit {
     loading = false;        
 
     constructor(
-        private opcionService: OpcionService,
+        private sedeService: SedeService,
         private router: Router,
         private ngbModal: NgbModal) {
         let self = this;
     }
 
     ngOnInit() {        
-        this.loadAllOpciones();        
+        this.loadAllSedes();        
     }
 
-    private loadAllOpciones() {        
-        this.opcionService.getAll().subscribe(
-            opciones => { 
-                this.opciones = opciones; 
-                this.temp = this.opciones;
+    private loadAllSedes() {        
+        this.sedeService.getAll().subscribe(
+            sedes => { 
+                this.sedes = sedes; 
+                this.temp = this.sedes;
             });
     }
 
     create() {
         this.showLoading(true);
         if(this.model.hiddenId == undefined){           
-            this.opcionService.create(this.model)
+            this.sedeService.create(this.model)
                 .subscribe(
                     data => {
                         this.model.nombre = '';
-                        this.loadAllOpciones();
+                        this.loadAllSedes();
                         this.showLoading(false);
                     },
                     error => {
@@ -61,13 +61,13 @@ export class OpcionesComponent implements OnInit {
                     });
         }
         else{            
-            this.model.idOpcion = this.model.hiddenId;
-            this.opcionService.update(this.model)
+            this.model.idSede = this.model.hiddenId;
+            this.sedeService.update(this.model)
                 .subscribe(
                     data => {
                         this.model.hiddenId = '';
                         this.model.nombre = '';
-                        this.loadAllOpciones();
+                        this.loadAllSedes();
                         this.showLoading(false);
                     },
                     error => {
@@ -92,9 +92,9 @@ export class OpcionesComponent implements OnInit {
     delete(id: number, content: any) {        
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
-            this.opcionService.delete(id)
+            this.sedeService.delete(id)
                 .subscribe(data => {                    
-                    this.loadAllOpciones();                    
+                    this.loadAllSedes();                    
                     this.showLoading(false);
                 }, error => {                    
                     this.error = JSON.parse(error._body);                      
@@ -119,6 +119,6 @@ export class OpcionesComponent implements OnInit {
             return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
         }); 
 
-        this.opciones = temp;
+        this.sedes = temp;
     }
 }
