@@ -17,23 +17,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UpperCaseTextComponent, PermissionComponent } from './_directives/index';
 import { AuthGuard, VisibleGuard } from './_guards/index';
 
-import { 
-    AuthenticationService, 
-    UserService, 
-    RolService, 
-    OpcionService, 
-    SedeService } from './_services/index';
-
-import { LoginComponent } from './login/index';
-
 import { LayoutComponent } from './layout/index';
 import { HeaderComponent } from './layout/shared/header/index';
 import { SidebarComponent } from './layout/shared/sidebar/index';
 
-import { RolesComponent } from './layout/seguridad/roles/index';
+import { LoginComponent } from './login/index';
+import { AuthenticationService } from './layout/seguridad/usuarios/authentication.service';
+import { UserService } from './layout/seguridad/usuarios/user.service';
+import { RolesComponent, RolService } from './layout/seguridad/roles/index';
 
-import { OpcionesComponent } from './layout/listas/opciones/index';
-import { SedesComponent } from './layout/listas/sedes/index';
+import { OpcionesComponent, OpcionService } from './layout/listas/opciones/index';
+import { SedesComponent, SedeService } from './layout/listas/sedes/index';
 
 @NgModule({
     imports: [
@@ -56,12 +50,12 @@ import { SedesComponent } from './layout/listas/sedes/index';
         FileDropDirective,
 
         LoginComponent,
+        RolesComponent,
 
         LayoutComponent,
         HeaderComponent,
-        SidebarComponent,
+        SidebarComponent,          
 
-        RolesComponent,  
         OpcionesComponent,
         SedesComponent
     ],
@@ -71,8 +65,8 @@ import { SedesComponent } from './layout/listas/sedes/index';
 
         AuthenticationService,
         UserService,
-
         RolService,
+        
         OpcionService,
         SedeService
     ],

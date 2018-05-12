@@ -1,9 +1,8 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Sede, ErrorMessage } from '../../../_models';
 import { Router } from '@angular/router';
-import { SedeService } from '../../../_services';
-
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Sede } from './sede';
+import { SedeService } from './sede.service';
 
 @Component({
     selector: 'sedes',
@@ -16,7 +15,6 @@ export class SedesComponent implements OnInit {
     temp: Sede[] = [];
 
     sede: Sede = new Sede();
-    errorMessage: ErrorMessage[] = [];
     rowsOnPage = 5;
 
     model: any = {};
@@ -44,45 +42,31 @@ export class SedesComponent implements OnInit {
 
     create() {
         this.showLoading(true);
-        if(this.model.hiddenId == undefined){           
+        if(this.model.hiddenId == undefined){   
             this.sedeService.create(this.model)
                 .subscribe(
                     data => {
-                        this.model.nombre = '';
+                        this.clearModel();
                         this.loadAllSedes();
                         this.showLoading(false);
                     },
                     error => {
-                        this.error = error;
-                        this.showLoading(false);
-                        setTimeout(function() {
-                            this.error = '';                            
-                        }.bind(this), 5000);
+                        this.showErrors(error);
                     });
-        }
-        else{            
-            this.model.idSede = this.model.hiddenId;
+        }else{        
+            this.model.idRol = this.model.hiddenId;            
             this.sedeService.update(this.model)
                 .subscribe(
                     data => {
-                        this.model.hiddenId = '';
-                        this.model.nombre = '';
+                        this.clearModel();
                         this.loadAllSedes();
                         this.showLoading(false);
                     },
                     error => {
-                        this.error = error;                    
-                        this.showLoading(false);
-                        setTimeout(function() {
-                            this.error = '';                            
-                        }.bind(this), 5000);
+                        this.showErrors(error);
                     });
         }
-    } 
-
-    closeError() {
-        this.error = '';
-    }
+    }     
 
     edit(id: number, nombre: string) {
         this.model.hiddenId = id;
@@ -97,11 +81,7 @@ export class SedesComponent implements OnInit {
                     this.loadAllSedes();                    
                     this.showLoading(false);
                 }, error => {                    
-                    this.error = JSON.parse(error._body);                      
-                    this.showLoading(false);
-                    setTimeout(function() {
-                        this.error = '';                            
-                    }.bind(this), 5000);                  
+                    this.showErrors(error);
                 })
         }, (reason) => {            
         });
@@ -109,6 +89,24 @@ export class SedesComponent implements OnInit {
 
     showLoading(loading: boolean) {
         this.loading = loading;
+    }
+
+    showErrors(error: any){
+        this.error = JSON.parse(error._body);                      
+        this.showLoading(false);
+        setTimeout(function() {
+            this.error = '';                            
+        }.bind(this), 5000); 
+    }
+
+    closeError() {
+        this.error = '';
+    }
+
+    clearModel(){
+        this.model.hiddenId = undefined;
+        this.model.idSede = '';
+        this.model.nombre = '';
     }
 
     filtrarTabla(event: any) { 

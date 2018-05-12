@@ -1,4 +1,5 @@
-﻿import { Rol, TipoDocumento } from './index';
+﻿import { Rol } from "../roles";
+import { TipoDocumento } from "../../listas/tipo-documentos/tipoDocumento";
 
 export class User {
     idUsuario: number;

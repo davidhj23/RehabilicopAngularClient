@@ -1,9 +1,9 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Opcion, ErrorMessage } from '../../../_models';
 import { Router } from '@angular/router';
-import { OpcionService } from '../../../_services';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { OpcionService } from './opcion.service';
+import { Opcion } from '.';
 
 @Component({
     selector: 'opciones',
@@ -16,7 +16,6 @@ export class OpcionesComponent implements OnInit {
     temp: Opcion[] = [];
 
     opcion: Opcion = new Opcion();
-    errorMessage: ErrorMessage[] = [];
     rowsOnPage = 5;
 
     model: any = {};
@@ -44,45 +43,31 @@ export class OpcionesComponent implements OnInit {
 
     create() {
         this.showLoading(true);
-        if(this.model.hiddenId == undefined){           
+        if(this.model.hiddenId == undefined){   
             this.opcionService.create(this.model)
                 .subscribe(
                     data => {
-                        this.model.nombre = '';
+                        this.clearModel();
                         this.loadAllOpciones();
                         this.showLoading(false);
                     },
                     error => {
-                        this.error = error;
-                        this.showLoading(false);
-                        setTimeout(function() {
-                            this.error = '';                            
-                        }.bind(this), 5000);
+                        this.showErrors(error);
                     });
-        }
-        else{            
-            this.model.idOpcion = this.model.hiddenId;
+        }else{        
+            this.model.idRol = this.model.hiddenId;            
             this.opcionService.update(this.model)
                 .subscribe(
                     data => {
-                        this.model.hiddenId = '';
-                        this.model.nombre = '';
+                        this.clearModel();
                         this.loadAllOpciones();
                         this.showLoading(false);
                     },
                     error => {
-                        this.error = error;                    
-                        this.showLoading(false);
-                        setTimeout(function() {
-                            this.error = '';                            
-                        }.bind(this), 5000);
+                        this.showErrors(error);
                     });
         }
-    } 
-
-    closeError() {
-        this.error = '';
-    }
+    }     
 
     edit(id: number, nombre: string) {
         this.model.hiddenId = id;
@@ -97,11 +82,7 @@ export class OpcionesComponent implements OnInit {
                     this.loadAllOpciones();                    
                     this.showLoading(false);
                 }, error => {                    
-                    this.error = JSON.parse(error._body);                      
-                    this.showLoading(false);
-                    setTimeout(function() {
-                        this.error = '';                            
-                    }.bind(this), 5000);                  
+                    this.showErrors(error);
                 })
         }, (reason) => {            
         });
@@ -109,6 +90,24 @@ export class OpcionesComponent implements OnInit {
 
     showLoading(loading: boolean) {
         this.loading = loading;
+    }
+
+    showErrors(error: any){
+        this.error = JSON.parse(error._body);                      
+        this.showLoading(false);
+        setTimeout(function() {
+            this.error = '';                            
+        }.bind(this), 5000); 
+    }
+
+    closeError() {
+        this.error = '';
+    }
+
+    clearModel(){
+        this.model.hiddenId = undefined;
+        this.model.idOpcion = '';
+        this.model.nombre = '';
     }
 
     filtrarTabla(event: any) { 

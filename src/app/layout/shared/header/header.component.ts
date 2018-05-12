@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import {Idle, DEFAULT_INTERRUPTSOURCES} from '@ng-idle/core';
-import {Keepalive} from '@ng-idle/keepalive';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import { AuthenticationService } from '../../../_services';
+import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
+import { Keepalive } from '@ng-idle/keepalive';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { AuthenticationService } from '../../seguridad/usuarios/authentication.service';
 
 @Component({
     selector: 'dashboard-header',

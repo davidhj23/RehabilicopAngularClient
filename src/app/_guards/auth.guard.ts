@@ -1,14 +1,12 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { UserService } from '../_services/index';
 import { AppComponent } from '../app.component';
 import { ToastyService } from 'ng2-toasty';
 import { Observable } from "rxjs/Observable";
+import { UserService } from '../layout/seguridad/usuarios/user.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
-
-    //appComponent: AppComponent = new AppComponent(this.toastyService);
+export class AuthGuard implements CanActivate {    
 
     constructor(private router: Router,
         private userService: UserService,

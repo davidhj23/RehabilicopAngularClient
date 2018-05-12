@@ -1,14 +1,14 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthenticationService } from '../_services/index';
-import { AppComponent} from '../app.component';
-import { ToastyService} from 'ng2-toasty';
-import { UserService } from "../_services/user.service";
+import { AppComponent } from '../app.component';
+import { ToastyService } from 'ng2-toasty';
 
-import {Idle, DEFAULT_INTERRUPTSOURCES} from '@ng-idle/core';
-import {Keepalive} from '@ng-idle/keepalive';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
+import { Keepalive } from '@ng-idle/keepalive';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { AuthenticationService } from '../layout/seguridad/usuarios/authentication.service';
+import { UserService } from '../layout/seguridad/usuarios/user.service';
 
 @Component({
     moduleId: module.id.toString(),

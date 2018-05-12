@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, Input } from '@angular/core';
-import { UserService } from '../_services/index';
+import { UserService } from '../layout/seguridad/usuarios/user.service';
 
 @Directive({
     selector: '[permission]'
