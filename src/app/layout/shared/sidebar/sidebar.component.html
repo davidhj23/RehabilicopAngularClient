@@ -7,7 +7,7 @@
         <i class="treeview-indicator fa fa-angle-right"></i>
       </a>
       <ul class="treeview-menu" permission="roles">
-        <li><a class="treeview-item" [routerLink]="['/layout/roles']"><i class="icon fa fa-circle-o"></i> Roles</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/seguridad/roles']"><i class="icon fa fa-circle-o"></i> Roles</a></li>    
       </ul>
     </li>
     <li class="treeview" [class.is-expanded]="showListas === 'listas'" permission="listas">
@@ -17,10 +17,13 @@
         <i class="treeview-indicator fa fa-angle-right"></i>
       </a>
       <ul class="treeview-menu" permission="opciones">
-        <li><a class="treeview-item" [routerLink]="['/layout/opciones']"><i class="icon fa fa-circle-o"></i> Opciones</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/opciones']"><i class="icon fa fa-circle-o"></i> Opciones</a></li>    
       </ul>
       <ul class="treeview-menu" permission="sedes">
-        <li><a class="treeview-item" [routerLink]="['/layout/sedes']"><i class="icon fa fa-circle-o"></i>Sedes</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/sedes']"><i class="icon fa fa-circle-o"></i>Sedes</a></li>    
+      </ul>
+      <ul class="treeview-menu" permission="tipos documentos">
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/tipos-documentos']"><i class="icon fa fa-circle-o"></i>Tipos de Documentos</a></li>    
       </ul>
     </li>    
   </ul>

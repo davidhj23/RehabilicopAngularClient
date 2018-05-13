@@ -14,7 +14,7 @@
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/opciones']">Opciones</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/listas/opciones']">Opciones</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="error">
@@ -29,7 +29,7 @@
     </div>
     <div class="row">  
       <div class="col-md-12">       
-        <div class="tile" permission="crear rol">              
+        <div class="tile" permission="crear opcion">              
           <div class="tile-body">
             <form class="row" name="form" (ngSubmit)="create()" #f="ngForm" novalidate>
               <div class="form-group col-md-4" >

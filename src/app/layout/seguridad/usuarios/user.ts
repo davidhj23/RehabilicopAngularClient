@@ -1,5 +1,5 @@
 ﻿import { Rol } from "../roles";
-import { TipoDocumento } from "../../listas/tipo-documentos/tipoDocumento";
+import { TipoDocumento } from "../../listas/tipos-documentos/tipoDocumento";
 
 export class User {
     idUsuario: number;

@@ -9,6 +9,7 @@ import { RolesComponent } from './layout/seguridad/roles';
 
 import { OpcionesComponent } from './layout/listas/opciones/index';
 import { SedesComponent } from './layout/listas/sedes/index';
+import { TiposDocumentosComponent } from './layout/listas/tipos-documentos/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -20,10 +21,13 @@ const appRoutes: Routes = [
         canActivate: [AuthGuard], 
         data : { permission: ["layout"]},
         children: 
-            [{ path: 'roles', component: RolesComponent, canActivate: [AuthGuard], data : { permission: ["roles"] }},
-            
-             { path: 'opciones', component: OpcionesComponent, canActivate: [AuthGuard], data : { permission: ["opciones"] }},
-             { path: 'sedes', component: SedesComponent, canActivate: [AuthGuard], data : { permission: ["sedes"] }}] 
+            [
+                { path: 'seguridad/roles', component: RolesComponent, canActivate: [AuthGuard], data : { permission: ["roles"] }}, 
+             
+                { path: 'listas/opciones', component: OpcionesComponent, canActivate: [AuthGuard], data : { permission: ["opciones"] }},
+                { path: 'listas/sedes', component: SedesComponent, canActivate: [AuthGuard], data : { permission: ["sedes"] }},
+                { path: 'listas/tipos-documentos', component: TiposDocumentosComponent, canActivate: [AuthGuard], data : { permission: ["tipos documentos"] }}
+            ] 
     }, 
 
     // otherwise redirect to home

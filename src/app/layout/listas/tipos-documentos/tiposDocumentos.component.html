@@ -9,12 +9,12 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-lock"></i>Sedes</h1>
-        <p>Módulo de gestión de Sedes, Aquí usted podrá crear, editar y eliminar Sedes</p>
+        <h1><i class="fa fa-lock"></i>Tipos de documentos</h1>
+        <p>Módulo de gestión de Tipos de Documentos, Aquí usted podrá crear, editar y eliminar Tipos de Documentos</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/listas/sedes']">Sedes</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/listas/tipos-documentos']">Tipos de Documentos</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="error">
@@ -29,7 +29,7 @@
     </div>
     <div class="row">  
       <div class="col-md-12">       
-        <div class="tile" permission="crear sede">              
+        <div class="tile" permission="crear tipo documento">              
           <div class="tile-body">
             <form class="row" name="form" (ngSubmit)="create()" #f="ngForm" novalidate>
               <div class="form-group col-md-4" >
@@ -52,7 +52,7 @@
               </div>          
             </div>
             <table class="table table-hover table-bordered" 
-                  [mfData]="sedes" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                  [mfData]="tiposDocumentos" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
                 <tr>
                   <th>Id</th>
@@ -60,13 +60,13 @@
                   <th>Acciones</th>              
                 </tr>
               </thead>
-              <tbody *ngFor="let sede of mf.data">
+              <tbody *ngFor="let tipoDocumento of mf.data">
                 <tr>
-                  <td class="rowTd">{{sede.idSede}}</td>
-                  <td class="rowTd">{{sede.nombre}}</td>
+                  <td class="rowTd">{{tipoDocumento.idTipoDocumento}}</td>
+                  <td class="rowTd">{{tipoDocumento.nombre}}</td>
                   <td class="rowTd">                  
-                      <a class="btn" (click)="edit(sede.idSede, sede.nombre)" permission="editar sede"><i class="fa fa-pencil"></i></a>
-                      <a class="btn" (click)="delete(sede.idSede, content)" permission="eliminar sede"><i class="fa fa-times"></i></a>                  
+                      <a class="btn" (click)="edit(tipoDocumento.idTipoDocumento, tipoDocumento.nombre)" permission="editar tipo documento"><i class="fa fa-pencil"></i></a>
+                      <a class="btn" (click)="delete(tipoDocumento.idTipoDocumento, content)" permission="eliminar tipo documento"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            
               </tbody>
@@ -86,13 +86,13 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Eliminar Sede</h4>
+      <h4 class="modal-title">Eliminar Tipo de Documento</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
-      <p>¿Está seguro de querer eliminar esta Sede?</p>
+      <p>¿Está seguro de querer eliminar este Tipo de Documento?</p>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>

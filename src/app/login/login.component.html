@@ -19,11 +19,6 @@
                 <input type="password" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && !password.valid }"
                      name="password"  placeholder="Clave" [(ngModel)]="model.password" #password="ngModel" required />                
             </div>        
-            <div class="form-group">
-                <div class="utility">
-                    <p class="semibold-text mb-2"><a href="#" data-toggle="flip">Cambiar Contraseña</a></p>
-                </div>
-            </div>
             <div class="form-group btn-container">
                 <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>LOGIN</button>
             </div>
