@@ -27,7 +27,7 @@ export class RolService {
         return this.http.put(this.url + rol.idRol, rol,  CommonService.getJwtHeaders());
     }
 
-    delete(id: number): Observable<any> {
+    delete(id: string): Observable<any> {
         return this.http.delete(this.url + id,  CommonService.getJwtHeaders())
     }
 }

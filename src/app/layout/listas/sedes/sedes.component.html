@@ -14,7 +14,7 @@
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/listas/sedes']">Sedes</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/sedes']">Sedes</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="error">
@@ -55,14 +55,12 @@
                   [mfData]="sedes" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
                 <tr>
-                  <th>Id</th>
                   <th>Nombre</th>
                   <th>Acciones</th>              
                 </tr>
               </thead>
               <tbody *ngFor="let sede of mf.data">
-                <tr>
-                  <td class="rowTd">{{sede.idSede}}</td>
+                <tr>                  
                   <td class="rowTd">{{sede.nombre}}</td>
                   <td class="rowTd">                  
                       <a class="btn" (click)="edit(sede.idSede, sede.nombre)" permission="editar sede"><i class="fa fa-pencil"></i></a>

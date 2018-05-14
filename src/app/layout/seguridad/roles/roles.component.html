@@ -55,14 +55,12 @@
                   [mfData]="roles" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
                 <tr>
-                  <th>Id</th>
                   <th>Nombre</th>
                   <th>Acciones</th>              
                 </tr>
               </thead>
               <tbody *ngFor="let rol of mf.data">
-                <tr>
-                  <td class="rowTd">{{rol.idRol}}</td>
+                <tr>                  
                   <td class="rowTd">{{rol.nombre}}</td>
                   <td class="rowTd">                  
                       <a class="btn" (click)="edit(rol.idRol, rol.nombre)" permission="editar rol"><i class="fa fa-pencil"></i></a>

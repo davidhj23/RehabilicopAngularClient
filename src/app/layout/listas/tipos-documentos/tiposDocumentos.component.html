@@ -14,7 +14,7 @@
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/listas/tipos-documentos']">Tipos de Documentos</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/tipos-documentos']">Tipos de Documentos</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="error">
@@ -55,14 +55,12 @@
                   [mfData]="tiposDocumentos" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
                 <tr>
-                  <th>Id</th>
                   <th>Nombre</th>
                   <th>Acciones</th>              
                 </tr>
               </thead>
               <tbody *ngFor="let tipoDocumento of mf.data">
-                <tr>
-                  <td class="rowTd">{{tipoDocumento.idTipoDocumento}}</td>
+                <tr>                  
                   <td class="rowTd">{{tipoDocumento.nombre}}</td>
                   <td class="rowTd">                  
                       <a class="btn" (click)="edit(tipoDocumento.idTipoDocumento, tipoDocumento.nombre)" permission="editar tipo documento"><i class="fa fa-pencil"></i></a>

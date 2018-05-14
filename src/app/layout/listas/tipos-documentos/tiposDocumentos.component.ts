@@ -54,7 +54,7 @@ export class TiposDocumentosComponent implements OnInit {
                         this.showErrors(error);
                     });
         }else{        
-            this.model.idRol = this.model.hiddenId;            
+            this.model.idTipoDocumento = this.model.hiddenId;            
             this.tipoDocumentoService.update(this.model)
                 .subscribe(
                     data => {

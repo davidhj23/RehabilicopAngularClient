@@ -1,20 +1,20 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Sede } from './sede';
-import { SedeService } from './sede.service';
+import { Cie10 } from './cie10';
+import { Cie10Service } from './cie10.service';
 
 @Component({
-    selector: 'sedes',
-    templateUrl: 'sedes.component.html',
+    selector: 'cie10s',
+    templateUrl: 'cie10s.component.html',
 })
 
-export class SedesComponent implements OnInit {   
+export class Cie10sComponent implements OnInit {   
     
-    sedes: Sede[] = [];
-    temp: Sede[] = [];
+    cie10s: Cie10[] = [];
+    temp: Cie10[] = [];
 
-    sede: Sede = new Sede();
+    cie10: Cie10 = new Cie10();
     rowsOnPage = 5;
 
     model: any = {};
@@ -22,44 +22,44 @@ export class SedesComponent implements OnInit {
     loading = false;        
 
     constructor(
-        private sedeService: SedeService,
+        private cie10Service: Cie10Service,
         private router: Router,
         private ngbModal: NgbModal) {
         let self = this;
     }
 
     ngOnInit() {        
-        this.loadAllSedes();        
+        this.loadAllCie10s();        
     }
 
-    private loadAllSedes() {        
-        this.sedeService.getAll().subscribe(
-            sedes => { 
-                this.sedes = sedes; 
-                this.temp = this.sedes;
+    private loadAllCie10s() {        
+        this.cie10Service.getAll().subscribe(
+            cie10s => { 
+                this.cie10s = cie10s; 
+                this.temp = this.cie10s;
             });
     }
 
     create() {
-        this.showLoading(true);
+        this.showLoading(true);        
         if(this.model.hiddenId == undefined){   
-            this.sedeService.create(this.model)
+            this.cie10Service.create(this.model)
                 .subscribe(
                     data => {
                         this.clearModel();
-                        this.loadAllSedes();
+                        this.loadAllCie10s();
                         this.showLoading(false);
                     },
                     error => {
                         this.showErrors(error);
                     });
         }else{        
-            this.model.idSede = this.model.hiddenId;            
-            this.sedeService.update(this.model)
+            this.model.idCie10 = this.model.hiddenId;            
+            this.cie10Service.update(this.model)
                 .subscribe(
                     data => {
                         this.clearModel();
-                        this.loadAllSedes();
+                        this.loadAllCie10s();
                         this.showLoading(false);
                     },
                     error => {
@@ -68,17 +68,18 @@ export class SedesComponent implements OnInit {
         }
     }     
 
-    edit(id: number, nombre: string) {
-        this.model.hiddenId = id;
-        this.model.nombre = nombre;
+    edit(model: any) {
+        this.model.hiddenId = model.idCie10;
+        this.model.codigo = model.codigo;
+        this.model.nombre = model.nombre;
     }
 
-    delete(id: number, content: any) {        
+    delete(idCie10: string, content: any) {        
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
-            this.sedeService.delete(id)
+            this.cie10Service.delete(idCie10)
                 .subscribe(data => {                    
-                    this.loadAllSedes();                    
+                    this.loadAllCie10s();                    
                     this.showLoading(false);
                 }, error => {                    
                     this.showErrors(error);
@@ -105,7 +106,8 @@ export class SedesComponent implements OnInit {
 
     clearModel(){
         this.model.hiddenId = undefined;
-        this.model.idSede = '';
+        this.model.idCie10 = '';
+        this.model.codigo = '';
         this.model.nombre = '';
     }
 
@@ -117,6 +119,6 @@ export class SedesComponent implements OnInit {
             return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
         }); 
 
-        this.sedes = temp;
+        this.cie10s = temp;
     }
 }

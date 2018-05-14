@@ -29,6 +29,7 @@ import { RolesComponent, RolService } from './layout/seguridad/roles/index';
 import { OpcionesComponent, OpcionService } from './layout/listas/opciones/index';
 import { SedesComponent, SedeService } from './layout/listas/sedes/index';
 import { TiposDocumentosComponent, TipoDocumentoService } from './layout/listas/tipos-documentos/index';
+import { Cie10sComponent, Cie10Service } from './layout/listas/cie10s/index';
 
 @NgModule({
     imports: [
@@ -59,7 +60,8 @@ import { TiposDocumentosComponent, TipoDocumentoService } from './layout/listas/
 
         OpcionesComponent,
         SedesComponent,
-        TiposDocumentosComponent
+        TiposDocumentosComponent,
+        Cie10sComponent
     ],
     providers: [
         AuthGuard,
@@ -71,7 +73,8 @@ import { TiposDocumentosComponent, TipoDocumentoService } from './layout/listas/
         
         OpcionService,
         SedeService,
-        TipoDocumentoService
+        TipoDocumentoService,
+        Cie10Service
     ],
     bootstrap: [AppComponent]
 })

@@ -69,12 +69,12 @@ export class RolesComponent implements OnInit {
         }
     }     
 
-    edit(id: number, nombre: string) {
+    edit(id: string, nombre: string) {
         this.model.hiddenId = id;
         this.model.nombre = nombre;
     }
 
-    delete(id: number, content: any) {        
+    delete(id: string, content: any) {        
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
             this.rolService.delete(id)

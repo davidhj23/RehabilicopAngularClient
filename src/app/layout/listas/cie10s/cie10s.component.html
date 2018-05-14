@@ -9,12 +9,12 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-lock"></i>Opciones</h1>
-        <p>Módulo de gestión de Opciones, Aquí usted podrá crear, editar y eliminar Opciones</p>
+        <h1><i class="fa fa-lock"></i>Cie10</h1>
+        <p>Módulo de gestión de Cie10, Aquí usted podrá crear, editar y eliminar items de Cie10</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/opciones']">Opciones</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/cie10s']">Cie10</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="error">
@@ -29,13 +29,17 @@
     </div>
     <div class="row">  
       <div class="col-md-12">       
-        <div class="tile" permission="crear opcion">              
+        <div class="tile" permission="crear cie10">              
           <div class="tile-body">
             <form class="row" name="form" (ngSubmit)="create()" #f="ngForm" novalidate>
+              <input type="hidden" name="hiddenId" [(ngModel)]="model.hiddenId" #hiddenId="ngModel"/>
+              <div class="form-group col-md-4" >
+                <label class="control-label">Código</label>
+                <input class="form-control" type="text" name="codigo" [(ngModel)]="model.codigo" #codigo="ngModel" required>                
+              </div>   
               <div class="form-group col-md-4" >
                 <label class="control-label">Nombre</label>
-                <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>
-                <input type="hidden" name="hiddenId" [(ngModel)]="model.hiddenId" #hiddenId="ngModel"/>
+                <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>                
               </div>          
               <div class="form-group col-md-4 align-self-end">
                 <button class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
@@ -52,19 +56,21 @@
               </div>          
             </div>
             <table class="table table-hover table-bordered" 
-                  [mfData]="opciones" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                  [mfData]="cie10s" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
-                <tr>                  
+                <tr>
+                  <th>Código</th>
                   <th>Nombre</th>
                   <th>Acciones</th>              
                 </tr>
               </thead>
-              <tbody *ngFor="let opcion of mf.data">
-                <tr>                  
-                  <td class="rowTd">{{opcion.nombre}}</td>
+              <tbody *ngFor="let cie10 of mf.data">
+                <tr>
+                  <td class="rowTd">{{cie10.codigo}}</td>
+                  <td class="rowTd">{{cie10.nombre}}</td>
                   <td class="rowTd">                  
-                      <a class="btn" (click)="edit(opcion.idOpcion, opcion.nombre)" permission="editar opcion"><i class="fa fa-pencil"></i></a>
-                      <a class="btn" (click)="delete(opcion.idOpcion, content)" permission="eliminar opcion"><i class="fa fa-times"></i></a>                  
+                      <a class="btn" (click)="edit(cie10)" permission="editar cie10"><i class="fa fa-pencil"></i></a>
+                      <a class="btn" (click)="delete(cie10.idCie10, content)" permission="eliminar cie10"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            
               </tbody>
@@ -84,13 +90,13 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Eliminar Opción</h4>
+      <h4 class="modal-title">Eliminar Cie10</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
-      <p>¿Está seguro de querer eliminar esta Opción?</p>
+      <p>¿Está seguro de querer eliminar este item de Cie10?</p>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>

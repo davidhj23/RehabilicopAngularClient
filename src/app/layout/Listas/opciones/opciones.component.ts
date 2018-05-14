@@ -55,7 +55,7 @@ export class OpcionesComponent implements OnInit {
                         this.showErrors(error);
                     });
         }else{        
-            this.model.idRol = this.model.hiddenId;            
+            this.model.idOpcion = this.model.hiddenId;            
             this.opcionService.update(this.model)
                 .subscribe(
                     data => {
