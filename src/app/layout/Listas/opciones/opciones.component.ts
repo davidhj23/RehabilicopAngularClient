@@ -42,6 +42,13 @@ export class OpcionesComponent implements OnInit {
     }
 
     create() {
+
+        this.showError('');
+        if(this.model.nombre == undefined || this.model.nombre == ''){
+            this.showError('Nombre obligatorio');
+            return;
+        }
+
         this.showLoading(true);
         if(this.model.hiddenId == undefined){   
             this.opcionService.create(this.model)
@@ -74,7 +81,7 @@ export class OpcionesComponent implements OnInit {
         this.model.nombre = nombre;
     }
 
-    delete(id: number, content: any) {        
+    delete(id: string, content: any) {        
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
             this.opcionService.delete(id)
@@ -90,6 +97,14 @@ export class OpcionesComponent implements OnInit {
 
     showLoading(loading: boolean) {
         this.loading = loading;
+    }
+
+    showError(error: any){
+        this.error = error;                      
+        this.showLoading(false);
+        setTimeout(function() {
+            this.error = '';                            
+        }.bind(this), 5000); 
     }
 
     showErrors(error: any){

@@ -41,6 +41,19 @@ export class Cie10sComponent implements OnInit {
     }
 
     create() {
+
+        this.showError('');        
+        
+        if(this.model.codigo == undefined || this.model.codigo == ''){
+            this.showError('Código obligatorio');
+            return;
+        }
+
+        if(this.model.nombre == undefined || this.model.nombre == ''){
+            this.showError('Nombre obligatorio');
+            return;
+        }
+
         this.showLoading(true);        
         if(this.model.hiddenId == undefined){   
             this.cie10Service.create(this.model)
@@ -90,6 +103,14 @@ export class Cie10sComponent implements OnInit {
 
     showLoading(loading: boolean) {
         this.loading = loading;
+    }
+
+    showError(error: any){
+        this.error = error;                      
+        this.showLoading(false);
+        setTimeout(function() {
+            this.error = '';                            
+        }.bind(this), 5000); 
     }
 
     showErrors(error: any){

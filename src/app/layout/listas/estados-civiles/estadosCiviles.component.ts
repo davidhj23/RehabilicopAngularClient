@@ -1,20 +1,20 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Sede } from './sede';
-import { SedeService } from './sede.service';
+import { EstadoCivil } from './estadoCivil';
+import { EstadoCivilService } from './estadoCivil.service';
 
 @Component({
-    selector: 'sedes',
-    templateUrl: 'sedes.component.html',
+    selector: 'estadosCiviles',
+    templateUrl: 'estadosCiviles.component.html',
 })
 
-export class SedesComponent implements OnInit {   
+export class EstadosCivilesComponent implements OnInit {   
     
-    sedes: Sede[] = [];
-    temp: Sede[] = [];
+    estadosCiviles: EstadoCivil[] = [];
+    temp: EstadoCivil[] = [];
 
-    sede: Sede = new Sede();
+    estadoCivil: EstadoCivil = new EstadoCivil();
     rowsOnPage = 5;
 
     model: any = {};
@@ -22,21 +22,21 @@ export class SedesComponent implements OnInit {
     loading = false;        
 
     constructor(
-        private sedeService: SedeService,
+        private estadoCivilService: EstadoCivilService,
         private router: Router,
         private ngbModal: NgbModal) {
         let self = this;
     }
 
     ngOnInit() {        
-        this.loadAllSedes();        
+        this.loadAllEstadosCiviles();        
     }
 
-    private loadAllSedes() {        
-        this.sedeService.getAll().subscribe(
-            sedes => { 
-                this.sedes = sedes; 
-                this.temp = this.sedes;
+    private loadAllEstadosCiviles() {        
+        this.estadoCivilService.getAll().subscribe(
+            estadosCiviles => { 
+                this.estadosCiviles = estadosCiviles; 
+                this.temp = this.estadosCiviles;
             });
     }
 
@@ -50,23 +50,23 @@ export class SedesComponent implements OnInit {
         
         this.showLoading(true);
         if(this.model.hiddenId == undefined){   
-            this.sedeService.create(this.model)
+            this.estadoCivilService.create(this.model)
                 .subscribe(
                     data => {
                         this.clearModel();
-                        this.loadAllSedes();
+                        this.loadAllEstadosCiviles();
                         this.showLoading(false);
                     },
                     error => {
                         this.showErrors(error);
                     });
         }else{        
-            this.model.idSede = this.model.hiddenId;            
-            this.sedeService.update(this.model)
+            this.model.idEstadoCivil = this.model.hiddenId;            
+            this.estadoCivilService.update(this.model)
                 .subscribe(
                     data => {
                         this.clearModel();
-                        this.loadAllSedes();
+                        this.loadAllEstadosCiviles();
                         this.showLoading(false);
                     },
                     error => {
@@ -83,9 +83,9 @@ export class SedesComponent implements OnInit {
     delete(id: string, content: any) {        
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
-            this.sedeService.delete(id)
+            this.estadoCivilService.delete(id)
                 .subscribe(data => {                    
-                    this.loadAllSedes();                    
+                    this.loadAllEstadosCiviles();                    
                     this.showLoading(false);
                 }, error => {                    
                     this.showErrors(error);
@@ -120,7 +120,7 @@ export class SedesComponent implements OnInit {
 
     clearModel(){
         this.model.hiddenId = undefined;
-        this.model.idSede = '';
+        this.model.idEstadoCivil = '';
         this.model.nombre = '';
     }
 
@@ -132,6 +132,6 @@ export class SedesComponent implements OnInit {
             return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
         }); 
 
-        this.sedes = temp;
+        this.estadosCiviles = temp;
     }
 }

@@ -2,7 +2,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AppComponent } from '../app.component';
-import { ToastyService } from 'ng2-toasty';
 
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
@@ -28,8 +27,7 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private userService: UserService,
-        private toastyService:ToastyService,
+        private userService: UserService,        
         private http: HttpClient,
         private idle: Idle) {}
 

@@ -3,12 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { CommonService } from '../../../_services';
-import { TipoDocumento } from '.';
+import { EstadoCivil } from '.';
 
 @Injectable()
-export class TipoDocumentoService {
+export class EstadoCivilService {
     
-    url = '/api/tipos-documentos/';
+    url = '/api/estados-civiles/';
     
     constructor(private http: HttpClient) { }
 
@@ -20,12 +20,12 @@ export class TipoDocumentoService {
         return this.http.get(this.url + id,  CommonService.getJwtHeaders());
     }
 
-    create(tipoDocumento: TipoDocumento): Observable<any> {
-        return this.http.post(this.url, tipoDocumento, CommonService.getJwtHeaders());
+    create(estadoCivil: EstadoCivil): Observable<any> {
+        return this.http.post(this.url, estadoCivil, CommonService.getJwtHeaders());
     }
 
-    update(tipoDocumento: TipoDocumento): Observable<any> {
-        return this.http.put(this.url + tipoDocumento.idTipoDocumento, tipoDocumento,  CommonService.getJwtHeaders());
+    update(estadoCivil: EstadoCivil): Observable<any> {
+        return this.http.put(this.url + estadoCivil.idEstadoCivil, estadoCivil,  CommonService.getJwtHeaders());
     }
 
     delete(id: string): Observable<any> {

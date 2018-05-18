@@ -1,20 +1,20 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Sede } from './sede';
-import { SedeService } from './sede.service';
+import { Cama } from './cama';
+import { CamaService } from './cama.service';
 
 @Component({
-    selector: 'sedes',
-    templateUrl: 'sedes.component.html',
+    selector: 'camas',
+    templateUrl: 'camas.component.html',
 })
 
-export class SedesComponent implements OnInit {   
+export class CamasComponent implements OnInit {   
     
-    sedes: Sede[] = [];
-    temp: Sede[] = [];
+    camas: Cama[] = [];
+    temp: Cama[] = [];
 
-    sede: Sede = new Sede();
+    cama: Cama = new Cama();
     rowsOnPage = 5;
 
     model: any = {};
@@ -22,51 +22,52 @@ export class SedesComponent implements OnInit {
     loading = false;        
 
     constructor(
-        private sedeService: SedeService,
+        private camaService: CamaService,
         private router: Router,
         private ngbModal: NgbModal) {
         let self = this;
     }
 
     ngOnInit() {        
-        this.loadAllSedes();        
+        this.loadAllCamas();        
     }
 
-    private loadAllSedes() {        
-        this.sedeService.getAll().subscribe(
-            sedes => { 
-                this.sedes = sedes; 
-                this.temp = this.sedes;
+    private loadAllCamas() {        
+        this.camaService.getAll().subscribe(
+            camas => { 
+                this.camas = camas; 
+                this.temp = this.camas;
             });
     }
 
     create() {
 
-        this.showError('');
+        this.showError('');        
+
         if(this.model.nombre == undefined || this.model.nombre == ''){
             this.showError('Nombre obligatorio');
             return;
         }
-        
-        this.showLoading(true);
+
+        this.showLoading(true);        
         if(this.model.hiddenId == undefined){   
-            this.sedeService.create(this.model)
+            this.camaService.create(this.model)
                 .subscribe(
                     data => {
                         this.clearModel();
-                        this.loadAllSedes();
+                        this.loadAllCamas();
                         this.showLoading(false);
                     },
                     error => {
                         this.showErrors(error);
                     });
         }else{        
-            this.model.idSede = this.model.hiddenId;            
-            this.sedeService.update(this.model)
+            this.model.idCama = this.model.hiddenId;            
+            this.camaService.update(this.model)
                 .subscribe(
                     data => {
                         this.clearModel();
-                        this.loadAllSedes();
+                        this.loadAllCamas();
                         this.showLoading(false);
                     },
                     error => {
@@ -75,17 +76,17 @@ export class SedesComponent implements OnInit {
         }
     }     
 
-    edit(id: string, nombre: string) {
-        this.model.hiddenId = id;
-        this.model.nombre = nombre;
+    edit(model: any) {
+        this.model.hiddenId = model.idCama;        
+        this.model.nombre = model.nombre;
     }
 
-    delete(id: string, content: any) {        
+    delete(idCama: string, content: any) {        
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
-            this.sedeService.delete(id)
+            this.camaService.delete(idCama)
                 .subscribe(data => {                    
-                    this.loadAllSedes();                    
+                    this.loadAllCamas();                    
                     this.showLoading(false);
                 }, error => {                    
                     this.showErrors(error);
@@ -120,7 +121,8 @@ export class SedesComponent implements OnInit {
 
     clearModel(){
         this.model.hiddenId = undefined;
-        this.model.idSede = '';
+        this.model.idCama = '';
+        this.model.codigo = '';
         this.model.nombre = '';
     }
 
@@ -132,6 +134,6 @@ export class SedesComponent implements OnInit {
             return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
         }); 
 
-        this.sedes = temp;
+        this.camas = temp;
     }
 }

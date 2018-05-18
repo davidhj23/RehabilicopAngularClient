@@ -41,7 +41,14 @@ export class RolesComponent implements OnInit {
             });
     }
 
-    create() {
+    create() {        
+
+        this.showError('');
+        if(this.model.nombre == undefined || this.model.nombre == ''){
+            this.showError('Nombre obligatorio');
+            return;
+        }
+
         this.showLoading(true);
         if(this.model.hiddenId == undefined){   
             this.rolService.create(this.model)
@@ -90,6 +97,14 @@ export class RolesComponent implements OnInit {
 
     showLoading(loading: boolean) {
         this.loading = loading;
+    }
+
+    showError(error: any){
+        this.error = error;                      
+        this.showLoading(false);
+        setTimeout(function() {
+            this.error = '';                            
+        }.bind(this), 5000); 
     }
 
     showErrors(error: any){

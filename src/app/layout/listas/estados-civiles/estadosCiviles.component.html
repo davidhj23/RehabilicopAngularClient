@@ -9,12 +9,12 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-lock"></i>Tipos de documentos</h1>
-        <p>Módulo de gestión de Tipos de Documentos, Aquí usted podrá crear, editar y eliminar Tipos de Documentos</p>
+        <h1><i class="fa fa-lock"></i>Estados Civiles</h1>
+        <p>Módulo de gestión de Estados Civiles, Aquí usted podrá crear, editar y eliminar Estados Civiles</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/tipos-documentos']">Tipos de Documentos</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/estados-civiles']">Estados Civiles</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="error">
@@ -29,9 +29,9 @@
     </div>
     <div class="row">  
       <div class="col-md-12">       
-        <div class="tile" permission="crear tipo documento">              
+        <div class="tile" permission="crear estado civil">              
           <div class="tile-body">
-            <form class="row">
+            <form class="row" >
               <div class="form-group col-md-4" >
                 <label class="control-label">Nombre</label>
                 <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>
@@ -52,19 +52,19 @@
               </div>          
             </div>
             <table class="table table-hover table-bordered" 
-                  [mfData]="tiposDocumentos" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                  [mfData]="estadosCiviles" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
                 <tr>
                   <th>Nombre</th>
                   <th>Acciones</th>              
                 </tr>
               </thead>
-              <tbody *ngFor="let tipoDocumento of mf.data">
+              <tbody *ngFor="let estadoCivil of mf.data">
                 <tr>                  
-                  <td class="rowTd">{{tipoDocumento.nombre}}</td>
+                  <td class="rowTd">{{estadoCivil.nombre}}</td>
                   <td class="rowTd">                  
-                      <a class="btn" (click)="edit(tipoDocumento.idTipoDocumento, tipoDocumento.nombre)" permission="editar tipo documento"><i class="fa fa-pencil"></i></a>
-                      <a class="btn" (click)="delete(tipoDocumento.idTipoDocumento, content)" permission="eliminar tipo documento"><i class="fa fa-times"></i></a>                  
+                      <a class="btn" (click)="edit(estadoCivil.idEstadoCivil, estadoCivil.nombre)" permission="editar estado civil"><i class="fa fa-pencil"></i></a>
+                      <a class="btn" (click)="delete(estadoCivil.idEstadoCivil, content)" permission="eliminar estado civil"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            
               </tbody>
@@ -84,13 +84,13 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Eliminar Tipo de Documento</h4>
+      <h4 class="modal-title">Eliminar Estado Civil</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
-      <p>¿Está seguro de querer eliminar este Tipo de Documento?</p>
+      <p>¿Está seguro de querer eliminar este Estado Civil?</p>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>

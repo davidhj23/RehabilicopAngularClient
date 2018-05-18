@@ -41,6 +41,13 @@ export class TiposDocumentosComponent implements OnInit {
     }
 
     create() {
+
+        this.showError('');
+        if(this.model.nombre == undefined || this.model.nombre == ''){
+            this.showError('Nombre obligatorio');
+            return;
+        }
+
         this.showLoading(true);
         if(this.model.hiddenId == undefined){   
             this.tipoDocumentoService.create(this.model)
@@ -68,12 +75,12 @@ export class TiposDocumentosComponent implements OnInit {
         }
     }     
 
-    edit(id: number, nombre: string) {
+    edit(id: string, nombre: string) {
         this.model.hiddenId = id;
         this.model.nombre = nombre;
     }
 
-    delete(id: number, content: any) {        
+    delete(id: string, content: any) {        
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
             this.tipoDocumentoService.delete(id)
@@ -89,6 +96,14 @@ export class TiposDocumentosComponent implements OnInit {
 
     showLoading(loading: boolean) {
         this.loading = loading;
+    }
+
+    showError(error: any){
+        this.error = error;                      
+        this.showLoading(false);
+        setTimeout(function() {
+            this.error = '';                            
+        }.bind(this), 5000); 
     }
 
     showErrors(error: any){

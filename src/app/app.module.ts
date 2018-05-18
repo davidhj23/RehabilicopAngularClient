@@ -30,6 +30,8 @@ import { OpcionesComponent, OpcionService } from './layout/listas/opciones/index
 import { SedesComponent, SedeService } from './layout/listas/sedes/index';
 import { TiposDocumentosComponent, TipoDocumentoService } from './layout/listas/tipos-documentos/index';
 import { Cie10sComponent, Cie10Service } from './layout/listas/cie10s/index';
+import { EstadosCivilesComponent, EstadoCivilService } from './layout/listas/estados-civiles/index';
+import { CamasComponent, CamaService } from './layout/listas/camas/index';
 
 @NgModule({
     imports: [
@@ -61,7 +63,9 @@ import { Cie10sComponent, Cie10Service } from './layout/listas/cie10s/index';
         OpcionesComponent,
         SedesComponent,
         TiposDocumentosComponent,
-        Cie10sComponent
+        Cie10sComponent,
+        EstadosCivilesComponent,
+        CamasComponent
     ],
     providers: [
         AuthGuard,
@@ -74,7 +78,9 @@ import { Cie10sComponent, Cie10Service } from './layout/listas/cie10s/index';
         OpcionService,
         SedeService,
         TipoDocumentoService,
-        Cie10Service
+        Cie10Service,
+        EstadoCivilService,
+        CamaService
     ],
     bootstrap: [AppComponent]
 })
