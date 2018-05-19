@@ -1,4 +1,4 @@
 export class TipoDocumento{
-    idTipoDocumento: number;
+    idTipoDocumento: string;
     nombre: string;    
 }

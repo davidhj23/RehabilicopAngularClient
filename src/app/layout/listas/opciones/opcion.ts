@@ -1,4 +1,4 @@
 export class Opcion {
-    idOpcion: number;
+    idOpcion: string;
     nombre: string;    
 }

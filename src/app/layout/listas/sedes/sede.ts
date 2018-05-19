@@ -1,4 +1,4 @@
 export class Sede {
-    idSede: number;
+    idSede: string;
     nombre: string;    
 }

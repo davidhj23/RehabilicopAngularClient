@@ -32,6 +32,10 @@ import { TiposDocumentosComponent, TipoDocumentoService } from './layout/listas/
 import { Cie10sComponent, Cie10Service } from './layout/listas/cie10s/index';
 import { EstadosCivilesComponent, EstadoCivilService } from './layout/listas/estados-civiles/index';
 import { CamasComponent, CamaService } from './layout/listas/camas/index';
+import { ServiciosComponent, ServicioService } from './layout/listas/servicios/index';
+import { AlteracionesComponent, AlteracionService } from './layout/listas/alteraciones/index';
+import { PatronesComponent, PatronService } from './layout/listas/patrones/index';
+import { TonosVozComponent, TonoVozService } from './layout/listas/tonos-voz/index';
 
 @NgModule({
     imports: [
@@ -65,7 +69,11 @@ import { CamasComponent, CamaService } from './layout/listas/camas/index';
         TiposDocumentosComponent,
         Cie10sComponent,
         EstadosCivilesComponent,
-        CamasComponent
+        CamasComponent,
+        ServiciosComponent,
+        AlteracionesComponent,
+        PatronesComponent,
+        TonosVozComponent
     ],
     providers: [
         AuthGuard,
@@ -80,7 +88,11 @@ import { CamasComponent, CamaService } from './layout/listas/camas/index';
         TipoDocumentoService,
         Cie10Service,
         EstadoCivilService,
-        CamaService
+        CamaService,
+        ServicioService,
+        AlteracionService,
+        PatronService,
+        TonoVozService
     ],
     bootstrap: [AppComponent]
 })
