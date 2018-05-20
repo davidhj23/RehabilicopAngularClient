@@ -18,6 +18,17 @@ import { AlteracionesComponent } from './layout/listas/alteraciones/index';
 import { PatronesComponent } from './layout/listas/patrones/index';
 import { TonosVozComponent } from './layout/listas/tonos-voz/index';
 import { SeMuestra1Component } from './layout/listas/se-muestra1/index';
+import { SeMuestra2Component } from './layout/listas/se-muestra2/index';
+import { FormasComponent } from './layout/listas/formas/index';
+import { CursosComponent } from './layout/listas/cursos/index';
+import { MemoriaComponent } from './layout/listas/memoria/index';
+import { AlucinacionesComponent } from './layout/listas/alucinaciones/index';
+import { FuerzaMuscularComponent } from './layout/listas/fuerza-muscular/index';
+import { MovilidadComponent } from './layout/listas/movilidad/index';
+import { MarchaComponent } from './layout/listas/marcha/index';
+import { HumorComponent } from './layout/listas/humor/index';
+import { ExpresionFacial1Component } from './layout/listas/expresion-facial1/index';
+import { ExpresionFacial2Component } from './layout/listas/expresion-facial2/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -42,7 +53,18 @@ const appRoutes: Routes = [
                 { path: 'listas/alteraciones', component: AlteracionesComponent, canActivate: [AuthGuard], data : { permission: ["alteraciones"] }},
                 { path: 'listas/patrones', component: PatronesComponent, canActivate: [AuthGuard], data : { permission: ["patrones"] }},
                 { path: 'listas/tonos-voz', component: TonosVozComponent, canActivate: [AuthGuard], data : { permission: ["tonos voz"] }},
-                { path: 'listas/se-muestra1', component: SeMuestra1Component, canActivate: [AuthGuard], data : { permission: ["se muestra1"] }}
+                { path: 'listas/se-muestra1', component: SeMuestra1Component, canActivate: [AuthGuard], data : { permission: ["se muestra1"] }},                
+                { path: 'listas/se-muestra2', component: SeMuestra2Component, canActivate: [AuthGuard], data : { permission: ["se muestra2"] }},
+                { path: 'listas/cursos', component: CursosComponent, canActivate: [AuthGuard], data : { permission: ["curso"] }},
+                { path: 'listas/formas', component: FormasComponent, canActivate: [AuthGuard], data : { permission: ["forma"] }},
+                { path: 'listas/memoria', component: MemoriaComponent, canActivate: [AuthGuard], data : { permission: ["memoria"] }},
+                { path: 'listas/alucinaciones', component: AlucinacionesComponent, canActivate: [AuthGuard], data : { permission: ["alucinacion"] }},                               
+                { path: 'listas/fuerza-muscular', component: FuerzaMuscularComponent, canActivate: [AuthGuard], data : { permission: ["fuerza muscular"] }},
+                { path: 'listas/movilidad', component: MovilidadComponent, canActivate: [AuthGuard], data : { permission: ["movilidad"] }},
+                { path: 'listas/marcha', component: MarchaComponent, canActivate: [AuthGuard], data : { permission: ["marcha"] }},
+                { path: 'listas/humor', component: HumorComponent, canActivate: [AuthGuard], data : { permission: ["humor"] }},
+                { path: 'listas/expresion facial1', component: ExpresionFacial1Component, canActivate: [AuthGuard], data : { permission: ["expresion facial1"] }},
+                { path: 'listas/expresion facial2', component: ExpresionFacial2Component, canActivate: [AuthGuard], data : { permission: ["expresion facial2"] }}
                 
             ] 
     }, 

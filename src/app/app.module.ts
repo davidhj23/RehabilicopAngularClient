@@ -37,6 +37,17 @@ import { AlteracionesComponent, AlteracionService } from './layout/listas/altera
 import { PatronesComponent, PatronService } from './layout/listas/patrones/index';
 import { TonosVozComponent, TonoVozService } from './layout/listas/tonos-voz/index';
 import { SeMuestra1Component, SeMuestra1Service } from './layout/listas/se-muestra1/index';
+import { SeMuestra2Component, SeMuestra2Service } from './layout/listas/se-muestra2/index';
+import { FormasComponent, FormaService } from './layout/listas/formas/index';
+import { CursosComponent, CursoService } from './layout/listas/cursos/index';
+import { MemoriaComponent, MemoriaService } from './layout/listas/memoria/index';
+import { AlucinacionesComponent, AlucinacionService } from './layout/listas/alucinaciones/index';
+import { FuerzaMuscularComponent, FuerzaMuscularService } from './layout/listas/fuerza-muscular/index';
+import { MovilidadComponent, MovilidadService } from './layout/listas/movilidad/index';
+import { MarchaComponent, MarchaService } from './layout/listas/marcha/index';
+import { HumorComponent, HumorService } from './layout/listas/humor/index';
+import { ExpresionFacial1Component, ExpresionFacial1Service } from './layout/listas/expresion-facial1/index';
+import { ExpresionFacial2Component, ExpresionFacial2Service } from './layout/listas/expresion-facial2/index';
 
 @NgModule({
     imports: [
@@ -75,7 +86,18 @@ import { SeMuestra1Component, SeMuestra1Service } from './layout/listas/se-muest
         AlteracionesComponent,
         PatronesComponent,
         TonosVozComponent,
-        SeMuestra1Component
+        SeMuestra1Component,
+        SeMuestra2Component,
+        FormasComponent,
+        CursosComponent,
+        MemoriaComponent,
+        AlucinacionesComponent,
+        FuerzaMuscularComponent,
+        MovilidadComponent, 
+        MarchaComponent, 
+        HumorComponent, 
+        ExpresionFacial1Component,
+        ExpresionFacial2Component
     ],
     providers: [
         AuthGuard,
@@ -95,7 +117,18 @@ import { SeMuestra1Component, SeMuestra1Service } from './layout/listas/se-muest
         AlteracionService,
         PatronService,
         TonoVozService,
-        SeMuestra1Service
+        SeMuestra1Service,
+        SeMuestra2Service,
+        FormaService,
+        CursoService,
+        MemoriaService,
+        AlucinacionService,
+        FuerzaMuscularService,
+        MovilidadService,
+        MarchaService,
+        HumorService,
+        ExpresionFacial1Service,
+        ExpresionFacial2Service
     ],
     bootstrap: [AppComponent]
 })
