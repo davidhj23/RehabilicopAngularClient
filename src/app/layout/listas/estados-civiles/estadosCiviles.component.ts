@@ -18,7 +18,8 @@ export class EstadosCivilesComponent implements OnInit {
     rowsOnPage = 5;
 
     model: any = {};
-    error = '';
+    areErrors = false;
+    errores: any[] = [];
     loading = false;        
 
     constructor(
@@ -29,36 +30,52 @@ export class EstadosCivilesComponent implements OnInit {
     }
 
     ngOnInit() {        
-        this.loadAllEstadosCiviles();        
+        this.loadAllEstadoCiviles();        
     }
 
-    private loadAllEstadosCiviles() {        
+    private loadAllEstadoCiviles() {     
+        this.showLoading(true);   
         this.estadoCivilService.getAll().subscribe(
             estadosCiviles => { 
                 this.estadosCiviles = estadosCiviles; 
                 this.temp = this.estadosCiviles;
+                this.showLoading(false);
+            },
+            error => {                        
+                this.errores = error.error;             
+                this.showErrors();
+                this.showLoading(false);
             });
     }
 
     create() {
 
-        this.showError('');
+        let areErrors = false;
+        this.clearAndcloseErrors();        
+
         if(this.model.nombre == undefined || this.model.nombre == ''){
-            this.showError('Nombre obligatorio');
+            this.errores.push({ message: 'Nombre obligatorio'});
+            areErrors = true;
+        }
+
+        if(areErrors){
+            this.showErrors();
             return;
         }
-        
-        this.showLoading(true);
+
+        this.showLoading(true);        
         if(this.model.hiddenId == undefined){   
             this.estadoCivilService.create(this.model)
                 .subscribe(
-                    data => {
+                    data => {                        
                         this.clearModel();
-                        this.loadAllEstadosCiviles();
+                        this.loadAllEstadoCiviles();
                         this.showLoading(false);
                     },
-                    error => {
-                        this.showErrors(error);
+                    error => {                        
+                        this.errores = error.error;             
+                        this.showErrors();
+                        this.showLoading(false);
                     });
         }else{        
             this.model.idEstadoCivil = this.model.hiddenId;            
@@ -66,29 +83,34 @@ export class EstadosCivilesComponent implements OnInit {
                 .subscribe(
                     data => {
                         this.clearModel();
-                        this.loadAllEstadosCiviles();
+                        this.loadAllEstadoCiviles();
                         this.showLoading(false);
                     },
                     error => {
-                        this.showErrors(error);
+                        this.errores = error.error;             
+                        this.showErrors();
+                        this.showLoading(false);
                     });
         }
     }     
 
-    edit(id: string, nombre: string) {
-        this.model.hiddenId = id;
-        this.model.nombre = nombre;
+    edit(model: any) {
+        this.model.hiddenId = model.idEstadoCivil;        
+        this.model.nombre = model.nombre;
     }
 
-    delete(id: string, content: any) {        
+    delete(idEstadoCivil: string, content: any) {   
+        this.clearAndcloseErrors();
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
-            this.estadoCivilService.delete(id)
+            this.estadoCivilService.delete(idEstadoCivil)
                 .subscribe(data => {                    
-                    this.loadAllEstadosCiviles();                    
+                    this.loadAllEstadoCiviles();                    
                     this.showLoading(false);
-                }, error => {                    
-                    this.showErrors(error);
+                }, error => {       
+                    this.errores = error.error;             
+                    this.showErrors();
+                    this.showLoading(false);
                 })
         }, (reason) => {            
         });
@@ -98,29 +120,23 @@ export class EstadosCivilesComponent implements OnInit {
         this.loading = loading;
     }
 
-    showError(error: any){
-        this.error = error;                      
+    showErrors(){   
+        this.areErrors = true;        
         this.showLoading(false);
+        
         setTimeout(function() {
-            this.error = '';                            
-        }.bind(this), 5000); 
+            this.clearAndcloseErrors();
+        }.bind(this), 10000); 
     }
 
-    showErrors(error: any){
-        this.error = JSON.parse(error._body);                      
-        this.showLoading(false);
-        setTimeout(function() {
-            this.error = '';                            
-        }.bind(this), 5000); 
-    }
-
-    closeError() {
-        this.error = '';
+    clearAndcloseErrors(){
+        this.errores = [];
+        this.areErrors = false;                            
     }
 
     clearModel(){
         this.model.hiddenId = undefined;
-        this.model.idEstadoCivil = '';
+        this.model.idEstadoCivil = '';        
         this.model.nombre = '';
     }
 

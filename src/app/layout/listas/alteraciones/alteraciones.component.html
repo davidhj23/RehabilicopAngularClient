@@ -9,7 +9,7 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-lock"></i>Alteraciones</h1>
+        <h1><i class="fa fa-th-list"></i> Alteraciones</h1>
         <p>Módulo de gestión de Alteraciones, Aquí usted podrá crear, editar y eliminar Alteraciones</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
@@ -17,16 +17,18 @@
         <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/alteraciones']">Alteraciones</a></li>
       </ul>
     </div>
-    <div class="row" *ngIf="error">
-        <div class="col-md-12">
-            <div class="bs-component">
-                <div class="alert alert-dismissible alert-danger">    
-                    <button class="close" type="button" data-dismiss="alert" (click)="closeError()">×</button>                        
-                    <strong>{{error}}</strong>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="row" *ngIf="areErrors">
+      <div class="col-md-12">
+          <div class="bs-component">
+              <div class="alert alert-dismissible alert-danger">    
+                  <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                  <div *ngFor="let e of errores">
+                    <strong>{{e.message}}</strong>
+                  </div>  
+              </div>
+          </div>
+      </div>
+  </div>
     <div class="row">  
       <div class="col-md-12">       
         <div class="tile" permission="crear alteracion">              
@@ -63,7 +65,7 @@
                 <tr>                  
                   <td class="rowTd">{{alteracion.nombre}}</td>
                   <td class="rowTd">                  
-                      <a class="btn" (click)="edit(alteracion.idAlteracion, alteracion.nombre)" permission="editar alteracion"><i class="fa fa-pencil"></i></a>
+                      <a class="btn" (click)="edit(alteracion)" permission="editar alteracion"><i class="fa fa-pencil"></i></a>
                       <a class="btn" (click)="delete(alteracion.idAlteracion, content)" permission="eliminar alteracion"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            

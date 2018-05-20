@@ -10,7 +10,7 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-lock"></i>Tonos de voz</h1>
+        <h1><i class="fa fa-th-list"></i> Tonos de voz</h1>
         <p>Módulo de gestión de Tonos de voz, Aquí usted podrá crear, editar y eliminar Tonos de voz</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
@@ -18,16 +18,18 @@
         <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/tonos-voz']">Tonos de voz</a></li>
       </ul>
     </div>
-    <div class="row" *ngIf="error">
-        <div class="col-md-12">
-            <div class="bs-component">
-                <div class="alert alert-dismissible alert-danger">    
-                    <button class="close" type="button" data-dismiss="alert" (click)="closeError()">×</button>                        
-                    <strong>{{error}}</strong>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="row" *ngIf="areErrors">
+      <div class="col-md-12">
+          <div class="bs-component">
+              <div class="alert alert-dismissible alert-danger">    
+                  <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                  <div *ngFor="let e of errores">
+                    <strong>{{e.message}}</strong>
+                  </div>  
+              </div>
+          </div>
+      </div>
+  </div>
     <div class="row">  
       <div class="col-md-12">       
         <div class="tile" permission="crear tono voz">              
@@ -64,7 +66,7 @@
                 <tr>                  
                   <td class="rowTd">{{tonoVoz.nombre}}</td>
                   <td class="rowTd">                  
-                      <a class="btn" (click)="edit(tonoVoz.idTonoVoz, tonoVoz.nombre)" permission="editar tono voz"><i class="fa fa-pencil"></i></a>
+                      <a class="btn" (click)="edit(tonoVoz)" permission="editar tono voz"><i class="fa fa-pencil"></i></a>
                       <a class="btn" (click)="delete(tonoVoz.idTonoVoz, content)" permission="eliminar tono voz"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            

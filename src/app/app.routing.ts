@@ -17,6 +17,7 @@ import { ServiciosComponent } from './layout/listas/servicios/index';
 import { AlteracionesComponent } from './layout/listas/alteraciones/index';
 import { PatronesComponent } from './layout/listas/patrones/index';
 import { TonosVozComponent } from './layout/listas/tonos-voz/index';
+import { SeMuestra1Component } from './layout/listas/se-muestra1/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
                 { path: 'listas/servicios', component: ServiciosComponent, canActivate: [AuthGuard], data : { permission: ["servicios"] }},
                 { path: 'listas/alteraciones', component: AlteracionesComponent, canActivate: [AuthGuard], data : { permission: ["alteraciones"] }},
                 { path: 'listas/patrones', component: PatronesComponent, canActivate: [AuthGuard], data : { permission: ["patrones"] }},
-                { path: 'listas/tonos-voz', component: TonosVozComponent, canActivate: [AuthGuard], data : { permission: ["tonos voz"] }}
+                { path: 'listas/tonos-voz', component: TonosVozComponent, canActivate: [AuthGuard], data : { permission: ["tonos voz"] }},
+                { path: 'listas/se-muestra1', component: SeMuestra1Component, canActivate: [AuthGuard], data : { permission: ["se muestra1"] }}
                 
             ] 
     }, 

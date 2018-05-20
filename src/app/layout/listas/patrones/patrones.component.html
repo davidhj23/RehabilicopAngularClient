@@ -9,7 +9,7 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-lock"></i>Patrones</h1>
+        <h1><i class="fa fa-th-list"></i> Patrones</h1>
         <p>Módulo de gestión de Patrones, Aquí usted podrá crear, editar y eliminar Patrones</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
@@ -63,7 +63,7 @@
                 <tr>                  
                   <td class="rowTd">{{patron.nombre}}</td>
                   <td class="rowTd">                  
-                      <a class="btn" (click)="edit(patron.idPatron, patron.nombre)" permission="editar patron"><i class="fa fa-pencil"></i></a>
+                      <a class="btn" (click)="edit(patron)" permission="editar patron"><i class="fa fa-pencil"></i></a>
                       <a class="btn" (click)="delete(patron.idPatron, content)" permission="eliminar patron"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            

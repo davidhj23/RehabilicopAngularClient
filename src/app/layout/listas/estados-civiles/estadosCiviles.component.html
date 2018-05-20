@@ -9,7 +9,7 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-lock"></i>Estados Civiles</h1>
+        <h1><i class="fa fa-th-list"></i> Estados Civiles</h1>
         <p>Módulo de gestión de Estados Civiles, Aquí usted podrá crear, editar y eliminar Estados Civiles</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
@@ -17,16 +17,18 @@
         <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/estados-civiles']">Estados Civiles</a></li>
       </ul>
     </div>
-    <div class="row" *ngIf="error">
-        <div class="col-md-12">
-            <div class="bs-component">
-                <div class="alert alert-dismissible alert-danger">    
-                    <button class="close" type="button" data-dismiss="alert" (click)="closeError()">×</button>                        
-                    <strong>{{error}}</strong>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="row" *ngIf="areErrors">
+      <div class="col-md-12">
+          <div class="bs-component">
+              <div class="alert alert-dismissible alert-danger">    
+                  <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                  <div *ngFor="let e of errores">
+                    <strong>{{e.message}}</strong>
+                  </div>  
+              </div>
+          </div>
+      </div>
+  </div>
     <div class="row">  
       <div class="col-md-12">       
         <div class="tile" permission="crear estado civil">              
@@ -63,7 +65,7 @@
                 <tr>                  
                   <td class="rowTd">{{estadoCivil.nombre}}</td>
                   <td class="rowTd">                  
-                      <a class="btn" (click)="edit(estadoCivil.idEstadoCivil, estadoCivil.nombre)" permission="editar estado civil"><i class="fa fa-pencil"></i></a>
+                      <a class="btn" (click)="edit(estadoCivil)" permission="editar estado civil"><i class="fa fa-pencil"></i></a>
                       <a class="btn" (click)="delete(estadoCivil.idEstadoCivil, content)" permission="eliminar estado civil"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            

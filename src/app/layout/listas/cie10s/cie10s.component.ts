@@ -18,7 +18,8 @@ export class Cie10sComponent implements OnInit {
     rowsOnPage = 5;
 
     model: any = {};
-    error = '';
+    areErrors = false;
+    errores: any[] = [];
     loading = false;        
 
     constructor(
@@ -32,25 +33,38 @@ export class Cie10sComponent implements OnInit {
         this.loadAllCie10s();        
     }
 
-    private loadAllCie10s() {        
+    private loadAllCie10s() {     
+        this.showLoading(true);   
         this.cie10Service.getAll().subscribe(
             cie10s => { 
                 this.cie10s = cie10s; 
                 this.temp = this.cie10s;
+                this.showLoading(false);
+            },
+            error => {                        
+                this.errores = error.error;             
+                this.showErrors();
+                this.showLoading(false);
             });
     }
 
     create() {
 
-        this.showError('');        
-        
+        let areErrors = false;
+        this.clearAndcloseErrors();
+
         if(this.model.codigo == undefined || this.model.codigo == ''){
-            this.showError('Código obligatorio');
-            return;
+            this.errores.push({ message: 'Código obligatorio'});
+            areErrors = true;
         }
 
         if(this.model.nombre == undefined || this.model.nombre == ''){
-            this.showError('Nombre obligatorio');
+            this.errores.push({ message: 'Nombre obligatorio'});
+            areErrors = true;
+        }
+
+        if(areErrors){
+            this.showErrors();
             return;
         }
 
@@ -58,13 +72,15 @@ export class Cie10sComponent implements OnInit {
         if(this.model.hiddenId == undefined){   
             this.cie10Service.create(this.model)
                 .subscribe(
-                    data => {
+                    data => {                        
                         this.clearModel();
                         this.loadAllCie10s();
                         this.showLoading(false);
                     },
-                    error => {
-                        this.showErrors(error);
+                    error => {                        
+                        this.errores = error.error;             
+                        this.showErrors();
+                        this.showLoading(false);
                     });
         }else{        
             this.model.idCie10 = this.model.hiddenId;            
@@ -76,7 +92,9 @@ export class Cie10sComponent implements OnInit {
                         this.showLoading(false);
                     },
                     error => {
-                        this.showErrors(error);
+                        this.errores = error.error;             
+                        this.showErrors();
+                        this.showLoading(false);
                     });
         }
     }     
@@ -87,15 +105,18 @@ export class Cie10sComponent implements OnInit {
         this.model.nombre = model.nombre;
     }
 
-    delete(idCie10: string, content: any) {        
+    delete(idCie10: string, content: any) {   
+        this.clearAndcloseErrors();
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
             this.cie10Service.delete(idCie10)
                 .subscribe(data => {                    
                     this.loadAllCie10s();                    
                     this.showLoading(false);
-                }, error => {                    
-                    this.showErrors(error);
+                }, error => {       
+                    this.errores = error.error;             
+                    this.showErrors();
+                    this.showLoading(false);
                 })
         }, (reason) => {            
         });
@@ -105,24 +126,18 @@ export class Cie10sComponent implements OnInit {
         this.loading = loading;
     }
 
-    showError(error: any){
-        this.error = error;                      
+    showErrors(){   
+        this.areErrors = true;        
         this.showLoading(false);
+        
         setTimeout(function() {
-            this.error = '';                            
-        }.bind(this), 5000); 
+            this.clearAndcloseErrors();
+        }.bind(this), 10000); 
     }
 
-    showErrors(error: any){
-        this.error = JSON.parse(error._body);                      
-        this.showLoading(false);
-        setTimeout(function() {
-            this.error = '';                            
-        }.bind(this), 5000); 
-    }
-
-    closeError() {
-        this.error = '';
+    clearAndcloseErrors(){
+        this.errores = [];
+        this.areErrors = false;                            
     }
 
     clearModel(){
@@ -137,7 +152,8 @@ export class Cie10sComponent implements OnInit {
 
         // filter our data
         const temp = this.temp.filter(function(d) {
-            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
+            return d.nombre.toLowerCase().indexOf(val) !== -1 || 
+                   d.codigo.toLowerCase().indexOf(val) !== -1 ||  !val;
         }); 
 
         this.cie10s = temp;

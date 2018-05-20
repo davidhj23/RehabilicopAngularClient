@@ -36,6 +36,7 @@ import { ServiciosComponent, ServicioService } from './layout/listas/servicios/i
 import { AlteracionesComponent, AlteracionService } from './layout/listas/alteraciones/index';
 import { PatronesComponent, PatronService } from './layout/listas/patrones/index';
 import { TonosVozComponent, TonoVozService } from './layout/listas/tonos-voz/index';
+import { SeMuestra1Component, SeMuestra1Service } from './layout/listas/se-muestra1/index';
 
 @NgModule({
     imports: [
@@ -73,7 +74,8 @@ import { TonosVozComponent, TonoVozService } from './layout/listas/tonos-voz/ind
         ServiciosComponent,
         AlteracionesComponent,
         PatronesComponent,
-        TonosVozComponent
+        TonosVozComponent,
+        SeMuestra1Component
     ],
     providers: [
         AuthGuard,
@@ -92,7 +94,8 @@ import { TonosVozComponent, TonoVozService } from './layout/listas/tonos-voz/ind
         ServicioService,
         AlteracionService,
         PatronService,
-        TonoVozService
+        TonoVozService,
+        SeMuestra1Service
     ],
     bootstrap: [AppComponent]
 })

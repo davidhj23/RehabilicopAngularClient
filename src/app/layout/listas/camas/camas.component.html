@@ -9,7 +9,7 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-lock"></i>Camas</h1>
+        <h1><i class="fa fa-th-list"></i> Camas</h1>
         <p>Módulo de gestión de Camas, Aquí usted podrá crear, editar y eliminar items de Camas</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
@@ -17,16 +17,18 @@
         <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/camas']">Cama</a></li>
       </ul>
     </div>
-    <div class="row" *ngIf="error">
-        <div class="col-md-12">
-            <div class="bs-component">
-                <div class="alert alert-dismissible alert-danger">    
-                    <button class="close" type="button" data-dismiss="alert" (click)="closeError()">×</button>                        
-                    <strong>{{error}}</strong>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="row" *ngIf="areErrors">
+      <div class="col-md-12">
+          <div class="bs-component">
+              <div class="alert alert-dismissible alert-danger">    
+                  <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                  <div *ngFor="let e of errores">
+                    <strong>{{e.message}}</strong>
+                  </div>  
+              </div>
+          </div>
+      </div>
+  </div>
     <div class="row">  
       <div class="col-md-12">       
         <div class="tile" permission="crear cama">              

@@ -1,21 +1,20 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { OpcionService } from './opcion.service';
-import { Opcion } from '.';
+import { SeMuestra1 } from './seMuestra1';
+import { SeMuestra1Service } from './seMuestra1.service';
 
 @Component({
-    selector: 'opciones',
-    templateUrl: 'opciones.component.html',
+    selector: 'SeMuestra1',
+    templateUrl: 'SeMuestra1.component.html',
 })
 
-export class OpcionesComponent implements OnInit {   
+export class SeMuestra1Component implements OnInit {   
     
-    opciones: Opcion[] = [];
-    temp: Opcion[] = [];
+    seMuestra1s: SeMuestra1[] = [];
+    temp: SeMuestra1[] = [];
 
-    opcion: Opcion = new Opcion();
+    seMuestra1: SeMuestra1 = new SeMuestra1();
     rowsOnPage = 5;
 
     model: any = {};
@@ -24,22 +23,22 @@ export class OpcionesComponent implements OnInit {
     loading = false;        
 
     constructor(
-        private opcionService: OpcionService,
+        private seMuestra1Service: SeMuestra1Service,
         private router: Router,
         private ngbModal: NgbModal) {
         let self = this;
     }
 
     ngOnInit() {        
-        this.loadAllOpciones();        
+        this.loadAllSeMuestra1s();        
     }
 
-    private loadAllOpciones() {     
+    private loadAllSeMuestra1s() {     
         this.showLoading(true);   
-        this.opcionService.getAll().subscribe(
-            opciones => { 
-                this.opciones = opciones; 
-                this.temp = this.opciones;
+        this.seMuestra1Service.getAll().subscribe(
+            seMuestra1s => { 
+                this.seMuestra1s = seMuestra1s; 
+                this.temp = this.seMuestra1s;
                 this.showLoading(false);
             },
             error => {                        
@@ -66,11 +65,11 @@ export class OpcionesComponent implements OnInit {
 
         this.showLoading(true);        
         if(this.model.hiddenId == undefined){   
-            this.opcionService.create(this.model)
+            this.seMuestra1Service.create(this.model)
                 .subscribe(
                     data => {                        
                         this.clearModel();
-                        this.loadAllOpciones();
+                        this.loadAllSeMuestra1s();
                         this.showLoading(false);
                     },
                     error => {                        
@@ -79,12 +78,12 @@ export class OpcionesComponent implements OnInit {
                         this.showLoading(false);
                     });
         }else{        
-            this.model.idOpcion = this.model.hiddenId;            
-            this.opcionService.update(this.model)
+            this.model.idSeMuestra1 = this.model.hiddenId;            
+            this.seMuestra1Service.update(this.model)
                 .subscribe(
                     data => {
                         this.clearModel();
-                        this.loadAllOpciones();
+                        this.loadAllSeMuestra1s();
                         this.showLoading(false);
                     },
                     error => {
@@ -96,17 +95,17 @@ export class OpcionesComponent implements OnInit {
     }     
 
     edit(model: any) {
-        this.model.hiddenId = model.idOpcion;        
+        this.model.hiddenId = model.idSeMuestra1;        
         this.model.nombre = model.nombre;
     }
 
-    delete(idOpcion: string, content: any) {   
+    delete(idSeMuestra1: string, content: any) {   
         this.clearAndcloseErrors();  
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
-            this.opcionService.delete(idOpcion)
+            this.seMuestra1Service.delete(idSeMuestra1)
                 .subscribe(data => {                    
-                    this.loadAllOpciones();                    
+                    this.loadAllSeMuestra1s();                    
                     this.showLoading(false);
                 }, error => {       
                     this.errores = error.error;             
@@ -137,7 +136,7 @@ export class OpcionesComponent implements OnInit {
 
     clearModel(){
         this.model.hiddenId = undefined;
-        this.model.idOpcion = '';        
+        this.model.idSeMuestra1 = '';        
         this.model.nombre = '';
     }
 
@@ -149,6 +148,6 @@ export class OpcionesComponent implements OnInit {
             return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
         }); 
 
-        this.opciones = temp;
+        this.seMuestra1s = temp;
     }
 }

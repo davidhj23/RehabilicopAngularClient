@@ -18,7 +18,8 @@ export class CamasComponent implements OnInit {
     rowsOnPage = 5;
 
     model: any = {};
-    error = '';
+    areErrors = false;
+    errores: any[] = [];
     loading = false;        
 
     constructor(
@@ -32,20 +33,33 @@ export class CamasComponent implements OnInit {
         this.loadAllCamas();        
     }
 
-    private loadAllCamas() {        
+    private loadAllCamas() {     
+        this.showLoading(true);   
         this.camaService.getAll().subscribe(
             camas => { 
                 this.camas = camas; 
                 this.temp = this.camas;
+                this.showLoading(false);
+            },
+            error => {                        
+                this.errores = error.error;             
+                this.showErrors();
+                this.showLoading(false);
             });
     }
 
     create() {
 
-        this.showError('');        
+        let areErrors = false;
+        this.clearAndcloseErrors();        
 
         if(this.model.nombre == undefined || this.model.nombre == ''){
-            this.showError('Nombre obligatorio');
+            this.errores.push({ message: 'Nombre obligatorio'});
+            areErrors = true;
+        }
+
+        if(areErrors){
+            this.showErrors();
             return;
         }
 
@@ -53,13 +67,15 @@ export class CamasComponent implements OnInit {
         if(this.model.hiddenId == undefined){   
             this.camaService.create(this.model)
                 .subscribe(
-                    data => {
+                    data => {                        
                         this.clearModel();
                         this.loadAllCamas();
                         this.showLoading(false);
                     },
-                    error => {
-                        this.showErrors(error);
+                    error => {                        
+                        this.errores = error.error;             
+                        this.showErrors();
+                        this.showLoading(false);
                     });
         }else{        
             this.model.idCama = this.model.hiddenId;            
@@ -71,7 +87,9 @@ export class CamasComponent implements OnInit {
                         this.showLoading(false);
                     },
                     error => {
-                        this.showErrors(error);
+                        this.errores = error.error;             
+                        this.showErrors();
+                        this.showLoading(false);
                     });
         }
     }     
@@ -81,15 +99,18 @@ export class CamasComponent implements OnInit {
         this.model.nombre = model.nombre;
     }
 
-    delete(idCama: string, content: any) {        
+    delete(idCama: string, content: any) {   
+        this.clearAndcloseErrors();   
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
             this.camaService.delete(idCama)
                 .subscribe(data => {                    
                     this.loadAllCamas();                    
                     this.showLoading(false);
-                }, error => {                    
-                    this.showErrors(error);
+                }, error => {       
+                    this.errores = error.error;             
+                    this.showErrors();
+                    this.showLoading(false);
                 })
         }, (reason) => {            
         });
@@ -99,30 +120,23 @@ export class CamasComponent implements OnInit {
         this.loading = loading;
     }
 
-    showError(error: any){
-        this.error = error;                      
+    showErrors(){   
+        this.areErrors = true;        
         this.showLoading(false);
+        
         setTimeout(function() {
-            this.error = '';                            
-        }.bind(this), 5000); 
+            this.clearAndcloseErrors();
+        }.bind(this), 10000); 
     }
 
-    showErrors(error: any){
-        this.error = JSON.parse(error._body);                      
-        this.showLoading(false);
-        setTimeout(function() {
-            this.error = '';                            
-        }.bind(this), 5000); 
-    }
-
-    closeError() {
-        this.error = '';
+    clearAndcloseErrors(){
+        this.errores = [];
+        this.areErrors = false;                            
     }
 
     clearModel(){
         this.model.hiddenId = undefined;
-        this.model.idCama = '';
-        this.model.codigo = '';
+        this.model.idCama = '';        
         this.model.nombre = '';
     }
 

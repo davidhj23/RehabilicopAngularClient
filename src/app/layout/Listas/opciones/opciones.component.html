@@ -9,7 +9,7 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-lock"></i>Opciones</h1>
+        <h1><i class="fa fa-th-list"></i> Opciones</h1>
         <p>Módulo de gestión de Opciones, Aquí usted podrá crear, editar y eliminar Opciones</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
@@ -17,16 +17,18 @@
         <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/opciones']">Opciones</a></li>
       </ul>
     </div>
-    <div class="row" *ngIf="error">
-        <div class="col-md-12">
-            <div class="bs-component">
-                <div class="alert alert-dismissible alert-danger">    
-                    <button class="close" type="button" data-dismiss="alert" (click)="closeError()">×</button>                        
-                    <strong>{{error}}</strong>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="row" *ngIf="areErrors">
+      <div class="col-md-12">
+          <div class="bs-component">
+              <div class="alert alert-dismissible alert-danger">    
+                  <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                  <div *ngFor="let e of errores">
+                    <strong>{{e.message}}</strong>
+                  </div>  
+              </div>
+          </div>
+      </div>
+  </div>
     <div class="row">  
       <div class="col-md-12">       
         <div class="tile" permission="crear opcion">              
@@ -63,7 +65,7 @@
                 <tr>                  
                   <td class="rowTd">{{opcion.nombre}}</td>
                   <td class="rowTd">                  
-                      <a class="btn" (click)="edit(opcion.idOpcion, opcion.nombre)" permission="editar opcion"><i class="fa fa-pencil"></i></a>
+                      <a class="btn" (click)="edit(opcion)" permission="editar opcion"><i class="fa fa-pencil"></i></a>
                       <a class="btn" (click)="delete(opcion.idOpcion, content)" permission="eliminar opcion"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            

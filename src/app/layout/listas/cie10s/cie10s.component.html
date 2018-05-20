@@ -9,7 +9,7 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-lock"></i>Cie10</h1>
+        <h1><i class="fa fa-th-list"></i> Cie10</h1>
         <p>Módulo de gestión de Cie10, Aquí usted podrá crear, editar y eliminar items de Cie10</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
@@ -17,12 +17,14 @@
         <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/cie10s']">Cie10</a></li>
       </ul>
     </div>
-    <div class="row" *ngIf="error">
+    <div class="row" *ngIf="areErrors">
         <div class="col-md-12">
             <div class="bs-component">
                 <div class="alert alert-dismissible alert-danger">    
-                    <button class="close" type="button" data-dismiss="alert" (click)="closeError()">×</button>                        
-                    <strong>{{error}}</strong>
+                    <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                    <div *ngFor="let e of errores">
+                      <strong>{{e.message}}</strong>
+                    </div>  
                 </div>
             </div>
         </div>
