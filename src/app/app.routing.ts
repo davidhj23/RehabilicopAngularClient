@@ -63,8 +63,8 @@ const appRoutes: Routes = [
                 { path: 'listas/movilidad', component: MovilidadComponent, canActivate: [AuthGuard], data : { permission: ["movilidad"] }},
                 { path: 'listas/marcha', component: MarchaComponent, canActivate: [AuthGuard], data : { permission: ["marcha"] }},
                 { path: 'listas/humor', component: HumorComponent, canActivate: [AuthGuard], data : { permission: ["humor"] }},
-                { path: 'listas/expresion facial1', component: ExpresionFacial1Component, canActivate: [AuthGuard], data : { permission: ["expresion facial1"] }},
-                { path: 'listas/expresion facial2', component: ExpresionFacial2Component, canActivate: [AuthGuard], data : { permission: ["expresion facial2"] }}
+                { path: 'listas/expresion-facial1', component: ExpresionFacial1Component, canActivate: [AuthGuard], data : { permission: ["expresion facial1"] }},
+                { path: 'listas/expresion-facial2', component: ExpresionFacial2Component, canActivate: [AuthGuard], data : { permission: ["expresion facial2"] }}
                 
             ] 
     }, 

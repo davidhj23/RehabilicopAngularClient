@@ -18,7 +18,7 @@
       </ul>
     </div>
     <div class="row" *ngIf="areErrors">
-      <div class="col-md-22">
+      <div class="col-md-12">
           <div class="bs-component">
               <div class="alert alert-dismissible alert-danger">    
                   <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
@@ -30,7 +30,7 @@
       </div>
   </div>
     <div class="row">  
-      <div class="col-md-22">       
+      <div class="col-md-12">       
         <div class="tile" permission="crear se muestra2">              
           <div class="tile-body">
             <form class="row">
@@ -54,7 +54,7 @@
               </div>          
             </div>
             <table class="table table-hover table-bordered" 
-                  [mfData]="SeMuestra2s" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                  [mfData]="seMuestra2s" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
                 <tr>
                   <th>Nombre</th>

@@ -41,7 +41,7 @@ export class FuerzaMuscularComponent implements OnInit {
                 this.temp = this.fuerzasMusculares;
                 this.showLoading(false);
             },
-            error => {                        
+            error => {                          
                 this.errores = error.error;             
                 this.showErrors();
                 this.showLoading(false);

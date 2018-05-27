@@ -36,12 +36,12 @@ export class ExpresionFacial1Component implements OnInit {
     private loadAllExpresionFacial1s() {     
         this.showLoading(true);   
         this.expresionFacial1Service.getAll().subscribe(
-            expresionFacial1s => { 
+            expresionFacial1s => {                 
                 this.expresionFacial1s = expresionFacial1s; 
                 this.temp = this.expresionFacial1s;
                 this.showLoading(false);
             },
-            error => {                        
+            error => {                                        
                 this.errores = error.error;             
                 this.showErrors();
                 this.showLoading(false);

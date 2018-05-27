@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
                         this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
                 
                         this.idle.onTimeoutWarning.subscribe((countdown: number) => {
-                            //console.log("onTimeoutWarning" + countdown)
+                            console.log("onTimeoutWarning" + countdown)
                         });
 
                         this.idle.onTimeout.subscribe(() => {
