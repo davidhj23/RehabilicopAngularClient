@@ -9,12 +9,12 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-th-list"></i> Se Muestra 1</h1>
-        <p>Módulo de gestión de Se Muestra 1, Aquí usted podrá crear, editar y eliminar Se Muestra 1</p>
+        <h1><i class="fa fa-th-list"></i> Movilidad</h1>
+        <p>Módulo de gestión de Movilidad, Aquí usted podrá crear, editar y eliminar items de Movilidad</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/se-muestra1']">Se Muestra 1</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/movilidad']">Movilidad</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="areErrors">
@@ -31,13 +31,13 @@
   </div>
     <div class="row">  
       <div class="col-md-12">       
-        <div class="tile" permission="crear se muestra1">              
+        <div class="tile" permission="crear movilidad">              
           <div class="tile-body">
             <form class="row">
+              <input type="hidden" name="hiddenId" [(ngModel)]="model.hiddenId" #hiddenId="ngModel"/>              
               <div class="form-group col-md-4" >
                 <label class="control-label">Nombre</label>
-                <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>
-                <input type="hidden" name="hiddenId" [(ngModel)]="model.hiddenId" #hiddenId="ngModel"/>
+                <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>                
               </div>          
               <div class="form-group col-md-4 align-self-end">
                 <button class="btn btn-primary" type="button" (click)="create()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
@@ -54,19 +54,19 @@
               </div>          
             </div>
             <table class="table table-hover table-bordered" 
-                  [mfData]="SeMuestra1s" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                  [mfData]="movilidades" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
                 <tr>
                   <th>Nombre</th>
                   <th>Acciones</th>              
                 </tr>
               </thead>
-              <tbody *ngFor="let seMuestra1 of mf.data">
+              <tbody *ngFor="let movilidad of mf.data">
                 <tr>                  
-                  <td class="rowTd">{{seMuestra1.nombre}}</td>
+                  <td class="rowTd">{{movilidad.nombre}}</td>
                   <td class="rowTd">                  
-                      <a class="btn" (click)="edit(seMuestra1)" permission="editar se muestra1"><i class="fa fa-pencil"></i></a>
-                      <a class="btn" (click)="delete(seMuestra1.idSeMuestra1, content)" permission="eliminar se muestra1"><i class="fa fa-times"></i></a>                  
+                      <a class="btn" (click)="edit(movilidad)" permission="editar movilidad"><i class="fa fa-pencil"></i></a>
+                      <a class="btn" (click)="delete(movilidad.idMovilidad, content)" permission="eliminar movilidad"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            
               </tbody>
@@ -86,13 +86,13 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Eliminar Se Muestra 1</h4>
+      <h4 class="modal-title">Eliminar Movilidad</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
-      <p>¿Está seguro de querer eliminar este Se Muestra 1?</p>
+      <p>¿Está seguro de querer eliminar este item de Movilidad?</p>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
