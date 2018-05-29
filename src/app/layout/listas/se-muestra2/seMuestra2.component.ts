@@ -145,7 +145,7 @@ export class SeMuestra2Component implements OnInit {
 
         // filter our data
         const temp = this.temp.filter(function(d) {
-            return d.nombre.toLowerCase().indexOf(val) !== -2 || !val;
+            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
         }); 
 
         this.seMuestra2s = temp;
