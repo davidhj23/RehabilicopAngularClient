@@ -21,13 +21,12 @@ export class PermissionComponent implements OnInit{
                 let result = this.userService.validatePermission(this.permission);
                 if(result == true){                         
                     this.el.style.visibility = 'visible';                        
-                }else{
-                    
-                    this.el.style.visibility = 'hidden';                        
+                }else{                    
+                    this.el.style.display = 'none';                        
                 }
             }
         }else{
-            this.el.style.visibility = 'hidden';                        
+            this.el.style.display = 'none';                        
         }
     }
 }
