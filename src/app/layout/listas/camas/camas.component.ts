@@ -51,6 +51,17 @@ export class CamasComponent implements OnInit {
                 });
     }
 
+    filtrarTabla(event: any) { 
+        const val = event.target.value.toLowerCase();
+
+        // filter our data
+        const temp = this.temp.filter(function(d) {
+            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
+        }); 
+
+        this.camas = temp;
+    }
+
     create() {
         if(!this.validateCreate()) return;
 
@@ -182,16 +193,5 @@ export class CamasComponent implements OnInit {
         this.model.nombre = '';
         this.modelToEdit.idCama = '';
         this.modelToEdit.nombre = '';
-    }
-
-    filtrarTabla(event: any) { 
-        const val = event.target.value.toLowerCase();
-
-        // filter our data
-        const temp = this.temp.filter(function(d) {
-            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
-        }); 
-
-        this.camas = temp;
     }
 }
