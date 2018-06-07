@@ -13,14 +13,16 @@ export class CamasComponent implements OnInit {
     
     camas: Cama[] = [];
     temp: Cama[] = [];
-
-    cama: Cama = new Cama();
-    rowsOnPage = 5;
-
     model: any = {};
-    areErrors = false;
-    errores: any[] = [];
+    modelToEdit: any = {};
+
     loading = false;        
+    rowsOnPage = 5;
+    
+    areErrors = false;
+    errores: any[] = [];   
+    areEditErrors = false;
+    editErrores: any[] = [];   
 
     constructor(
         private camaService: CamaService,
@@ -35,21 +37,39 @@ export class CamasComponent implements OnInit {
 
     private loadAllCamas() {     
         this.showLoading(true);   
-        this.camaService.getAll().subscribe(
-            camas => { 
-                this.camas = camas; 
-                this.temp = this.camas;
-                this.showLoading(false);
-            },
-            error => {                        
-                this.errores = error.error;             
-                this.showErrors();
-                this.showLoading(false);
-            });
+        this.camaService.getAll()
+            .subscribe(
+                camas => { 
+                    this.camas = camas; 
+                    this.temp = this.camas;
+                    this.showLoading(false);
+                },
+                error => {                        
+                    this.errores = error.error;             
+                    this.showErrors();
+                    this.showLoading(false);
+                });
     }
 
     create() {
+        if(!this.validateCreate()) return;
 
+        this.showLoading(true);    
+        this.camaService.create(this.model)
+            .subscribe(
+                data => {                        
+                    this.clearModel();
+                    this.loadAllCamas();
+                    this.showLoading(false);
+                },
+                error => {                        
+                    this.errores = error.error;             
+                    this.showErrors();
+                    this.showLoading(false);
+                });         
+    }
+    
+    validateCreate(){
         let areErrors = false;
         this.clearAndcloseErrors();        
 
@@ -60,43 +80,55 @@ export class CamasComponent implements OnInit {
 
         if(areErrors){
             this.showErrors();
-            return;
+            return false;
         }
 
-        this.showLoading(true);        
-        if(this.model.hiddenId == undefined){   
-            this.camaService.create(this.model)
-                .subscribe(
-                    data => {                        
-                        this.clearModel();
-                        this.loadAllCamas();
-                        this.showLoading(false);
-                    },
-                    error => {                        
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }else{        
-            this.model.idCama = this.model.hiddenId;            
-            this.camaService.update(this.model)
-                .subscribe(
-                    data => {
-                        this.clearModel();
-                        this.loadAllCamas();
-                        this.showLoading(false);
-                    },
-                    error => {
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }
-    }     
+        return true;
+    }
 
-    edit(model: any) {
-        this.model.hiddenId = model.idCama;        
-        this.model.nombre = model.nombre;
+    edit(model: any, editContent: any) {            
+        this.modelToEdit.idCama = model.idCama;     
+        this.modelToEdit.nombre = model.nombre;     
+
+        this.ngbModal.open(editContent).result.then((result) => {
+            
+            this.showLoading(true);      
+            if(this.validateEdit()){                                               
+                this.camaService.update(this.modelToEdit)
+                    .subscribe(
+                        data => {
+                            this.clearModel();
+                            this.loadAllCamas();
+                            this.showLoading(false);
+                        },
+                        error => {
+                            this.editErrores = error.error;             
+                            this.showErrors();
+                            this.showLoading(false);
+                        });     
+            }else{                
+                this.edit(this.modelToEdit, editContent);
+            }
+        }, (reason) => {  
+            this.clearAndcloseErrors();                      
+        });
+    }
+
+    validateEdit(){
+        let areEditErrors = false;        
+        this.clearAndcloseErrors();        
+        
+        if(this.modelToEdit.nombre == undefined || this.modelToEdit.nombre == ''){
+            this.editErrores.push({ message: 'Nombre obligatorio'});
+            areEditErrors = true;
+        }
+        
+        if(areEditErrors){
+            this.showEditErrors();
+            return false;
+        }
+
+        return true;
     }
 
     delete(idCama: string, content: any) {   
@@ -129,15 +161,27 @@ export class CamasComponent implements OnInit {
         }.bind(this), 10000); 
     }
 
-    clearAndcloseErrors(){
-        this.errores = [];
-        this.areErrors = false;                            
+    showEditErrors(){           
+        this.areEditErrors = true;        
+        this.showLoading(false);
+        
+        setTimeout(function() {
+            this.clearAndcloseErrors();
+        }.bind(this), 10000); 
     }
 
-    clearModel(){
-        this.model.hiddenId = undefined;
+    clearAndcloseErrors(){
+        this.errores = [];
+        this.areErrors = false;
+        this.editErrores = [];
+        this.areEditErrors = false;                            
+    }
+
+    clearModel(){        
         this.model.idCama = '';        
         this.model.nombre = '';
+        this.modelToEdit.idCama = '';
+        this.modelToEdit.nombre = '';
     }
 
     filtrarTabla(event: any) { 
