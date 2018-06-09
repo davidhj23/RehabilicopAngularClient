@@ -97,7 +97,7 @@ export class AlucinacionesComponent implements OnInit {
     }
 
     edit(model: any, editContent: any) {            
-        this.modelToEdit.idCama = model.idCama;     
+        this.modelToEdit.idAlucionacion = model.idAlucionacion;     
         this.modelToEdit.nombre = model.nombre;     
 
         this.ngbModal.open(editContent).result.then((result) => {
