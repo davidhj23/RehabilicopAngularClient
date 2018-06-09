@@ -33,8 +33,7 @@
       <div class="col-md-12">       
         <div class="tile" permission="crear alucinacion">              
           <div class="tile-body">
-            <form class="row">
-              <input type="hidden" name="hiddenId" [(ngModel)]="model.hiddenId" #hiddenId="ngModel"/>              
+            <form class="row">              
               <div class="form-group col-md-4" >
                 <label class="control-label">Nombre</label>
                 <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>                
@@ -58,16 +57,19 @@
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th>Acciones</th>              
+                  <th permission="editar alucinacion">Editar</th>              
+                  <th permission="eliminar alucinacion">Eliminar</th>              
                 </tr>
               </thead>
               <tbody *ngFor="let alucinacion of mf.data">
                 <tr>                  
                   <td class="rowTd">{{alucinacion.nombre}}</td>
-                  <td class="rowTd">                  
-                      <a class="btn float-left" (click)="edit(alucinacion)" permission="editar alucinacion"><i class="fa fa-pencil"></i></a>
-                      <a class="btn float-left" (click)="delete(alucinacion.idAlucinacion, content)" permission="eliminar alucinacion"><i class="fa fa-times"></i></a>                  
+                  <td class="rowTd" permission="editar alucinacion">                  
+                      <a class="btn float-left" (click)="edit(alucinacion, editContent)" permission="editar alucinacion"><i class="fa fa-pencil"></i></a>                      
                   </td>       
+                  <td class="rowTd" permission="eliminar alucinacion">                                      
+                    <a class="btn float-left" (click)="delete(alucinacion.idAlucinacion, content)" permission="eliminar alucinacion"><i class="fa fa-times"></i></a>                  
+                </td>       
                 </tr>            
               </tbody>
               <tfoot>
@@ -83,6 +85,39 @@
       </div>
     </div>
 </main>
+
+<ng-template #editContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Editar Alucinación</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <div class="row" *ngIf="areEditErrors">
+          <div class="col-md-12">
+              <div class="bs-component">
+                  <div class="alert alert-dismissible alert-danger">    
+                      <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                      <div *ngFor="let e of editErrores">
+                        <strong>{{e.message}}</strong>
+                      </div>  
+                  </div>
+              </div>
+          </div>
+      </div>
+      <form class="row">        
+        <div class="form-group col-md-6" >
+          <label class="control-label">Nombre</label>
+          <input class="form-control" type="text" name="nombre" [(ngModel)]="modelToEdit.nombre" #nombre="ngModel" required>                
+        </div>                    
+      </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
+      <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cerrar</button>
+  </div>
+</ng-template>
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">

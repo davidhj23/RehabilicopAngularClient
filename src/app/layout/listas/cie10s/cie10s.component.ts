@@ -13,14 +13,16 @@ export class Cie10sComponent implements OnInit {
     
     cie10s: Cie10[] = [];
     temp: Cie10[] = [];
-
-    cie10: Cie10 = new Cie10();
-    rowsOnPage = 5;
-
     model: any = {};
-    areErrors = false;
-    errores: any[] = [];
+    modelToEdit: any = {};
+
     loading = false;        
+    rowsOnPage = 5;
+    
+    areErrors = false;
+    errores: any[] = [];   
+    areEditErrors = false;
+    editErrores: any[] = [];       
 
     constructor(
         private cie10Service: Cie10Service,
@@ -48,10 +50,39 @@ export class Cie10sComponent implements OnInit {
             });
     }
 
-    create() {
+    filtrarTabla(event: any) { 
+        const val = event.target.value.toLowerCase();
 
+        // filter our data
+        const temp = this.temp.filter(function(d) {
+            return d.nombre.toLowerCase().indexOf(val) !== -1 || 
+                   d.codigo.toLowerCase().indexOf(val) !== -1 ||  !val;
+        }); 
+
+        this.cie10s = temp;
+    }
+
+    create() {
+        if(!this.validateCreate()) return;
+
+        this.showLoading(true);    
+        this.cie10Service.create(this.model)
+            .subscribe(
+                data => {                        
+                    this.clearModel();
+                    this.loadAllCie10s();
+                    this.showLoading(false);
+                },
+                error => {                        
+                    this.errores = error.error;             
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+    }    
+    
+    validateCreate(){
         let areErrors = false;
-        this.clearAndcloseErrors();
+        this.clearAndcloseErrors();        
 
         if(this.model.codigo == undefined || this.model.codigo == ''){
             this.errores.push({ message: 'Código obligatorio'});
@@ -65,44 +96,56 @@ export class Cie10sComponent implements OnInit {
 
         if(areErrors){
             this.showErrors();
-            return;
+            return false;
         }
 
-        this.showLoading(true);        
-        if(this.model.hiddenId == undefined){   
-            this.cie10Service.create(this.model)
-                .subscribe(
-                    data => {                        
-                        this.clearModel();
-                        this.loadAllCie10s();
-                        this.showLoading(false);
-                    },
-                    error => {                        
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }else{        
-            this.model.idCie10 = this.model.hiddenId;            
-            this.cie10Service.update(this.model)
-                .subscribe(
-                    data => {
-                        this.clearModel();
-                        this.loadAllCie10s();
-                        this.showLoading(false);
-                    },
-                    error => {
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }
-    }     
+        return true;
+    }
 
-    edit(model: any) {
-        this.model.hiddenId = model.idCie10;
-        this.model.codigo = model.codigo;
-        this.model.nombre = model.nombre;
+    edit(model: any, editContent: any) {        
+        this.modelToEdit.idCie10 = model.idCie10;     
+        this.modelToEdit.codigo = model.codigo;
+        this.modelToEdit.nombre = model.nombre;     
+
+        this.ngbModal.open(editContent).result.then((result) => {
+            
+            this.showLoading(true);      
+            if(this.validateEdit()){                                               
+                this.cie10Service.update(this.modelToEdit)
+                    .subscribe(
+                        data => {
+                            this.clearModel();
+                            this.loadAllCie10s();
+                            this.showLoading(false);
+                        },
+                        error => {
+                            this.editErrores = error.error;             
+                            this.showErrors();
+                            this.showLoading(false);
+                        });     
+            }else{                
+                this.edit(this.modelToEdit, editContent);
+            }
+        }, (reason) => {  
+            this.clearAndcloseErrors();                      
+        });
+    }
+
+    validateEdit(){
+        let areEditErrors = false;        
+        this.clearAndcloseErrors();        
+        
+        if(this.modelToEdit.nombre == undefined || this.modelToEdit.nombre == ''){
+            this.editErrores.push({ message: 'Nombre obligatorio'});
+            areEditErrors = true;
+        }
+        
+        if(areEditErrors){
+            this.showEditErrors();
+            return false;
+        }
+
+        return true;
     }
 
     delete(idCie10: string, content: any) {   
@@ -135,27 +178,28 @@ export class Cie10sComponent implements OnInit {
         }.bind(this), 10000); 
     }
 
+    showEditErrors(){           
+        this.areEditErrors = true;        
+        this.showLoading(false);
+        
+        setTimeout(function() {
+            this.clearAndcloseErrors();
+        }.bind(this), 10000); 
+    }
+
     clearAndcloseErrors(){
         this.errores = [];
-        this.areErrors = false;                            
+        this.areErrors = false;
+        this.editErrores = [];
+        this.areEditErrors = false;                            
     }
 
-    clearModel(){
-        this.model.hiddenId = undefined;
-        this.model.idCie10 = '';
-        this.model.codigo = '';
+    clearModel(){        
+        this.model.idCie10 = '';        
+        this.model.codigo = '';        
         this.model.nombre = '';
-    }
-
-    filtrarTabla(event: any) { 
-        const val = event.target.value.toLowerCase();
-
-        // filter our data
-        const temp = this.temp.filter(function(d) {
-            return d.nombre.toLowerCase().indexOf(val) !== -1 || 
-                   d.codigo.toLowerCase().indexOf(val) !== -1 ||  !val;
-        }); 
-
-        this.cie10s = temp;
+        this.modelToEdit.idCie10 = '';
+        this.modelToEdit.codigo = '';        
+        this.modelToEdit.nombre = '';
     }
 }

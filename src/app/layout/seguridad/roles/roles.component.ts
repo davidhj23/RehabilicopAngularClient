@@ -14,14 +14,16 @@ export class RolesComponent implements OnInit {
 
     roles: Rol[] = [];
     temp: Rol[] = [];
-
-    rol: Rol = new Rol();
-    rowsOnPage = 5;
-
     model: any = {};
-    areErrors = false;
-    errores: any[] = [];
+    modelToEdit: any = {};
+
     loading = false;        
+    rowsOnPage = 5;
+    
+    areErrors = false;
+    errores: any[] = [];   
+    areEditErrors = false;
+    editErrores: any[] = [];     
 
     constructor(
         private rolService: RolService,
@@ -49,8 +51,36 @@ export class RolesComponent implements OnInit {
             });
     }
 
-    create() {
+    filtrarTabla(event: any) { 
+        const val = event.target.value.toLowerCase();
 
+        // filter our data
+        const temp = this.temp.filter(function(d) {
+            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
+        }); 
+
+        this.roles = temp;
+    }
+
+    create() {
+        if(!this.validateCreate()) return;
+
+        this.showLoading(true);    
+        this.rolService.create(this.model)
+            .subscribe(
+                data => {                        
+                    this.clearModel();
+                    this.loadAllRoles();
+                    this.showLoading(false);
+                },
+                error => {                        
+                    this.errores = error.error;             
+                    this.showErrors();
+                    this.showLoading(false);
+                });     
+    }     
+
+    validateCreate(){
         let areErrors = false;
         this.clearAndcloseErrors();        
 
@@ -61,43 +91,55 @@ export class RolesComponent implements OnInit {
 
         if(areErrors){
             this.showErrors();
-            return;
+            return false;
         }
 
-        this.showLoading(true);        
-        if(this.model.hiddenId == undefined){   
-            this.rolService.create(this.model)
-                .subscribe(
-                    data => {                        
-                        this.clearModel();
-                        this.loadAllRoles();
-                        this.showLoading(false);
-                    },
-                    error => {                        
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }else{        
-            this.model.idRol = this.model.hiddenId;            
-            this.rolService.update(this.model)
-                .subscribe(
-                    data => {
-                        this.clearModel();
-                        this.loadAllRoles();
-                        this.showLoading(false);
-                    },
-                    error => {
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }
-    }     
+        return true;
+    }
 
-    edit(model: any) {
-        this.model.hiddenId = model.idRol;        
-        this.model.nombre = model.nombre;
+    edit(model: any, editContent: any) {            
+        this.modelToEdit.idRol = model.idRol;     
+        this.modelToEdit.nombre = model.nombre;     
+
+        this.ngbModal.open(editContent).result.then((result) => {
+            
+            this.showLoading(true);      
+            if(this.validateEdit()){                                               
+                this.rolService.update(this.modelToEdit)
+                    .subscribe(
+                        data => {
+                            this.clearModel();
+                            this.loadAllRoles();
+                            this.showLoading(false);
+                        },
+                        error => {
+                            this.editErrores = error.error;             
+                            this.showErrors();
+                            this.showLoading(false);
+                        });     
+            }else{                
+                this.edit(this.modelToEdit, editContent);
+            }
+        }, (reason) => {  
+            this.clearAndcloseErrors();                      
+        });
+    }
+
+    validateEdit(){
+        let areEditErrors = false;        
+        this.clearAndcloseErrors();        
+        
+        if(this.modelToEdit.nombre == undefined || this.modelToEdit.nombre == ''){
+            this.editErrores.push({ message: 'Nombre obligatorio'});
+            areEditErrors = true;
+        }
+        
+        if(areEditErrors){
+            this.showEditErrors();
+            return false;
+        }
+
+        return true;
     }
 
     delete(idRol: string, content: any) {   
@@ -130,25 +172,26 @@ export class RolesComponent implements OnInit {
         }.bind(this), 10000); 
     }
 
+    showEditErrors(){           
+        this.areEditErrors = true;        
+        this.showLoading(false);
+        
+        setTimeout(function() {
+            this.clearAndcloseErrors();
+        }.bind(this), 10000); 
+    }
+
     clearAndcloseErrors(){
         this.errores = [];
-        this.areErrors = false;                            
+        this.areErrors = false;
+        this.editErrores = [];
+        this.areEditErrors = false;                            
     }
 
-    clearModel(){
-        this.model.hiddenId = undefined;
+    clearModel(){        
         this.model.idRol = '';        
         this.model.nombre = '';
-    }
-
-    filtrarTabla(event: any) { 
-        const val = event.target.value.toLowerCase();
-
-        // filter our data
-        const temp = this.temp.filter(function(d) {
-            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
-        }); 
-
-        this.roles = temp;
+        this.modelToEdit.idRol = '';
+        this.modelToEdit.nombre = '';
     }
 }

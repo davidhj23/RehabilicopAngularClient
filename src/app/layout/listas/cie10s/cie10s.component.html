@@ -33,8 +33,7 @@
       <div class="col-md-12">       
         <div class="tile" permission="crear cie10">              
           <div class="tile-body">
-            <form class="row">
-              <input type="hidden" name="hiddenId" [(ngModel)]="model.hiddenId" #hiddenId="ngModel"/>
+            <form class="row">              
               <div class="form-group col-md-4" >
                 <label class="control-label">Código</label>
                 <input class="form-control" type="text" name="codigo" [(ngModel)]="model.codigo" #codigo="ngModel" required>                
@@ -63,16 +62,19 @@
                 <tr>
                   <th>Código</th>
                   <th>Nombre</th>
-                  <th>Acciones</th>              
+                  <th permission="editar cie10">Editar</th>              
+                  <th permission="eliminar cie10">Eliminar</th>          
                 </tr>
               </thead>
               <tbody *ngFor="let cie10 of mf.data">
                 <tr>
                   <td class="rowTd">{{cie10.codigo}}</td>
                   <td class="rowTd">{{cie10.nombre}}</td>
-                  <td class="rowTd">                  
-                      <a class="btn float-left" (click)="edit(cie10)" permission="editar cie10"><i class="fa fa-pencil"></i></a>
-                      <a class="btn float-left" (click)="delete(cie10.idCie10, content)" permission="eliminar cie10"><i class="fa fa-times"></i></a>                  
+                  <td class="rowTd" permission="editar cie10">                  
+                    <a class="btn float-left" (click)="edit(cie10, editContent)" permission="editar cie10"><i class="fa fa-pencil"></i></a>                      
+                  </td>       
+                  <td class="rowTd" permission="eliminar cie10">                                      
+                    <a class="btn float-left" (click)="delete(cie10.idCie10, content)" permission="eliminar cie10"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            
               </tbody>
@@ -89,6 +91,41 @@
       </div>
     </div>
 </main>
+
+<ng-template #editContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Editar Cie10</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <div class="row" *ngIf="areEditErrors">
+          <div class="col-md-12">
+              <div class="bs-component">
+                  <div class="alert alert-dismissible alert-danger">    
+                      <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                      <div *ngFor="let e of editErrores">
+                        <strong>{{e.message}}</strong>
+                      </div>  
+                  </div>
+              </div>
+          </div>
+      </div>
+      <form class="row">        
+        <div class="form-group col-md-6" >
+          <label class="control-label">Nombre</label>
+          <input class="form-control" type="text" name="nombre" [(ngModel)]="modelToEdit.nombre" #nombre="ngModel" required>                
+          <label class="control-label">Código</label>
+          <input class="form-control" type="text" name="codigo" [(ngModel)]="modelToEdit.codigo" #codigo="ngModel" required>                
+        </div>                    
+      </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
+      <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cerrar</button>
+  </div>
+</ng-template>
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
