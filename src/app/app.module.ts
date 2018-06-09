@@ -48,6 +48,7 @@ import { MarchaComponent, MarchaService } from './layout/listas/marcha/index';
 import { HumorComponent, HumorService } from './layout/listas/humor/index';
 import { ExpresionFacial1Component, ExpresionFacial1Service } from './layout/listas/expresion-facial1/index';
 import { ExpresionFacial2Component, ExpresionFacial2Service } from './layout/listas/expresion-facial2/index';
+import { AlimentacionesComponent, AlimentacionService } from './layout/listas/alimentaciones/index';
 
 @NgModule({
     imports: [
@@ -97,7 +98,8 @@ import { ExpresionFacial2Component, ExpresionFacial2Service } from './layout/lis
         MarchaComponent, 
         HumorComponent, 
         ExpresionFacial1Component,
-        ExpresionFacial2Component
+        ExpresionFacial2Component,
+        AlimentacionesComponent
     ],
     providers: [
         AuthGuard,
@@ -128,7 +130,8 @@ import { ExpresionFacial2Component, ExpresionFacial2Service } from './layout/lis
         MarchaService,
         HumorService,
         ExpresionFacial1Service,
-        ExpresionFacial2Service
+        ExpresionFacial2Service,
+        AlimentacionService
     ],
     bootstrap: [AppComponent]
 })

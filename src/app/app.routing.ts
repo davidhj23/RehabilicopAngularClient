@@ -29,6 +29,7 @@ import { MarchaComponent } from './layout/listas/marcha/index';
 import { HumorComponent } from './layout/listas/humor/index';
 import { ExpresionFacial1Component } from './layout/listas/expresion-facial1/index';
 import { ExpresionFacial2Component } from './layout/listas/expresion-facial2/index';
+import { AlimentacionesComponent } from './layout/listas/alimentaciones/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -64,7 +65,8 @@ const appRoutes: Routes = [
                 { path: 'listas/marcha', component: MarchaComponent, canActivate: [AuthGuard], data : { permission: ["marcha"] }},
                 { path: 'listas/humor', component: HumorComponent, canActivate: [AuthGuard], data : { permission: ["humor"] }},
                 { path: 'listas/expresion-facial1', component: ExpresionFacial1Component, canActivate: [AuthGuard], data : { permission: ["expresion facial1"] }},
-                { path: 'listas/expresion-facial2', component: ExpresionFacial2Component, canActivate: [AuthGuard], data : { permission: ["expresion facial2"] }}
+                { path: 'listas/expresion-facial2', component: ExpresionFacial2Component, canActivate: [AuthGuard], data : { permission: ["expresion facial2"] }},
+                { path: 'listas/alimentacion', component: AlimentacionesComponent, canActivate: [AuthGuard], data : { permission: ["alimentacion"] }}
                 
             ] 
     }, 

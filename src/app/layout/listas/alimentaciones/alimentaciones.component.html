@@ -1,0 +1,136 @@
+<main class="app-content" [ngClass]="{ 'tile loading': loading }"> 
+    <div class="overlay" *ngIf="loading">
+        <div class="m-loader mr-4">
+            <svg class="m-circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10"/>
+            </svg>
+        </div>
+        <h3 class="l-text">Loading</h3>
+    </div>
+    <div class="app-title">     
+      <div>
+        <h1><i class="fa fa-th-list"></i> Alimentaciones</h1>
+        <p>Módulo de gestión de Alimentaciones, Aquí usted podrá crear, editar y eliminar Alimentaciones</p>
+      </div>
+      <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/alimentaciones']">Alimentaciones</a></li>
+      </ul>
+    </div>
+    <div class="row" *ngIf="areErrors">
+      <div class="col-md-12">
+          <div class="bs-component">
+              <div class="alert alert-dismissible alert-danger">    
+                  <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                  <div *ngFor="let e of errores">
+                    <strong>{{e.message}}</strong>
+                  </div>  
+              </div>
+          </div>
+      </div>
+  </div>
+    <div class="row">  
+      <div class="col-md-12">       
+        <div class="tile" permission="crear alimentacion">              
+          <div class="tile-body">
+            <form class="row">
+              <div class="form-group col-md-4" >
+                <label class="control-label">Nombre</label>
+                <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>                
+              </div>          
+              <div class="form-group col-md-4 align-self-end">
+                <button class="btn btn-primary" type="button" (click)="create()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="tile"> 
+          <div class="tile-body">
+            <div class="row">
+              <div class="form-group col-md-4" >
+                  <label class="control-label">Filtro</label>
+                  <input class="form-control" type="text" (keyup)='filtrarTabla($event)'>                
+              </div>          
+            </div>
+            <table class="table table-hover table-bordered" 
+                  [mfData]="alimentaciones" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th permission="editar alimentacion">Editar</th>              
+                    <th permission="eliminar alimentacion">Eliminar</th>              
+                  </tr>
+                </thead>
+                <tbody *ngFor="let alimentacion of mf.data">
+                  <tr>                  
+                    <td class="rowTd">{{alimentacion.nombre}}</td>
+                    <td class="rowTd" permission="editar alimentacion">                  
+                        <a class="btn float-left" (click)="edit(alimentacion, editContent)" permission="editar alimentacion"><i class="fa fa-pencil"></i></a>                      
+                    </td>       
+                    <td class="rowTd" permission="eliminar alimentacion">                                      
+                      <a class="btn float-left" (click)="delete(alimentacion.idAlimentacion, content)" permission="eliminar alimentacion"><i class="fa fa-times"></i></a>                  
+                  </td>       
+                  </tr>            
+                </tbody>
+              <tfoot>
+                <tr>
+                    <td colspan="5">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
+                    </td>
+                </tr>
+            </tfoot>
+            </table>      
+          </div>
+        </div>
+      </div>
+    </div>
+</main>
+
+<ng-template #editContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Editar Alimentación</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <div class="row" *ngIf="areEditErrors">
+          <div class="col-md-12">
+              <div class="bs-component">
+                  <div class="alert alert-dismissible alert-danger">    
+                      <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                      <div *ngFor="let e of editErrores">
+                        <strong>{{e.message}}</strong>
+                      </div>  
+                  </div>
+              </div>
+          </div>
+      </div>
+      <form class="row">        
+        <div class="form-group col-md-6" >
+          <label class="control-label">Nombre</label>
+          <input class="form-control" type="text" name="nombre" [(ngModel)]="modelToEdit.nombre" #nombre="ngModel" required>                
+        </div>                    
+      </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
+      <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cerrar</button>
+  </div>
+</ng-template>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Eliminar Alimentación</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <p>¿Está seguro de querer eliminar esta Alimentación?</p>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
+      <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cerrar</button>
+  </div>
+</ng-template>
