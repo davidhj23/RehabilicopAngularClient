@@ -14,14 +14,16 @@ export class OpcionesComponent implements OnInit {
     
     opciones: Opcion[] = [];
     temp: Opcion[] = [];
-
-    opcion: Opcion = new Opcion();
-    rowsOnPage = 5;
-
     model: any = {};
-    areErrors = false;
-    errores: any[] = [];
+    modelToEdit: any = {};
+
     loading = false;        
+    rowsOnPage = 5;
+    
+    areErrors = false;
+    errores: any[] = [];   
+    areEditErrors = false;
+    editErrores: any[] = [];     
 
     constructor(
         private opcionService: OpcionService,
@@ -49,8 +51,36 @@ export class OpcionesComponent implements OnInit {
             });
     }
 
-    create() {
+    filtrarTabla(event: any) { 
+        const val = event.target.value.toLowerCase();
 
+        // filter our data
+        const temp = this.temp.filter(function(d) {
+            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
+        }); 
+
+        this.opciones = temp;
+    }
+
+    create() {
+        if(!this.validateCreate()) return;
+
+        this.showLoading(true);    
+        this.opcionService.create(this.model)
+            .subscribe(
+                data => {                        
+                    this.clearModel();
+                    this.loadAllOpciones();
+                    this.showLoading(false);
+                },
+                error => {                        
+                    this.errores = error.error;             
+                    this.showErrors();
+                    this.showLoading(false);
+                });         
+    }
+    
+    validateCreate(){
         let areErrors = false;
         this.clearAndcloseErrors();        
 
@@ -61,43 +91,55 @@ export class OpcionesComponent implements OnInit {
 
         if(areErrors){
             this.showErrors();
-            return;
+            return false;
         }
 
-        this.showLoading(true);        
-        if(this.model.hiddenId == undefined){   
-            this.opcionService.create(this.model)
-                .subscribe(
-                    data => {                        
-                        this.clearModel();
-                        this.loadAllOpciones();
-                        this.showLoading(false);
-                    },
-                    error => {                        
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }else{        
-            this.model.idOpcion = this.model.hiddenId;            
-            this.opcionService.update(this.model)
-                .subscribe(
-                    data => {
-                        this.clearModel();
-                        this.loadAllOpciones();
-                        this.showLoading(false);
-                    },
-                    error => {
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }
-    }     
+        return true;
+    }
 
-    edit(model: any) {
-        this.model.hiddenId = model.idOpcion;        
-        this.model.nombre = model.nombre;
+    edit(model: any, editContent: any) {            
+        this.modelToEdit.idOpcion = model.idOpcion;     
+        this.modelToEdit.nombre = model.nombre;     
+
+        this.ngbModal.open(editContent).result.then((result) => {
+            
+            this.showLoading(true);      
+            if(this.validateEdit()){                                               
+                this.opcionService.update(this.modelToEdit)
+                    .subscribe(
+                        data => {
+                            this.clearModel();
+                            this.loadAllOpciones();
+                            this.showLoading(false);
+                        },
+                        error => {
+                            this.editErrores = error.error;             
+                            this.showErrors();
+                            this.showLoading(false);
+                        });     
+            }else{                
+                this.edit(this.modelToEdit, editContent);
+            }
+        }, (reason) => {  
+            this.clearAndcloseErrors();                      
+        });
+    }
+
+    validateEdit(){
+        let areEditErrors = false;        
+        this.clearAndcloseErrors();        
+        
+        if(this.modelToEdit.nombre == undefined || this.modelToEdit.nombre == ''){
+            this.editErrores.push({ message: 'Nombre obligatorio'});
+            areEditErrors = true;
+        }
+        
+        if(areEditErrors){
+            this.showEditErrors();
+            return false;
+        }
+
+        return true;
     }
 
     delete(idOpcion: string, content: any) {   
@@ -130,25 +172,26 @@ export class OpcionesComponent implements OnInit {
         }.bind(this), 10000); 
     }
 
+    showEditErrors(){           
+        this.areEditErrors = true;        
+        this.showLoading(false);
+        
+        setTimeout(function() {
+            this.clearAndcloseErrors();
+        }.bind(this), 10000); 
+    }
+
     clearAndcloseErrors(){
         this.errores = [];
-        this.areErrors = false;                            
+        this.areErrors = false;
+        this.editErrores = [];
+        this.areEditErrors = false;                            
     }
 
-    clearModel(){
-        this.model.hiddenId = undefined;
+    clearModel(){        
         this.model.idOpcion = '';        
         this.model.nombre = '';
-    }
-
-    filtrarTabla(event: any) { 
-        const val = event.target.value.toLowerCase();
-
-        // filter our data
-        const temp = this.temp.filter(function(d) {
-            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
-        }); 
-
-        this.opciones = temp;
+        this.modelToEdit.idOpcion = '';
+        this.modelToEdit.nombre = '';
     }
 }

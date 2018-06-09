@@ -13,14 +13,16 @@ export class HumorComponent implements OnInit {
     
     humores: Humor[] = [];
     temp: Humor[] = [];
-
-    humor: Humor = new Humor();
-    rowsOnPage = 5;
-
     model: any = {};
-    areErrors = false;
-    errores: any[] = [];
+    modelToEdit: any = {};
+
     loading = false;        
+    rowsOnPage = 5;
+    
+    areErrors = false;
+    errores: any[] = [];   
+    areEditErrors = false;
+    editErrores: any[] = [];       
 
     constructor(
         private humorService: HumorService,
@@ -47,9 +49,37 @@ export class HumorComponent implements OnInit {
                 this.showLoading(false);
             });
     }
+    
+    filtrarTabla(event: any) { 
+        const val = event.target.value.toLowerCase();
+
+        // filter our data
+        const temp = this.temp.filter(function(d) {
+            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
+        }); 
+
+        this.humores = temp;
+    }
 
     create() {
+        if(!this.validateCreate()) return;
 
+        this.showLoading(true);    
+        this.humorService.create(this.model)
+            .subscribe(
+                data => {                        
+                    this.clearModel();
+                    this.loadAllHumores();
+                    this.showLoading(false);
+                },
+                error => {                        
+                    this.errores = error.error;             
+                    this.showErrors();
+                    this.showLoading(false);
+                });         
+    }
+    
+    validateCreate(){
         let areErrors = false;
         this.clearAndcloseErrors();        
 
@@ -60,43 +90,55 @@ export class HumorComponent implements OnInit {
 
         if(areErrors){
             this.showErrors();
-            return;
+            return false;
         }
 
-        this.showLoading(true);        
-        if(this.model.hiddenId == undefined){   
-            this.humorService.create(this.model)
-                .subscribe(
-                    data => {                        
-                        this.clearModel();
-                        this.loadAllHumores();
-                        this.showLoading(false);
-                    },
-                    error => {                        
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }else{        
-            this.model.idHumor = this.model.hiddenId;            
-            this.humorService.update(this.model)
-                .subscribe(
-                    data => {
-                        this.clearModel();
-                        this.loadAllHumores();
-                        this.showLoading(false);
-                    },
-                    error => {
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }
-    }     
+        return true;
+    }
 
-    edit(model: any) {
-        this.model.hiddenId = model.idHumor;        
-        this.model.nombre = model.nombre;
+    edit(model: any, editContent: any) {            
+        this.modelToEdit.idHumor = model.idHumor;     
+        this.modelToEdit.nombre = model.nombre;     
+
+        this.ngbModal.open(editContent).result.then((result) => {
+            
+            this.showLoading(true);      
+            if(this.validateEdit()){                                               
+                this.humorService.update(this.modelToEdit)
+                    .subscribe(
+                        data => {
+                            this.clearModel();
+                            this.loadAllHumores();
+                            this.showLoading(false);
+                        },
+                        error => {
+                            this.editErrores = error.error;             
+                            this.showErrors();
+                            this.showLoading(false);
+                        });     
+            }else{                
+                this.edit(this.modelToEdit, editContent);
+            }
+        }, (reason) => {  
+            this.clearAndcloseErrors();                      
+        });
+    }
+
+    validateEdit(){
+        let areEditErrors = false;        
+        this.clearAndcloseErrors();        
+        
+        if(this.modelToEdit.nombre == undefined || this.modelToEdit.nombre == ''){
+            this.editErrores.push({ message: 'Nombre obligatorio'});
+            areEditErrors = true;
+        }
+        
+        if(areEditErrors){
+            this.showEditErrors();
+            return false;
+        }
+
+        return true;
     }
 
     delete(idHumor: string, content: any) {   
@@ -129,25 +171,26 @@ export class HumorComponent implements OnInit {
         }.bind(this), 10000); 
     }
 
+    showEditErrors(){           
+        this.areEditErrors = true;        
+        this.showLoading(false);
+        
+        setTimeout(function() {
+            this.clearAndcloseErrors();
+        }.bind(this), 10000); 
+    }
+
     clearAndcloseErrors(){
         this.errores = [];
-        this.areErrors = false;                            
+        this.areErrors = false;
+        this.editErrores = [];
+        this.areEditErrors = false;                            
     }
 
-    clearModel(){
-        this.model.hiddenId = undefined;
+    clearModel(){        
         this.model.idHumor = '';        
         this.model.nombre = '';
-    }
-
-    filtrarTabla(event: any) { 
-        const val = event.target.value.toLowerCase();
-
-        // filter our data
-        const temp = this.temp.filter(function(d) {
-            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
-        }); 
-
-        this.humores = temp;
+        this.modelToEdit.idHumor = '';
+        this.modelToEdit.nombre = '';
     }
 }

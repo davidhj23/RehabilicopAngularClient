@@ -36,8 +36,7 @@
             <form class="row" >
               <div class="form-group col-md-4" >
                 <label class="control-label">Nombre</label>
-                <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>
-                <input type="hidden" name="hiddenId" [(ngModel)]="model.hiddenId" #hiddenId="ngModel"/>
+                <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>                
               </div>          
               <div class="form-group col-md-4 align-self-end">
                 <button class="btn btn-primary" type="button" (click)="create()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
@@ -58,16 +57,19 @@
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th>Acciones</th>              
+                  <th permission="editar fuerza muscular">Editar</th>              
+                  <th permission="eliminar fuerza muscular">Eliminar</th>          
                 </tr>
               </thead>
               <tbody *ngFor="let fuerzaMuscular of mf.data">
                 <tr>                  
                   <td class="rowTd">{{fuerzaMuscular.nombre}}</td>
-                  <td class="rowTd">                  
-                      <a class="btn float-left" (click)="edit(fuerzaMuscular)" permission="editar fuerza muscular"><i class="fa fa-pencil"></i></a>
-                      <a class="btn float-left" (click)="delete(fuerzaMuscular.idFuerzaMuscular, content)" permission="eliminar fuerza muscular"><i class="fa fa-times"></i></a>                  
+                  <td class="rowTd" permission="editar fuerza muscular">                  
+                    <a class="btn float-left" (click)="edit(fuerzaMuscular, editContent)" permission="editar fuerza muscular"><i class="fa fa-pencil"></i></a>                      
                   </td>       
+                  <td class="rowTd" permission="eliminar fuerza muscular">                                      
+                    <a class="btn float-left" (click)="delete(fuerzaMuscular.idCama, content)" permission="eliminar fuerza muscular"><i class="fa fa-times"></i></a>                  
+                </td>       
                 </tr>            
               </tbody>
               <tfoot>
@@ -84,15 +86,48 @@
     </div>
 </main>
 
-<ng-template #content let-c="close" let-d="dismiss">
+<ng-template #editContent let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Eliminar Estado Civil</h4>
+      <h4 class="modal-title">Editar Fuerza Musucular</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
-      <p>¿Está seguro de querer eliminar este Estado Civil?</p>
+      <div class="row" *ngIf="areEditErrors">
+          <div class="col-md-12">
+              <div class="bs-component">
+                  <div class="alert alert-dismissible alert-danger">    
+                      <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                      <div *ngFor="let e of editErrores">
+                        <strong>{{e.message}}</strong>
+                      </div>  
+                  </div>
+              </div>
+          </div>
+      </div>
+      <form class="row">        
+        <div class="form-group col-md-6" >
+          <label class="control-label">Nombre</label>
+          <input class="form-control" type="text" name="nombre" [(ngModel)]="modelToEdit.nombre" #nombre="ngModel" required>                
+        </div>                    
+      </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
+      <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cerrar</button>
+  </div>
+</ng-template>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title">Eliminar Fuerza Muscular</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <p>¿Está seguro de querer eliminar esta Fuerza Muscular?</p>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
