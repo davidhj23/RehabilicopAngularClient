@@ -13,14 +13,16 @@ export class SeMuestra2Component implements OnInit {
     
     seMuestra2s: SeMuestra2[] = [];
     temp: SeMuestra2[] = [];
-
-    seMuestra2: SeMuestra2 = new SeMuestra2();
-    rowsOnPage = 5;
-
     model: any = {};
-    areErrors = false;
-    errores: any[] = [];
+    modelToEdit: any = {};
+
     loading = false;        
+    rowsOnPage = 5;
+    
+    areErrors = false;
+    errores: any[] = [];   
+    areEditErrors = false;
+    editErrores: any[] = [];           
 
     constructor(
         private seMuestra2Service: SeMuestra2Service,
@@ -48,8 +50,36 @@ export class SeMuestra2Component implements OnInit {
             });
     }
 
-    create() {
+    filtrarTabla(event: any) { 
+        const val = event.target.value.toLowerCase();
 
+        // filter our data
+        const temp = this.temp.filter(function(d) {
+            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
+        }); 
+
+        this.seMuestra2s = temp;
+    }
+
+    create() {
+        if(!this.validateCreate()) return;
+
+        this.showLoading(true);    
+        this.seMuestra2Service.create(this.model)
+            .subscribe(
+                data => {                        
+                    this.clearModel();
+                    this.loadAllSeMuestra2s();
+                    this.showLoading(false);
+                },
+                error => {                        
+                    this.errores = error.error;             
+                    this.showErrors();
+                    this.showLoading(false);
+                });         
+    }
+    
+    validateCreate(){
         let areErrors = false;
         this.clearAndcloseErrors();        
 
@@ -60,43 +90,55 @@ export class SeMuestra2Component implements OnInit {
 
         if(areErrors){
             this.showErrors();
-            return;
+            return false;
         }
 
-        this.showLoading(true);        
-        if(this.model.hiddenId == undefined){   
-            this.seMuestra2Service.create(this.model)
-                .subscribe(
-                    data => {                        
-                        this.clearModel();
-                        this.loadAllSeMuestra2s();
-                        this.showLoading(false);
-                    },
-                    error => {                        
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }else{        
-            this.model.idSeMuestra2 = this.model.hiddenId;            
-            this.seMuestra2Service.update(this.model)
-                .subscribe(
-                    data => {
-                        this.clearModel();
-                        this.loadAllSeMuestra2s();
-                        this.showLoading(false);
-                    },
-                    error => {
-                        this.errores = error.error;             
-                        this.showErrors();
-                        this.showLoading(false);
-                    });
-        }
-    }     
+        return true;
+    }
 
-    edit(model: any) {
-        this.model.hiddenId = model.idSeMuestra2;        
-        this.model.nombre = model.nombre;
+    edit(model: any, editContent: any) {            
+        this.modelToEdit.idSeMuestra2 = model.idSeMuestra2;     
+        this.modelToEdit.nombre = model.nombre;     
+
+        this.ngbModal.open(editContent).result.then((result) => {
+            
+            this.showLoading(true);      
+            if(this.validateEdit()){                                               
+                this.seMuestra2Service.update(this.modelToEdit)
+                    .subscribe(
+                        data => {
+                            this.clearModel();
+                            this.loadAllSeMuestra2s();
+                            this.showLoading(false);
+                        },
+                        error => {
+                            this.editErrores = error.error;             
+                            this.showErrors();
+                            this.showLoading(false);
+                        });     
+            }else{                
+                this.edit(this.modelToEdit, editContent);
+            }
+        }, (reason) => {  
+            this.clearAndcloseErrors();                      
+        });
+    }
+
+    validateEdit(){
+        let areEditErrors = false;        
+        this.clearAndcloseErrors();        
+        
+        if(this.modelToEdit.nombre == undefined || this.modelToEdit.nombre == ''){
+            this.editErrores.push({ message: 'Nombre obligatorio'});
+            areEditErrors = true;
+        }
+        
+        if(areEditErrors){
+            this.showEditErrors();
+            return false;
+        }
+
+        return true;
     }
 
     delete(idSeMuestra2: string, content: any) {   
@@ -126,28 +168,29 @@ export class SeMuestra2Component implements OnInit {
         
         setTimeout(function() {
             this.clearAndcloseErrors();
-        }.bind(this), 20000); 
+        }.bind(this), 10000); 
+    }
+
+    showEditErrors(){           
+        this.areEditErrors = true;        
+        this.showLoading(false);
+        
+        setTimeout(function() {
+            this.clearAndcloseErrors();
+        }.bind(this), 10000); 
     }
 
     clearAndcloseErrors(){
         this.errores = [];
-        this.areErrors = false;                            
+        this.areErrors = false;
+        this.editErrores = [];
+        this.areEditErrors = false;                            
     }
 
-    clearModel(){
-        this.model.hiddenId = undefined;
+    clearModel(){        
         this.model.idSeMuestra2 = '';        
         this.model.nombre = '';
-    }
-
-    filtrarTabla(event: any) { 
-        const val = event.target.value.toLowerCase();
-
-        // filter our data
-        const temp = this.temp.filter(function(d) {
-            return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
-        }); 
-
-        this.seMuestra2s = temp;
+        this.modelToEdit.idSeMuestra2 = '';
+        this.modelToEdit.nombre = '';
     }
 }

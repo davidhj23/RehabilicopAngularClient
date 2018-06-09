@@ -135,6 +135,11 @@ export class Cie10sComponent implements OnInit {
         let areEditErrors = false;        
         this.clearAndcloseErrors();        
         
+        if(this.modelToEdit.codigo == undefined || this.modelToEdit.codigo == ''){
+            this.editErrores.push({ message: 'Código obligatorio'});
+            areEditErrors = true;
+        }
+
         if(this.modelToEdit.nombre == undefined || this.modelToEdit.nombre == ''){
             this.editErrores.push({ message: 'Nombre obligatorio'});
             areEditErrors = true;
