@@ -97,7 +97,7 @@ export class ExpresionFacial1Component implements OnInit {
     }
 
     edit(model: any, editContent: any) {            
-        this.modelToEdit.idCama = model.idCama;     
+        this.modelToEdit.idExpresionFacial1 = model.idExpresionFacial1;     
         this.modelToEdit.nombre = model.nombre;     
 
         this.ngbModal.open(editContent).result.then((result) => {

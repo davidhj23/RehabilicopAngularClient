@@ -97,7 +97,7 @@ export class MarchaComponent implements OnInit {
     }
 
     edit(model: any, editContent: any) {            
-        this.modelToEdit.idCama = model.idCama;     
+        this.modelToEdit.idMarcha = model.idMarcha;     
         this.modelToEdit.nombre = model.nombre;     
 
         this.ngbModal.open(editContent).result.then((result) => {
