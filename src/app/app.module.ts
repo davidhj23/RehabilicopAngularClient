@@ -50,6 +50,7 @@ import { ExpresionFacial1Component, ExpresionFacial1Service } from './layout/lis
 import { ExpresionFacial2Component, ExpresionFacial2Service } from './layout/listas/expresion-facial2/index';
 import { AlimentacionesComponent, AlimentacionService } from './layout/listas/alimentaciones/index';
 import { AparienciasComponent, AparienciaService } from './layout/listas/apariencias/index';
+import { AseguradorasComponent, AseguradoraService } from './layout/listas/aseguradoras/index';
 
 @NgModule({
     imports: [
@@ -101,7 +102,8 @@ import { AparienciasComponent, AparienciaService } from './layout/listas/aparien
         ExpresionFacial1Component,
         ExpresionFacial2Component,
         AlimentacionesComponent,
-        AparienciasComponent
+        AparienciasComponent,
+        AseguradorasComponent
     ],
     providers: [
         AuthGuard,
@@ -134,7 +136,8 @@ import { AparienciasComponent, AparienciaService } from './layout/listas/aparien
         ExpresionFacial1Service,
         ExpresionFacial2Service,
         AlimentacionService,
-        AparienciaService
+        AparienciaService,
+        AseguradoraService
     ],
     bootstrap: [AppComponent]
 })
