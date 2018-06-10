@@ -11,7 +11,7 @@ import { MovilidadService } from './movilidad.service';
 
 export class MovilidadComponent implements OnInit {   
     
-    movilidads: Movilidad[] = [];
+    movilidades: Movilidad[] = [];
     temp: Movilidad[] = [];
     model: any = {};
     modelToEdit: any = {};
@@ -38,9 +38,9 @@ export class MovilidadComponent implements OnInit {
     private loadAllMovilidades() {     
         this.showLoading(true);   
         this.movilidadService.getAll().subscribe(
-            movilidads => { 
-                this.movilidads = movilidads; 
-                this.temp = this.movilidads;
+            movilidades => { 
+                this.movilidades = movilidades; 
+                this.temp = this.movilidades;
                 this.showLoading(false);
             },
             error => {                        
@@ -58,7 +58,7 @@ export class MovilidadComponent implements OnInit {
             return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
         }); 
 
-        this.movilidads = temp;
+        this.movilidades = temp;
     }
 
     create() {
