@@ -53,6 +53,7 @@ import { AparienciasComponent, AparienciaService } from './layout/listas/aparien
 import { AseguradorasComponent, AseguradoraService } from './layout/listas/aseguradoras/index';
 import { AsfixiasComponent, AsfixiaService } from './layout/listas/asfixias/index';
 import { ComprensiblesComponent, ComprensibleService } from './layout/listas/comprensibles/index';
+import { ConcienciasComponent, ConcienciaService } from './layout/listas/conciencias/index';
 
 @NgModule({
     imports: [
@@ -107,7 +108,8 @@ import { ComprensiblesComponent, ComprensibleService } from './layout/listas/com
         AparienciasComponent,
         AseguradorasComponent,
         AsfixiasComponent,
-        ComprensiblesComponent
+        ComprensiblesComponent,
+        ConcienciasComponent
     ],
     providers: [
         AuthGuard,
@@ -143,7 +145,8 @@ import { ComprensiblesComponent, ComprensibleService } from './layout/listas/com
         AparienciaService,
         AseguradoraService,
         AsfixiaService,
-        ComprensibleService
+        ComprensibleService,
+        ConcienciaService
     ],
     bootstrap: [AppComponent]
 })
