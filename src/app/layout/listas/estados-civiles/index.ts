@@ -1,3 +1,3 @@
-export * from './estadosciviles.component';
+export * from './estadosCiviles.component';
 export * from './estadoCivil';
 export * from './estadoCivil.service';

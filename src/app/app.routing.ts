@@ -36,6 +36,8 @@ import { AsfixiasComponent } from './layout/listas/asfixias/index';
 import { ComprensiblesComponent } from './layout/listas/comprensibles/index';
 import { ConcienciasComponent } from './layout/listas/conciencias/index';
 import { EscolaridadesComponent } from './layout/listas/escolaridades/index';
+import { EstadosComponent } from './layout/listas/estados/index';
+import { EstadosConcienciasComponent } from './layout/listas/estados-conciencias/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -78,7 +80,9 @@ const appRoutes: Routes = [
                 { path: 'listas/asfixias', component: AsfixiasComponent, canActivate: [AuthGuard], data : { permission: ["asfixia"] }},
                 { path: 'listas/comprensibles', component: ComprensiblesComponent, canActivate: [AuthGuard], data : { permission: ["compresible"] }},
                 { path: 'listas/conciencias', component: ConcienciasComponent, canActivate: [AuthGuard], data : { permission: ["conciencia"] }},
-                { path: 'listas/escolaridades', component: EscolaridadesComponent, canActivate: [AuthGuard], data : { permission: ["escolaridad"] }}
+                { path: 'listas/escolaridades', component: EscolaridadesComponent, canActivate: [AuthGuard], data : { permission: ["escolaridad"] }},
+                { path: 'listas/estados', component: EstadosComponent, canActivate: [AuthGuard], data : { permission: ["estado"] }},
+                { path: 'listas/estados-conciencia', component: EstadosConcienciasComponent, canActivate: [AuthGuard], data : { permission: ["estado conciencia"] }}
                 
             ] 
     }, 
