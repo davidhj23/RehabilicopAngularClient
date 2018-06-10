@@ -49,6 +49,7 @@ import { HumorComponent, HumorService } from './layout/listas/humor/index';
 import { ExpresionFacial1Component, ExpresionFacial1Service } from './layout/listas/expresion-facial1/index';
 import { ExpresionFacial2Component, ExpresionFacial2Service } from './layout/listas/expresion-facial2/index';
 import { AlimentacionesComponent, AlimentacionService } from './layout/listas/alimentaciones/index';
+import { AparienciasComponent, AparienciaService } from './layout/listas/apariencias/index';
 
 @NgModule({
     imports: [
@@ -99,7 +100,8 @@ import { AlimentacionesComponent, AlimentacionService } from './layout/listas/al
         HumorComponent, 
         ExpresionFacial1Component,
         ExpresionFacial2Component,
-        AlimentacionesComponent
+        AlimentacionesComponent,
+        AparienciasComponent
     ],
     providers: [
         AuthGuard,
@@ -131,7 +133,8 @@ import { AlimentacionesComponent, AlimentacionService } from './layout/listas/al
         HumorService,
         ExpresionFacial1Service,
         ExpresionFacial2Service,
-        AlimentacionService
+        AlimentacionService,
+        AparienciaService
     ],
     bootstrap: [AppComponent]
 })
