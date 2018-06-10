@@ -35,6 +35,7 @@ import { AseguradorasComponent } from './layout/listas/aseguradoras/index';
 import { AsfixiasComponent } from './layout/listas/asfixias/index';
 import { ComprensiblesComponent } from './layout/listas/comprensibles/index';
 import { ConcienciasComponent } from './layout/listas/conciencias/index';
+import { EscolaridadesComponent } from './layout/listas/escolaridades/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -76,7 +77,8 @@ const appRoutes: Routes = [
                 { path: 'listas/aseguradoras', component: AseguradorasComponent, canActivate: [AuthGuard], data : { permission: ["aseguradora"] }},
                 { path: 'listas/asfixias', component: AsfixiasComponent, canActivate: [AuthGuard], data : { permission: ["asfixia"] }},
                 { path: 'listas/comprensibles', component: ComprensiblesComponent, canActivate: [AuthGuard], data : { permission: ["compresible"] }},
-                { path: 'listas/conciencias', component: ConcienciasComponent, canActivate: [AuthGuard], data : { permission: ["conciencia"] }}
+                { path: 'listas/conciencias', component: ConcienciasComponent, canActivate: [AuthGuard], data : { permission: ["conciencia"] }},
+                { path: 'listas/escolaridades', component: EscolaridadesComponent, canActivate: [AuthGuard], data : { permission: ["escolaridad"] }}
                 
             ] 
     }, 
