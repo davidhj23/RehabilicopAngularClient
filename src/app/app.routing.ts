@@ -32,6 +32,8 @@ import { ExpresionFacial2Component } from './layout/listas/expresion-facial2/ind
 import { AlimentacionesComponent } from './layout/listas/alimentaciones/index';
 import { AparienciasComponent } from './layout/listas/apariencias/index';
 import { AseguradorasComponent } from './layout/listas/aseguradoras/index';
+import { AsfixiasComponent } from './layout/listas/asfixias/index';
+import { ComprensiblesComponent } from './layout/listas/comprensibles/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -70,7 +72,9 @@ const appRoutes: Routes = [
                 { path: 'listas/expresion-facial2', component: ExpresionFacial2Component, canActivate: [AuthGuard], data : { permission: ["expresion facial2"] }},
                 { path: 'listas/alimentacion', component: AlimentacionesComponent, canActivate: [AuthGuard], data : { permission: ["alimentacion"] }},
                 { path: 'listas/apariencias', component: AparienciasComponent, canActivate: [AuthGuard], data : { permission: ["apariencia"] }},
-                { path: 'listas/aseguradoras', component: AseguradorasComponent, canActivate: [AuthGuard], data : { permission: ["aseguradora"] }}
+                { path: 'listas/aseguradoras', component: AseguradorasComponent, canActivate: [AuthGuard], data : { permission: ["aseguradora"] }},
+                { path: 'listas/asfixias', component: AsfixiasComponent, canActivate: [AuthGuard], data : { permission: ["asfixia"] }},
+                { path: 'listas/comprensibles', component: ComprensiblesComponent, canActivate: [AuthGuard], data : { permission: ["compresible"] }}
                 
             ] 
     }, 

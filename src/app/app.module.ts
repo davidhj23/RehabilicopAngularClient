@@ -51,6 +51,8 @@ import { ExpresionFacial2Component, ExpresionFacial2Service } from './layout/lis
 import { AlimentacionesComponent, AlimentacionService } from './layout/listas/alimentaciones/index';
 import { AparienciasComponent, AparienciaService } from './layout/listas/apariencias/index';
 import { AseguradorasComponent, AseguradoraService } from './layout/listas/aseguradoras/index';
+import { AsfixiasComponent, AsfixiaService } from './layout/listas/asfixias/index';
+import { ComprensiblesComponent, ComprensibleService } from './layout/listas/comprensibles/index';
 
 @NgModule({
     imports: [
@@ -103,7 +105,9 @@ import { AseguradorasComponent, AseguradoraService } from './layout/listas/asegu
         ExpresionFacial2Component,
         AlimentacionesComponent,
         AparienciasComponent,
-        AseguradorasComponent
+        AseguradorasComponent,
+        AsfixiasComponent,
+        ComprensiblesComponent
     ],
     providers: [
         AuthGuard,
@@ -137,7 +141,9 @@ import { AseguradorasComponent, AseguradoraService } from './layout/listas/asegu
         ExpresionFacial2Service,
         AlimentacionService,
         AparienciaService,
-        AseguradoraService
+        AseguradoraService,
+        AsfixiaService,
+        ComprensibleService
     ],
     bootstrap: [AppComponent]
 })
