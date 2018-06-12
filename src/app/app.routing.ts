@@ -38,6 +38,7 @@ import { ConcienciasComponent } from './layout/listas/conciencias/index';
 import { EscolaridadesComponent } from './layout/listas/escolaridades/index';
 import { EstadosComponent } from './layout/listas/estados/index';
 import { EstadosConcienciasComponent } from './layout/listas/estados-conciencias/index';
+import { AtencionesComponent } from './layout/listas/atenciones/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -82,7 +83,8 @@ const appRoutes: Routes = [
                 { path: 'listas/conciencias', component: ConcienciasComponent, canActivate: [AuthGuard], data : { permission: ["conciencia"] }},
                 { path: 'listas/escolaridades', component: EscolaridadesComponent, canActivate: [AuthGuard], data : { permission: ["escolaridad"] }},
                 { path: 'listas/estados', component: EstadosComponent, canActivate: [AuthGuard], data : { permission: ["estado"] }},
-                { path: 'listas/estados-conciencia', component: EstadosConcienciasComponent, canActivate: [AuthGuard], data : { permission: ["estado conciencia"] }}
+                { path: 'listas/estados-conciencia', component: EstadosConcienciasComponent, canActivate: [AuthGuard], data : { permission: ["estado conciencia"] }},
+                { path: 'listas/atenciones', component: AtencionesComponent, canActivate: [AuthGuard], data : { permission: ["atencion"] }}
                 
             ] 
     }, 

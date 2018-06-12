@@ -57,6 +57,7 @@ import { ConcienciasComponent, ConcienciaService } from './layout/listas/concien
 import { EscolaridadesComponent, EscolaridadService } from './layout/listas/escolaridades/index';
 import { EstadosComponent, EstadoService } from './layout/listas/estados/index';
 import { EstadosConcienciasComponent, EstadoConcienciaService } from './layout/listas/estados-conciencias/index';
+import { AtencionesComponent, AtencionService } from './layout/listas/atenciones/index';
 
 @NgModule({
     imports: [
@@ -115,7 +116,8 @@ import { EstadosConcienciasComponent, EstadoConcienciaService } from './layout/l
         ConcienciasComponent,
         EscolaridadesComponent,
         EstadosComponent,
-        EstadosConcienciasComponent
+        EstadosConcienciasComponent,
+        AtencionesComponent
     ],
     providers: [
         AuthGuard,
@@ -155,7 +157,8 @@ import { EstadosConcienciasComponent, EstadoConcienciaService } from './layout/l
         ConcienciaService, 
         EscolaridadService, 
         EstadoService, 
-        EstadoConcienciaService
+        EstadoConcienciaService, 
+        AtencionService
     ],
     bootstrap: [AppComponent]
 })
