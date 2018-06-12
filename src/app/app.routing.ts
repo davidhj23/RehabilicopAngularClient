@@ -42,6 +42,7 @@ import { EstadosConcienciasComponent } from './layout/listas/estados-conciencias
 import { AtencionesComponent } from './layout/listas/atenciones/index';
 import { EquiposComponent } from './layout/listas/equipos/index';
 import { GestasComponent } from './layout/listas/gestas/index';
+import { InteligenciasComponent } from './layout/listas/inteligencias/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -90,7 +91,8 @@ const appRoutes: Routes = [
                 { path: 'listas/estados-conciencia', component: EstadosConcienciasComponent, canActivate: [AuthGuard], data : { permission: ["estado conciencia"] }},
                 { path: 'listas/atenciones', component: AtencionesComponent, canActivate: [AuthGuard], data : { permission: ["atencion"] }},
                 { path: 'listas/equipos', component: EquiposComponent, canActivate: [AuthGuard], data : { permission: ["equipo"] }},
-                { path: 'listas/gestas', component: GestasComponent, canActivate: [AuthGuard], data : { permission: ["gesta"] }}
+                { path: 'listas/gestas', component: GestasComponent, canActivate: [AuthGuard], data : { permission: ["gesta"] }},
+                { path: 'listas/inteligencias', component: InteligenciasComponent, canActivate: [AuthGuard], data : { permission: ["inteligencia"] }}
                 
             ] 
     }, 
