@@ -41,6 +41,7 @@ import { SeMuestra2Component, SeMuestra2Service } from './layout/listas/se-muest
 import { FormasComponent, FormaService } from './layout/listas/formas/index';
 import { CursosComponent, CursoService } from './layout/listas/cursos/index';
 import { MemoriaComponent, MemoriaService } from './layout/listas/memoria/index';
+import { Memoria2Component, Memoria2Service } from './layout/listas/memoria2/index';
 import { AlucinacionesComponent, AlucinacionService } from './layout/listas/alucinaciones/index';
 import { FuerzaMuscularComponent, FuerzaMuscularService } from './layout/listas/fuerza-muscular/index';
 import { MovilidadComponent, MovilidadService } from './layout/listas/movilidad/index';
@@ -107,6 +108,7 @@ import { MedicamentosComponent, MedicamentoService } from './layout/listas/medic
         FormasComponent,
         CursosComponent,
         MemoriaComponent,
+        Memoria2Component,
         AlucinacionesComponent,
         FuerzaMuscularComponent,
         MovilidadComponent, 
@@ -154,6 +156,7 @@ import { MedicamentosComponent, MedicamentoService } from './layout/listas/medic
         FormaService,
         CursoService,
         MemoriaService,
+        Memoria2Service,
         AlucinacionService,
         FuerzaMuscularService,
         MovilidadService,

@@ -45,6 +45,7 @@ import { GestasComponent } from './layout/listas/gestas/index';
 import { InteligenciasComponent } from './layout/listas/inteligencias/index';
 import { IntrospeccionesComponent } from './layout/listas/introspecciones/index';
 import { MedicamentosComponent } from './layout/listas/medicamentos/index';
+import { Memoria2Component } from './layout/listas/memoria2/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -74,6 +75,7 @@ const appRoutes: Routes = [
                 { path: 'listas/cursos', component: CursosComponent, canActivate: [AuthGuard], data : { permission: ["curso"] }},
                 { path: 'listas/formas', component: FormasComponent, canActivate: [AuthGuard], data : { permission: ["forma"] }},
                 { path: 'listas/memoria', component: MemoriaComponent, canActivate: [AuthGuard], data : { permission: ["memoria"] }},
+                { path: 'listas/memoria2', component: Memoria2Component, canActivate: [AuthGuard], data : { permission: ["memoria2"] }},
                 { path: 'listas/alucinaciones', component: AlucinacionesComponent, canActivate: [AuthGuard], data : { permission: ["alucinacion"] }},                               
                 { path: 'listas/fuerza-muscular', component: FuerzaMuscularComponent, canActivate: [AuthGuard], data : { permission: ["fuerza muscular"] }},
                 { path: 'listas/movilidad', component: MovilidadComponent, canActivate: [AuthGuard], data : { permission: ["movilidad"] }},
