@@ -47,6 +47,7 @@ import { IntrospeccionesComponent } from './layout/listas/introspecciones/index'
 import { MedicamentosComponent } from './layout/listas/medicamentos/index';
 import { Memoria2Component } from './layout/listas/memoria2/index';
 import { OrganosComponent } from './layout/listas/organos/index';
+import { ParentezcosComponent } from './layout/listas/parentezcos/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -100,7 +101,8 @@ const appRoutes: Routes = [
                 { path: 'listas/inteligencias', component: InteligenciasComponent, canActivate: [AuthGuard], data : { permission: ["inteligencia"] }},
                 { path: 'listas/introspecciones', component: IntrospeccionesComponent, canActivate: [AuthGuard], data : { permission: ["introspeccion"] }},
                 { path: 'listas/medicamentos', component: MedicamentosComponent, canActivate: [AuthGuard], data : { permission: ["medicamento"] }},
-                { path: 'listas/organos', component: OrganosComponent, canActivate: [AuthGuard], data : { permission: ["organo"] }}
+                { path: 'listas/organos', component: OrganosComponent, canActivate: [AuthGuard], data : { permission: ["organo"] }},
+                { path: 'listas/parentezcos', component: ParentezcosComponent, canActivate: [AuthGuard], data : { permission: ["parentezco"] }}
                 
             ] 
     }, 

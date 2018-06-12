@@ -66,6 +66,7 @@ import { InteligenciasComponent, InteligenciaService } from './layout/listas/int
 import { IntrospeccionesComponent, IntrospeccionService } from './layout/listas/introspecciones/index';
 import { MedicamentosComponent, MedicamentoService } from './layout/listas/medicamentos/index';
 import { OrganosComponent, OrganoService } from './layout/listas/organos/index';
+import { ParentezcosComponent, ParentezcoService } from './layout/listas/parentezcos/index';
 
 @NgModule({
     imports: [
@@ -133,7 +134,8 @@ import { OrganosComponent, OrganoService } from './layout/listas/organos/index';
         InteligenciasComponent,
         IntrospeccionesComponent,
         MedicamentosComponent,
-        OrganosComponent
+        OrganosComponent,
+        ParentezcosComponent
     ],
     providers: [
         AuthGuard,
@@ -182,7 +184,8 @@ import { OrganosComponent, OrganoService } from './layout/listas/organos/index';
         InteligenciaService, 
         IntrospeccionService, 
         MedicamentoService,
-        OrganoService       
+        OrganoService, 
+        ParentezcoService       
     ],
     bootstrap: [AppComponent]
 })
