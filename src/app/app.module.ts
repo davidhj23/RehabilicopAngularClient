@@ -48,6 +48,7 @@ import { MarchaComponent, MarchaService } from './layout/listas/marcha/index';
 import { HumorComponent, HumorService } from './layout/listas/humor/index';
 import { ExpresionFacial1Component, ExpresionFacial1Service } from './layout/listas/expresion-facial1/index';
 import { ExpresionFacial2Component, ExpresionFacial2Service } from './layout/listas/expresion-facial2/index';
+import { ExpresionFacial3Component, ExpresionFacial3Service } from './layout/listas/expresion-facial3/index';
 import { AlimentacionesComponent, AlimentacionService } from './layout/listas/alimentaciones/index';
 import { AparienciasComponent, AparienciaService } from './layout/listas/apariencias/index';
 import { AseguradorasComponent, AseguradoraService } from './layout/listas/aseguradoras/index';
@@ -58,6 +59,7 @@ import { EscolaridadesComponent, EscolaridadService } from './layout/listas/esco
 import { EstadosComponent, EstadoService } from './layout/listas/estados/index';
 import { EstadosConcienciasComponent, EstadoConcienciaService } from './layout/listas/estados-conciencias/index';
 import { AtencionesComponent, AtencionService } from './layout/listas/atenciones/index';
+import { EquiposComponent, EquipoService } from './layout/listas/equipos/index';
 
 @NgModule({
     imports: [
@@ -108,6 +110,7 @@ import { AtencionesComponent, AtencionService } from './layout/listas/atenciones
         HumorComponent, 
         ExpresionFacial1Component,
         ExpresionFacial2Component,
+        ExpresionFacial3Component,
         AlimentacionesComponent,
         AparienciasComponent,
         AseguradorasComponent,
@@ -117,7 +120,8 @@ import { AtencionesComponent, AtencionService } from './layout/listas/atenciones
         EscolaridadesComponent,
         EstadosComponent,
         EstadosConcienciasComponent,
-        AtencionesComponent
+        AtencionesComponent,
+        EquiposComponent
     ],
     providers: [
         AuthGuard,
@@ -149,6 +153,7 @@ import { AtencionesComponent, AtencionService } from './layout/listas/atenciones
         HumorService,
         ExpresionFacial1Service,
         ExpresionFacial2Service,
+        ExpresionFacial3Service,
         AlimentacionService,
         AparienciaService,
         AseguradoraService,
@@ -158,7 +163,8 @@ import { AtencionesComponent, AtencionService } from './layout/listas/atenciones
         EscolaridadService, 
         EstadoService, 
         EstadoConcienciaService, 
-        AtencionService
+        AtencionService, 
+        EquipoService
     ],
     bootstrap: [AppComponent]
 })

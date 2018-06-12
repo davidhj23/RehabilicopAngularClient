@@ -9,12 +9,12 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-th-list"></i> Expresión Facial 2</h1>
-        <p>Módulo de gestión de Expresión Facial 2, Aquí usted podrá crear, editar y eliminar Expresión Facial 2</p>
+        <h1><i class="fa fa-th-list"></i> Equipos</h1>
+        <p>Módulo de gestión de Equipos, Aquí usted podrá crear, editar y eliminar items de Equipos</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/expresion-facial2']">Expresión Facial 2</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/equipos']">Equipo</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="areErrors">
@@ -31,9 +31,9 @@
   </div>
     <div class="row">  
       <div class="col-md-12">       
-        <div class="tile" permission="crear expresion facial2">              
+        <div class="tile" permission="crear equipo">              
           <div class="tile-body">
-            <form class="row">
+            <form class="row">              
               <div class="form-group col-md-4" >
                 <label class="control-label">Nombre</label>
                 <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>                
@@ -53,23 +53,23 @@
               </div>          
             </div>
             <table class="table table-hover table-bordered" 
-                  [mfData]="expresionFacial2s" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                  [mfData]="equipos" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th permission="editar expresion facial2">Editar</th>              
-                  <th permission="eliminar expresion facial2">Eliminar</th>                   
+                  <th permission="editar equipo">Editar</th>              
+                  <th permission="eliminar equipo">Eliminar</th>              
                 </tr>
               </thead>
-              <tbody *ngFor="let expresionFacial2 of mf.data">
+              <tbody *ngFor="let equipo of mf.data">
                 <tr>                  
-                  <td class="rowTd">{{expresionFacial2.nombre}}</td>
-                  <td class="rowTd" permission="editar expresion facial2">                  
-                    <a class="btn float-left" (click)="edit(expresionFacial2, editContent)" permission="editar expresion facial2"><i class="fa fa-pencil"></i></a>                      
+                  <td class="rowTd">{{equipo.nombre}}</td>
+                  <td class="rowTd" permission="editar equipo">                  
+                      <a class="btn float-left" (click)="edit(equipo, editContent)" permission="editar equipo"><i class="fa fa-pencil"></i></a>                      
                   </td>       
-                    <td class="rowTd" permission="eliminar expresion facial2">                                      
-                      <a class="btn float-left" (click)="delete(expresionFacial2.idExpresionFacial2, content)" permission="eliminar expresion facial2"><i class="fa fa-times"></i></a>                  
-                  </td>       
+                  <td class="rowTd" permission="eliminar equipo">                                      
+                    <a class="btn float-left" (click)="delete(equipo.idEquipo, content)" permission="eliminar equipo"><i class="fa fa-times"></i></a>                  
+                </td>       
                 </tr>            
               </tbody>
               <tfoot>
@@ -88,7 +88,7 @@
 
 <ng-template #editContent let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Editar Expresión facial 2</h4>
+      <h4 class="modal-title">Editar Equipo</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
@@ -121,13 +121,13 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Eliminar Expresión Facial 2</h4>
+      <h4 class="modal-title">Eliminar Equipo</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
-      <p>¿Está seguro de querer eliminar este Expresión Facial 2?</p>
+      <p>¿Está seguro de querer eliminar este item de Equipo?</p>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
