@@ -65,6 +65,7 @@ import { GestasComponent, GestaService } from './layout/listas/gestas/index';
 import { InteligenciasComponent, InteligenciaService } from './layout/listas/inteligencias/index';
 import { IntrospeccionesComponent, IntrospeccionService } from './layout/listas/introspecciones/index';
 import { MedicamentosComponent, MedicamentoService } from './layout/listas/medicamentos/index';
+import { OrganosComponent, OrganoService } from './layout/listas/organos/index';
 
 @NgModule({
     imports: [
@@ -131,7 +132,8 @@ import { MedicamentosComponent, MedicamentoService } from './layout/listas/medic
         GestasComponent,
         InteligenciasComponent,
         IntrospeccionesComponent,
-        MedicamentosComponent
+        MedicamentosComponent,
+        OrganosComponent
     ],
     providers: [
         AuthGuard,
@@ -179,7 +181,8 @@ import { MedicamentosComponent, MedicamentoService } from './layout/listas/medic
         GestaService,
         InteligenciaService, 
         IntrospeccionService, 
-        MedicamentoService        
+        MedicamentoService,
+        OrganoService       
     ],
     bootstrap: [AppComponent]
 })
