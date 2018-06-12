@@ -62,6 +62,7 @@ import { AtencionesComponent, AtencionService } from './layout/listas/atenciones
 import { EquiposComponent, EquipoService } from './layout/listas/equipos/index';
 import { GestasComponent, GestaService } from './layout/listas/gestas/index';
 import { InteligenciasComponent, InteligenciaService } from './layout/listas/inteligencias/index';
+import { IntrospeccionesComponent, IntrospeccionService } from './layout/listas/introspecciones/index';
 
 @NgModule({
     imports: [
@@ -125,7 +126,8 @@ import { InteligenciasComponent, InteligenciaService } from './layout/listas/int
         AtencionesComponent,
         EquiposComponent,
         GestasComponent,
-        InteligenciasComponent        
+        InteligenciasComponent,
+        IntrospeccionesComponent
     ],
     providers: [
         AuthGuard,
@@ -170,7 +172,8 @@ import { InteligenciasComponent, InteligenciaService } from './layout/listas/int
         AtencionService, 
         EquipoService, 
         GestaService,
-        InteligenciaService
+        InteligenciaService, 
+        IntrospeccionService        
     ],
     bootstrap: [AppComponent]
 })

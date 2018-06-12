@@ -43,6 +43,7 @@ import { AtencionesComponent } from './layout/listas/atenciones/index';
 import { EquiposComponent } from './layout/listas/equipos/index';
 import { GestasComponent } from './layout/listas/gestas/index';
 import { InteligenciasComponent } from './layout/listas/inteligencias/index';
+import { IntrospeccionesComponent } from './layout/listas/introspecciones/index';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -92,7 +93,8 @@ const appRoutes: Routes = [
                 { path: 'listas/atenciones', component: AtencionesComponent, canActivate: [AuthGuard], data : { permission: ["atencion"] }},
                 { path: 'listas/equipos', component: EquiposComponent, canActivate: [AuthGuard], data : { permission: ["equipo"] }},
                 { path: 'listas/gestas', component: GestasComponent, canActivate: [AuthGuard], data : { permission: ["gesta"] }},
-                { path: 'listas/inteligencias', component: InteligenciasComponent, canActivate: [AuthGuard], data : { permission: ["inteligencia"] }}
+                { path: 'listas/inteligencias', component: InteligenciasComponent, canActivate: [AuthGuard], data : { permission: ["inteligencia"] }},
+                { path: 'listas/introspecciones', component: IntrospeccionesComponent, canActivate: [AuthGuard], data : { permission: ["introspeccion"] }}
                 
             ] 
     }, 
