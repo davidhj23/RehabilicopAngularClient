@@ -67,6 +67,10 @@ import { IntrospeccionesComponent, IntrospeccionService } from './layout/listas/
 import { MedicamentosComponent, MedicamentoService } from './layout/listas/medicamentos/index';
 import { OrganosComponent, OrganoService } from './layout/listas/organos/index';
 import { ParentezcosComponent, ParentezcoService } from './layout/listas/parentezcos/index';
+import { SexosComponent, SexoService } from './layout/listas/sexos/index';
+import { TiempoUsoComponent, TiempoUsoService } from './layout/listas/tiempos-usos/index';
+import { TipoEntidadComponent, TipoEntidadService } from './layout/listas/tipos-entidades/index';
+import { ViaIngresoComponent, ViaIngresoService } from './layout/listas/vias-ingresos/index';
 
 @NgModule({
     imports: [
@@ -135,7 +139,11 @@ import { ParentezcosComponent, ParentezcoService } from './layout/listas/parente
         IntrospeccionesComponent,
         MedicamentosComponent,
         OrganosComponent,
-        ParentezcosComponent
+        ParentezcosComponent,
+        SexosComponent,
+        TiempoUsoComponent,
+        TipoEntidadComponent,
+        ViaIngresoComponent
     ],
     providers: [
         AuthGuard,
@@ -185,7 +193,11 @@ import { ParentezcosComponent, ParentezcoService } from './layout/listas/parente
         IntrospeccionService, 
         MedicamentoService,
         OrganoService, 
-        ParentezcoService       
+        ParentezcoService,
+        SexoService,
+        TiempoUsoService,
+        TipoEntidadService,
+        ViaIngresoService     
     ],
     bootstrap: [AppComponent]
 })
