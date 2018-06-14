@@ -49,4 +49,8 @@ export class UserService {
             } 
         }
     }
+
+    changePassword(model: any){
+        return this.http.post(this.url + 'password', model, CommonService.getJwtHeaders());
+    }
 }

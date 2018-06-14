@@ -24,6 +24,7 @@ import { SidebarComponent } from './layout/shared/sidebar/index';
 import { LoginComponent } from './login/index';
 import { AuthenticationService } from './layout/seguridad/usuarios/authentication.service';
 import { UserService } from './layout/seguridad/usuarios/user.service';
+import { CamabiarPasswordComponent } from './layout/seguridad/usuarios/cambiarPassword';
 import { RolesComponent, RolService } from './layout/seguridad/roles/index';
 
 import { OpcionesComponent, OpcionService } from './layout/listas/opciones/index';
@@ -94,6 +95,7 @@ import { ViaIngresoComponent, ViaIngresoService } from './layout/listas/vias-ing
 
         LoginComponent,
         RolesComponent,
+        CamabiarPasswordComponent,
 
         LayoutComponent,
         HeaderComponent,

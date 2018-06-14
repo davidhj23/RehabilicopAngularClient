@@ -6,6 +6,7 @@ import { LayoutComponent } from './layout/index';
 
 import { LoginComponent } from './login/index';
 import { RolesComponent } from './layout/seguridad/roles';
+import { CamabiarPasswordComponent } from './layout/seguridad/usuarios';
 
 import { OpcionesComponent } from './layout/listas/opciones/index';
 import { SedesComponent } from './layout/listas/sedes/index';
@@ -65,6 +66,7 @@ const appRoutes: Routes = [
         children: 
             [
                 { path: 'seguridad/roles', component: RolesComponent, canActivate: [AuthGuard], data : { permission: ["roles"] }}, 
+                { path: 'seguridad/cambiarPassword', component: CambiarPasswordComponent, canActivate: [AuthGuard], data : { permission: ["cambiar password"] }}, 
              
                 { path: 'listas/opciones', component: OpcionesComponent, canActivate: [AuthGuard], data : { permission: ["opciones"] }},
                 { path: 'listas/sedes', component: SedesComponent, canActivate: [AuthGuard], data : { permission: ["sedes"] }},

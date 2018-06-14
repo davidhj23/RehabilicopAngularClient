@@ -11,7 +11,8 @@
         <i class="fa fa-user fa-lg"></i>
       </a>
       <ul ngbDropdownMenu class="dropdown-menu settings-menu dropdown-menu-right" >        
-        <li><a class="dropdown-item" (click)="cerrarSesion()"><i class="fa fa-sign-out fa-lg"></i> Cerrar Sesión</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/seguridad/usuarios/cambiarPassword']"><i class="fa fa-sign-out fa-lg"></i>Cambiar Contraseña</a></li>
+          <li><a class="dropdown-item" (click)="cerrarSesion()"><i class="fa fa-sign-out fa-lg"></i> Cerrar Sesión</a></li>
       </ul>
     </li>
   </ul>
