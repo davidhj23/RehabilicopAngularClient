@@ -7,6 +7,7 @@ import { LayoutComponent } from './layout/index';
 import { LoginComponent } from './login/index';
 import { RolesComponent } from './layout/seguridad/roles';
 import { ConsultarUsuariosComponent } from './layout/seguridad/usuarios/consultarUsuarios.component';
+import { CrearUsuariosComponent } from './layout/seguridad/usuarios/crearUsuarios.component';
 import { CambiarPasswordComponent } from './layout/seguridad/usuarios/cambiarPassword.component';
 
 import { OpcionesComponent } from './layout/listas/opciones/index';
@@ -69,6 +70,7 @@ const appRoutes: Routes = [
                 { path: 'seguridad/roles', component: RolesComponent, canActivate: [AuthGuard], data : { permission: ["roles"] }}, 
                 { path: 'seguridad/usuarios/cambiar-password', component: CambiarPasswordComponent }, 
                 { path: 'seguridad/usuarios/consultar', component: ConsultarUsuariosComponent, canActivate: [AuthGuard], data : { permission: ["usuarios"] }}, 
+                { path: 'seguridad/usuarios/nuevo', component: CrearUsuariosComponent, canActivate: [AuthGuard], data : { permission: ["crear usuario"] }}, 
              
                 { path: 'listas/opciones', component: OpcionesComponent, canActivate: [AuthGuard], data : { permission: ["opciones"] }},
                 { path: 'listas/sedes', component: SedesComponent, canActivate: [AuthGuard], data : { permission: ["sedes"] }},

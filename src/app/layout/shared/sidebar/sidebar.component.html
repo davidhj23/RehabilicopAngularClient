@@ -6,11 +6,9 @@
         <span class="app-menu__label">Seguridad</span>
         <i class="treeview-indicator fa fa-angle-right"></i>
       </a>
-      <ul class="treeview-menu" permission="roles">
-        <li><a class="treeview-item" [routerLink]="['/layout/seguridad/roles']"><i class="icon fa fa-circle-o"></i> Roles</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="usuarios">
-        <li><a class="treeview-item" [routerLink]="['/layout/seguridad/usuarios/consultar']"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>    
+      <ul class="treeview-menu" >
+        <li><a class="treeview-item" [routerLink]="['/layout/seguridad/roles']" permission="roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/seguridad/usuarios/consultar']" permission="usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>    
       </ul>      
     </li>
     <li class="treeview" [class.is-expanded]="showListas === 'listas'" permission="listas">
@@ -19,140 +17,52 @@
         <span class="app-menu__label">Listas</span>
         <i class="treeview-indicator fa fa-angle-right"></i>
       </a>
-      <ul class="treeview-menu" permission="opciones">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/opciones']"><i class="icon fa fa-circle-o"></i> Opciones</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="sedes">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/sedes']"><i class="icon fa fa-circle-o"></i>Sedes</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="tipos documentos">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/tipos-documentos']"><i class="icon fa fa-circle-o"></i>Tipos de Documentos</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="cie10s">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/cie10s']"><i class="icon fa fa-circle-o"></i>Cie 10</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="estados civiles">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/estados-civiles']"><i class="icon fa fa-circle-o"></i>Estados Civiles</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="camas">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/camas']"><i class="icon fa fa-circle-o"></i>Camas</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="servicios">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/servicios']"><i class="icon fa fa-circle-o"></i>Servicios</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="alteraciones">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/alteraciones']"><i class="icon fa fa-circle-o"></i>Alteraciones</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="patrones">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/patrones']"><i class="icon fa fa-circle-o"></i>Patrones</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="tonos voz">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/tonos-voz']"><i class="icon fa fa-circle-o"></i>Tonos de Voz</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="se muestra1">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/se-muestra1']"><i class="icon fa fa-circle-o"></i>Se Muestra 1</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="se muestra2">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/se-muestra2']"><i class="icon fa fa-circle-o"></i>Se Muestra 2</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="forma">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/formas']"><i class="icon fa fa-circle-o"></i>Formas</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="curso">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/cursos']"><i class="icon fa fa-circle-o"></i>Cursos</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="memoria">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/memoria']"><i class="icon fa fa-circle-o"></i>Memoria</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="memoria2">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/memoria2']"><i class="icon fa fa-circle-o"></i>Memoria 2</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="movilidad">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/movilidad']"><i class="icon fa fa-circle-o"></i>Movilidad</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="alucinacion">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/alucinaciones']"><i class="icon fa fa-circle-o"></i>Alucinaciones</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="fuerza muscular">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/fuerza-muscular']"><i class="icon fa fa-circle-o"></i>Fuerza Muscular</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="marcha">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/marcha']"><i class="icon fa fa-circle-o"></i>Marchas</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="humor">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/humor']"><i class="icon fa fa-circle-o"></i>Humor</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="expresion facial1">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/expresion-facial1']"><i class="icon fa fa-circle-o"></i>Expresión Facial 1</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="expresion facial2">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/expresion-facial2']"><i class="icon fa fa-circle-o"></i>Expresión Facial 2</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="expresion facial3">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/expresion-facial3']"><i class="icon fa fa-circle-o"></i>Expresión Facial 3</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="alimentacion">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/alimentacion']"><i class="icon fa fa-circle-o"></i>Alimentación</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="apariencia">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/apariencias']"><i class="icon fa fa-circle-o"></i>Apariencia</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="aseguradora">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/aseguradoras']"><i class="icon fa fa-circle-o"></i>Aseguradora</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="asfixia">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/asfixias']"><i class="icon fa fa-circle-o"></i>Asfixias</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="comprensible">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/comprensibles']"><i class="icon fa fa-circle-o"></i>Comprensible</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="conciencia">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/conciencias']"><i class="icon fa fa-circle-o"></i>Conciencia</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="escolaridad">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/escolaridades']"><i class="icon fa fa-circle-o"></i>Escolaridad</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="estado">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/estados']"><i class="icon fa fa-circle-o"></i>Estados</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="estado conciencia">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/estados-conciencias']"><i class="icon fa fa-circle-o"></i>Estados Conciencias</a></li>    
-      </ul>
-      <ul class="treeview-menu" permission="atencion">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/atenciones']"><i class="icon fa fa-circle-o"></i>Atenciones</a></li>
-      </ul>
-      <ul class="treeview-menu" permission="equipo">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/equipos']"><i class="icon fa fa-circle-o"></i>Equipos</a></li>
-      </ul>
-      <ul class="treeview-menu" permission="gesta">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/gestas']"><i class="icon fa fa-circle-o"></i>Gestas</a></li>
-      </ul>
-      <ul class="treeview-menu" permission="inteligencia">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/inteligencias']"><i class="icon fa fa-circle-o"></i>Inteligencias</a></li>
-      </ul>
-      <ul class="treeview-menu" permission="introspeccion">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/introspecciones']"><i class="icon fa fa-circle-o"></i>Introspeccion</a></li>
-      </ul>
-      <ul class="treeview-menu" permission="medicamento">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/medicamentos']"><i class="icon fa fa-circle-o"></i>Medicamentos</a></li>
-      </ul>
-      <ul class="treeview-menu" permission="organo">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/organos']"><i class="icon fa fa-circle-o"></i>Organos</a></li>
-      </ul>
-      <ul class="treeview-menu" permission="parentezco">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/parentezcos']"><i class="icon fa fa-circle-o"></i>Parentezcos</a></li>
-      </ul>
-      <ul class="treeview-menu" permission="sexo">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/sexos']"><i class="icon fa fa-circle-o"></i>Sexo</a></li>
-      </ul>
-      <ul class="treeview-menu" permission="tiempo de uso">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/tiempos-usos']"><i class="icon fa fa-circle-o"></i>Tiempos de Usos</a></li>
-      </ul>
-      <ul class="treeview-menu" permission="tipo entidad">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/tipos-entidades']"><i class="icon fa fa-circle-o"></i>Tipos de Entidades</a></li>
-      </ul>      
-      <ul class="treeview-menu" permission="via ingreso">
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/vias-ingresos']"><i class="icon fa fa-circle-o"></i>Vias de Ingresos</a></li>
+      <ul class="treeview-menu">
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/opciones']" permission="opciones"><i class="icon fa fa-circle-o"></i> Opciones</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/sedes']" permission="sedes"><i class="icon fa fa-circle-o"></i>Sedes</a></li>                 
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/tipos-documentos']" permission="tipos documentos"><i class="icon fa fa-circle-o"></i>Tipos de Documentos</a></li>                
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/cie10s']" permission="cie10s"><i class="icon fa fa-circle-o"></i>Cie 10</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/estados-civiles']" permission="estados civiles"><i class="icon fa fa-circle-o"></i>Estados Civiles</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/camas']" permission="camas"><i class="icon fa fa-circle-o"></i>Camas</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/servicios']" permission="servicios"><i class="icon fa fa-circle-o"></i>Servicios</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/alteraciones']" permission="alteraciones"><i class="icon fa fa-circle-o"></i>Alteraciones</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/patrones']" permission="patrones"><i class="icon fa fa-circle-o"></i>Patrones</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/tonos-voz']" permission="tonos voz"><i class="icon fa fa-circle-o"></i>Tonos de Voz</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/se-muestra1']" permission="se muestra1"><i class="icon fa fa-circle-o"></i>Se Muestra 1</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/se-muestra2']" permission="se muestra2"><i class="icon fa fa-circle-o"></i>Se Muestra 2</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/formas']" permission="forma"><i class="icon fa fa-circle-o"></i>Formas</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/cursos']" permission="curso"><i class="icon fa fa-circle-o"></i>Cursos</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/memoria']" permission="memoria"><i class="icon fa fa-circle-o"></i>Memoria</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/memoria2']" permission="memoria2"><i class="icon fa fa-circle-o"></i>Memoria 2</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/movilidad']" permission="movilidad"><i class="icon fa fa-circle-o"></i>Movilidad</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/alucinaciones']" permission="alucinacion"><i class="icon fa fa-circle-o"></i>Alucinaciones</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/fuerza-muscular']" permission="fuerza muscular"><i class="icon fa fa-circle-o"></i>Fuerza Muscular</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/marcha']" permission="marcha"><i class="icon fa fa-circle-o"></i>Marchas</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/humor']" permission="humor"><i class="icon fa fa-circle-o"></i>Humor</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/expresion-facial1']" permission="expresion facial1"><i class="icon fa fa-circle-o"></i>Expresión Facial 1</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/expresion-facial2']" permission="expresion facial2"><i class="icon fa fa-circle-o"></i>Expresión Facial 2</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/expresion-facial3']" permission="expresion facial3"><i class="icon fa fa-circle-o"></i>Expresión Facial 3</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/alimentacion']" permission="alimentacion"><i class="icon fa fa-circle-o"></i>Alimentación</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/apariencias']" permission="apariencia"><i class="icon fa fa-circle-o"></i>Apariencia</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/aseguradoras']" permission="aseguradora"><i class="icon fa fa-circle-o"></i>Aseguradora</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/asfixias']" permission="asfixia"><i class="icon fa fa-circle-o"></i>Asfixias</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/comprensibles']" permission="comprensible"><i class="icon fa fa-circle-o"></i>Comprensible</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/conciencias']" permission="conciencia"><i class="icon fa fa-circle-o"></i>Conciencia</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/escolaridades']" permission="escolaridad"><i class="icon fa fa-circle-o"></i>Escolaridad</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/estados']" permission="estado"><i class="icon fa fa-circle-o"></i>Estados</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/estados-conciencias']" permission="estado conciencia"><i class="icon fa fa-circle-o"></i>Estados Conciencias</a></li>    
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/atenciones']" permission="atencion"><i class="icon fa fa-circle-o"></i>Atenciones</a></li>
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/equipos']" permission="equipo"><i class="icon fa fa-circle-o"></i>Equipos</a></li>
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/gestas']" permission="gesta"><i class="icon fa fa-circle-o"></i>Gestas</a></li>
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/inteligencias']" permission="inteligencia"><i class="icon fa fa-circle-o"></i>Inteligencias</a></li>
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/introspecciones']" permission="introspeccion"><i class="icon fa fa-circle-o"></i>Introspeccion</a></li>      
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/medicamentos']" permission="medicamento"><i class="icon fa fa-circle-o"></i>Medicamentos</a></li>
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/organos']" permission="organo"><i class="icon fa fa-circle-o"></i>Organos</a></li>
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/parentezcos']" permission="parentezco"><i class="icon fa fa-circle-o"></i>Parentezcos</a></li>
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/sexos']" permission="sexo"><i class="icon fa fa-circle-o"></i>Sexo</a></li>
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/tiempos-usos']" permission="tiempo de uso"><i class="icon fa fa-circle-o"></i>Tiempos de Usos</a></li>
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/tipos-entidades']" permission="tipo entidad"><i class="icon fa fa-circle-o"></i>Tipos de Entidades</a></li>
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/vias-ingresos']" permission="via ingreso"><i class="icon fa fa-circle-o"></i>Vias de Ingresos</a></li>      
       </ul>
     </li>    
   </ul>

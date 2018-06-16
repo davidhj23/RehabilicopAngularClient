@@ -9,7 +9,7 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-th-list"></i> Consultar Usuarios</h1> 
+        <h1><i class="fa fa-th-list"></i> Usuarios</h1> 
         <p>Módulo de gestión de Usuarios, Aquí usted podrá crear, editar y eliminar Usuarios</p>       
       </div>
       <ul class="app-breadcrumb breadcrumb">
@@ -33,7 +33,7 @@
         <div class="col-md-12"> 
             <div class="tile" permission="crear usuario">              
                 <div class="tile-body">                                                          
-                    <button class="btn btn-primary" type="button" (click)="new()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Nuevo Usuario</button>                    
+                    <button class="btn btn-primary" type="button" [routerLink]="['/layout/seguridad/usuarios/nuevo']"><i class="fa fa-fw fa-lg fa-check-circle"></i>Nuevo Usuario</button>                    
                 </div>
             </div>
             <div class="tile"> 

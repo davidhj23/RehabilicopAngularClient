@@ -26,6 +26,10 @@ export class UserService {
         return this.http.get(this.meUrl,  CommonService.getJwtHeaders());
     }
 
+    create(user: User): Observable<any> {
+        return this.http.post(this.url, user, CommonService.getJwtHeaders());
+    }
+
     update(user: User): Observable<any> {
         return this.http.put(this.url + user, user,  CommonService.getJwtHeaders());
     }

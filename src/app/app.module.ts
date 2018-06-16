@@ -25,6 +25,7 @@ import { LoginComponent } from './login/index';
 import { AuthenticationService } from './layout/seguridad/usuarios/authentication.service';
 import { UserService } from './layout/seguridad/usuarios/user.service';
 import { ConsultarUsuariosComponent } from './layout/seguridad/usuarios/consultarUsuarios.component';
+import { CrearUsuariosComponent } from './layout/seguridad/usuarios/crearUsuarios.component';
 import { CambiarPasswordComponent } from './layout/seguridad/usuarios/cambiarPassword.component';
 import { RolesComponent, RolService } from './layout/seguridad/roles/index';
 
@@ -96,6 +97,7 @@ import { ViaIngresoComponent, ViaIngresoService } from './layout/listas/vias-ing
 
         LoginComponent,
         ConsultarUsuariosComponent,
+        CrearUsuariosComponent,
         RolesComponent,
         CambiarPasswordComponent,
 
