@@ -39,6 +39,7 @@ export class ViaIngresoComponent implements OnInit {
         this.showLoading(true);   
         this.viaIngresoService.getAll().subscribe(
             viasIngresos => { 
+                console.log(viasIngresos)
                 this.viasIngresos = viasIngresos; 
                 this.temp = this.viasIngresos;
                 this.showLoading(false);

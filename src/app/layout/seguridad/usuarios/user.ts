@@ -2,7 +2,7 @@
 import { TipoDocumento } from "../../listas/tipos-documentos/tipoDocumento";
 
 export class User {
-    idUsuario: number;
+    idUsuario: string;
     username: string;
     password: string;
     email: string;

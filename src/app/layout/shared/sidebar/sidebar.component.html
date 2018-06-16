@@ -9,6 +9,9 @@
       <ul class="treeview-menu" permission="roles">
         <li><a class="treeview-item" [routerLink]="['/layout/seguridad/roles']"><i class="icon fa fa-circle-o"></i> Roles</a></li>    
       </ul>
+      <ul class="treeview-menu" permission="usuarios">
+        <li><a class="treeview-item" [routerLink]="['/layout/seguridad/usuarios/consultar']"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>    
+      </ul>      
     </li>
     <li class="treeview" [class.is-expanded]="showListas === 'listas'" permission="listas">
       <a class="app-menu__item" (click)="expandListas('listas')" [routerLink]="" data-toggle="treeview">

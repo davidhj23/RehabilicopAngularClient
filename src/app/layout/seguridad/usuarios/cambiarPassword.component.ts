@@ -54,6 +54,16 @@ export class CambiarPasswordComponent implements OnInit {
             areErrors = true;
         }
 
+        if(this.model.newPassword != this.model.repeatNewPassword){
+            this.errores.push({ message: 'La nueva clave no es igual a repetir nueva clave'});
+            areErrors = true;
+        }
+
+        if(this.model.newPassword.length < 6){
+            this.errores.push({ message: 'La nueva clave debe tener al menos 6 caracteres'});
+            areErrors = true;
+        }
+
         if(areErrors){
             this.showErrors();
             return false;
