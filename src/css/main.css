@@ -13500,7 +13500,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .treeview.is-expanded .treeview-menu {
-  max-height: 100vh;
+  max-height: 1000vh;
 }
 
 .treeview.is-expanded .treeview-indicator {
