@@ -1,36 +1,47 @@
-﻿<section class="material-half-bg">
-    <div class="cover"></div>
-</section>
-
-<section class="login-content">
-    <div class="logo">
-        <h1>Rehabilicop</h1>
+﻿<div [ngClass]="{ 'tile loading': loading }">
+    <div class="overlay" *ngIf="loading">
+        <div class="m-loader mr-4">
+            <svg class="m-circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10"/>
+            </svg>
+        </div>
+        <h3 class="l-text">Loading</h3>
     </div>
-    <div class="login-box">
-        <form class="login-form" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-            <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>LOGIN</h3>
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-                <label class="control-label">USUARIO</label>
-                <input type="text" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && !username.valid }"
-                    name="username" placeholder="Usuario" [(ngModel)]="model.username" #username="ngModel" required />                
-            </div>
-            <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !password.valid }">
-                <label class="control-label">CLAVE</label>
-                <input type="password" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && !password.valid }"
-                     name="password"  placeholder="Clave" [(ngModel)]="model.password" #password="ngModel" required />                
-            </div>        
-            <div class="form-group btn-container">
-                <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>LOGIN</button>
-            </div>
-            <div class="row" *ngIf="error">
-                <div class="col-md-12">
-                    <div class="bs-component">
-                        <div class="alert alert-dismissible alert-danger">                            
-                            <strong>{{error}}</strong>
+
+    <section class="material-half-bg">
+        <div class="cover"></div>
+    </section>
+
+    <section class="login-content">
+        <div class="logo">
+            <h1>Rehabilicop</h1>
+        </div>
+        <div class="login-box">
+            <form class="login-form" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+                <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>LOGIN</h3>
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                    <label class="control-label">USUARIO</label>
+                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && !username.valid }"
+                        name="username" placeholder="Usuario" [(ngModel)]="model.username" #username="ngModel" required />                
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !password.valid }">
+                    <label class="control-label">CLAVE</label>
+                    <input type="password" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && !password.valid }"
+                        name="password"  placeholder="Clave" [(ngModel)]="model.password" #password="ngModel" required />                
+                </div>        
+                <div class="form-group btn-container">
+                    <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>LOGIN</button>
+                </div>
+                <div class="row" *ngIf="error">
+                    <div class="col-md-12">
+                        <div class="bs-component">
+                            <div class="alert alert-dismissible alert-danger">                            
+                                <strong>{{error}}</strong>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>        
-    </div>
-</section>
+            </form>        
+        </div>
+    </section>
+</div>
