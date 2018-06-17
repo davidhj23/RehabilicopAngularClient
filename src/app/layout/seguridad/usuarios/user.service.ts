@@ -57,4 +57,8 @@ export class UserService {
     changePassword(model: any){
         return this.http.post(this.url + 'password', model, CommonService.getJwtHeaders());
     }
+
+    restablecerPassword(model: any){
+        return this.http.post(this.url + model.idUsuario + '/password', model, CommonService.getJwtHeaders());
+    }
 }

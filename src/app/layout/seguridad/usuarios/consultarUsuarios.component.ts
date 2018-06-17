@@ -36,8 +36,7 @@ export class ConsultarUsuariosComponent implements OnInit {
     private loadAllUsuarios() {     
         this.showLoading(true);   
         this.userService.getAll().subscribe(
-            usuarios => { 
-                console.log(usuarios)
+            usuarios => {                 
                 this.usuarios = usuarios; 
                 this.temp = this.usuarios;
                 this.showLoading(false);

@@ -27,7 +27,8 @@ import { UserService } from './layout/seguridad/usuarios/user.service';
 import { ConsultarUsuariosComponent } from './layout/seguridad/usuarios/consultarUsuarios.component';
 import { CrearUsuariosComponent } from './layout/seguridad/usuarios/crearUsuarios.component';
 import { CambiarPasswordComponent } from './layout/seguridad/usuarios/cambiarPassword.component';
-import { RolesComponent, RolService } from './layout/seguridad/roles/index';
+import { RestablecerPasswordComponent } from './layout/seguridad/usuarios/restablecerPassword.component';
+import { RolesComponent, AsignarPermisosComponent, RolService } from './layout/seguridad/roles/index';
 
 import { OpcionesComponent, OpcionService } from './layout/listas/opciones/index';
 import { SedesComponent, SedeService } from './layout/listas/sedes/index';
@@ -99,7 +100,9 @@ import { ViaIngresoComponent, ViaIngresoService } from './layout/listas/vias-ing
         ConsultarUsuariosComponent,
         CrearUsuariosComponent,
         RolesComponent,
+        AsignarPermisosComponent,
         CambiarPasswordComponent,
+        RestablecerPasswordComponent,
 
         LayoutComponent,
         HeaderComponent,
