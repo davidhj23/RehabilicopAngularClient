@@ -59,7 +59,7 @@ export class CambiarPasswordComponent implements OnInit {
             areErrors = true;
         }
 
-        if(this.model.newPassword.length < 6){
+        if(this.model.newPassword == undefined || this.model.newPassword.length < 6){
             this.errores.push({ message: 'La nueva clave debe tener al menos 6 caracteres'});
             areErrors = true;
         }

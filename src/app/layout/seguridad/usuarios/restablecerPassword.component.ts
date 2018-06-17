@@ -12,6 +12,7 @@ export class RestablecerPasswordComponent implements OnInit {
     
     model: any = {}; 
     usuarios: User[] = [];  
+    idUsuario: string; 
 
     loading = false;        
     
@@ -52,7 +53,7 @@ export class RestablecerPasswordComponent implements OnInit {
                     this.clearModel();                    
                     this.showLoading(false);
                 },
-                error => {                        
+                error => {                                            
                     this.errores = error.error;             
                     this.showErrors();
                     this.showLoading(false);
@@ -62,25 +63,27 @@ export class RestablecerPasswordComponent implements OnInit {
     validateCreate(){
         let areErrors = false;
         this.clearAndcloseErrors();        
+        
+        this.model.idUsuario = this.idUsuario;
 
-        if(this.model.idUsuario == ''){
+        if(this.model.idUsuario == undefined || this.model.idUsuario == ''){
             this.errores.push({ message: 'Seleccione un usuario'});
             areErrors = true;
         }
-
+        
         if(this.model.newPassword == undefined || this.model.newPassword == '' ||
            this.model.repeatNewPassword == undefined || this.model.repeatNewPassword == ''){
 
             this.errores.push({ message: 'Todos los campos son obligatorios'});
             areErrors = true;
         }
-
+        
         if(this.model.newPassword != this.model.repeatNewPassword){
             this.errores.push({ message: 'La nueva clave no es igual a repetir nueva clave'});
             areErrors = true;
         }
 
-        if(this.model.newPassword.length < 6){
+        if(this.model.newPassword == undefined || this.model.newPassword.length < 6){
             this.errores.push({ message: 'La nueva clave debe tener al menos 6 caracteres'});
             areErrors = true;
         }
