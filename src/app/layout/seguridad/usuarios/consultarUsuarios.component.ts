@@ -36,12 +36,13 @@ export class ConsultarUsuariosComponent implements OnInit {
     private loadAllUsuarios() {     
         this.showLoading(true);   
         this.userService.getAll().subscribe(
-            usuarios => {                 
+            usuarios => {                                 
                 this.usuarios = usuarios; 
                 this.temp = this.usuarios;
                 this.showLoading(false);
             },
-            error => {                        
+            error => {        
+                console.log(error);
                 this.errores = error.error;             
                 this.showErrors();
                 this.showLoading(false);

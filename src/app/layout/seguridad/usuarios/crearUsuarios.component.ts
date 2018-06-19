@@ -68,18 +68,16 @@ export class CrearUsuariosComponent implements OnInit {
     guardar() {
         if(!this.validateCreate()) return;
 
-        this.model.tipoDocumento = [];
+        this.model.tipoDocumento = new TipoDocumento();
         this.model.roles = [];        
 
         let tipoDoc = new TipoDocumento();
         tipoDoc.idTipoDocumento = this.idTipoDocumento;          
-        this.model.tipoDocumento.push(tipoDoc);        
+        this.model.tipoDocumento = tipoDoc;        
 
         let rol = new Rol();
         rol.idRol = this.idRol;
-        this.model.roles.push(rol);
-
-        console.log(this.model)
+        this.model.roles.push(rol);        
 
         this.showLoading(true);    
         this.userService.create(this.model)
