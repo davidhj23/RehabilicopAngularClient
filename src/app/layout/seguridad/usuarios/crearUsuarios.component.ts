@@ -1,5 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { User } from './user';
 import { RolService, Rol } from '../roles';
@@ -30,8 +29,6 @@ export class CrearUsuariosComponent implements OnInit {
         private rolService: RolService) {
 
         this.model = new User();
-        this.model.tipoDocumento = [];
-        this.model.roles = [];
     }
 
     ngOnInit() {    
@@ -70,14 +67,19 @@ export class CrearUsuariosComponent implements OnInit {
 
     guardar() {
         if(!this.validateCreate()) return;
-        
+
+        this.model.tipoDocumento = [];
+        this.model.roles = [];        
+
         let tipoDoc = new TipoDocumento();
-        tipoDoc.idTipoDocumento = this.idTipoDocumento;        
-        this.model.tipoDocumento.push(tipoDoc);
+        tipoDoc.idTipoDocumento = this.idTipoDocumento;          
+        this.model.tipoDocumento.push(tipoDoc);        
 
         let rol = new Rol();
         rol.idRol = this.idRol;
         this.model.roles.push(rol);
+
+        console.log(this.model)
 
         this.showLoading(true);    
         this.userService.create(this.model)
