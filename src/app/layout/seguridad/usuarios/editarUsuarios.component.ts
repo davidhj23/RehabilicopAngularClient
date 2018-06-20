@@ -2,17 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { User } from './user';
 import { RolService, Rol } from '../roles';
-import { TipoDocumentoService, TipoDocumento, TiposDocumentosComponent } from '../../listas/tipos-documentos';
-import { Validators } from '@angular/forms';
+import { TipoDocumentoService, TipoDocumento } from '../../listas/tipos-documentos';
 import { Validator } from '../../../_utils/validators';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'crearUsuarios',
-    templateUrl: 'crearUsuarios.component.html',
+    selector: 'editarUsuarios',
+    templateUrl: 'editarUsuarios.component.html',
 })
 
-export class CrearUsuariosComponent implements OnInit {       
+export class EditarUsuariosComponent implements OnInit {       
     
+    currentUserId: string;
+
     model: User;       
     tiposDocumentos: any[] = [];  
     roles: any[] = [];  
@@ -28,13 +30,36 @@ export class CrearUsuariosComponent implements OnInit {
     constructor(
         private userService: UserService,
         private tipoDocumentoService: TipoDocumentoService,
-        private rolService: RolService) {
+        private rolService: RolService,
+        private route: ActivatedRoute) {
 
         this.model = new User();
+
+        this.route.params.subscribe( 
+            params => {
+                this.currentUserId = params['id'];
+            }
+        );
     }
 
     ngOnInit() {    
         this.fillSelects();
+
+        this.showLoading(true);    
+        this.userService.getById(this.currentUserId)
+            .subscribe(
+                data => {                        
+                    //this.model = data;
+                    this.model.identificacion = data.identificacion;
+                    console.log(this.model)
+                    this.clearModel();                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    this.errores = error.error;             
+                    this.showErrors();
+                    this.showLoading(false);
+                });      
     }    
 
     fillSelects(){
@@ -82,7 +107,7 @@ export class CrearUsuariosComponent implements OnInit {
         this.model.roles.push(rol);        
 
         this.showLoading(true);    
-        this.userService.create(this.model)
+        this.userService.update(this.model)
             .subscribe(
                 data => {                        
                     this.clearModel();                    

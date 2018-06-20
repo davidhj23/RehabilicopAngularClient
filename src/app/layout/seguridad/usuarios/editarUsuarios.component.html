@@ -1,0 +1,90 @@
+<main class="app-content" [ngClass]="{ 'tile loading': loading }"> 
+    <div class="overlay" *ngIf="loading">
+        <div class="m-loader mr-4">
+            <svg class="m-circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10"/>
+            </svg>
+        </div>
+        <h3 class="l-text">Loading</h3>
+    </div>
+    <div class="app-title">     
+      <div>
+        <h1><i class="fa fa-user fa-lg"></i> Editar Usuarios</h1>        
+      </div>
+      <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/seguridad/usuarios/editar']">Editar Usuario</a></li>
+      </ul>
+    </div>
+    <div class="row" *ngIf="areErrors">
+        <div class="col-md-12">
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-danger">    
+                    <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                    <div *ngFor="let e of errores">
+                        <strong>{{e.message}}</strong>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">  
+        <div class="col-md-12">       
+            <div class="tile">              
+                <div class="tile-body">
+                    <div class="row">     
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Tipo Documento</label>                                
+                            <select class="form-control" [(ngModel)]="idTipoDocumento" name="tipoDocumento">                                
+                                <option *ngFor="let item of tiposDocumentos" [value]="item.idTipoDocumento">{{item.nombre}}</option>
+                            </select>
+                        </div>                                                                        
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Cédula</label>                                
+                            <input class="form-control" type="text" name="identificacion" [(ngModel)]="model.identificacion" #identificacion="ngModel" required>                                                
+                        </div>                                  
+                    </div>
+                    <div class="row"> 
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Nombres</label>
+                            <input class="form-control" type="text" name="nombres" [(ngModel)]="model.nombres" #nombres="ngModel" required>                
+                        </div>          
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Apellidos</label>
+                            <input class="form-control" type="text" name="apellidos" [(ngModel)]="model.apellidos" #apellidos="ngModel" required>                
+                        </div>                            
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Rol</label>                                
+                            <select class="form-control" [(ngModel)]="idRol" name="rol">                                
+                                <option *ngFor="let item of roles" [value]="item.idRol">{{item.nombre}}</option>
+                            </select>
+                        </div>                            
+                    </div>
+                    <div class="row">                                                                   
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Email</label>                                
+                            <input class="form-control" type="text" name="email" [(ngModel)]="model.email" #email="ngModel" required>                                                
+                        </div>          
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Dirección</label>
+                            <input class="form-control" type="text" name="direccion" [(ngModel)]="model.direccion" #direccion="ngModel" required>                
+                        </div>          
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Telefono</label>
+                            <input class="form-control" type="text" name="telefono" [(ngModel)]="model.telefono" #telefono="ngModel" required>                
+                        </div>                            
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Celular</label>
+                            <input class="form-control" type="text" name="celular" [(ngModel)]="model.celular" #celular="ngModel" required>                
+                        </div>                            
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4 align-self-end">
+                            <button class="btn btn-primary" type="button" (click)="guardar()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>      
+    </div>
+</main>

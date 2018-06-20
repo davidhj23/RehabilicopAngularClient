@@ -8,6 +8,7 @@ import { LoginComponent } from './login/index';
 import { RolesComponent, AsignarPermisosComponent } from './layout/seguridad/roles';
 import { ConsultarUsuariosComponent } from './layout/seguridad/usuarios/consultarUsuarios.component';
 import { CrearUsuariosComponent } from './layout/seguridad/usuarios/crearUsuarios.component';
+import { EditarUsuariosComponent } from './layout/seguridad/usuarios/editarUsuarios.component';
 import { CambiarPasswordComponent } from './layout/seguridad/usuarios/cambiarPassword.component';
 import { RestablecerPasswordComponent } from './layout/seguridad/usuarios/restablecerPassword.component';
 
@@ -75,6 +76,7 @@ const appRoutes: Routes = [
                 { path: 'seguridad/usuarios/restablecer-password', component: RestablecerPasswordComponent, canActivate: [AuthGuard], data : { permission: ["restablecer clave"] }}, 
                 { path: 'seguridad/usuarios/consultar', component: ConsultarUsuariosComponent, canActivate: [AuthGuard], data : { permission: ["usuarios"] }}, 
                 { path: 'seguridad/usuarios/nuevo', component: CrearUsuariosComponent, canActivate: [AuthGuard], data : { permission: ["crear usuario"] }}, 
+                { path: 'seguridad/usuarios/editar/:id', component: EditarUsuariosComponent, canActivate: [AuthGuard], data : { permission: ["editar usuario"] }}, 
              
                 { path: 'listas/opciones', component: OpcionesComponent, canActivate: [AuthGuard], data : { permission: ["opciones"] }},
                 { path: 'listas/sedes', component: SedesComponent, canActivate: [AuthGuard], data : { permission: ["sedes"] }},

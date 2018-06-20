@@ -65,7 +65,7 @@ export class ConsultarUsuariosComponent implements OnInit {
     }
 
     edit(model: any) {            
-          
+        this.router.navigate(['/layout/seguridad/usuarios/editar', model.idUsuario]);
     }
 
     delete(idRol: string, content: any) {   
