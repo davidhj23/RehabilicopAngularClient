@@ -1,18 +1,18 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Parentezco } from './parentezco';
-import { ParentezcoService } from './parentezco.service';
+import { Parentesco } from './parentesco';
+import { ParentescoService } from './parentesco.service';
 
 @Component({
-    selector: 'parentezcos',
-    templateUrl: 'parentezcos.component.html',
+    selector: 'parentescos',
+    templateUrl: 'parentescos.component.html',
 })
 
-export class ParentezcosComponent implements OnInit {   
+export class ParentescosComponent implements OnInit {   
     
-    parentezcos: Parentezco[] = [];
-    temp: Parentezco[] = [];
+    parentescos: Parentesco[] = [];
+    temp: Parentesco[] = [];
     model: any = {};
     modelToEdit: any = {};
 
@@ -25,27 +25,33 @@ export class ParentezcosComponent implements OnInit {
     editErrores: any[] = [];   
 
     constructor(
-        private parentezcoService: ParentezcoService,
+        private parentescoService: ParentescoService,
         private router: Router,
         private ngbModal: NgbModal) {
         let self = this;
     }
 
     ngOnInit() {        
-        this.loadAllParentezcos();        
+        this.loadAllParentescos();        
     }
 
-    private loadAllParentezcos() {     
+    private loadAllParentescos() {     
         this.showLoading(true);   
-        this.parentezcoService.getAll()
+        this.parentescoService.getAll()
             .subscribe(
-                parentezcos => { 
-                    this.parentezcos = parentezcos; 
-                    this.temp = this.parentezcos;
+                parentescos => { 
+                    this.parentescos = parentescos; 
+                    this.temp = this.parentescos;
                     this.showLoading(false);
                 },
                 error => {                        
-                    this.errores = error.error;             
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
                     this.showErrors();
                     this.showLoading(false);
                 });
@@ -59,22 +65,28 @@ export class ParentezcosComponent implements OnInit {
             return d.nombre.toLowerCase().indexOf(val) !== -1 || !val;
         }); 
 
-        this.parentezcos = temp;
+        this.parentescos = temp;
     }
 
     create() {
         if(!this.validateCreate()) return;
 
         this.showLoading(true);    
-        this.parentezcoService.create(this.model)
+        this.parentescoService.create(this.model)
             .subscribe(
                 data => {                        
                     this.clearModel();
-                    this.loadAllParentezcos();
+                    this.loadAllParentescos();
                     this.showLoading(false);
                 },
                 error => {                        
-                    this.errores = error.error;             
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
                     this.showErrors();
                     this.showLoading(false);
                 });         
@@ -98,22 +110,28 @@ export class ParentezcosComponent implements OnInit {
     }
 
     edit(model: any, editContent: any) {            
-        this.modelToEdit.idParentezco = model.idParentezco;     
+        this.modelToEdit.idParentesco = model.idParentesco;     
         this.modelToEdit.nombre = model.nombre;     
 
         this.ngbModal.open(editContent).result.then((result) => {
             
             this.showLoading(true);      
             if(this.validateEdit()){                                               
-                this.parentezcoService.update(this.modelToEdit)
+                this.parentescoService.update(this.modelToEdit)
                     .subscribe(
                         data => {
                             this.clearModel();
-                            this.loadAllParentezcos();
+                            this.loadAllParentescos();
                             this.showLoading(false);
                         },
                         error => {
-                            this.editErrores = error.error;             
+                            if(Array.isArray(error.error)){
+                                this.editErrores = error.error;
+                            }else{
+                                let errores = [];
+                                errores.push(error.error);
+                                this.editErrores = errores;
+                            } 
                             this.showErrors();
                             this.showLoading(false);
                         });     
@@ -142,16 +160,22 @@ export class ParentezcosComponent implements OnInit {
         return true;
     }
 
-    delete(idParentezco: string, content: any) {   
+    delete(idParentesco: string, content: any) {   
         this.clearAndcloseErrors();   
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
-            this.parentezcoService.delete(idParentezco)
+            this.parentescoService.delete(idParentesco)
                 .subscribe(data => {                    
-                    this.loadAllParentezcos();                    
+                    this.loadAllParentescos();                    
                     this.showLoading(false);
                 }, error => {       
-                    this.errores = error.error;             
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
                     this.showErrors();
                     this.showLoading(false);
                 })
@@ -189,9 +213,9 @@ export class ParentezcosComponent implements OnInit {
     }
 
     clearModel(){        
-        this.model.idParentezco = '';        
+        this.model.idParentesco = '';        
         this.model.nombre = '';
-        this.modelToEdit.idParentezco = '';
+        this.modelToEdit.idParentesco = '';
         this.modelToEdit.nombre = '';
     }
 }

@@ -9,12 +9,12 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-th-list"></i> Parentezcos</h1>
-        <p>Módulo de gestión de Parentezcos, Aquí usted podrá crear, editar y eliminar items de Parentezcos</p>
+        <h1><i class="fa fa-th-list"></i> Parentescos</h1>
+        <p>Módulo de gestión de Parentescos, Aquí usted podrá crear, editar y eliminar items de Parentescos</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/parentezcos']">Parentezco</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/parentescos']">Parentesco</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="areErrors">
@@ -31,7 +31,7 @@
   </div>
     <div class="row">  
       <div class="col-md-12">       
-        <div class="tile" permission="crear parentezco">              
+        <div class="tile" permission="crear parentesco">              
           <div class="tile-body">
             <form class="row">              
               <div class="form-group col-md-4" >
@@ -53,22 +53,22 @@
               </div>          
             </div>
             <table class="table table-hover table-bordered" 
-                  [mfData]="parentezcos" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                  [mfData]="parentescos" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th permission="editar parentezco">Editar</th>              
-                  <th permission="eliminar parentezco">Eliminar</th>              
+                  <th permission="editar parentesco">Editar</th>              
+                  <th permission="eliminar parentesco">Eliminar</th>              
                 </tr>
               </thead>
-              <tbody *ngFor="let parentezco of mf.data">
+              <tbody *ngFor="let parentesco of mf.data">
                 <tr>                  
-                  <td class="rowTd">{{parentezco.nombre}}</td>
-                  <td class="rowTd" permission="editar parentezco">                  
-                      <a class="btn float-left" (click)="edit(parentezco, editContent)" permission="editar parentezco"><i class="fa fa-pencil"></i></a>                      
+                  <td class="rowTd">{{parentesco.nombre}}</td>
+                  <td class="rowTd" permission="editar parentesco">                  
+                      <a class="btn float-left" (click)="edit(parentesco, editContent)" permission="editar parentesco"><i class="fa fa-pencil"></i></a>                      
                   </td>       
-                  <td class="rowTd" permission="eliminar parentezco">                                      
-                    <a class="btn float-left" (click)="delete(parentezco.idParentezco, content)" permission="eliminar parentezco"><i class="fa fa-times"></i></a>                  
+                  <td class="rowTd" permission="eliminar parentesco">                                      
+                    <a class="btn float-left" (click)="delete(parentesco.idParentesco, content)" permission="eliminar parentesco"><i class="fa fa-times"></i></a>                  
                 </td>       
                 </tr>            
               </tbody>
@@ -88,7 +88,7 @@
 
 <ng-template #editContent let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Editar Parentezco</h4>
+      <h4 class="modal-title">Editar Parentesco</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
@@ -121,13 +121,13 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Eliminar Parentezco</h4>
+      <h4 class="modal-title">Eliminar Parentesco</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
-      <p>¿Está seguro de querer eliminar este item de Parentezco?</p>
+      <p>¿Está seguro de querer eliminar este item de Parentesco?</p>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>

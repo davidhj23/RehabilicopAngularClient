@@ -7,14 +7,23 @@ import { Component, OnInit } from '@angular/core';
 
 export class SidebarComponent implements OnInit {   
     
+    showProcesos: string = '';
     showSeguridad: string = '';
-    showListas: string = '';
+    showListas: string = '';    
 
     constructor() {
         
     }
 
     ngOnInit() {        
+    }
+
+    expandProcesos(element: any) {
+        if (element === this.showProcesos) {
+            this.showProcesos = '0';
+        } else {
+            this.showProcesos = element;
+        }
     }
 
     expandSeguridad(element: any) {

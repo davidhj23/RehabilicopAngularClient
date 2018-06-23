@@ -1,18 +1,14 @@
 <aside class="app-sidebar">  
-  <ul class="app-menu">    
-    <li class="treeview" [class.is-expanded]="showSeguridad === 'seguridad'" permission="seguridad">
-      <a class="app-menu__item" (click)="expandSeguridad('seguridad')" [routerLink]="" data-toggle="treeview">
-        <i class="app-menu__icon fa fa-lock"></i>
-        <span class="app-menu__label">Seguridad</span>
+  <ul class="app-menu"> 
+    <li class="treeview" [class.is-expanded]="showProcesos === 'procesos'" permission="procesos">
+      <a class="app-menu__item" (click)="expandProcesos('procesos')" [routerLink]="" data-toggle="treeview">
+        <i class="app-menu__icon fa fa-edit"></i>
+        <span class="app-menu__label">Procesos</span>
         <i class="treeview-indicator fa fa-angle-right"></i>
       </a>
-      <ul class="treeview-menu" >
-        <li><a class="treeview-item" [routerLink]="['/layout/seguridad/roles']" permission="roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>    
-        <li><a class="treeview-item" [routerLink]="['/layout/seguridad/roles/asignar-permisos']" permission="asignar permisos"><i class="icon fa fa-circle-o"></i> Asignar Permisos</a></li>    
-        <li><a class="treeview-item" [routerLink]="['/layout/seguridad/usuarios/consultar']" permission="usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>            
-        <li><a class="treeview-item" [routerLink]="['/layout/seguridad/usuarios/restablecer-password']" permission="restablecer clave"><i class="icon fa fa-circle-o"></i> Restablecer Clave</a></li>    
+      <ul class="treeview-menu" >        
       </ul>      
-    </li>
+    </li>   
     <li class="treeview" [class.is-expanded]="showListas === 'listas'" permission="listas">
       <a class="app-menu__item" (click)="expandListas('listas')" [routerLink]="" data-toggle="treeview">
         <i class="app-menu__icon fa fa-th-list"></i>
@@ -60,12 +56,25 @@
         <li><a class="treeview-item" [routerLink]="['/layout/listas/introspecciones']" permission="introspeccion"><i class="icon fa fa-circle-o"></i>Introspeccion</a></li>      
         <li><a class="treeview-item" [routerLink]="['/layout/listas/medicamentos']" permission="medicamento"><i class="icon fa fa-circle-o"></i>Medicamentos</a></li>
         <li><a class="treeview-item" [routerLink]="['/layout/listas/organos']" permission="organo"><i class="icon fa fa-circle-o"></i>Organos</a></li>
-        <li><a class="treeview-item" [routerLink]="['/layout/listas/parentezcos']" permission="parentezco"><i class="icon fa fa-circle-o"></i>Parentezcos</a></li>
+        <li><a class="treeview-item" [routerLink]="['/layout/listas/parentescos']" permission="parentesco"><i class="icon fa fa-circle-o"></i>Parentesco</a></li>
         <li><a class="treeview-item" [routerLink]="['/layout/listas/sexos']" permission="sexo"><i class="icon fa fa-circle-o"></i>Sexo</a></li>
         <li><a class="treeview-item" [routerLink]="['/layout/listas/tiempos-usos']" permission="tiempo de uso"><i class="icon fa fa-circle-o"></i>Tiempos de Usos</a></li>
         <li><a class="treeview-item" [routerLink]="['/layout/listas/tipos-entidades']" permission="tipo entidad"><i class="icon fa fa-circle-o"></i>Tipos de Entidades</a></li>
         <li><a class="treeview-item" [routerLink]="['/layout/listas/vias-ingresos']" permission="via ingreso"><i class="icon fa fa-circle-o"></i>Vias de Ingresos</a></li>      
       </ul>
-    </li>    
+    </li>   
+    <li class="treeview" [class.is-expanded]="showSeguridad === 'seguridad'" permission="seguridad">
+        <a class="app-menu__item" (click)="expandSeguridad('seguridad')" [routerLink]="" data-toggle="treeview">
+          <i class="app-menu__icon fa fa-lock"></i>
+          <span class="app-menu__label">Seguridad</span>
+          <i class="treeview-indicator fa fa-angle-right"></i>
+        </a>
+        <ul class="treeview-menu" >
+          <li><a class="treeview-item" [routerLink]="['/layout/seguridad/roles']" permission="roles"><i class="icon fa fa-circle-o"></i> Roles</a></li>    
+          <li><a class="treeview-item" [routerLink]="['/layout/seguridad/roles/asignar-permisos']" permission="asignar permisos"><i class="icon fa fa-circle-o"></i> Asignar Permisos</a></li>    
+          <li><a class="treeview-item" [routerLink]="['/layout/seguridad/usuarios/consultar']" permission="usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>            
+          <li><a class="treeview-item" [routerLink]="['/layout/seguridad/usuarios/restablecer-password']" permission="restablecer clave"><i class="icon fa fa-circle-o"></i> Restablecer Clave</a></li>    
+        </ul>      
+      </li> 
   </ul>
 </aside>

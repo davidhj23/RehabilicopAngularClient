@@ -37,7 +37,13 @@ export class RestablecerPasswordComponent implements OnInit {
                 this.showLoading(false);
             },
             error => {                        
-                this.errores = error.error;             
+                if(Array.isArray(error.error)){
+                    this.errores = error.error;
+                }else{
+                    let errores = [];
+                    errores.push(error.error);
+                    this.errores = errores;
+                } 
                 this.showErrors();
                 this.showLoading(false);
             });
@@ -54,7 +60,13 @@ export class RestablecerPasswordComponent implements OnInit {
                     this.showLoading(false);
                 },
                 error => {                                            
-                    this.errores = error.error;             
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
                     this.showErrors();
                     this.showLoading(false);
                 });         

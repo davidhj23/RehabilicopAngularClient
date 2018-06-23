@@ -52,7 +52,7 @@ import { IntrospeccionesComponent } from './layout/listas/introspecciones/index'
 import { MedicamentosComponent } from './layout/listas/medicamentos/index';
 import { Memoria2Component } from './layout/listas/memoria2/index';
 import { OrganosComponent } from './layout/listas/organos/index';
-import { ParentezcosComponent } from './layout/listas/parentezcos/index';
+import { ParentescosComponent } from './layout/listas/parentescos/index';
 import { SexosComponent } from './layout/listas/sexos/index';
 import { TiempoUsoComponent } from './layout/listas/tiempos-usos/index';
 import { TipoEntidadComponent } from './layout/listas/tipos-entidades/index';
@@ -118,7 +118,7 @@ const appRoutes: Routes = [
                 { path: 'listas/introspecciones', component: IntrospeccionesComponent, canActivate: [AuthGuard], data : { permission: ["introspeccion"] }},
                 { path: 'listas/medicamentos', component: MedicamentosComponent, canActivate: [AuthGuard], data : { permission: ["medicamento"] }},
                 { path: 'listas/organos', component: OrganosComponent, canActivate: [AuthGuard], data : { permission: ["organo"] }},
-                { path: 'listas/parentezcos', component: ParentezcosComponent, canActivate: [AuthGuard], data : { permission: ["parentezco"] }},
+                { path: 'listas/parentescos', component: ParentescosComponent, canActivate: [AuthGuard], data : { permission: ["parentesco"] }},
                 { path: 'listas/sexos', component: SexosComponent, canActivate: [AuthGuard], data : { permission: ["sexo"] }},
                 { path: 'listas/tiempos-usos', component: TiempoUsoComponent, canActivate: [AuthGuard], data : { permission: ["tiempo de uso"] }},
                 { path: 'listas/tipos-entidades', component: TipoEntidadComponent, canActivate: [AuthGuard], data : { permission: ["tipo entidad"] }},

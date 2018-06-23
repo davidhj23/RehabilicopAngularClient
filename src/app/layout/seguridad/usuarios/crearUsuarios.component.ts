@@ -47,7 +47,13 @@ export class CrearUsuariosComponent implements OnInit {
                     this.showLoading(false);
                 },
                 error => {                        
-                    this.errores = error.error;             
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
                     this.showErrors();
                     this.showLoading(false);
                 });   
@@ -61,7 +67,13 @@ export class CrearUsuariosComponent implements OnInit {
                     this.showLoading(false);
                 },
                 error => {                        
-                    this.errores = error.error;             
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
                     this.showErrors();
                     this.showLoading(false);
                 });   
@@ -85,11 +97,19 @@ export class CrearUsuariosComponent implements OnInit {
         this.userService.create(this.model)
             .subscribe(
                 data => {                        
-                    this.clearModel();                    
+                    this.clearModel();  
+                    this.idTipoDocumento = '';
+                    this.idRol = '';                
                     this.showLoading(false);
                 },
-                error => {                        
-                    this.errores = error.error;             
+                error => {            
+                    if(Array.isArray(error.error)){
+                        if(Array.isArray(error.error)){         
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;             
+                    }                   
                     this.showErrors();
                     this.showLoading(false);
                 });         

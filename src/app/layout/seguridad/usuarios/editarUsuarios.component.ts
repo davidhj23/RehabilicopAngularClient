@@ -49,14 +49,19 @@ export class EditarUsuariosComponent implements OnInit {
         this.userService.getById(this.currentUserId)
             .subscribe(
                 data => {                        
-                    //this.model = data;
-                    this.model.identificacion = data.identificacion;
-                    console.log(this.model)
-                    this.clearModel();                    
+                    this.model = data;                           
+                    this.idTipoDocumento = this.model.tipoDocumento.idTipoDocumento;
+                    this.idRol = this.model.roles[0].idRol;                    
                     this.showLoading(false);
                 },
                 error => {                        
-                    this.errores = error.error;             
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
                     this.showErrors();
                     this.showLoading(false);
                 });      
@@ -67,12 +72,17 @@ export class EditarUsuariosComponent implements OnInit {
         this.tipoDocumentoService.getAll()
             .subscribe(
                 data => {      
-                    this.tiposDocumentos = data;                  
-                    this.clearModel();                    
+                    this.tiposDocumentos = data;                                                       
                     this.showLoading(false);
                 },
                 error => {                        
-                    this.errores = error.error;             
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
                     this.showErrors();
                     this.showLoading(false);
                 });   
@@ -81,12 +91,17 @@ export class EditarUsuariosComponent implements OnInit {
         this.rolService.getAll()
             .subscribe(
                 data => {
-                    this.roles = data;                        
-                    this.clearModel();                    
+                    this.roles = data;                                            
                     this.showLoading(false);
                 },
                 error => {                        
-                    this.errores = error.error;             
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
                     this.showErrors();
                     this.showLoading(false);
                 });   
@@ -105,16 +120,22 @@ export class EditarUsuariosComponent implements OnInit {
         let rol = new Rol();
         rol.idRol = this.idRol;
         this.model.roles.push(rol);        
-
-        this.showLoading(true);    
+        
+        this.showLoading(true);               
         this.userService.update(this.model)
             .subscribe(
                 data => {                        
-                    this.clearModel();                    
+                    this.model = data;                    
                     this.showLoading(false);
                 },
-                error => {                        
-                    this.errores = error.error;             
+                error => {                          
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
                     this.showErrors();
                     this.showLoading(false);
                 });         

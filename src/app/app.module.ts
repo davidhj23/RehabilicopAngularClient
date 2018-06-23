@@ -71,7 +71,7 @@ import { InteligenciasComponent, InteligenciaService } from './layout/listas/int
 import { IntrospeccionesComponent, IntrospeccionService } from './layout/listas/introspecciones/index';
 import { MedicamentosComponent, MedicamentoService } from './layout/listas/medicamentos/index';
 import { OrganosComponent, OrganoService } from './layout/listas/organos/index';
-import { ParentezcosComponent, ParentezcoService } from './layout/listas/parentezcos/index';
+import { ParentescosComponent, ParentescoService } from './layout/listas/parentescos/index';
 import { SexosComponent, SexoService } from './layout/listas/sexos/index';
 import { TiempoUsoComponent, TiempoUsoService } from './layout/listas/tiempos-usos/index';
 import { TipoEntidadComponent, TipoEntidadService } from './layout/listas/tipos-entidades/index';
@@ -150,7 +150,7 @@ import { ViaIngresoComponent, ViaIngresoService } from './layout/listas/vias-ing
         IntrospeccionesComponent,
         MedicamentosComponent,
         OrganosComponent,
-        ParentezcosComponent,
+        ParentescosComponent,
         SexosComponent,
         TiempoUsoComponent,
         TipoEntidadComponent,
@@ -204,7 +204,7 @@ import { ViaIngresoComponent, ViaIngresoService } from './layout/listas/vias-ing
         IntrospeccionService, 
         MedicamentoService,
         OrganoService, 
-        ParentezcoService,
+        ParentescoService,
         SexoService,
         TiempoUsoService,
         TipoEntidadService,
