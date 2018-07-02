@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './user.service';
-import { User } from './user';
-import { RolService, Rol } from '../roles';
+import { PacienteService } from './paciente.service';
+import { Paciente } from './paciente';
 import { TipoDocumentoService, TipoDocumento, TiposDocumentosComponent } from '../../listas/tipos-documentos';
 import { Validators } from '@angular/forms';
 import { Validator } from '../../../_utils/validators';
 
 @Component({
-    selector: 'crearUsuarios',
-    templateUrl: 'crearUsuarios.component.html',
+    selector: 'crearPacientes',
+    templateUrl: 'crearPacientes.component.html',
 })
 
-export class CrearUsuariosComponent implements OnInit {       
+export class CrearPacientesComponent implements OnInit {       
     
-    model: User;       
+    model: Paciente;       
     tiposDocumentos: any[] = [];  
     roles: any[] = [];  
 
@@ -26,11 +25,10 @@ export class CrearUsuariosComponent implements OnInit {
     errores: any[] = [];       
 
     constructor(
-        private userService: UserService,
-        private tipoDocumentoService: TipoDocumentoService,
-        private rolService: RolService) {
+        private pacienteService: PacienteService,
+        private tipoDocumentoService: TipoDocumentoService) {
 
-        this.model = new User();
+        this.model = new Paciente();
     }
 
     ngOnInit() {    
@@ -56,45 +54,20 @@ export class CrearUsuariosComponent implements OnInit {
                     } 
                     this.showErrors();
                     this.showLoading(false);
-                });   
-
-        this.showLoading(true);    
-        this.rolService.getAll()
-            .subscribe(
-                data => {
-                    this.roles = data;                        
-                    this.clearModel();                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                });   
+                });           
     }
 
     guardar() {
         if(!this.validateCreate()) return;
 
-        this.model.tipoDocumento = new TipoDocumento();
-        this.model.roles = [];        
+        this.model.tipoDocumento = new TipoDocumento();        
 
         let tipoDoc = new TipoDocumento();
         tipoDoc.idTipoDocumento = this.idTipoDocumento;          
-        this.model.tipoDocumento = tipoDoc;        
-
-        let rol = new Rol();
-        rol.idRol = this.idRol;
-        this.model.roles.push(rol);        
-
+        this.model.tipoDocumento = tipoDoc;                
+        
         this.showLoading(true);    
-        this.userService.create(this.model)
+        this.pacienteService.create(this.model)
             .subscribe(
                 data => {                        
                     this.clearModel();  
@@ -109,7 +82,7 @@ export class CrearUsuariosComponent implements OnInit {
                         let errores = [];
                         errores.push(error.error);
                         this.errores = errores;
-                    }               
+                    }                
                     this.showErrors();
                     this.showLoading(false);
                 });         
@@ -137,12 +110,7 @@ export class CrearUsuariosComponent implements OnInit {
         if(this.model.apellidos == undefined || this.model.apellidos == ''){
             this.errores.push({ message: 'Ingrese apellidos'});
             areErrors = true;
-        }
-
-        if(this.idRol == undefined || this.idRol == ''){
-            this.errores.push({ message: 'Seleccione un rol'});
-            areErrors = true;
-        }
+        }        
 
         if(this.model.email == undefined || this.model.email == ''){
             this.errores.push({ message: 'Ingrese un email'});
@@ -180,6 +148,6 @@ export class CrearUsuariosComponent implements OnInit {
     }
 
     clearModel(){        
-        this.model = new User();
+        this.model = new Paciente();
     }
 }

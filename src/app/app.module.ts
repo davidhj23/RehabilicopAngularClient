@@ -77,6 +77,11 @@ import { TiempoUsoComponent, TiempoUsoService } from './layout/listas/tiempos-us
 import { TipoEntidadComponent, TipoEntidadService } from './layout/listas/tipos-entidades/index';
 import { ViaIngresoComponent, ViaIngresoService } from './layout/listas/vias-ingresos/index';
 
+import { ConsultarPacientesComponent } from './layout/procesos/pacientes/consultarPacientes.component';
+import { CrearPacientesComponent } from './layout/procesos/pacientes/crearPacientes.component';
+import { EditarPacientesComponent } from './layout/procesos/pacientes/editarPacientes.component';
+import { PacienteService } from './layout/procesos/pacientes/paciente.service';
+
 @NgModule({
     imports: [
         BrowserModule,        
@@ -154,7 +159,11 @@ import { ViaIngresoComponent, ViaIngresoService } from './layout/listas/vias-ing
         SexosComponent,
         TiempoUsoComponent,
         TipoEntidadComponent,
-        ViaIngresoComponent
+        ViaIngresoComponent,
+
+        ConsultarPacientesComponent,
+        CrearPacientesComponent,
+        EditarPacientesComponent
     ],
     providers: [
         AuthGuard,
@@ -208,7 +217,9 @@ import { ViaIngresoComponent, ViaIngresoService } from './layout/listas/vias-ing
         SexoService,
         TiempoUsoService,
         TipoEntidadService,
-        ViaIngresoService     
+        ViaIngresoService,
+        
+        PacienteService
     ],
     bootstrap: [AppComponent]
 })

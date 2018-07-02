@@ -6,7 +6,8 @@
         <span class="app-menu__label">Procesos</span>
         <i class="treeview-indicator fa fa-angle-right"></i>
       </a>
-      <ul class="treeview-menu" >        
+      <ul class="treeview-menu" >  
+          <li><a class="treeview-item" [routerLink]="['/layout/procesos/pacientes/consultar']" permission="pacientes"><i class="icon fa fa-circle-o"></i> Pacientes</a></li>                  
       </ul>      
     </li>   
     <li class="treeview" [class.is-expanded]="showListas === 'listas'" permission="listas">

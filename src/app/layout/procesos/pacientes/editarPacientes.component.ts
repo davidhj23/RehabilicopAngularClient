@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './user.service';
-import { User } from './user';
-import { RolService, Rol } from '../roles';
-import { TipoDocumentoService, TipoDocumento, TiposDocumentosComponent } from '../../listas/tipos-documentos';
-import { Validators } from '@angular/forms';
+import { PacienteService } from './paciente.service';
+import { Paciente } from './paciente';
+import { TipoDocumentoService, TipoDocumento } from '../../listas/tipos-documentos';
 import { Validator } from '../../../_utils/validators';
+import { Router, ActivatedRoute } from '@angular/router';
+import { RolService, Rol } from '../../seguridad/roles';
 
 @Component({
-    selector: 'crearUsuarios',
-    templateUrl: 'crearUsuarios.component.html',
+    selector: 'editarPacientes',
+    templateUrl: 'editarPacientes.component.html',
 })
 
-export class CrearUsuariosComponent implements OnInit {       
+export class EditarPacientesComponent implements OnInit {       
     
-    model: User;       
+    currentPacienteId: string;
+
+    model: Paciente;       
     tiposDocumentos: any[] = [];  
     roles: any[] = [];  
 
@@ -26,15 +28,43 @@ export class CrearUsuariosComponent implements OnInit {
     errores: any[] = [];       
 
     constructor(
-        private userService: UserService,
+        private pacienteService: PacienteService,
         private tipoDocumentoService: TipoDocumentoService,
-        private rolService: RolService) {
+        private rolService: RolService,
+        private route: ActivatedRoute) {
 
-        this.model = new User();
+        this.model = new Paciente();
+
+        this.route.params.subscribe( 
+            params => {
+                this.currentPacienteId = params['id'];
+            }
+        );
     }
 
     ngOnInit() {    
         this.fillSelects();
+
+        this.showLoading(true);    
+        this.pacienteService.getById(this.currentPacienteId)
+            .subscribe(
+                data => {                        
+                    this.model = data;                           
+                    this.idTipoDocumento = this.model.tipoDocumento.idTipoDocumento;
+                    this.idRol = this.model.roles[0].idRol;                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });      
     }    
 
     fillSelects(){
@@ -42,8 +72,7 @@ export class CrearUsuariosComponent implements OnInit {
         this.tipoDocumentoService.getAll()
             .subscribe(
                 data => {      
-                    this.tiposDocumentos = data;                  
-                    this.clearModel();                    
+                    this.tiposDocumentos = data;                                                       
                     this.showLoading(false);
                 },
                 error => {                        
@@ -62,8 +91,7 @@ export class CrearUsuariosComponent implements OnInit {
         this.rolService.getAll()
             .subscribe(
                 data => {
-                    this.roles = data;                        
-                    this.clearModel();                    
+                    this.roles = data;                                            
                     this.showLoading(false);
                 },
                 error => {                        
@@ -92,24 +120,22 @@ export class CrearUsuariosComponent implements OnInit {
         let rol = new Rol();
         rol.idRol = this.idRol;
         this.model.roles.push(rol);        
-
-        this.showLoading(true);    
-        this.userService.create(this.model)
+        
+        this.showLoading(true);               
+        this.pacienteService.update(this.model)
             .subscribe(
                 data => {                        
-                    this.clearModel();  
-                    this.idTipoDocumento = '';
-                    this.idRol = '';                
+                    this.model = data;                    
                     this.showLoading(false);
                 },
-                error => {            
+                error => {                          
                     if(Array.isArray(error.error)){
                         this.errores = error.error;
                     }else{
                         let errores = [];
                         errores.push(error.error);
                         this.errores = errores;
-                    }               
+                    } 
                     this.showErrors();
                     this.showLoading(false);
                 });         
@@ -180,6 +206,6 @@ export class CrearUsuariosComponent implements OnInit {
     }
 
     clearModel(){        
-        this.model = new User();
+        this.model = new Paciente();
     }
 }

@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
                     });
                 },
                 error => {
+                    console.log(error)
                     this.error = 'Usuario y/o clave incorrecta'                    
                     this.loading = false;
                 });

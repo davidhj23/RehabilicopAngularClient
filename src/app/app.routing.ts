@@ -58,6 +58,10 @@ import { TiempoUsoComponent } from './layout/listas/tiempos-usos/index';
 import { TipoEntidadComponent } from './layout/listas/tipos-entidades/index';
 import { ViaIngresoComponent } from './layout/listas/vias-ingresos/index';
 
+import { ConsultarPacientesComponent } from './layout/procesos/pacientes/consultarPacientes.component';
+import { CrearPacientesComponent } from './layout/procesos/pacientes/crearPacientes.component';
+import { EditarPacientesComponent } from './layout/procesos/pacientes/editarPacientes.component';
+
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
@@ -106,7 +110,7 @@ const appRoutes: Routes = [
                 { path: 'listas/apariencias', component: AparienciasComponent, canActivate: [AuthGuard], data : { permission: ["apariencia"] }},
                 { path: 'listas/aseguradoras', component: AseguradorasComponent, canActivate: [AuthGuard], data : { permission: ["aseguradora"] }},
                 { path: 'listas/asfixias', component: AsfixiasComponent, canActivate: [AuthGuard], data : { permission: ["asfixia"] }},
-                { path: 'listas/comprensibles', component: ComprensiblesComponent, canActivate: [AuthGuard], data : { permission: ["compresible"] }},
+                { path: 'listas/comprensibles', component: ComprensiblesComponent, canActivate: [AuthGuard], data : { permission: ["comprensible"] }},
                 { path: 'listas/conciencias', component: ConcienciasComponent, canActivate: [AuthGuard], data : { permission: ["conciencia"] }},
                 { path: 'listas/escolaridades', component: EscolaridadesComponent, canActivate: [AuthGuard], data : { permission: ["escolaridad"] }},
                 { path: 'listas/estados', component: EstadosComponent, canActivate: [AuthGuard], data : { permission: ["estado"] }},
@@ -122,7 +126,11 @@ const appRoutes: Routes = [
                 { path: 'listas/sexos', component: SexosComponent, canActivate: [AuthGuard], data : { permission: ["sexo"] }},
                 { path: 'listas/tiempos-usos', component: TiempoUsoComponent, canActivate: [AuthGuard], data : { permission: ["tiempo de uso"] }},
                 { path: 'listas/tipos-entidades', component: TipoEntidadComponent, canActivate: [AuthGuard], data : { permission: ["tipo entidad"] }},
-                { path: 'listas/vias-ingresos', component: ViaIngresoComponent, canActivate: [AuthGuard], data : { permission: ["via ingreso"] }}
+                { path: 'listas/vias-ingresos', component: ViaIngresoComponent, canActivate: [AuthGuard], data : { permission: ["via ingreso"] }},
+
+                { path: 'procesos/pacientes/consultar', component: ConsultarPacientesComponent, canActivate: [AuthGuard], data : { permission: ["pacientes"] }}, 
+                { path: 'procesos/pacientes/nuevo', component: CrearPacientesComponent, canActivate: [AuthGuard], data : { permission: ["crear paciente"] }}, 
+                { path: 'procesos/pacientes/editar/:id', component: EditarPacientesComponent, canActivate: [AuthGuard], data : { permission: ["editar paciente"] }}
                 
             ] 
     }, 
