@@ -13,8 +13,11 @@ export class CambiarPasswordComponent implements OnInit {
 
     loading = false;        
     
-    areErrors = false;
+    areErrors = false;    
     errores: any[] = [];       
+
+    isSuccess = false;
+    successMessage: string; 
 
     constructor(
         private userService: UserService,
@@ -32,8 +35,9 @@ export class CambiarPasswordComponent implements OnInit {
         this.userService.changePassword(this.model)
             .subscribe(
                 data => {                        
-                    this.clearModel();                    
-                    this.showLoading(false);
+                    this.clearModel();       
+                    this.successMessage = "Operación exitosa";
+                    this.showSuccessMessage()
                 },
                 error => {                        
                     if(Array.isArray(error.error)){
@@ -80,6 +84,20 @@ export class CambiarPasswordComponent implements OnInit {
 
     showLoading(loading: boolean) {
         this.loading = loading;
+    }
+
+    showSuccessMessage(){   
+        this.isSuccess = true;        
+        this.showLoading(false);
+        
+        setTimeout(function() {
+            this.clearAndcloseSuccessMessage();
+        }.bind(this), 10000); 
+    }
+
+    clearAndcloseSuccessMessage(){
+        this.successMessage = "";
+        this.isSuccess = false;        
     }
 
     showErrors(){   
