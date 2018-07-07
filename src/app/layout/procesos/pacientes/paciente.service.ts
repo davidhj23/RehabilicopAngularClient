@@ -25,7 +25,7 @@ export class PacienteService {
     }
 
     update(paciente: Paciente): Observable<any> {
-        return this.http.put(this.url + paciente, paciente,  CommonService.getJwtHeaders());
+        return this.http.put(this.url + paciente.idUsuario, paciente,  CommonService.getJwtHeaders());
     }
 
     delete(id: string): Observable<any> {

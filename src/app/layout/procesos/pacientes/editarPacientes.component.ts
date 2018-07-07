@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PacienteService } from './paciente.service';
 import { Paciente } from './paciente';
 import { TipoDocumentoService, TipoDocumento } from '../../listas/tipos-documentos';
-import { Validator } from '../../../_utils/validators';
-import { Router, ActivatedRoute } from '@angular/router';
-import { RolService, Rol } from '../../seguridad/roles';
+import { ActivatedRoute } from '@angular/router';
+import { EstadoCivil, EstadoCivilService } from '../../listas/estados-civiles';
+import { AseguradoraService, Aseguradora } from '../../listas/aseguradoras';
+import { TipoEntidadService, TipoEntidad } from '../../listas/tipos-entidades';
+import { Util } from '../../../_utils';
 
 @Component({
     selector: 'editarPacientes',
@@ -17,20 +19,29 @@ export class EditarPacientesComponent implements OnInit {
 
     model: Paciente;       
     tiposDocumentos: any[] = [];  
-    roles: any[] = [];  
+    estadosCiviles: any[] = [];  
+    aseguradoras: any[] = [];
+    tipoEntidades: any[] = []; 
 
-    idTipoDocumento: string;
-    idRol: string;
+    idTipoDocumento: string;    
+    idEstadoCivil: string;
+    idAseguradora: string;
+    idTipoEntidad: string;
 
     loading = false;        
     
     areErrors = false;
-    errores: any[] = [];       
+    errores: any[] = []; 
+    
+    fechaDeNacimiento: string;
+    public mask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
 
     constructor(
         private pacienteService: PacienteService,
         private tipoDocumentoService: TipoDocumentoService,
-        private rolService: RolService,
+        private estadoCivilService: EstadoCivilService,
+        private aseguradoraService: AseguradoraService,
+        private tipoEntidadService: TipoEntidadService,
         private route: ActivatedRoute) {
 
         this.model = new Paciente();
@@ -51,7 +62,10 @@ export class EditarPacientesComponent implements OnInit {
                 data => {                        
                     this.model = data;                           
                     this.idTipoDocumento = this.model.tipoDocumento.idTipoDocumento;
-                    this.idRol = this.model.roles[0].idRol;                    
+                    this.idEstadoCivil = this.model.estadoCivil.idEstadoCivil;                    
+                    this.idAseguradora = this.model.aseguradora.idAseguradora;                    
+                    this.idTipoEntidad = this.model.tipoEntidad.idTipoEntidad;    
+                    this.fechaDeNacimiento = Util.formattedDate(this.model.fechaDeNacimiento);    
                     this.showLoading(false);
                 },
                 error => {                        
@@ -88,10 +102,10 @@ export class EditarPacientesComponent implements OnInit {
                 });   
 
         this.showLoading(true);    
-        this.rolService.getAll()
+        this.estadoCivilService.getAll()
             .subscribe(
                 data => {
-                    this.roles = data;                                            
+                    this.estadosCiviles = data;                                            
                     this.showLoading(false);
                 },
                 error => {                        
@@ -104,22 +118,75 @@ export class EditarPacientesComponent implements OnInit {
                     } 
                     this.showErrors();
                     this.showLoading(false);
-                });   
+                }); 
+                
+        this.showLoading(true);    
+        this.aseguradoraService.getAll()
+            .subscribe(
+                data => {      
+                    this.aseguradoras = data;                  
+                    this.clearModel();                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+                
+        this.showLoading(true);    
+        this.tipoEntidadService.getAll()
+            .subscribe(
+                data => {      
+                    this.tipoEntidades = data;                  
+                    this.clearModel();                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
     }
 
     guardar() {
         if(!this.validateCreate()) return;
 
-        this.model.tipoDocumento = new TipoDocumento();
-        this.model.roles = [];        
+        this.model.tipoDocumento = new TipoDocumento();        
 
         let tipoDoc = new TipoDocumento();
         tipoDoc.idTipoDocumento = this.idTipoDocumento;          
         this.model.tipoDocumento = tipoDoc;        
 
-        let rol = new Rol();
-        rol.idRol = this.idRol;
-        this.model.roles.push(rol);        
+        this.model.estadoCivil = new EstadoCivil();
+
+        let estadoCivil = new EstadoCivil();
+        estadoCivil.idEstadoCivil = this.idEstadoCivil;
+        this.model.estadoCivil = estadoCivil;    
+        
+        this.model.aseguradora = new Aseguradora();        
+
+        let aseguradora = new Aseguradora();
+        aseguradora.idAseguradora = this.idAseguradora;          
+        this.model.aseguradora = aseguradora; 
+
+        this.model.tipoEntidad = new TipoEntidad();        
+
+        let tipoEntidad = new TipoEntidad();
+        tipoEntidad.idTipoEntidad = this.idTipoEntidad;          
+        this.model.tipoEntidad = tipoEntidad; 
         
         this.showLoading(true);               
         this.pacienteService.update(this.model)
@@ -163,21 +230,42 @@ export class EditarPacientesComponent implements OnInit {
         if(this.model.apellidos == undefined || this.model.apellidos == ''){
             this.errores.push({ message: 'Ingrese apellidos'});
             areErrors = true;
-        }
-
-        if(this.idRol == undefined || this.idRol == ''){
-            this.errores.push({ message: 'Seleccione un rol'});
-            areErrors = true;
-        }
+        }        
 
         if(this.model.email == undefined || this.model.email == ''){
             this.errores.push({ message: 'Ingrese un email'});
             areErrors = true;
         }
-        else if(!Validator.validateEmail(this.model.email)){
+        else if(!Util.validateEmail(this.model.email)){
             this.errores.push({ message: 'Ingrese un email válido'});
             areErrors = true;
-        }        
+        }
+        
+        if(this.fechaDeNacimiento == undefined || this.fechaDeNacimiento == ''){
+            this.errores.push({ message: 'Ingrese una fecha de nacimiento'});
+            areErrors = true;
+        }
+        else if(!Util.validateDate(this.fechaDeNacimiento)){
+            this.errores.push({ message: 'Ingrese una fecha de nacimiento válida'});
+            areErrors = true;
+        }else{
+            this.model.fechaDeNacimiento = Util.getDate(this.fechaDeNacimiento);
+        }
+        
+        if(this.idEstadoCivil == undefined || this.idEstadoCivil == ''){
+            this.errores.push({ message: 'Seleccione un estado civil'});
+            areErrors = true;
+        }
+
+        if(this.idAseguradora == undefined || this.idAseguradora == ''){
+            this.errores.push({ message: 'Seleccione una aseguradora'});
+            areErrors = true;
+        }
+
+        if(this.idTipoEntidad == undefined || this.idTipoEntidad == ''){
+            this.errores.push({ message: 'Seleccione un tipo de entidad'});
+            areErrors = true;
+        }
 
         if(areErrors){
             this.showErrors();

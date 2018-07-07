@@ -3,8 +3,7 @@ import { UserService } from './user.service';
 import { User } from './user';
 import { RolService, Rol } from '../roles';
 import { TipoDocumentoService, TipoDocumento, TiposDocumentosComponent } from '../../listas/tipos-documentos';
-import { Validators } from '@angular/forms';
-import { Validator } from '../../../_utils/validators';
+import { Util } from '../../../_utils/util';
 
 @Component({
     selector: 'crearUsuarios',
@@ -148,7 +147,7 @@ export class CrearUsuariosComponent implements OnInit {
             this.errores.push({ message: 'Ingrese un email'});
             areErrors = true;
         }
-        else if(!Validator.validateEmail(this.model.email)){
+        else if(!Util.validateEmail(this.model.email)){
             this.errores.push({ message: 'Ingrese un email válido'});
             areErrors = true;
         }        

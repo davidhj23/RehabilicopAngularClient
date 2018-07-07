@@ -16,5 +16,5 @@ export class User {
     ultimoAcceso: Date;
     imagenUrl: string;
     roles: Rol[];
-    tipoDocumento: TipoDocumento;
+    tipoDocumento: TipoDocumento;    
 }

@@ -30,7 +30,8 @@
     "rxjs": "5.5.2",
     "ts-md5": "^1.2.2",
     "zone.js": "^0.8.14",
-    "font-awesome": "4.7.0"    
+    "font-awesome": "4.7.0",
+    "angular2-text-mask": "9.0.0"    
   },
   "devDependencies": {
     "@types/node": "^6.0.45",

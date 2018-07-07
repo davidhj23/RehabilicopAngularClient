@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { UpperCaseTextComponent, PermissionComponent } from './_directives/index';
 import { AuthGuard, VisibleGuard } from './_guards/index';
@@ -90,6 +91,7 @@ import { PacienteService } from './layout/procesos/pacientes/paciente.service';
         HttpClientModule,
         routing,
         DataTableModule,
+        TextMaskModule,
 
         ToastyModule.forRoot(),
         NgIdleKeepaliveModule.forRoot(),

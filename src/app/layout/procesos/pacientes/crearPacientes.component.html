@@ -72,6 +72,36 @@
                             <input class="form-control" type="text" name="celular" [(ngModel)]="model.celular" #celular="ngModel" required>                
                         </div>                            
                     </div>
+                    <div class="row">                                                                   
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Ocupacion</label>                                
+                            <input class="form-control" type="text" name="ocupacion" [(ngModel)]="model.ocupacion" #ocupacion="ngModel" required>                                                
+                        </div>          
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Fecha de Nacimiento</label>                            
+                            <input class="form-control" placeholder="dd/mm/aaaa" [textMask]="{mask: mask}" [(ngModel)]="fechaDeNacimiento" type="text"/>
+                        </div>          
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Estado civil</label>
+                            <select class="form-control" [(ngModel)]="idEstadoCivil" name="estadoCivil">                                
+                                <option *ngFor="let item of estadosCiviles" [value]="item.idEstadoCivil">{{item.nombre}}</option>
+                            </select>
+                        </div>                                                    
+                    </div>
+                    <div class="row">                                                                   
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Aseguradora</label>
+                            <select class="form-control" [(ngModel)]="idAseguradora" name="aseguradora">                                
+                                <option *ngFor="let item of aseguradoras" [value]="item.idAseguradora">{{item.nombre}}</option>
+                            </select>
+                        </div>                            
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Tipo de Entidad</label>
+                            <select class="form-control" [(ngModel)]="idTipoEntidad" name="tipoEntidad">                                
+                                <option *ngFor="let item of tipoEntidades" [value]="item.idTipoEntidad">{{item.nombre}}</option>
+                            </select>
+                        </div>                                                    
+                    </div>
                     <div class="row">
                         <div class="form-group col-md-4 align-self-end">
                             <button class="btn btn-primary" type="button" (click)="guardar()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
