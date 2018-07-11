@@ -31,4 +31,8 @@ export class Cie10Service {
     delete(idCie10: String): Observable<any> {        
         return this.http.delete(this.url + idCie10,  CommonService.getJwtHeaders())
     }
+
+    search(search: any): Observable<any> {
+        return this.http.get(this.url + 'search/' + search, CommonService.getJwtHeaders());
+    }
 }

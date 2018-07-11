@@ -30,5 +30,5 @@ export class PacienteService {
 
     delete(id: string): Observable<any> {
         return this.http.delete(this.url + id,  CommonService.getJwtHeaders())
-    }    
+    }
 }

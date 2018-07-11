@@ -34,6 +34,8 @@ export class EditarPacientesComponent implements OnInit {
     errores: any[] = []; 
     
     fechaDeNacimiento: string;
+    fechaDeIngreso: string;
+    fechaDeRemision: string;
     public mask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
 
     constructor(
@@ -51,16 +53,12 @@ export class EditarPacientesComponent implements OnInit {
                 this.currentPacienteId = params['id'];
             }
         );
-    }
-
-    ngOnInit() {    
-        this.fillSelects();
 
         this.showLoading(true);    
         this.pacienteService.getById(this.currentPacienteId)
             .subscribe(
-                data => {                        
-                    this.model = data;                           
+                data => {                           
+                    this.model = data;                                               
                     this.idTipoDocumento = this.model.tipoDocumento.idTipoDocumento;
                     this.idEstadoCivil = this.model.estadoCivil.idEstadoCivil;                    
                     this.idAseguradora = this.model.aseguradora.idAseguradora;                    
@@ -79,6 +77,10 @@ export class EditarPacientesComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 });      
+    }
+
+    ngOnInit() {    
+        this.fillSelects();
     }    
 
     fillSelects(){

@@ -14882,3 +14882,7 @@ be a descendant of the grid when it is being dragged.
   margin-bottom: 0;
   overflow: hidden; 
 }
+
+.tipo-documento {
+  padding: 0px;
+}

@@ -61,4 +61,12 @@ export class UserService {
     restablecerPassword(model: any){
         return this.http.post(this.url + model.idUsuario + '/password', model, CommonService.getJwtHeaders());
     }
+
+    getAllMedicos(): Observable<any> {
+        return this.http.get(this.url + 'medicos', CommonService.getJwtHeaders());
+    }
+
+    getAllEnfermeros(): Observable<any> {
+        return this.http.get(this.url  + 'enfermeros', CommonService.getJwtHeaders());
+    }
 }
