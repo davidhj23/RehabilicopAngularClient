@@ -1,7 +1,10 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { of } from '../../../../../node_modules/rxjs/observable/of';
+
 import { CommonService } from '../../../_services';
 import { Cie10 } from '.';
 
@@ -31,8 +34,15 @@ export class Cie10Service {
     delete(idCie10: String): Observable<any> {        
         return this.http.delete(this.url + idCie10,  CommonService.getJwtHeaders())
     }
-
-    search(search: any): Observable<any> {
-        return this.http.get(this.url + 'search/' + search, CommonService.getJwtHeaders());
+    
+    search(search: string) {
+        if (search === '') {
+          return of([]);
+        }
+    
+        return this.http.get(this.url + 'search/' + search, CommonService.getJwtHeaders())
+                    .pipe(
+                        map(res => res)
+                    )
     }
 }

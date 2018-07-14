@@ -9,6 +9,7 @@ import { Atencion } from "../../listas/atenciones";
 import { Cama } from "../../listas/camas";
 import { User } from "../../seguridad/usuarios/user";
 import { Parentesco } from "../../listas/parentescos";
+import { Cie10 } from "../../listas/cie10s";
 
 export class Paciente {
     idUsuario: string;
@@ -35,12 +36,14 @@ export class Paciente {
     sede: Sede;
     atencion: Atencion;
     cama: Cama;
-    medico: User;
-    enfermero: User;
+    idMedico: string;
+    idEnfermero: string;
     parentesco: Parentesco;
     numeroRemision: string;
     acompanante: string;
     direccionAcompanante: string;
     telefonoAcompanante: string;
     ciudadAcompanante: string;
+    diagnosticoPrincipal: Cie10;
+    diagnosticoSecundario: Cie10;
 }

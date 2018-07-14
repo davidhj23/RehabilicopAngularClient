@@ -12,7 +12,10 @@ import { SedeService, Sede } from '../../listas/sedes';
 import { UserService } from '../../seguridad/usuarios/user.service';
 import { User } from '../../seguridad/usuarios/user';
 import { ParentescoService, Parentesco } from '../../listas/parentescos';
-import { Cie10Service } from '../../listas/cie10s';
+import { Cie10Service, Cie10 } from '../../listas/cie10s';
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map, tap, switchMap, catchError} from 'rxjs/operators';
+import { of } from '../../../../../node_modules/rxjs/observable/of';
 
 @Component({
     selector: 'crearPacientes',
@@ -70,8 +73,7 @@ export class CrearPacientesComponent implements OnInit {
         private usuarioService: UserService,
         private parentescoService: ParentescoService,
         private cie10Service: Cie10Service) {
-
-        cie10Service.search("F20").subscribe(d => console.log(d));
+        
         this.model = new Paciente();
     }
 
@@ -326,24 +328,18 @@ export class CrearPacientesComponent implements OnInit {
         cama.idCama = this.idCama;          
         this.model.cama = cama; 
 
-        this.model.medico = new User();        
-
-        let medico = new User();
-        medico.idUsuario = this.idMedico;          
-        this.model.medico = medico;
-
-        this.model.enfermero = new User();        
-
-        let enfermero = new User();
-        enfermero.idUsuario = this.idEnfermero;          
-        this.model.enfermero = enfermero;
-
         this.model.parentesco = new Parentesco();        
 
         let parentesco = new Parentesco();
         parentesco.idParentesco = this.idParentesco;          
         this.model.parentesco = parentesco;
         
+        this.model.idMedico = this.idMedico;
+        this.model.idEnfermero = this.idEnfermero;
+
+        this.model.diagnosticoPrincipal = this.diagnosticoPrincipal;
+        this.model.diagnosticoSecundario = this.diagnosticoSecundario;
+
         this.showLoading(true);    
         this.pacienteService.create(this.model)
             .subscribe(
@@ -355,12 +351,15 @@ export class CrearPacientesComponent implements OnInit {
                     this.idTipoEntidad = '';
                     this.fechaDeNacimiento = '';       
                     this.fechaDeIngreso = '';  
+                    this.fechaDeRemision = '';  
                     this.idSede = '';  
                     this.idAtencion = '';  
                     this.idCama = '';  
                     this.idMedico = '';  
                     this.idEnfermero = '';  
                     this.idParentesco = '';  
+                    this.diagnosticoPrincipal = null;  
+                    this.diagnosticoSecundario = null;  
                     this.showLoading(false);
                 },
                 error => {            
@@ -375,6 +374,54 @@ export class CrearPacientesComponent implements OnInit {
                     this.showLoading(false);
                 });         
     }
+    
+    diagnosticoPrincipal: any;
+
+    searching = false;
+    searchFailed = false;
+    formatter = (x: {codigo: string, nombre: string}) => `(${x.codigo}) ${x.nombre}`;
+
+    search = (text$: Observable<string>) =>
+        text$.pipe(
+        debounceTime(200),
+        tap(() => this.searching  = true),
+        switchMap(
+            term => term.length < 3 ? [] :
+                this.cie10Service.search(term)
+                    .pipe(
+                        tap(() => this.searchFailed = false),
+                        catchError(() => {
+                            this.searchFailed = true;
+                            return of([]);
+                        })
+                    )
+        ),
+        tap(() => this.searching  = false)
+    )
+
+    diagnosticoSecundario: any;
+
+    searchingSecundario = false;
+    searchFailedSecundario = false;
+    formatterSecundario = (x: {codigo: string, nombre: string}) => `(${x.codigo}) ${x.nombre}`;
+
+    searchSecundario = (text$: Observable<string>) =>
+        text$.pipe(
+        debounceTime(200),
+        tap(() => this.searchingSecundario = true),
+        switchMap(
+            term => term.length < 3 ? [] :
+                this.cie10Service.search(term)
+                    .pipe(
+                        tap(() => this.searchFailedSecundario = false),
+                        catchError(() => {
+                            this.searchFailedSecundario = true;
+                            return of([]);
+                        })
+                    )
+        ),
+        tap(() => this.searchingSecundario  = false)
+    )
     
     validateCreate(){
         let areErrors = false;
@@ -513,6 +560,16 @@ export class CrearPacientesComponent implements OnInit {
             areErrors = true;
         }
 
+        if(this.diagnosticoPrincipal == null){
+            this.errores.push({ message: 'Ingrese un diagnostico principal'});
+            areErrors = true;
+        }
+
+        if(this.diagnosticoSecundario == null){
+            this.errores.push({ message: 'Ingrese un diagnostico secundario'});
+            areErrors = true;
+        }
+
         if(areErrors){
             this.showErrors();
             return false;
@@ -528,7 +585,7 @@ export class CrearPacientesComponent implements OnInit {
     showErrors(){   
         this.areErrors = true;        
         this.showLoading(false);
-        
+        window.scroll(0,0);
         setTimeout(function() {
             this.clearAndcloseErrors();
         }.bind(this), 10000); 

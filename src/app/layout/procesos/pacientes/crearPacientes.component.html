@@ -186,12 +186,28 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12" >
-                            <label class="control-label">Diagnostico Principal</label>
+                            <label class="control-label">Diagnostico Principal</label>                            
+                            <ng-template #rt let-r="result" let-t="term">
+                                ({{r.codigo}}) {{r.nombre}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailed" 
+                                    [(ngModel)]="diagnosticoPrincipal" [ngbTypeahead]="search" placeholder="Cie10" 
+                                    [resultTemplate]="rt" [inputFormatter]="formatter"/>
+                            <span *ngIf="searching">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailed">No se encontró ningún Cie10.</div>                              
                         </div>        
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12" >
-                            <label class="control-label">Diagnostico Secundario</label>
+                            <label class="control-label">Diagnostico Secundario</label>                            
+                            <ng-template #rtSecundario let-r="result" let-t="term">
+                                ({{r.codigo}}) {{r.nombre}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailedSecundario" 
+                                    [(ngModel)]="diagnosticoSecundario" [ngbTypeahead]="searchSecundario" placeholder="Cie10" 
+                                    [resultTemplate]="rtSecundario" [inputFormatter]="formatterSecundario"/>
+                            <span *ngIf="searchingSecundario">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailedSecundario">No se encontró ningún Cie10.</div>  
                         </div>
                     </div>
                     <div class="row">                        
