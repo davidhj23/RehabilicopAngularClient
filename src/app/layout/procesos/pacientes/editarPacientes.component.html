@@ -50,13 +50,13 @@
                         <div class="form-group col-md-3" >
                             <label class="control-label">Apellidos</label>
                             <input class="form-control" type="text" name="apellidos" [(ngModel)]="model.apellidos" #apellidos="ngModel" required>                
-                        </div>                                                                             
-                    </div>
-                    <div class="row">                                                                   
+                        </div>
                         <div class="form-group col-md-3" >
-                            <label class="control-label">Email</label>                                
-                            <input class="form-control" type="text" name="email" [(ngModel)]="model.email" #email="ngModel" required>                                                
-                        </div>          
+                            <label class="control-label">Fecha de Nacimiento</label>                            
+                            <input class="form-control" placeholder="dd/mm/aaaa" [textMask]="{mask: mask}" [(ngModel)]="fechaDeNacimiento" type="text"/>
+                        </div>                                                      
+                    </div>
+                    <div class="row"> 
                         <div class="form-group col-md-3" >
                             <label class="control-label">Dirección</label>
                             <input class="form-control" type="text" name="direccion" [(ngModel)]="model.direccion" #direccion="ngModel" required>                
@@ -68,148 +68,36 @@
                         <div class="form-group col-md-3" >
                             <label class="control-label">Celular</label>
                             <input class="form-control" type="text" name="celular" [(ngModel)]="model.celular" #celular="ngModel" required>                
-                        </div>                            
+                        </div>    
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Email</label>                                
+                            <input class="form-control" type="text" name="email" [(ngModel)]="model.email" #email="ngModel" required>                                                
+                        </div>                         
                     </div>
                     <div class="row">                                                                   
                         <div class="form-group col-md-3" >
-                            <label class="control-label">Ocupacion</label>                                
+                            <label class="control-label">Ocupación</label>                                
                             <input class="form-control" type="text" name="ocupacion" [(ngModel)]="model.ocupacion" #ocupacion="ngModel" required>                                                
-                        </div>          
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Fecha de Nacimiento</label>                            
-                            <input class="form-control" placeholder="dd/mm/aaaa" [textMask]="{mask: mask}" [(ngModel)]="fechaDeNacimiento" type="text"/>
-                        </div>          
+                        </div>                                         
                         <div class="form-group col-md-3" >
                             <label class="control-label">Estado civil</label>
                             <select class="form-control" [(ngModel)]="idEstadoCivil" name="estadoCivil">                                
                                 <option *ngFor="let item of estadosCiviles" [value]="item.idEstadoCivil">{{item.nombre}}</option>
                             </select>
-                        </div>                                                    
-                    </div>
-                    <div class="row">                                                                   
-                        <div class="form-group col-md-6" >
-                            <label class="control-label">Aseguradora</label>
-                            <select class="form-control" [(ngModel)]="idAseguradora" name="aseguradora">                                
-                                <option *ngFor="let item of aseguradoras" [value]="item.idAseguradora">{{item.nombre}}</option>
-                            </select>
-                        </div>                            
+                        </div>    
                         <div class="form-group col-md-3" >
                             <label class="control-label">Tipo de Entidad</label>
                             <select class="form-control" [(ngModel)]="idTipoEntidad" name="tipoEntidad">                                
                                 <option *ngFor="let item of tipoEntidades" [value]="item.idTipoEntidad">{{item.nombre}}</option>
                             </select>
-                        </div>                                                    
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="page-header">
-                                <h5 class="mb-3 line-head" id="typography">Datos de Ingreso</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
+                        </div>                                                                                                                              
                         <div class="form-group col-md-3" >
-                            <label class="control-label">Fecha de Ingreso</label>                            
-                            <input class="form-control" placeholder="dd/mm/aaaa" [textMask]="{mask: mask}" [(ngModel)]="fechaDeIngreso" type="text"/>
-                        </div>
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Sede</label>
-                            <select class="form-control" [(ngModel)]="idSede" name="sede">                                
-                                <option *ngFor="let item of sedes" [value]="item.idSede">{{item.nombre}}</option>
+                            <label class="control-label">Aseguradora</label>
+                            <select class="form-control" [(ngModel)]="idAseguradora" name="aseguradora">                                
+                                <option *ngFor="let item of aseguradoras" [value]="item.idAseguradora">{{item.nombre}}</option>
                             </select>
-                        </div>
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Tipo de Atención</label>
-                            <select class="form-control" [(ngModel)]="idAtencion" name="atencion">                                
-                                <option *ngFor="let item of atenciones" [value]="item.idAtencion">{{item.nombre}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Cama</label>
-                            <select class="form-control" [(ngModel)]="idCama" name="cama">                                
-                                <option *ngFor="let item of camas" [value]="item.idCama">{{item.nombre}}</option>
-                            </select>
-                        </div>            
-                    </div>    
-                    <div class="row">
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Médico</label>
-                            <select class="form-control" [(ngModel)]="idMedico" name="medico">                                
-                                <option *ngFor="let item of medicos" [value]="item.idUsuario">{{item.nombres}} {{item.apellidos}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Enfermería</label>
-                            <select class="form-control" [(ngModel)]="idEnfermero" name="enfermero">                                
-                                <option *ngFor="let item of enfermeros" [value]="item.idUsuario">{{item.nombres}} {{item.apellidos}}</option>
-                            </select>
-                        </div>
-                    </div>               
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="page-header">
-                                <h5 class="mb-3 line-head" id="typography">Datos de Remisión</h5>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Fecha de Remisión</label>                            
-                            <input class="form-control" placeholder="dd/mm/aaaa" [textMask]="{mask: mask}" [(ngModel)]="fechaDeRemision" type="text"/>
-                        </div>
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Número</label>                                
-                            <input class="form-control" type="text" name="numeroRemision" [(ngModel)]="model.numeroRemision" #numeroRemision="ngModel" required>                                                
-                        </div>  
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Acompañante</label>                                
-                            <input class="form-control" type="text" name="acompanante" [(ngModel)]="model.acompanante" #acompanante="ngModel" required>                                                
-                        </div>          
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Parentesco</label>
-                            <select class="form-control" [(ngModel)]="idParentesco" name="parentesco">                                
-                                <option *ngFor="let item of parentescos" [value]="item.idParentesco">{{item.nombre}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Dirección</label>
-                            <input class="form-control" type="text" name="direccionAcompanante" [(ngModel)]="model.direccionAcompanante" #direccionAcompanante="ngModel" required>                
-                        </div>          
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Telefono</label>
-                            <input class="form-control" type="text" name="telefonoAcompanante" [(ngModel)]="model.telefonoAcompanante" #telefonoAcompanante="ngModel" required>                
-                        </div>  
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Ciudad Residencia</label>
-                            <input class="form-control" type="text" name="ciudadAcompanante" [(ngModel)]="model.ciudadAcompanante" #ciudadAcompanante="ngModel" required>                
-                        </div>                      
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-12" >
-                            <label class="control-label">Diagnostico Principal</label>                            
-                            <ng-template #rt let-r="result" let-t="term">
-                                ({{r.codigo}}) {{r.nombre}}
-                            </ng-template>
-                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailed" 
-                                    [(ngModel)]="diagnosticoPrincipal" [ngbTypeahead]="search" placeholder="Cie10" 
-                                    [resultTemplate]="rt" [inputFormatter]="formatter"/>
-                            <span *ngIf="searching">Buscando...</span>
-                            <div class="invalid-feedback" *ngIf="searchFailed">No se encontró ningún Cie10.</div>                              
-                        </div>        
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-12" >
-                            <label class="control-label">Diagnostico Secundario</label>                            
-                            <ng-template #rtSecundario let-r="result" let-t="term">
-                                ({{r.codigo}}) {{r.nombre}}
-                            </ng-template>
-                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailedSecundario" 
-                                    [(ngModel)]="diagnosticoSecundario" [ngbTypeahead]="searchSecundario" placeholder="Cie10" 
-                                    [resultTemplate]="rtSecundario" [inputFormatter]="formatterSecundario"/>
-                            <span *ngIf="searchingSecundario">Buscando...</span>
-                            <div class="invalid-feedback" *ngIf="searchFailedSecundario">No se encontró ningún Cie10.</div>  
-                        </div>
-                    </div>
+                        </div>                                                
+                    </div>     
                     <div class="row">
                         <div class="form-group col-md-4 align-self-end">
                             <button class="btn btn-primary" type="button" (click)="guardar()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>

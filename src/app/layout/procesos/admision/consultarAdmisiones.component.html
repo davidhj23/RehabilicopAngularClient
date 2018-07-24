@@ -9,12 +9,12 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-th-list"></i> Pacientes</h1> 
-        <p>Módulo de Pacientes, Aquí usted podrá crear, editar y eliminar Pacientes</p>       
+        <h1><i class="fa fa-th-list"></i> Admisión</h1> 
+        <p>Módulo de Admisiones, Aquí usted podrá crear, editar y eliminar Admisiones</p>       
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/layout/procesos/pacientes/consultar']">Consultar Pacientes</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/procesos/admisiones/consultar']">Consultar Admisiones</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="areErrors">
@@ -31,9 +31,9 @@
     </div>
     <div class="row">  
         <div class="col-md-12"> 
-            <div class="tile" permission="crear paciente">              
+            <div class="tile" permission="crear admision">              
                 <div class="tile-body">                                                          
-                    <button class="btn btn-primary" type="button" [routerLink]="['/layout/procesos/pacientes/nuevo']"><i class="fa fa-fw fa-lg fa-check-circle"></i>Nuevo Paciente</button>                    
+                    <button class="btn btn-primary" type="button" [routerLink]="['/layout/procesos/admisiones/nuevo']"><i class="fa fa-fw fa-lg fa-check-circle"></i>Nuevo Admisión</button>                    
                 </div>
             </div>
             <div class="tile"> 
@@ -45,27 +45,29 @@
                     </div>          
                     </div>
                     <table class="table table-hover table-bordered" 
-                        [mfData]="pacientes" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                        [mfData]="admisiones" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
                     <thead>
                         <tr>
-                        <th>Identificación</th>
+                        <th>Identificacion</th>
                         <th>Nombres</th>
                         <th>Apellidos</th>
-                        <th permission="editar paciente">Editar</th>              
-                        <th permission="eliminar paciente">Eliminar</th>          
+                        <th>Fecha de ingreso</th>
+                        <th permission="editar admision">Editar</th>              
+                        <th permission="eliminar admision">Eliminar</th>          
                         </tr>
                     </thead>
-                    <tbody *ngFor="let paciente of mf.data">
+                    <tbody *ngFor="let admision of mf.data">
                         <tr>                  
-                        <td class="rowTd">{{paciente.identificacion}}</td>
-                        <td class="rowTd">{{paciente.nombres}}</td>
-                        <td class="rowTd">{{paciente.apellidos}}</td>
-                        <td class="rowTd" permission="editar paciente">                  
-                            <a class="btn float-left" (click)="edit(paciente)" permission="editar paciente"><i class="fa fa-pencil"></i></a>                      
-                        </td>       
-                        <td class="rowTd" permission="eliminar paciente">                                      
-                            <a class="btn float-left" (click)="delete(paciente.idUsuario, content)" permission="eliminar paciente"><i class="fa fa-times"></i></a>                  
-                        </td>       
+                            <td class="rowTd">{{admision.paciente.identificacion}}</td>    
+                            <td class="rowTd">{{admision.paciente.nombres}}</td>
+                            <td class="rowTd">{{admision.paciente.apellidos}}</td>
+                            <td class="rowTd">{{admision.fechaDeAdmision}}</td>
+                            <td class="rowTd" permission="editar admision">                  
+                                <a class="btn float-left" (click)="edit(admision)" permission="editar admision"><i class="fa fa-pencil"></i></a>                      
+                            </td>       
+                            <td class="rowTd" permission="eliminar admision">                                      
+                                <a class="btn float-left" (click)="delete(admision.idAdmision, content)" permission="eliminar admision"><i class="fa fa-times"></i></a>                  
+                            </td>       
                         </tr>            
                     </tbody>
                     <tfoot>

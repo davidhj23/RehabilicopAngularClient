@@ -1,18 +1,18 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { PacienteService } from './paciente.service';
-import { Paciente } from './paciente';
+import { Admision } from './admision';
+import { AdmisionService } from './admision.service';
 
 @Component({
-    selector: 'consultarPacientes',
-    templateUrl: 'consultarPacientes.component.html',
+    selector: 'consultarAdmisiones',
+    templateUrl: 'consultarAdmisiones.component.html',
 })
 
-export class ConsultarPacientesComponent implements OnInit {       
+export class ConsultarAdmisionesComponent implements OnInit {       
     
-    pacientes: Paciente[] = [];
-    temp: Paciente[] = [];
+    admisiones: Admision[] = [];
+    temp: Admision[] = [];
     model: any = {};
     modelToEdit: any = {};
 
@@ -23,22 +23,22 @@ export class ConsultarPacientesComponent implements OnInit {
     errores: any[] = [];   
 
     constructor(
-        private pacienteService: PacienteService,
+        private admisionService: AdmisionService,
         private router: Router,
         private ngbModal: NgbModal) {
         let self = this;
     }
 
     ngOnInit() { 
-        this.loadAllPacientes();           
+        this.loadAllAdmisiones();           
     }    
 
-    private loadAllPacientes() {     
+    private loadAllAdmisiones() {     
         this.showLoading(true);   
-        this.pacienteService.getAll().subscribe(
-            pacientes => {                                 
-                this.pacientes = pacientes; 
-                this.temp = this.pacientes;
+        this.admisionService.getAll().subscribe(
+            admisiones => {                                 
+                this.admisiones = admisiones; 
+                this.temp = this.admisiones;
                 this.showLoading(false);
             },
             error => {                        
@@ -59,29 +59,26 @@ export class ConsultarPacientesComponent implements OnInit {
 
         // filter our data
         const temp = this.temp.filter(function(d) {
-            return d.nombres.toLowerCase().indexOf(val) !== -1 || 
-                   d.apellidos.toLowerCase().indexOf(val) !== -1 ||
-                   d.identificacion.toLowerCase().indexOf(val) !== -1 || !val;
+            return d.paciente.nombres.toLowerCase().indexOf(val) !== -1 || 
+                   d.paciente.apellidos.toLowerCase().indexOf(val) !== -1 ||
+                   d.paciente.identificacion.toLowerCase().indexOf(val) !== -1 || 
+                   d.fechaDeRemision.toString().indexOf(val) || !val;
         }); 
 
-        this.pacientes = temp;
-    }
-
-    new(){
-        
+        this.admisiones = temp;
     }
 
     edit(model: any) {            
-        this.router.navigate(['/layout/procesos/pacientes/editar', model.idUsuario]);
+        this.router.navigate(['/layout/procesos/admisions/editar', model.idUsuario]);
     }
 
-    delete(idPaciente: string, content: any) {           
+    delete(idAdmision: string, content: any) {   
         this.clearAndcloseErrors();     
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
-            this.pacienteService.delete(idPaciente)
+            this.admisionService.delete(idAdmision)
                 .subscribe(data => {                    
-                    this.loadAllPacientes();                    
+                    this.loadAllAdmisiones();                    
                     this.showLoading(false);
                 }, error => {       
                     if(Array.isArray(error.error)){

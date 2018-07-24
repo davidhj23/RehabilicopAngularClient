@@ -30,26 +30,10 @@ export class CrearPacientesComponent implements OnInit {
     aseguradoras: any[] = [];
     tipoEntidades: any[] = []; 
 
-    sedes: any[] = []; 
-    atenciones: any[] = [];
-    camas: any[] = []; 
-    medicos: any[] = [];
-    enfermeros: any[] = []; 
-
-    parentescos: any[] = []; 
-
     idTipoDocumento: string;    
     idEstadoCivil: string;
     idAseguradora: string;
     idTipoEntidad: string;
-    
-    idSede: string;
-    idAtencion: string;
-    idCama: string;
-    idMedico: string;
-    idEnfermero: string;
-
-    idParentesco: string;
 
     loading = false;        
     
@@ -57,8 +41,6 @@ export class CrearPacientesComponent implements OnInit {
     errores: any[] = [];       
     
     fechaDeNacimiento: string;
-    fechaDeIngreso: string;
-    fechaDeRemision: string;
     public mask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
 
     constructor(
@@ -66,13 +48,7 @@ export class CrearPacientesComponent implements OnInit {
         private tipoDocumentoService: TipoDocumentoService,
         private estadoCivilService: EstadoCivilService,
         private aseguradoraService: AseguradoraService,
-        private tipoEntidadService: TipoEntidadService,
-        private sedeService: SedeService,
-        private atencionService: AtencionService,
-        private camaService: CamaService,
-        private usuarioService: UserService,
-        private parentescoService: ParentescoService,
-        private cie10Service: Cie10Service) {
+        private tipoEntidadService: TipoEntidadService) {
         
         this.model = new Paciente();
     }
@@ -120,8 +96,8 @@ export class CrearPacientesComponent implements OnInit {
                     } 
                     this.showErrors();
                     this.showLoading(false);
-                });           
-
+                });  
+                
         this.showLoading(true);    
         this.aseguradoraService.getAll()
             .subscribe(
@@ -162,125 +138,6 @@ export class CrearPacientesComponent implements OnInit {
                     this.showLoading(false);
                 }); 
 
-        this.showLoading(true);    
-        this.sedeService.getAll()
-            .subscribe(
-                data => {      
-                    this.sedes = data;                  
-                    this.clearModel();                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
-
-        this.showLoading(true);    
-        this.atencionService.getAll()
-            .subscribe(
-                data => {      
-                    this.atenciones = data;                  
-                    this.clearModel();                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
-
-        this.showLoading(true);    
-        this.camaService.getAll()
-            .subscribe(
-                data => {      
-                    this.camas = data;                  
-                    this.clearModel();                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
-
-        this.showLoading(true);    
-        this.usuarioService.getAllMedicos()
-            .subscribe(
-                data => {      
-                    this.medicos = data;                  
-                    this.clearModel();                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
-
-        this.showLoading(true);    
-        this.usuarioService.getAllEnfermeros()
-            .subscribe(
-                data => {      
-                    this.enfermeros = data;                  
-                    this.clearModel();                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
-
-        this.showLoading(true);    
-        this.parentescoService.getAll()
-            .subscribe(
-                data => {      
-                    this.parentescos = data;                  
-                    this.clearModel();                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
     }
 
     guardar() {        
@@ -292,53 +149,29 @@ export class CrearPacientesComponent implements OnInit {
         tipoDoc.idTipoDocumento = this.idTipoDocumento;          
         this.model.tipoDocumento = tipoDoc; 
         
-        this.model.estadoCivil = new EstadoCivil();        
+        if(this.idEstadoCivil != null){
+            this.model.estadoCivil = new EstadoCivil();        
 
-        let estadoCivil = new EstadoCivil();
-        estadoCivil.idEstadoCivil = this.idEstadoCivil;          
-        this.model.estadoCivil = estadoCivil; 
+            let estadoCivil = new EstadoCivil();
+            estadoCivil.idEstadoCivil = this.idEstadoCivil;          
+            this.model.estadoCivil = estadoCivil; 
+        }
 
-        this.model.aseguradora = new Aseguradora();        
+        if(this.idAseguradora != null){
+            this.model.aseguradora = new Aseguradora();        
 
-        let aseguradora = new Aseguradora();
-        aseguradora.idAseguradora = this.idAseguradora;          
-        this.model.aseguradora = aseguradora; 
-
-        this.model.tipoEntidad = new TipoEntidad();        
-
-        let tipoEntidad = new TipoEntidad();
-        tipoEntidad.idTipoEntidad = this.idTipoEntidad;          
-        this.model.tipoEntidad = tipoEntidad; 
-
-        this.model.sede = new Sede();        
-
-        let sede = new Sede();
-        sede.idSede = this.idSede;          
-        this.model.sede = sede; 
-
-        this.model.atencion = new Atencion();        
-
-        let atencion = new Atencion();
-        atencion.idAtencion = this.idAtencion;          
-        this.model.atencion = atencion; 
-
-        this.model.cama = new Cama();        
-
-        let cama = new Cama();
-        cama.idCama = this.idCama;          
-        this.model.cama = cama; 
-
-        this.model.parentesco = new Parentesco();        
-
-        let parentesco = new Parentesco();
-        parentesco.idParentesco = this.idParentesco;          
-        this.model.parentesco = parentesco;
+            let aseguradora = new Aseguradora();
+            aseguradora.idAseguradora = this.idAseguradora;          
+            this.model.aseguradora = aseguradora; 
+        }
         
-        this.model.idMedico = this.idMedico;
-        this.model.idEnfermero = this.idEnfermero;
+        if(this.idTipoEntidad != null){
+            this.model.tipoEntidad = new TipoEntidad();        
 
-        this.model.diagnosticoPrincipal = this.diagnosticoPrincipal;
-        this.model.diagnosticoSecundario = this.diagnosticoSecundario;
+            let tipoEntidad = new TipoEntidad();
+            tipoEntidad.idTipoEntidad = this.idTipoEntidad;          
+            this.model.tipoEntidad = tipoEntidad; 
+        }
 
         this.showLoading(true);    
         this.pacienteService.create(this.model)
@@ -346,20 +179,10 @@ export class CrearPacientesComponent implements OnInit {
                 data => {                        
                     this.clearModel();  
                     this.idTipoDocumento = '';
-                    this.idEstadoCivil = '';                
-                    this.idAseguradora = '';       
-                    this.idTipoEntidad = '';
-                    this.fechaDeNacimiento = '';       
-                    this.fechaDeIngreso = '';  
-                    this.fechaDeRemision = '';  
-                    this.idSede = '';  
-                    this.idAtencion = '';  
-                    this.idCama = '';  
-                    this.idMedico = '';  
-                    this.idEnfermero = '';  
-                    this.idParentesco = '';  
-                    this.diagnosticoPrincipal = null;  
-                    this.diagnosticoSecundario = null;  
+                    this.idEstadoCivil = ''; 
+                    this.idTipoEntidad = ''; 
+                    this.idAseguradora = ''; 
+                    this.fechaDeNacimiento = ''; 
                     this.showLoading(false);
                 },
                 error => {            
@@ -374,54 +197,6 @@ export class CrearPacientesComponent implements OnInit {
                     this.showLoading(false);
                 });         
     }
-    
-    diagnosticoPrincipal: any;
-
-    searching = false;
-    searchFailed = false;
-    formatter = (x: {codigo: string, nombre: string}) => `(${x.codigo}) ${x.nombre}`;
-
-    search = (text$: Observable<string>) =>
-        text$.pipe(
-        debounceTime(200),
-        tap(() => this.searching  = true),
-        switchMap(
-            term => term.length < 3 ? [] :
-                this.cie10Service.search(term)
-                    .pipe(
-                        tap(() => this.searchFailed = false),
-                        catchError(() => {
-                            this.searchFailed = true;
-                            return of([]);
-                        })
-                    )
-        ),
-        tap(() => this.searching  = false)
-    )
-
-    diagnosticoSecundario: any;
-
-    searchingSecundario = false;
-    searchFailedSecundario = false;
-    formatterSecundario = (x: {codigo: string, nombre: string}) => `(${x.codigo}) ${x.nombre}`;
-
-    searchSecundario = (text$: Observable<string>) =>
-        text$.pipe(
-        debounceTime(200),
-        tap(() => this.searchingSecundario = true),
-        switchMap(
-            term => term.length < 3 ? [] :
-                this.cie10Service.search(term)
-                    .pipe(
-                        tap(() => this.searchFailedSecundario = false),
-                        catchError(() => {
-                            this.searchFailedSecundario = true;
-                            return of([]);
-                        })
-                    )
-        ),
-        tap(() => this.searchingSecundario  = false)
-    )
     
     validateCreate(){
         let areErrors = false;
@@ -446,15 +221,6 @@ export class CrearPacientesComponent implements OnInit {
             this.errores.push({ message: 'Ingrese apellidos'});
             areErrors = true;
         }        
-
-        if(this.model.email == undefined || this.model.email == ''){
-            this.errores.push({ message: 'Ingrese un email'});
-            areErrors = true;
-        }
-        else if(!Util.validateEmail(this.model.email)){
-            this.errores.push({ message: 'Ingrese un email válido'});
-            areErrors = true;
-        }            
          
         if(this.fechaDeNacimiento == undefined || this.fechaDeNacimiento == ''){
             this.errores.push({ message: 'Ingrese una fecha de nacimiento'});
@@ -466,8 +232,15 @@ export class CrearPacientesComponent implements OnInit {
         }else{
             this.model.fechaDeNacimiento = Util.getDate(this.fechaDeNacimiento);
         }
-        
-        if(this.idEstadoCivil == undefined || this.idEstadoCivil == ''){
+
+        if(this.model.email != undefined && this.model.email != ''){
+            if(!Util.validateEmail(this.model.email)){
+                this.errores.push({ message: 'Ingrese un email válido'});
+                areErrors = true;
+            }
+        }
+
+        /*if(this.idEstadoCivil == undefined || this.idEstadoCivil == ''){
             this.errores.push({ message: 'Seleccione un estado civil'});
             areErrors = true;
         }
@@ -480,95 +253,7 @@ export class CrearPacientesComponent implements OnInit {
         if(this.idTipoEntidad == undefined || this.idTipoEntidad == ''){
             this.errores.push({ message: 'Seleccione un tipo de entidad'});
             areErrors = true;
-        }
-
-        if(this.fechaDeIngreso == undefined || this.fechaDeIngreso == ''){
-            this.errores.push({ message: 'Ingrese una fecha de ingreso'});
-            areErrors = true;
-        }
-        else if(!Util.validateDate(this.fechaDeIngreso)){
-            this.errores.push({ message: 'Ingrese una fecha de ingreso válida'});
-            areErrors = true;
-        }else{
-            this.model.fechaDeIngreso = Util.getDate(this.fechaDeIngreso);
-        }
-        
-        if(this.idSede == undefined || this.idSede == ''){
-            this.errores.push({ message: 'Seleccione una sede'});
-            areErrors = true;
-        }
-
-        if(this.idAtencion == undefined || this.idAtencion == ''){
-            this.errores.push({ message: 'Seleccione un tipo de atención'});
-            areErrors = true;
-        }
-
-        if(this.idCama == undefined || this.idCama == ''){
-            this.errores.push({ message: 'Seleccione una cama'});
-            areErrors = true;
-        }
-
-        if(this.idMedico == undefined || this.idMedico == ''){
-            this.errores.push({ message: 'Seleccione un médico'});
-            areErrors = true;
-        }
-
-        if(this.idEnfermero == undefined || this.idEnfermero == ''){
-            this.errores.push({ message: 'Seleccione un enfermero'});
-            areErrors = true;
-        }
-
-        if(this.fechaDeRemision == undefined || this.fechaDeRemision == ''){
-            this.errores.push({ message: 'Ingrese una fecha de remisión'});
-            areErrors = true;
-        }
-        else if(!Util.validateDate(this.fechaDeRemision)){
-            this.errores.push({ message: 'Ingrese una fecha de remisión válida'});
-            areErrors = true;
-        }else{
-            this.model.fechaDeRemision = Util.getDate(this.fechaDeRemision);
-        }
-
-        if(this.model.numeroRemision == undefined || this.model.numeroRemision == ''){
-            this.errores.push({ message: 'Ingrese numero de remisión'});
-            areErrors = true;
-        }
-
-        if(this.model.acompanante == undefined || this.model.acompanante == ''){
-            this.errores.push({ message: 'Ingrese acompañante'});
-            areErrors = true;
-        }
-
-        if(this.idParentesco == undefined || this.idParentesco == ''){
-
-            this.errores.push({ message: 'Seleccione un parentesco'});
-            areErrors = true;
-        }
-
-        if(this.model.direccionAcompanante == undefined || this.model.direccionAcompanante == ''){
-            this.errores.push({ message: 'Ingrese dirección acompañante'});
-            areErrors = true;
-        }
-
-        if(this.model.telefonoAcompanante == undefined || this.model.telefonoAcompanante == ''){
-            this.errores.push({ message: 'Ingrese teléfono acompañante'});
-            areErrors = true;
-        }
-
-        if(this.model.ciudadAcompanante == undefined || this.model.ciudadAcompanante == ''){
-            this.errores.push({ message: 'Ingrese ciudad acompañante'});
-            areErrors = true;
-        }
-
-        if(this.diagnosticoPrincipal == null){
-            this.errores.push({ message: 'Ingrese un diagnostico principal'});
-            areErrors = true;
-        }
-
-        if(this.diagnosticoSecundario == null){
-            this.errores.push({ message: 'Ingrese un diagnostico secundario'});
-            areErrors = true;
-        }
+        }*/
 
         if(areErrors){
             this.showErrors();
