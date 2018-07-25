@@ -77,6 +77,7 @@ import { SexosComponent, SexoService } from './layout/listas/sexos/index';
 import { TiempoUsoComponent, TiempoUsoService } from './layout/listas/tiempos-usos/index';
 import { TipoEntidadComponent, TipoEntidadService } from './layout/listas/tipos-entidades/index';
 import { ViaIngresoComponent, ViaIngresoService } from './layout/listas/vias-ingresos/index';
+import { RegimenesComponent, RegimenService } from './layout/listas/regimenes/index';
 
 import { ConsultarPacientesComponent } from './layout/procesos/pacientes/consultarPacientes.component';
 import { CrearPacientesComponent } from './layout/procesos/pacientes/crearPacientes.component';
@@ -162,6 +163,7 @@ import { PacienteService } from './layout/procesos/pacientes/paciente.service';
         TiempoUsoComponent,
         TipoEntidadComponent,
         ViaIngresoComponent,
+        RegimenesComponent,
 
         ConsultarPacientesComponent,
         CrearPacientesComponent,
@@ -220,6 +222,7 @@ import { PacienteService } from './layout/procesos/pacientes/paciente.service';
         TiempoUsoService,
         TipoEntidadService,
         ViaIngresoService,
+        RegimenService,
         
         PacienteService
     ],

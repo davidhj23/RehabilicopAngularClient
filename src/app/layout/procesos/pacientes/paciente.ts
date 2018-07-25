@@ -10,6 +10,8 @@ import { Cama } from "../../listas/camas";
 import { User } from "../../seguridad/usuarios/user";
 import { Parentesco } from "../../listas/parentescos";
 import { Cie10 } from "../../listas/cie10s";
+import { Escolaridad } from "../../listas/escolaridades";
+import { Regimen } from "../../listas/regimenes";
 
 export class Paciente {
     idUsuario: string;
@@ -31,4 +33,8 @@ export class Paciente {
     estadoCivil: EstadoCivil;   
     aseguradora: Aseguradora;   
     tipoEntidad: TipoEntidad;   
+    regimen: Regimen;   
+    escolaridad: Escolaridad;   
+    ciudad: string;
+    sexo: string;
 }

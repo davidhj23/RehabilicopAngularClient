@@ -16,6 +16,8 @@ import { Cie10Service, Cie10 } from '../../listas/cie10s';
 import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, tap, switchMap, catchError} from 'rxjs/operators';
 import { of } from '../../../../../node_modules/rxjs/observable/of';
+import { RegimenService, Regimen } from '../../listas/regimenes';
+import { EscolaridadService, Escolaridad } from '../../listas/escolaridades';
 
 @Component({
     selector: 'crearPacientes',
@@ -29,11 +31,15 @@ export class CrearPacientesComponent implements OnInit {
     estadosCiviles: any[] = []; 
     aseguradoras: any[] = [];
     tipoEntidades: any[] = []; 
+    regimenes: any[] = [];
+    escolaridades: any[] = []; 
 
     idTipoDocumento: string;    
     idEstadoCivil: string;
     idAseguradora: string;
     idTipoEntidad: string;
+    idRegimen: string;
+    idEscolaridad: string;
 
     loading = false;        
     
@@ -48,7 +54,9 @@ export class CrearPacientesComponent implements OnInit {
         private tipoDocumentoService: TipoDocumentoService,
         private estadoCivilService: EstadoCivilService,
         private aseguradoraService: AseguradoraService,
-        private tipoEntidadService: TipoEntidadService) {
+        private tipoEntidadService: TipoEntidadService,
+        private regimenService: RegimenService,
+        private escolaridadService: EscolaridadService) {
         
         this.model = new Paciente();
     }
@@ -62,8 +70,7 @@ export class CrearPacientesComponent implements OnInit {
         this.tipoDocumentoService.getAll()
             .subscribe(
                 data => {      
-                    this.tiposDocumentos = data;                  
-                    this.clearModel();                    
+                    this.tiposDocumentos = data;          
                     this.showLoading(false);
                 },
                 error => {                        
@@ -82,8 +89,7 @@ export class CrearPacientesComponent implements OnInit {
         this.estadoCivilService.getAll()
             .subscribe(
                 data => {      
-                    this.estadosCiviles = data;                  
-                    this.clearModel();                    
+                    this.estadosCiviles = data;           
                     this.showLoading(false);
                 },
                 error => {                        
@@ -102,8 +108,7 @@ export class CrearPacientesComponent implements OnInit {
         this.aseguradoraService.getAll()
             .subscribe(
                 data => {      
-                    this.aseguradoras = data;                  
-                    this.clearModel();                    
+                    this.aseguradoras = data;             
                     this.showLoading(false);
                 },
                 error => {                        
@@ -122,8 +127,7 @@ export class CrearPacientesComponent implements OnInit {
         this.tipoEntidadService.getAll()
             .subscribe(
                 data => {      
-                    this.tipoEntidades = data;                  
-                    this.clearModel();                    
+                    this.tipoEntidades = data;            
                     this.showLoading(false);
                 },
                 error => {                        
@@ -138,6 +142,43 @@ export class CrearPacientesComponent implements OnInit {
                     this.showLoading(false);
                 }); 
 
+        this.showLoading(true);    
+        this.regimenService.getAll()
+            .subscribe(
+                data => {      
+                    this.regimenes = data;                
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+
+        this.showLoading(true);    
+        this.escolaridadService.getAll()
+            .subscribe(
+                data => {      
+                    this.escolaridades = data;                                                          
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
     }
 
     guardar() {        
@@ -173,6 +214,22 @@ export class CrearPacientesComponent implements OnInit {
             this.model.tipoEntidad = tipoEntidad; 
         }
 
+        if(this.idRegimen != null){
+            this.model.regimen = new Regimen();        
+
+            let regimen = new Regimen();
+            regimen.idRegimen = this.idRegimen;          
+            this.model.regimen = regimen; 
+        }
+
+        if(this.idEscolaridad != null){
+            this.model.escolaridad = new Escolaridad();        
+
+            let escolaridad = new Escolaridad();
+            escolaridad.idEscolaridad = this.idEscolaridad;          
+            this.model.escolaridad = escolaridad; 
+        }
+
         this.showLoading(true);    
         this.pacienteService.create(this.model)
             .subscribe(
@@ -183,6 +240,9 @@ export class CrearPacientesComponent implements OnInit {
                     this.idTipoEntidad = ''; 
                     this.idAseguradora = ''; 
                     this.fechaDeNacimiento = ''; 
+                    this.idRegimen = ''; 
+                    this.idEscolaridad = ''; 
+                    this.model.sexo = ''; 
                     this.showLoading(false);
                 },
                 error => {            

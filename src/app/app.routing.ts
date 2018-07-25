@@ -57,6 +57,7 @@ import { SexosComponent } from './layout/listas/sexos/index';
 import { TiempoUsoComponent } from './layout/listas/tiempos-usos/index';
 import { TipoEntidadComponent } from './layout/listas/tipos-entidades/index';
 import { ViaIngresoComponent } from './layout/listas/vias-ingresos/index';
+import { RegimenesComponent } from './layout/listas/regimenes/index';
 
 import { ConsultarPacientesComponent } from './layout/procesos/pacientes/consultarPacientes.component';
 import { CrearPacientesComponent } from './layout/procesos/pacientes/crearPacientes.component';
@@ -127,6 +128,7 @@ const appRoutes: Routes = [
                 { path: 'listas/tiempos-usos', component: TiempoUsoComponent, canActivate: [AuthGuard], data : { permission: ["tiempo de uso"] }},
                 { path: 'listas/tipos-entidades', component: TipoEntidadComponent, canActivate: [AuthGuard], data : { permission: ["tipo entidad"] }},
                 { path: 'listas/vias-ingresos', component: ViaIngresoComponent, canActivate: [AuthGuard], data : { permission: ["via ingreso"] }},
+                { path: 'listas/regimenes', component: RegimenesComponent, canActivate: [AuthGuard], data : { permission: ["regimen"] }},
 
                 { path: 'procesos/pacientes/consultar', component: ConsultarPacientesComponent, canActivate: [AuthGuard], data : { permission: ["pacientes"] }}, 
                 { path: 'procesos/pacientes/nuevo', component: CrearPacientesComponent, canActivate: [AuthGuard], data : { permission: ["crear paciente"] }}, 

@@ -16,6 +16,8 @@ import { CamaService } from '../../listas/camas';
 import { ParentescoService } from '../../listas/parentescos';
 import { UserService } from '../../seguridad/usuarios/user.service';
 import { Cie10Service } from '../../listas/cie10s';
+import { RegimenService, Regimen } from '../../listas/regimenes';
+import { EscolaridadService, Escolaridad } from '../../listas/escolaridades';
 
 @Component({
     selector: 'editarPacientes',
@@ -31,11 +33,15 @@ export class EditarPacientesComponent implements OnInit {
     estadosCiviles: any[] = [];
     aseguradoras: any[] = [];
     tipoEntidades: any[] = []; 
+    regimenes: any[] = [];
+    escolaridades: any[] = []; 
 
     idTipoDocumento: string;    
     idEstadoCivil: string;
     idAseguradora: string;
     idTipoEntidad: string;
+    idRegimen: string;
+    idEscolaridad: string;
 
     loading = false;        
     
@@ -51,6 +57,8 @@ export class EditarPacientesComponent implements OnInit {
         private estadoCivilService: EstadoCivilService,
         private aseguradoraService: AseguradoraService,
         private tipoEntidadService: TipoEntidadService,
+        private regimenService: RegimenService,
+        private escolaridadService: EscolaridadService,
         private route: ActivatedRoute) {
 
         this.model = new Paciente();
@@ -80,6 +88,12 @@ export class EditarPacientesComponent implements OnInit {
 
                     if(this.model.aseguradora != null)
                         this.idAseguradora = this.model.aseguradora.idAseguradora;  
+
+                    if(this.model.regimen != null)
+                        this.idRegimen = this.model.regimen.idRegimen;
+
+                    if(this.model.escolaridad != null)
+                        this.idEscolaridad = this.model.escolaridad.idEscolaridad;
 
                     this.fechaDeNacimiento = Util.formattedDate(this.model.fechaDeNacimiento);   
 
@@ -174,6 +188,44 @@ export class EditarPacientesComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 }); 
+
+        this.showLoading(true);    
+        this.regimenService.getAll()
+            .subscribe(
+                data => {      
+                    this.regimenes = data;                
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+
+        this.showLoading(true);    
+        this.escolaridadService.getAll()
+            .subscribe(
+                data => {      
+                    this.escolaridades = data;                                                          
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });
     }
 
     guardar() {
@@ -207,6 +259,22 @@ export class EditarPacientesComponent implements OnInit {
             let tipoEntidad = new TipoEntidad();
             tipoEntidad.idTipoEntidad = this.idTipoEntidad;          
             this.model.tipoEntidad = tipoEntidad; 
+        }
+
+        if(this.idRegimen != null){
+            this.model.regimen = new Regimen();        
+
+            let regimen = new Regimen();
+            regimen.idRegimen = this.idRegimen;          
+            this.model.regimen = regimen; 
+        }
+
+        if(this.idEscolaridad != null){
+            this.model.escolaridad = new Escolaridad();        
+
+            let escolaridad = new Escolaridad();
+            escolaridad.idEscolaridad = this.idEscolaridad;          
+            this.model.escolaridad = escolaridad; 
         }
         
         this.showLoading(true);               
