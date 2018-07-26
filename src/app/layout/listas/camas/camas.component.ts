@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Cama } from './cama';
 import { CamaService } from './cama.service';
+import { SedeService, Sede } from '../sedes';
 
 @Component({
     selector: 'camas',
@@ -15,6 +16,10 @@ export class CamasComponent implements OnInit {
     temp: Cama[] = [];
     model: any = {};
     modelToEdit: any = {};
+    
+    sedes: any[] = []; 
+    idSede: string;   
+    idSedeToEdit: string;    
 
     loading = false;        
     rowsOnPage = 5;
@@ -26,6 +31,7 @@ export class CamasComponent implements OnInit {
 
     constructor(
         private camaService: CamaService,
+        private sedeService: SedeService,
         private router: Router,
         private ngbModal: NgbModal) {
         let self = this;
@@ -55,6 +61,26 @@ export class CamasComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 });
+
+        this.showLoading(true);    
+        this.sedeService.getAll()
+            .subscribe(
+                data => {      
+                    this.sedes = data;                  
+                    this.clearModel();                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
     }
 
     filtrarTabla(event: any) { 
@@ -71,11 +97,17 @@ export class CamasComponent implements OnInit {
     create() {
         if(!this.validateCreate()) return;
 
+        if(this.idSede != null){
+            this.model.sede = new Sede();        
+            this.model.sede.idSede = this.idSede;                      
+        }
+
         this.showLoading(true);    
         this.camaService.create(this.model)
             .subscribe(
                 data => {                        
                     this.clearModel();
+                    this.idSede = '';
                     this.loadAllCamas();
                     this.showLoading(false);
                 },
@@ -101,6 +133,11 @@ export class CamasComponent implements OnInit {
             areErrors = true;
         }
 
+        if(this.idSede == undefined || this.idSede == ''){
+            this.errores.push({ message: 'Seleccione una sede'});
+            areErrors = true;
+        }
+
         if(areErrors){
             this.showErrors();
             return false;
@@ -111,16 +148,23 @@ export class CamasComponent implements OnInit {
 
     edit(model: any, editContent: any) {            
         this.modelToEdit.idCama = model.idCama;     
-        this.modelToEdit.nombre = model.nombre;     
+        this.modelToEdit.nombre = model.nombre;
+        this.idSedeToEdit = model.sede.idSede;        
 
         this.ngbModal.open(editContent).result.then((result) => {
-            
             this.showLoading(true);      
+            
+            if(this.idSedeToEdit != null){
+                this.modelToEdit.sede = new Sede();     
+                this.modelToEdit.sede.idSede = this.idSedeToEdit;
+            }
+
             if(this.validateEdit()){                                               
                 this.camaService.update(this.modelToEdit)
                     .subscribe(
                         data => {
                             this.clearModel();
+                            this.idSedeToEdit = '';
                             this.loadAllCamas();
                             this.showLoading(false);
                         },
@@ -149,6 +193,11 @@ export class CamasComponent implements OnInit {
         
         if(this.modelToEdit.nombre == undefined || this.modelToEdit.nombre == ''){
             this.editErrores.push({ message: 'Nombre obligatorio'});
+            areEditErrors = true;
+        }
+
+        if(this.idSedeToEdit == undefined || this.idSedeToEdit == ''){
+            this.editErrores.push({ message: 'Seleccione una sede'});
             areEditErrors = true;
         }
         
@@ -212,10 +261,8 @@ export class CamasComponent implements OnInit {
         this.areEditErrors = false;                            
     }
 
-    clearModel(){        
-        this.model.idCama = '';        
-        this.model.nombre = '';
-        this.modelToEdit.idCama = '';
-        this.modelToEdit.nombre = '';
+    clearModel(){                
+        this.model = new Cama();
+        this.modelToEdit = new Cama();        
     }
 }

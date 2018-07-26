@@ -83,6 +83,11 @@ import { ConsultarPacientesComponent } from './layout/procesos/pacientes/consult
 import { CrearPacientesComponent } from './layout/procesos/pacientes/crearPacientes.component';
 import { EditarPacientesComponent } from './layout/procesos/pacientes/editarPacientes.component';
 import { PacienteService } from './layout/procesos/pacientes/paciente.service';
+import { ConsultarAdmisionesComponent } from './layout/procesos/admisiones/consultarAdmisiones.component';
+import { CrearAdmisionesComponent } from './layout/procesos/admisiones/crearAdmisiones.component';
+import { EditarAdmisionesComponent } from './layout/procesos/admisiones/editarAdmisiones.component';
+import { AdmisionService } from './layout/procesos/admisiones/admision.service';
+
 
 @NgModule({
     imports: [
@@ -167,7 +172,11 @@ import { PacienteService } from './layout/procesos/pacientes/paciente.service';
 
         ConsultarPacientesComponent,
         CrearPacientesComponent,
-        EditarPacientesComponent
+        EditarPacientesComponent,
+
+        ConsultarAdmisionesComponent,
+        CrearAdmisionesComponent,
+        EditarAdmisionesComponent
     ],
     providers: [
         AuthGuard,
@@ -224,7 +233,8 @@ import { PacienteService } from './layout/procesos/pacientes/paciente.service';
         ViaIngresoService,
         RegimenService,
         
-        PacienteService
+        PacienteService,
+        AdmisionService
     ],
     bootstrap: [AppComponent]
 })

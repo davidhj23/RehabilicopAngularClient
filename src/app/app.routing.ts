@@ -63,6 +63,10 @@ import { ConsultarPacientesComponent } from './layout/procesos/pacientes/consult
 import { CrearPacientesComponent } from './layout/procesos/pacientes/crearPacientes.component';
 import { EditarPacientesComponent } from './layout/procesos/pacientes/editarPacientes.component';
 
+import { ConsultarAdmisionesComponent } from './layout/procesos/admisiones/consultarAdmisiones.component';
+import { CrearAdmisionesComponent } from './layout/procesos/admisiones/crearAdmisiones.component';
+import { EditarAdmisionesComponent } from './layout/procesos/admisiones/editarAdmisiones.component';
+
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
@@ -132,7 +136,11 @@ const appRoutes: Routes = [
 
                 { path: 'procesos/pacientes/consultar', component: ConsultarPacientesComponent, canActivate: [AuthGuard], data : { permission: ["pacientes"] }}, 
                 { path: 'procesos/pacientes/nuevo', component: CrearPacientesComponent, canActivate: [AuthGuard], data : { permission: ["crear paciente"] }}, 
-                { path: 'procesos/pacientes/editar/:id', component: EditarPacientesComponent, canActivate: [AuthGuard], data : { permission: ["editar paciente"] }}
+                { path: 'procesos/pacientes/editar/:id', component: EditarPacientesComponent, canActivate: [AuthGuard], data : { permission: ["editar paciente"] }},
+
+                { path: 'procesos/admisiones/consultar', component: ConsultarAdmisionesComponent, canActivate: [AuthGuard], data : { permission: ["admisiones"] }}, 
+                { path: 'procesos/admisiones/nuevo', component: CrearAdmisionesComponent, canActivate: [AuthGuard], data : { permission: ["crear admision"] }}, 
+                { path: 'procesos/admisiones/editar/:id', component: EditarAdmisionesComponent, canActivate: [AuthGuard], data : { permission: ["editar admision"] }}
                 
             ] 
     }, 

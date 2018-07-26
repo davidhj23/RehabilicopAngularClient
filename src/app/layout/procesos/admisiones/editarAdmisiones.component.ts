@@ -18,8 +18,8 @@ import { Admision } from './admision';
 import { AdmisionService } from './admision.service';
 
 @Component({
-    selector: 'editarPacientes',
-    templateUrl: 'editarPacientes.component.html',
+    selector: 'editarAdmisiones',
+    templateUrl: 'editarAdmisiones.component.html',
 })
 
 export class EditarAdmisionesComponent implements OnInit {       

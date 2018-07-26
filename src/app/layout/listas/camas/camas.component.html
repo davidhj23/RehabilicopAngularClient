@@ -33,14 +33,20 @@
       <div class="col-md-12">       
         <div class="tile" permission="crear cama">              
           <div class="tile-body">
-            <form class="row">              
-              <div class="form-group col-md-4" >
-                <label class="control-label">Nombre</label>
-                <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>                
-              </div>          
-              <div class="form-group col-md-4 align-self-end">
-                <button class="btn btn-primary" type="button" (click)="create()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
-              </div>
+            <form class="row">                            
+                <div class="form-group col-md-4" >
+                    <label class="control-label">Nombre</label>
+                    <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>                
+                </div>          
+                <div class="form-group col-md-4" >
+                    <label class="control-label">Sede</label>                                
+                    <select class="form-control" [(ngModel)]="idSede" name="sede">                                
+                        <option *ngFor="let item of sedes" [value]="item.idSede">{{item.nombre}}</option>
+                    </select>                            
+                </div> 
+                <div class="form-group col-md-4 align-self-end">
+                    <button class="btn btn-primary" type="button" (click)="create()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
+                </div>
             </form>
           </div>
         </div>
@@ -57,6 +63,7 @@
               <thead>
                 <tr>
                   <th>Nombre</th>
+                  <th>Sede</th>
                   <th permission="editar cama">Editar</th>              
                   <th permission="eliminar cama">Eliminar</th>              
                 </tr>
@@ -64,6 +71,7 @@
               <tbody *ngFor="let cama of mf.data">
                 <tr>                  
                   <td class="rowTd">{{cama.nombre}}</td>
+                  <td class="rowTd">{{cama.sede.nombre}}</td>
                   <td class="rowTd" permission="editar cama">                  
                       <a class="btn float-left" (click)="edit(cama, editContent)" permission="editar cama"><i class="fa fa-pencil"></i></a>                      
                   </td>       
@@ -106,7 +114,13 @@
               </div>
           </div>
       </div>
-      <form class="row">        
+      <form class="row">       
+        <div class="form-group col-md-6" >
+            <label class="control-label">Sede</label>                                
+            <select class="form-control" [(ngModel)]="idSedeToEdit" name="sede">                                
+                <option *ngFor="let item of sedes" [value]="item.idSede">{{item.nombre}}</option>
+            </select>                            
+        </div>  
         <div class="form-group col-md-6" >
           <label class="control-label">Nombre</label>
           <input class="form-control" type="text" name="nombre" [(ngModel)]="modelToEdit.nombre" #nombre="ngModel" required>                
