@@ -16,6 +16,8 @@ import {debounceTime, distinctUntilChanged, map, tap, switchMap, catchError} fro
 import { of } from '../../../../../node_modules/rxjs/observable/of';
 import { Admision } from './admision';
 import { AdmisionService } from './admision.service';
+import { PacienteService } from '../pacientes/paciente.service';
+import { Paciente } from '../pacientes/paciente';
 
 @Component({
     selector: 'crearAdmisiones',
@@ -42,6 +44,12 @@ export class CrearAdmisionesComponent implements OnInit {
 
     idParentesco: string;
 
+    tipoDocumento : string;
+    edad : string;
+    sexo : string;
+    tipoEntidad : string;
+    aseguradora : string;
+
     loading = false;        
     
     areErrors = false;
@@ -59,9 +67,11 @@ export class CrearAdmisionesComponent implements OnInit {
         private camaService: CamaService,
         private usuarioService: UserService,
         private parentescoService: ParentescoService,
-        private cie10Service: Cie10Service) {
+        private cie10Service: Cie10Service,
+        private pacienteService: PacienteService) {
         
         this.model = new Admision();
+        this.model.paciente = new Paciente();
     }
 
     ngOnInit() {    
@@ -400,6 +410,35 @@ export class CrearAdmisionesComponent implements OnInit {
         return true;
     }
 
+    keytab(event: Event){
+        this.showLoading(true);    
+        this.pacienteService.getByIdentificacion(this.model.paciente.identificacion)
+            .subscribe(
+                data => {      
+                    if(data != null){
+                        this.model.paciente = data;  
+                        this.tipoDocumento = this.model.paciente.tipoDocumento.nombre;                                                       
+                        this.edad = this.model.paciente.fechaDeNacimiento.toString();                                                       
+                        this.sexo = this.model.paciente.sexo;                                                       
+                        this.tipoEntidad = this.model.paciente.tipoEntidad.nombre;                                                       
+                        this.aseguradora = this.model.paciente.aseguradora.nombre;                                                       
+                    }
+                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+    }
+
     showLoading(loading: boolean) {
         this.loading = loading;
     }
@@ -420,5 +459,6 @@ export class CrearAdmisionesComponent implements OnInit {
 
     clearModel(){        
         this.model = new Admision();
+        this.model.paciente = new Paciente();
     }
 }

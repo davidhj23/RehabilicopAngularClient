@@ -48,12 +48,12 @@
                         [mfData]="admisiones" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
                     <thead>
                         <tr>
-                        <th>Identificacion</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Fecha de ingreso</th>
-                        <th permission="editar admision">Editar</th>              
-                        <th permission="eliminar admision">Eliminar</th>          
+                            <th>Identificacion</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Fecha de ingreso</th>
+                            <th permission="editar admision">Editar</th>              
+                            <th permission="eliminar admision">Eliminar</th>          
                         </tr>
                     </thead>
                     <tbody *ngFor="let admision of mf.data">
@@ -61,7 +61,7 @@
                             <td class="rowTd">{{admision.paciente.identificacion}}</td>    
                             <td class="rowTd">{{admision.paciente.nombres}}</td>
                             <td class="rowTd">{{admision.paciente.apellidos}}</td>
-                            <td class="rowTd">{{admision.fechaDeAdmision}}</td>
+                            <td class="rowTd">{{admision.fechaDeIngreso}}</td>
                             <td class="rowTd" permission="editar admision">                  
                                 <a class="btn float-left" (click)="edit(admision)" permission="editar admision"><i class="fa fa-pencil"></i></a>                      
                             </td>       
@@ -72,7 +72,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5">
+                            <td colspan="6">
                                 <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
                             </td>
                         </tr>

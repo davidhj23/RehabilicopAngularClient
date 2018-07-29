@@ -18,6 +18,10 @@ export class PacienteService {
 
     getById(id: string): Observable<any> {
         return this.http.get(this.url + id,  CommonService.getJwtHeaders());
+    } 
+
+    getByIdentificacion(identificacion: string): Observable<any> {
+        return this.http.get(this.url + 'identificacion/' + identificacion,  CommonService.getJwtHeaders());
     }    
 
     create(paciente: Paciente): Observable<any> {
