@@ -18,6 +18,7 @@ import { UserService } from '../../seguridad/usuarios/user.service';
 import { Cie10Service } from '../../listas/cie10s';
 import { RegimenService, Regimen } from '../../listas/regimenes';
 import { EscolaridadService, Escolaridad } from '../../listas/escolaridades';
+import { Sexo, SexoService } from '../../listas/sexos';
 
 @Component({
     selector: 'editarPacientes',
@@ -35,6 +36,7 @@ export class EditarPacientesComponent implements OnInit {
     tipoEntidades: any[] = []; 
     regimenes: any[] = [];
     escolaridades: any[] = []; 
+    sexos: any[] = [];
 
     idTipoDocumento: string;    
     idEstadoCivil: string;
@@ -42,6 +44,7 @@ export class EditarPacientesComponent implements OnInit {
     idTipoEntidad: string;
     idRegimen: string;
     idEscolaridad: string;
+    idSexo: string;
 
     loading = false;        
     
@@ -59,6 +62,7 @@ export class EditarPacientesComponent implements OnInit {
         private tipoEntidadService: TipoEntidadService,
         private regimenService: RegimenService,
         private escolaridadService: EscolaridadService,
+        private sexoService: SexoService,
         private route: ActivatedRoute) {
 
         this.model = new Paciente();
@@ -94,6 +98,9 @@ export class EditarPacientesComponent implements OnInit {
 
                     if(this.model.escolaridad != null)
                         this.idEscolaridad = this.model.escolaridad.idEscolaridad;
+
+                    if(this.model.sexo != null)
+                        this.idSexo = this.model.sexo.idSexo;
 
                     this.fechaDeNacimiento = Util.formattedDate(this.model.fechaDeNacimiento);   
 
@@ -226,6 +233,25 @@ export class EditarPacientesComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 });
+
+        this.showLoading(true);    
+        this.sexoService.getAll()
+            .subscribe(
+                data => {      
+                    this.sexos = data;                                                          
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });
     }
 
     guardar() {
@@ -275,6 +301,14 @@ export class EditarPacientesComponent implements OnInit {
             let escolaridad = new Escolaridad();
             escolaridad.idEscolaridad = this.idEscolaridad;          
             this.model.escolaridad = escolaridad; 
+        }
+
+        if(this.idSexo != null){
+            this.model.sexo = new Sexo();        
+
+            let sexo = new Sexo();
+            sexo.idSexo = this.idSexo;          
+            this.model.sexo = sexo; 
         }
         
         this.showLoading(true);               

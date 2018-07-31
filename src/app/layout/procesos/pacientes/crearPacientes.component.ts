@@ -18,6 +18,7 @@ import {debounceTime, distinctUntilChanged, map, tap, switchMap, catchError} fro
 import { of } from '../../../../../node_modules/rxjs/observable/of';
 import { RegimenService, Regimen } from '../../listas/regimenes';
 import { EscolaridadService, Escolaridad } from '../../listas/escolaridades';
+import { Sexo, SexoService } from '../../listas/sexos';
 
 @Component({
     selector: 'crearPacientes',
@@ -33,6 +34,7 @@ export class CrearPacientesComponent implements OnInit {
     tipoEntidades: any[] = []; 
     regimenes: any[] = [];
     escolaridades: any[] = []; 
+    sexos: any[] = []; 
 
     idTipoDocumento: string;    
     idEstadoCivil: string;
@@ -40,6 +42,7 @@ export class CrearPacientesComponent implements OnInit {
     idTipoEntidad: string;
     idRegimen: string;
     idEscolaridad: string;
+    idSexo: string;
 
     loading = false;        
     
@@ -56,7 +59,8 @@ export class CrearPacientesComponent implements OnInit {
         private aseguradoraService: AseguradoraService,
         private tipoEntidadService: TipoEntidadService,
         private regimenService: RegimenService,
-        private escolaridadService: EscolaridadService) {
+        private escolaridadService: EscolaridadService,
+        private sexoService: SexoService) {
         
         this.model = new Paciente();
     }
@@ -179,6 +183,25 @@ export class CrearPacientesComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 }); 
+
+        this.showLoading(true);    
+        this.sexoService.getAll()
+            .subscribe(
+                data => {      
+                    this.sexos = data;                                                          
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
     }
 
     guardar() {        
@@ -230,6 +253,14 @@ export class CrearPacientesComponent implements OnInit {
             this.model.escolaridad = escolaridad; 
         }
 
+        if(this.idSexo != null){
+            this.model.sexo = new Sexo();        
+
+            let sexo = new Sexo();
+            sexo.idSexo = this.idSexo;          
+            this.model.sexo = sexo; 
+        }
+
         this.showLoading(true);    
         this.pacienteService.create(this.model)
             .subscribe(
@@ -242,7 +273,7 @@ export class CrearPacientesComponent implements OnInit {
                     this.fechaDeNacimiento = ''; 
                     this.idRegimen = ''; 
                     this.idEscolaridad = ''; 
-                    this.model.sexo = ''; 
+                    this.idSexo = ''; 
                     this.showLoading(false);
                 },
                 error => {            

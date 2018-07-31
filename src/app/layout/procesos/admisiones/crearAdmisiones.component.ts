@@ -314,6 +314,11 @@ export class CrearAdmisionesComponent implements OnInit {
         let areErrors = false;
         this.clearAndcloseErrors();      
 
+        if(this.model.paciente.identificacion == undefined || this.model.paciente.identificacion == ''){
+            this.errores.push({ message: 'Ingrese un paciente'});
+            areErrors = true;
+        }
+
         if(this.fechaDeIngreso == undefined || this.fechaDeIngreso == ''){
             this.errores.push({ message: 'Ingrese una fecha de ingreso'});
             areErrors = true;
@@ -324,17 +329,17 @@ export class CrearAdmisionesComponent implements OnInit {
         }else{
             this.model.fechaDeIngreso = Util.getDate(this.fechaDeIngreso);
         }
-        
-        if(this.idSede == undefined || this.idSede == ''){
-            this.errores.push({ message: 'Seleccione una sede'});
-            areErrors = true;
-        }
 
         if(this.idAtencion == undefined || this.idAtencion == ''){
             this.errores.push({ message: 'Seleccione un tipo de atención'});
             areErrors = true;
         }
-
+        
+        if(this.idSede == undefined || this.idSede == ''){
+            this.errores.push({ message: 'Seleccione una sede'});
+            areErrors = true;
+        }
+        
         if(this.idCama == undefined || this.idCama == ''){
             this.errores.push({ message: 'Seleccione una cama'});
             areErrors = true;
@@ -418,8 +423,8 @@ export class CrearAdmisionesComponent implements OnInit {
                     if(data != null){
                         this.model.paciente = data;  
                         this.tipoDocumento = this.model.paciente.tipoDocumento.nombre;                                                       
-                        this.edad = this.model.paciente.fechaDeNacimiento.toString();                                                       
-                        this.sexo = this.model.paciente.sexo;                                                       
+                        this.edad = Util.formattedDate( this.model.paciente.fechaDeNacimiento);                                                       
+                        this.sexo = this.model.paciente.sexo.nombre;                                                       
                         this.tipoEntidad = this.model.paciente.tipoEntidad.nombre;                                                       
                         this.aseguradora = this.model.paciente.aseguradora.nombre;                                                       
                     }

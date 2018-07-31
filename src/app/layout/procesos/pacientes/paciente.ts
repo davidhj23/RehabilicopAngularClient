@@ -12,6 +12,7 @@ import { Parentesco } from "../../listas/parentescos";
 import { Cie10 } from "../../listas/cie10s";
 import { Escolaridad } from "../../listas/escolaridades";
 import { Regimen } from "../../listas/regimenes";
+import { Sexo } from "../../listas/sexos/sexo";
 
 export class Paciente {
     idUsuario: string;
@@ -36,5 +37,5 @@ export class Paciente {
     regimen: Regimen;   
     escolaridad: Escolaridad;   
     ciudad: string;
-    sexo: string;
+    sexo: Sexo;
 }
