@@ -170,14 +170,12 @@ export class EditarUsuariosComponent implements OnInit {
             areErrors = true;
         }
 
-        if(this.model.email == undefined || this.model.email == ''){
-            this.errores.push({ message: 'Ingrese un email'});
-            areErrors = true;
+        if(this.model.email != undefined && this.model.email != ''){
+            if(!Util.validateEmail(this.model.email)){
+                this.errores.push({ message: 'Ingrese un email válido'});
+                areErrors = true;
+            }
         }
-        else if(!Util.validateEmail(this.model.email)){
-            this.errores.push({ message: 'Ingrese un email válido'});
-            areErrors = true;
-        }        
 
         if(areErrors){
             this.showErrors();

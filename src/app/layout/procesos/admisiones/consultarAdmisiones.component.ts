@@ -69,7 +69,7 @@ export class ConsultarAdmisionesComponent implements OnInit {
     }
 
     edit(model: any) {            
-        this.router.navigate(['/layout/procesos/admisions/editar', model.idUsuario]);
+        this.router.navigate(['/layout/procesos/admisiones/editar', model.idAdmision]);
     }
 
     delete(idAdmision: string, content: any) {   

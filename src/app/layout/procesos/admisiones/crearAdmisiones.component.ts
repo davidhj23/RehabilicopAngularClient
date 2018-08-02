@@ -84,8 +84,7 @@ export class CrearAdmisionesComponent implements OnInit {
         this.sedeService.getAll()
             .subscribe(
                 data => {      
-                    this.sedes = data;                  
-                    this.clearModel();                    
+                    this.sedes = data;                    
                     this.showLoading(false);
                 },
                 error => {                        
@@ -104,8 +103,7 @@ export class CrearAdmisionesComponent implements OnInit {
         this.atencionService.getAll()
             .subscribe(
                 data => {      
-                    this.atenciones = data;                  
-                    this.clearModel();                    
+                    this.atenciones = data;               
                     this.showLoading(false);
                 },
                 error => {                        
@@ -118,34 +116,13 @@ export class CrearAdmisionesComponent implements OnInit {
                     } 
                     this.showErrors();
                     this.showLoading(false);
-                }); 
-
-        this.showLoading(true);    
-        this.camaService.getAll()
-            .subscribe(
-                data => {      
-                    this.camas = data;                  
-                    this.clearModel();                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
+                });         
 
         this.showLoading(true);    
         this.usuarioService.getAllMedicos()
             .subscribe(
                 data => {      
                     this.medicos = data;                  
-                    this.clearModel();                    
                     this.showLoading(false);
                 },
                 error => {                        
@@ -164,8 +141,7 @@ export class CrearAdmisionesComponent implements OnInit {
         this.usuarioService.getAllEnfermeros()
             .subscribe(
                 data => {      
-                    this.enfermeros = data;                  
-                    this.clearModel();                    
+                    this.enfermeros = data;               
                     this.showLoading(false);
                 },
                 error => {                        
@@ -184,8 +160,7 @@ export class CrearAdmisionesComponent implements OnInit {
         this.parentescoService.getAll()
             .subscribe(
                 data => {      
-                    this.parentescos = data;                  
-                    this.clearModel();                    
+                    this.parentescos = data;              
                     this.showLoading(false);
                 },
                 error => {                        
@@ -229,13 +204,23 @@ export class CrearAdmisionesComponent implements OnInit {
         this.model.parentesco = parentesco;
         
         this.model.idMedico = this.idMedico;
-        this.model.idEnfermero = this.idEnfermero;        
-
+        this.model.idEnfermero = this.idEnfermero;   
+        
+        this.model.idDiagnosticoPrincipal = this.diagnosticoPrincipal.idCie10;
+        this.model.idDiagnosticoSecundario = this.diagnosticoSecundario.idCie10;
+        
         this.showLoading(true);    
         this.admisionService.create(this.model)
             .subscribe(
                 data => {                        
                     this.clearModel(); 
+
+                    this.tipoDocumento = '';
+                    this.edad = '';
+                    this.sexo = '';
+                    this.tipoEntidad = '';
+                    this.aseguradora = '';
+
                     this.fechaDeNacimiento = '';       
                     this.fechaDeIngreso = '';  
                     this.fechaDeRemision = '';  
@@ -396,13 +381,13 @@ export class CrearAdmisionesComponent implements OnInit {
             this.errores.push({ message: 'Ingrese ciudad acompañante'});
             areErrors = true;
         }
-
-        if(this.diagnosticoPrincipal == null){
+        
+        if(this.diagnosticoPrincipal == undefined || this.diagnosticoPrincipal == null || this.diagnosticoPrincipal == ''){
             this.errores.push({ message: 'Ingrese un diagnostico principal'});
             areErrors = true;
         }
 
-        if(this.diagnosticoSecundario == null){
+        if(this.diagnosticoSecundario == undefined || this.diagnosticoSecundario == null || this.diagnosticoSecundario == ''){
             this.errores.push({ message: 'Ingrese un diagnostico secundario'});
             areErrors = true;
         }
@@ -429,6 +414,27 @@ export class CrearAdmisionesComponent implements OnInit {
                         this.aseguradora = this.model.paciente.aseguradora.nombre;                                                       
                     }
                     
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+    }
+
+    getCamas(idSede: string){
+        this.showLoading(true);    
+        this.sedeService.getCamasByIdSede(idSede)
+            .subscribe(
+                data => {      
+                    this.camas = data;                    
                     this.showLoading(false);
                 },
                 error => {                        

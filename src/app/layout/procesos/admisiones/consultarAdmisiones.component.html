@@ -61,7 +61,7 @@
                             <td class="rowTd">{{admision.paciente.identificacion}}</td>    
                             <td class="rowTd">{{admision.paciente.nombres}}</td>
                             <td class="rowTd">{{admision.paciente.apellidos}}</td>
-                            <td class="rowTd">{{admision.fechaDeIngreso}}</td>
+                            <td class="rowTd">{{admision.fechaDeIngreso | date: 'dd/MM/yyyy'}}</td>
                             <td class="rowTd" permission="editar admision">                  
                                 <a class="btn float-left" (click)="edit(admision)" permission="editar admision"><i class="fa fa-pencil"></i></a>                      
                             </td>       
@@ -86,13 +86,13 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Eliminar Paciente</h4>
+        <h4 class="modal-title">Eliminar Admisión</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <p>¿Está seguro de querer eliminar este Paciente?</p>
+        <p>¿Está seguro de querer eliminar esta Admisión?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>

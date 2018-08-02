@@ -8,14 +8,15 @@ import { Util } from '../../../_utils';
 import { Observable } from '../../../../../node_modules/rxjs';
 import { tap, catchError, switchMap, debounceTime } from '../../../../../node_modules/rxjs/operators';
 import { of } from '../../../../../node_modules/rxjs/observable/of';
-import { SedeService } from '../../listas/sedes';
-import { AtencionService } from '../../listas/atenciones';
-import { CamaService } from '../../listas/camas';
-import { ParentescoService } from '../../listas/parentescos';
+import { SedeService, Sede } from '../../listas/sedes';
+import { AtencionService, Atencion } from '../../listas/atenciones';
+import { CamaService, Cama } from '../../listas/camas';
+import { ParentescoService, Parentesco } from '../../listas/parentescos';
 import { UserService } from '../../seguridad/usuarios/user.service';
-import { Cie10Service } from '../../listas/cie10s';
+import { Cie10Service, Cie10 } from '../../listas/cie10s';
 import { Admision } from './admision';
 import { AdmisionService } from './admision.service';
+import { Paciente } from '../pacientes/paciente';
 
 @Component({
     selector: 'editarAdmisiones',
@@ -26,12 +27,8 @@ export class EditarAdmisionesComponent implements OnInit {
     
     currentAdmisionId: string;
 
-    model: Admision;       
-    tiposDocumentos: any[] = [];  
-    estadosCiviles: any[] = [];  
-    aseguradoras: any[] = [];
-    tipoEntidades: any[] = [];
-    
+    model: Admision;         
+
     sedes: any[] = []; 
     atenciones: any[] = [];
     camas: any[] = []; 
@@ -39,12 +36,7 @@ export class EditarAdmisionesComponent implements OnInit {
     enfermeros: any[] = []; 
 
     parentescos: any[] = []; 
-
-    idTipoDocumento: string;    
-    idEstadoCivil: string;
-    idAseguradora: string;
-    idTipoEntidad: string;
-
+    
     idSede: string;
     idAtencion: string;
     idCama: string;
@@ -53,10 +45,16 @@ export class EditarAdmisionesComponent implements OnInit {
 
     idParentesco: string;
 
+    tipoDocumento : string;
+    edad : string;
+    sexo : string;
+    tipoEntidad : string;
+    aseguradora : string;
+
     loading = false;        
     
     areErrors = false;
-    errores: any[] = []; 
+    errores: any[] = [];       
     
     fechaDeNacimiento: string;
     fechaDeIngreso: string;
@@ -65,10 +63,6 @@ export class EditarAdmisionesComponent implements OnInit {
 
     constructor(
         private admisionService: AdmisionService,
-        private tipoDocumentoService: TipoDocumentoService,
-        private estadoCivilService: EstadoCivilService,
-        private aseguradoraService: AseguradoraService,
-        private tipoEntidadService: TipoEntidadService,
         private sedeService: SedeService,
         private atencionService: AtencionService,
         private camaService: CamaService,
@@ -78,6 +72,7 @@ export class EditarAdmisionesComponent implements OnInit {
         private route: ActivatedRoute) {
 
         this.model = new Admision();
+        this.model.paciente = new Paciente();
 
         this.route.params.subscribe( 
             params => {
@@ -93,17 +88,29 @@ export class EditarAdmisionesComponent implements OnInit {
         this.admisionService.getById(this.currentAdmisionId)
             .subscribe(
                 data => {                                               
-                    this.model = data;                                    
-                    this.idAseguradora = this.model.aseguradora.idAseguradora;                    
-                    this.idTipoEntidad = this.model.tipoEntidad.idTipoEntidad;    
-                    this.idSede = this.model.sede.idSede;    
+                    this.model = data;         
+
+                    this.model.paciente = data.paciente;  
+                    this.tipoDocumento = this.model.paciente.tipoDocumento.nombre;                                                       
+                    this.edad = Util.formattedDate( this.model.paciente.fechaDeNacimiento);                                                       
+                    this.sexo = this.model.paciente.sexo.nombre;                                                       
+                    this.tipoEntidad = this.model.paciente.tipoEntidad.nombre;                                                       
+                    this.aseguradora = this.model.paciente.aseguradora.nombre;                                                       
                     this.idAtencion = this.model.atencion.idAtencion;    
+
+                    this.idSede = this.model.sede.idSede;    
+                    this.getCamas(this.idSede);
                     this.idCama = this.model.cama.idCama;    
+
                     this.idMedico = this.model.idMedico;    
                     this.idEnfermero = this.model.idEnfermero;    
                     this.idParentesco = this.model.parentesco.idParentesco;                        
                     this.fechaDeIngreso = Util.formattedDate(this.model.fechaDeIngreso);                        
-                    this.fechaDeRemision = Util.formattedDate(this.model.fechaDeRemision);                        
+                    this.fechaDeRemision = Util.formattedDate(this.model.fechaDeRemision); 
+
+                    this.getDiagnosticoPrincipal(this.model.idDiagnosticoPrincipal);
+                    this.getDiagnosticoSecundario(this.model.idDiagnosticoSecundario);                    
+                    
                     this.showLoading(false);                   
                 },
                 error => {                        
@@ -119,12 +126,12 @@ export class EditarAdmisionesComponent implements OnInit {
                 });  
     }    
 
-    fillSelects(){
+    getDiagnosticoPrincipal(idDiagnostico: string){
         this.showLoading(true);    
-        this.tipoDocumentoService.getAll()
+        this.cie10Service.getById(idDiagnostico)
             .subscribe(
                 data => {      
-                    this.tiposDocumentos = data;                                                       
+                    this.diagnosticoPrincipal = data;                                                      
                     this.showLoading(false);
                 },
                 error => {                        
@@ -137,32 +144,15 @@ export class EditarAdmisionesComponent implements OnInit {
                     } 
                     this.showErrors();
                     this.showLoading(false);
-                });   
+                }); 
+    }
 
+    getDiagnosticoSecundario(idDiagnostico: string){
         this.showLoading(true);    
-        this.estadoCivilService.getAll()
-            .subscribe(
-                data => {
-                    this.estadosCiviles = data;                                            
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
-                
-        this.showLoading(true);    
-        this.aseguradoraService.getAll()
+        this.cie10Service.getById(idDiagnostico)
             .subscribe(
                 data => {      
-                    this.aseguradoras = data;                                                    
+                    this.diagnosticoSecundario = data;                                                      
                     this.showLoading(false);
                 },
                 error => {                        
@@ -176,25 +166,9 @@ export class EditarAdmisionesComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 }); 
-                
-        this.showLoading(true);    
-        this.tipoEntidadService.getAll()
-            .subscribe(
-                data => {      
-                    this.tipoEntidades = data;                                                        
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
+    }
+
+    fillSelects(){         
 
         this.showLoading(true);    
         this.sedeService.getAll()
@@ -314,17 +288,32 @@ export class EditarAdmisionesComponent implements OnInit {
     guardar() {
         if(!this.validateCreate()) return;          
         
-        this.model.aseguradora = new Aseguradora();        
+        this.model.sede = new Sede();        
 
-        let aseguradora = new Aseguradora();
-        aseguradora.idAseguradora = this.idAseguradora;          
-        this.model.aseguradora = aseguradora; 
+        let sede = new Sede();
+        sede.idSede = this.idSede;          
+        this.model.sede = sede; 
 
-        this.model.tipoEntidad = new TipoEntidad();        
+        this.model.atencion = new Atencion();        
 
-        let tipoEntidad = new TipoEntidad();
-        tipoEntidad.idTipoEntidad = this.idTipoEntidad;          
-        this.model.tipoEntidad = tipoEntidad; 
+        let atencion = new Atencion();
+        atencion.idAtencion = this.idAtencion;          
+        this.model.atencion = atencion; 
+
+        this.model.cama = new Cama();        
+
+        let cama = new Cama();
+        cama.idCama = this.idCama;          
+        this.model.cama = cama; 
+
+        this.model.parentesco = new Parentesco();        
+
+        let parentesco = new Parentesco();
+        parentesco.idParentesco = this.idParentesco;          
+        this.model.parentesco = parentesco;
+        
+        this.model.idMedico = this.idMedico;
+        this.model.idEnfermero = this.idEnfermero;    
         
         this.showLoading(true);               
         this.admisionService.update(this.model)
@@ -398,18 +387,8 @@ export class EditarAdmisionesComponent implements OnInit {
         let areErrors = false;
         this.clearAndcloseErrors();    
         
-        if(this.idEstadoCivil == undefined || this.idEstadoCivil == ''){
-            this.errores.push({ message: 'Seleccione un estado civil'});
-            areErrors = true;
-        }
-
-        if(this.idAseguradora == undefined || this.idAseguradora == ''){
-            this.errores.push({ message: 'Seleccione una aseguradora'});
-            areErrors = true;
-        }
-
-        if(this.idTipoEntidad == undefined || this.idTipoEntidad == ''){
-            this.errores.push({ message: 'Seleccione un tipo de entidad'});
+        if(this.model.paciente.identificacion == undefined || this.model.paciente.identificacion == ''){
+            this.errores.push({ message: 'Ingrese un paciente'});
             areErrors = true;
         }
 
@@ -423,17 +402,17 @@ export class EditarAdmisionesComponent implements OnInit {
         }else{
             this.model.fechaDeIngreso = Util.getDate(this.fechaDeIngreso);
         }
-        
-        if(this.idSede == undefined || this.idSede == ''){
-            this.errores.push({ message: 'Seleccione una sede'});
-            areErrors = true;
-        }
 
         if(this.idAtencion == undefined || this.idAtencion == ''){
             this.errores.push({ message: 'Seleccione un tipo de atención'});
             areErrors = true;
         }
-
+        
+        if(this.idSede == undefined || this.idSede == ''){
+            this.errores.push({ message: 'Seleccione una sede'});
+            areErrors = true;
+        }
+        
         if(this.idCama == undefined || this.idCama == ''){
             this.errores.push({ message: 'Seleccione una cama'});
             areErrors = true;
@@ -490,13 +469,13 @@ export class EditarAdmisionesComponent implements OnInit {
             this.errores.push({ message: 'Ingrese ciudad acompañante'});
             areErrors = true;
         }
-
-        if(this.diagnosticoPrincipal == null){
+        
+        if(this.diagnosticoPrincipal == undefined || this.diagnosticoPrincipal == null || this.diagnosticoPrincipal == ''){
             this.errores.push({ message: 'Ingrese un diagnostico principal'});
             areErrors = true;
         }
 
-        if(this.diagnosticoSecundario == null){
+        if(this.diagnosticoSecundario == undefined || this.diagnosticoSecundario == null || this.diagnosticoSecundario == ''){
             this.errores.push({ message: 'Ingrese un diagnostico secundario'});
             areErrors = true;
         }
@@ -507,6 +486,27 @@ export class EditarAdmisionesComponent implements OnInit {
         }
 
         return true;
+    }
+
+    getCamas(idSede: string){
+        this.showLoading(true);    
+        this.sedeService.getCamasByIdSede(idSede)
+            .subscribe(
+                data => {      
+                    this.camas = data;                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
     }
 
     showLoading(loading: boolean) {
@@ -529,5 +529,6 @@ export class EditarAdmisionesComponent implements OnInit {
 
     clearModel(){        
         this.model = new Admision();
+        this.model.paciente = new Paciente();
     }
 }

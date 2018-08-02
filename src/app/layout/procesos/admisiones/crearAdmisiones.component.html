@@ -88,7 +88,7 @@
                         </div>
                         <div class="form-group col-md-3" >
                             <label class="control-label">Sede</label>
-                            <select class="form-control" [(ngModel)]="idSede" name="sede">                                
+                            <select class="form-control" [(ngModel)]="idSede" name="sede" (change)="getCamas($event.target.value)">                                
                                 <option *ngFor="let item of sedes" [value]="item.idSede">{{item.nombre}}</option>
                             </select>
                         </div>
@@ -162,7 +162,7 @@
                                     [(ngModel)]="diagnosticoPrincipal" [ngbTypeahead]="search" placeholder="Cie10" 
                                     [resultTemplate]="rt" [inputFormatter]="formatter"/>
                             <span *ngIf="searching">Buscando...</span>
-                            <div class="invalid-feedback" *ngIf="searchFailed">No se encontró ningún Cie10.</div>                              
+                            <div class="invalid-feedback" *ngIf="searchFailed">No se encontró ningún Cie10.</div>                                                     
                         </div>        
                     </div>
                     <div class="row">
