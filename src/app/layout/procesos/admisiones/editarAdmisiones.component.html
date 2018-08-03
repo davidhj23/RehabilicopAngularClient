@@ -9,11 +9,11 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-user fa-lg"></i> Editar Paciente</h1>        
+        <h1><i class="fa fa-user fa-lg"></i> Editar Admisión</h1>        
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/layout/procesos/pacientes/editar']">Editar Paciente</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/procesos/admisiones/editar']">Editar Admisión</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="areErrors">
@@ -111,6 +111,18 @@
                             <select class="form-control" [(ngModel)]="idEnfermero" name="enfermero">                                
                                 <option *ngFor="let item of enfermeros" [value]="item.idUsuario">{{item.nombres}} {{item.apellidos}}</option>
                             </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Admisionista</label>
+                            <input class="form-control" [(ngModel)]="admisionista" type="text" disabled/>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Estado</label>
+                            <input class="form-control" [(ngModel)]="model.estado" type="text" disabled/>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Fecha Cierre</label>
+                            <input class="form-control"  value="{{model.fechaDeCierre | date: 'dd/MM/yyyy'}}" type="text" disabled/>
                         </div>
                     </div>               
                     <div class="row">

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Admision } from './admision';
 import { AdmisionService } from './admision.service';
+import { Util } from '../../../_utils';
 
 @Component({
     selector: 'consultarAdmisiones',
@@ -58,11 +59,12 @@ export class ConsultarAdmisionesComponent implements OnInit {
         const val = event.target.value.toLowerCase();
 
         // filter our data
-        const temp = this.temp.filter(function(d) {
+        const temp = this.temp.filter(function(d) {                        
             return d.paciente.nombres.toLowerCase().indexOf(val) !== -1 || 
                    d.paciente.apellidos.toLowerCase().indexOf(val) !== -1 ||
                    d.paciente.identificacion.toLowerCase().indexOf(val) !== -1 || 
-                   d.fechaDeRemision.toString().indexOf(val) || !val;
+                   d.estado.toLowerCase().indexOf(val) !== -1 ||
+                   Util.formattedDate(d.fechaDeIngreso).indexOf(val) !== -1 || !val;
         }); 
 
         this.admisiones = temp;

@@ -51,6 +51,8 @@ export class EditarAdmisionesComponent implements OnInit {
     tipoEntidad : string;
     aseguradora : string;
 
+    admisionista : string;
+
     loading = false;        
     
     areErrors = false;
@@ -100,7 +102,9 @@ export class EditarAdmisionesComponent implements OnInit {
 
                     this.idSede = this.model.sede.idSede;    
                     this.getCamas(this.idSede);
-                    this.idCama = this.model.cama.idCama;    
+                    this.idCama = this.model.cama.idCama;
+                                        
+                    this.getAdmisionista();
 
                     this.idMedico = this.model.idMedico;    
                     this.idEnfermero = this.model.idEnfermero;    
@@ -493,7 +497,34 @@ export class EditarAdmisionesComponent implements OnInit {
         this.sedeService.getCamasByIdSede(idSede)
             .subscribe(
                 data => {      
-                    this.camas = data;                    
+                    this.camas = data;  
+                    this.camas.push(this.model.cama);
+                    this.camas.sort(function(a, b){
+                        if(a.nombre < b.nombre) return -1;
+                        if(a.nombre > b.nombre) return 1;
+                        return 0;
+                    });                 
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+    }
+
+    getAdmisionista(){
+        this.showLoading(true);    
+        this.usuarioService.getById(this.model.idAdmisionista)
+            .subscribe(
+                data => {      
+                    this.admisionista = data.nombres + ' ' + data.apellidos;
                     this.showLoading(false);
                 },
                 error => {                        

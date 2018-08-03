@@ -32,8 +32,7 @@ export class SedeService {
         return this.http.delete(this.url + id,  CommonService.getJwtHeaders())
     }
     
-    getCamasByIdSede(idSede: string): Observable<any> {
-        console.log(this.url + idSede + '/camas')
+    getCamasByIdSede(idSede: string): Observable<any> {        
         return this.http.get(this.url + idSede + '/camas',  CommonService.getJwtHeaders());
     }
 }

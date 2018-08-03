@@ -32,4 +32,7 @@ export class Admision {
     ciudadAcompanante: string;
     idDiagnosticoPrincipal: string;
     idDiagnosticoSecundario: string;
+    idAdmisionista: string;
+    estado: string;
+    fechaDeCierre: string;
 }

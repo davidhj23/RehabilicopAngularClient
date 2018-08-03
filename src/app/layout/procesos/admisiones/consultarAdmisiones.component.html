@@ -52,6 +52,7 @@
                             <th>Nombres</th>
                             <th>Apellidos</th>
                             <th>Fecha de ingreso</th>
+                            <th>Estado</th>
                             <th permission="editar admision">Editar</th>              
                             <th permission="eliminar admision">Eliminar</th>          
                         </tr>
@@ -62,6 +63,7 @@
                             <td class="rowTd">{{admision.paciente.nombres}}</td>
                             <td class="rowTd">{{admision.paciente.apellidos}}</td>
                             <td class="rowTd">{{admision.fechaDeIngreso | date: 'dd/MM/yyyy'}}</td>
+                            <td class="rowTd">{{admision.estado}}</td>
                             <td class="rowTd" permission="editar admision">                  
                                 <a class="btn float-left" (click)="edit(admision)" permission="editar admision"><i class="fa fa-pencil"></i></a>                      
                             </td>       
@@ -72,7 +74,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="6">
+                            <td colspan="7">
                                 <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
                             </td>
                         </tr>
