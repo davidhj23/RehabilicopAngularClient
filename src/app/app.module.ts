@@ -87,6 +87,10 @@ import { ConsultarAdmisionesComponent } from './layout/procesos/admisiones/consu
 import { CrearAdmisionesComponent } from './layout/procesos/admisiones/crearAdmisiones.component';
 import { EditarAdmisionesComponent } from './layout/procesos/admisiones/editarAdmisiones.component';
 import { AdmisionService } from './layout/procesos/admisiones/admision.service';
+import { ConsultarHistoriasComponent } from './layout/procesos/historias/consultarHistorias.component';
+import { CrearHistoriasComponent } from './layout/procesos/historias/crearHistorias.component';
+//import { EditarHistoriasComponent } from './layout/procesos/historias/editarHistorias.component';
+import { HistoriaService } from './layout/procesos/historias/historia.service';
 
 
 @NgModule({
@@ -176,7 +180,11 @@ import { AdmisionService } from './layout/procesos/admisiones/admision.service';
 
         ConsultarAdmisionesComponent,
         CrearAdmisionesComponent,
-        EditarAdmisionesComponent
+        EditarAdmisionesComponent,
+
+        ConsultarHistoriasComponent,
+        CrearHistoriasComponent
+        //EditarHistoriasComponent
     ],
     providers: [
         AuthGuard,
@@ -234,7 +242,8 @@ import { AdmisionService } from './layout/procesos/admisiones/admision.service';
         RegimenService,
         
         PacienteService,
-        AdmisionService
+        AdmisionService,
+        HistoriaService
     ],
     bootstrap: [AppComponent]
 })

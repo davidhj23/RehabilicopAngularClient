@@ -3,12 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { CommonService } from '../../../_services';
-import { Admision } from './admision';
+import { Historia } from './historia';
 
 @Injectable()
-export class AdmisionService {
+export class HistoriaService {
     
-    url = '/api/admisiones/';    
+    url = '/api/historias/';    
     
     constructor(private http: HttpClient) { }
 
@@ -20,19 +20,15 @@ export class AdmisionService {
         return this.http.get(this.url + id,  CommonService.getJwtHeaders());
     }    
 
-    create(admision: Admision): Observable<any> {
-        return this.http.post(this.url, admision, CommonService.getJwtHeaders());
+    create(historia: Historia): Observable<any> {
+        return this.http.post(this.url, historia, CommonService.getJwtHeaders());
     }
 
-    update(admision: Admision): Observable<any> {
-        return this.http.put(this.url + admision.idAdmision, admision,  CommonService.getJwtHeaders());
+    update(historia: Historia): Observable<any> {
+        return this.http.put(this.url + historia.idHistoria, historia,  CommonService.getJwtHeaders());
     }
 
     delete(id: string): Observable<any> {
         return this.http.delete(this.url + id,  CommonService.getJwtHeaders())
-    }
-
-    getAdmisionByIdentificacionPaciente(id: string): Observable<any>{
-        return this.http.get(this.url + 'paciente/' + id,  CommonService.getJwtHeaders());
     }
 }

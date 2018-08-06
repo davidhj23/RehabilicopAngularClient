@@ -67,6 +67,10 @@ import { ConsultarAdmisionesComponent } from './layout/procesos/admisiones/consu
 import { CrearAdmisionesComponent } from './layout/procesos/admisiones/crearAdmisiones.component';
 import { EditarAdmisionesComponent } from './layout/procesos/admisiones/editarAdmisiones.component';
 
+import { ConsultarHistoriasComponent } from './layout/procesos/historias/consultarHistorias.component';
+import { CrearHistoriasComponent } from './layout/procesos/historias/crearHistorias.component';
+//import { EditarHistoriasComponent } from './layout/procesos/historias/editarHistorias.component';
+
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
@@ -140,7 +144,11 @@ const appRoutes: Routes = [
 
                 { path: 'procesos/admisiones/consultar', component: ConsultarAdmisionesComponent, canActivate: [AuthGuard], data : { permission: ["admisiones"] }}, 
                 { path: 'procesos/admisiones/nuevo', component: CrearAdmisionesComponent, canActivate: [AuthGuard], data : { permission: ["crear admision"] }}, 
-                { path: 'procesos/admisiones/editar/:id', component: EditarAdmisionesComponent, canActivate: [AuthGuard], data : { permission: ["editar admision"] }}
+                { path: 'procesos/admisiones/editar/:id', component: EditarAdmisionesComponent, canActivate: [AuthGuard], data : { permission: ["editar admision"] }},
+
+                { path: 'procesos/historias/consultar', component: ConsultarHistoriasComponent, canActivate: [AuthGuard], data : { permission: ["historias"] }}, 
+                { path: 'procesos/historias/nuevo', component: CrearHistoriasComponent, canActivate: [AuthGuard], data : { permission: ["crear historia"] }}
+                //{ path: 'procesos/historias/editar/:id', component: EditarHistoriasComponent, canActivate: [AuthGuard], data : { permission: ["editar historia"] }}
                 
             ] 
     }, 
