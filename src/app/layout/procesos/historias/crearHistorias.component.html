@@ -68,7 +68,178 @@
                             <input class="form-control" type="text" name="aseguradora" [(ngModel)]="aseguradora" disabled/>
                         </div>  
                     </div>
-                    
+                    <div class="row">                        
+                        <div class="form-group col-md-6" >
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Motivo de la consulta</h5>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.motivoConsulta"></textarea>
+                            </div>
+                        </div>  
+                        <div class="form-group col-md-6" >
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Enfermedad actual</h5>                            
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.enfermedadActual"></textarea>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Antecedentes Personales</h5>                                
+                            </div>                            
+                        </div>                                                
+                    </div>    
+                    <h6>Patologicos Psiquiatricos</h6>
+                    <div class="row">
+                        <label class="control-label col-md-1">Patologia</label>
+                        <div class="col-md-5">
+                            <input class="form-control" type="text" name="patologicoPsiquiatrico1" [(ngModel)]="model.patologicoPsiquiatrico1"/>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" [(ngModel)]="idEstadoPatologicoPsiquiatrico1" name="estadoPatologicoPsiquiatrico1">                                
+                                <option *ngFor="let item of estados" [value]="item.idEstado">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="tiempoEvolucionPatologicoPsiquiatrico1" [(ngModel)]="model.tiempoEvolucionPatologicoPsiquiatrico1" placeholder="Tiempo de evolución"/>
+                        </div>
+                    </div>               
+                    <div class="row">
+                        <label class="control-label col-md-1">Patologia</label>
+                        <div class="col-md-5">
+                            <input class="form-control" type="text" name="patologicoPsiquiatrico2" [(ngModel)]="model.patologicoPsiquiatrico2"/>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" [(ngModel)]="idEstadoPatologicoPsiquiatrico2" name="estadoPatologicoPsiquiatrico2">                                
+                                <option *ngFor="let item of estados" [value]="item.idEstado">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="tiempoEvolucionPatologicoPsiquiatrico2" [(ngModel)]="model.tiempoEvolucionPatologicoPsiquiatrico2" placeholder="Tiempo de evolución"/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label class="control-label col-md-1">Patologia</label>
+                        <div class="col-md-5">
+                            <input class="form-control" type="text" name="patologicoPsiquiatrico3" [(ngModel)]="model.patologicoPsiquiatrico3"/>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" [(ngModel)]="idEstadoPatologicoPsiquiatrico3" name="estadoPatologicoPsiquiatrico3">                                
+                                <option *ngFor="let item of estados" [value]="item.idEstado">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="tiempoEvolucionPatologicoPsiquiatrico3" [(ngModel)]="model.tiempoEvolucionPatologicoPsiquiatrico3" placeholder="Tiempo de evolución"/>
+                        </div>
+                    </div> 
+                    <h6>Patologicos No Psiquiatricos</h6>
+                    <div class="row">
+                        <label class="control-label col-md-1">Patologia</label>
+                        <div class="col-md-5">
+                            <input class="form-control" type="text" name="patologicoNoPsiquiatrico1" [(ngModel)]="model.patologicoNoPsiquiatrico1"/>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" [(ngModel)]="idEstadoPatologicoNoPsiquiatrico1" name="estadoPatologicoNoPsiquiatrico1">                                
+                                <option *ngFor="let item of estados" [value]="item.idEstado">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="tiempoEvolucionPatologicoNoPsiquiatrico1" [(ngModel)]="model.tiempoEvolucionPatologicoNoPsiquiatrico1" placeholder="Tiempo de evolución"/>
+                        </div>
+                    </div>               
+                    <div class="row">
+                        <label class="control-label col-md-1">Patologia</label>
+                        <div class="col-md-5">
+                            <input class="form-control" type="text" name="patologicoNoPsiquiatrico2" [(ngModel)]="model.patologicoNoPsiquiatrico2"/>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" [(ngModel)]="idEstadoPatologicoNoPsiquiatrico2" name="estadoPatologicoNoPsiquiatrico2">                                
+                                <option *ngFor="let item of estados" [value]="item.idEstado">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="tiempoEvolucionPatologicoNoPsiquiatrico2" [(ngModel)]="model.tiempoEvolucionPatologicoNoPsiquiatrico2" placeholder="Tiempo de evolución"/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label class="control-label col-md-1">Patologia</label>
+                        <div class="col-md-5">
+                            <input class="form-control" type="text" name="patologicoNoPsiquiatrico3" [(ngModel)]="model.patologicNoPsiquiatrico3"/>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" [(ngModel)]="idEstadoPatologicoNoPsiquiatrico3" name="estadoPatologicoNoPsiquiatrico3">                                
+                                <option *ngFor="let item of estados" [value]="item.idEstado">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="tiempoEvolucionPatologicoNoPsiquiatrico3" [(ngModel)]="model.tiempoEvolucionPatologicoNoPsiquiatrico3" placeholder="Tiempo de evolución"/>
+                        </div>
+                    </div> 
+                    <h6>Psiquiatricas</h6>
+                    <div class="row">
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Número</label>    
+                            <input class="form-control" type="text" name="numeroPsiquiatrica" [(ngModel)]="model.numeroPsiquiatrica">   
+                        </div>                                                                        
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Institución</label>                                
+                            <input class="form-control" type="text" name="institucionPsiquiatrica" [(ngModel)]="model.institucionPsiquiatrica" >                                                
+                        </div>   
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Fecha última hospitalización</label>
+                            <input class="form-control" type="text" name="fechaUltimaHospitalizacionPsiquiatrica" [(ngModel)]="model.fechaUltimaHospitalizacionPsiquiatrica">                
+                        </div>          
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">¿Es la primera hospitalización?</label>
+                            <select class="form-control" [(ngModel)]="idEsLaPrimeraHospitalizacionPsiquiatrica" name="esLaPrimeraHospitalizacionPsiquiatrica">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>                            
+                        </div>                                                                                
+                    </div>
+                    <h6>No Psiquiatricas</h6>
+                    <div class="row">
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Número</label>    
+                            <input class="form-control" type="text" name="numeroNoPsiquiatrica" [(ngModel)]="model.numeroNoPsiquiatrica">   
+                        </div>                                                                        
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Institución</label>                                
+                            <input class="form-control" type="text" name="institucionNoPsiquiatrica" [(ngModel)]="model.institucionNoPsiquiatrica" >                                                
+                        </div>   
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Fecha última hospitalización</label>
+                            <input class="form-control" type="text" name="fechaUltimaHospitalizacionNoPsiquiatrica" [(ngModel)]="model.fechaUltimaHospitalizacionNoPsiquiatrica">                
+                        </div>                                  
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Antecedentes Familiares</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Examen Físico</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Impresión Diagnostica</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-6" >
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Analisis y Manejo</h5>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.analisisYManejo"></textarea>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">                        
                         <div class="form-group col-md-4 align-self-end">
                             <button class="btn btn-primary" type="button" (click)="guardar()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>

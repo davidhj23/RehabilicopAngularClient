@@ -58,14 +58,17 @@
               <thead>
                 <tr>                  
                   <th>Nombre</th>
-                  <th>Acciones</th>              
+                  <th permission="editar opcion">Editar</th>              
+                  <th permission="eliminar opcion">Eliminar</th>                       
                 </tr>
               </thead>
               <tbody *ngFor="let opcion of mf.data">
                 <tr>                  
                   <td class="rowTd">{{opcion.nombre}}</td>
-                  <td class="rowTd">                  
+                  <td class="rowTd" permission="editar opcion">                  
                       <a class="btn float-left" (click)="edit(opcion, editContent)" permission="editar opcion"><i class="fa fa-pencil"></i></a>
+                  </td>       
+                  <td class="rowTd" permission="eliminar opcion">                                      
                       <a class="btn float-left" (click)="delete(opcion.idOpcion, content)" permission="eliminar opcion"><i class="fa fa-times"></i></a>                  
                   </td>       
                 </tr>            

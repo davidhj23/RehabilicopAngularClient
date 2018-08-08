@@ -94,7 +94,7 @@ export class EditarAdmisionesComponent implements OnInit {
 
                     this.model.paciente = data.paciente;  
                     this.tipoDocumento = this.model.paciente.tipoDocumento.nombre;                                                       
-                    this.edad = Util.formattedDate( this.model.paciente.fechaDeNacimiento);                                                       
+                    this.edad = Util.calculateAge(this.model.paciente.fechaDeNacimiento).toString();                                                       
                     this.sexo = this.model.paciente.sexo.nombre;                                                       
                     this.tipoEntidad = this.model.paciente.tipoEntidad.nombre;                                                       
                     this.aseguradora = this.model.paciente.aseguradora.nombre;                                                       

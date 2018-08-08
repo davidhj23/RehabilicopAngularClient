@@ -49,4 +49,11 @@ export class Util {
       
         return `${day}/${month}/${year}`;
       }
+
+    public static calculateAge(date: any){
+        if(date){
+             var timeDiff = Math.abs(Date.now() - date);             
+             return Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+        }
+    }
 }

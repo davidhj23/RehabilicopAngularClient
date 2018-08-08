@@ -6,6 +6,7 @@ import { Paciente } from '../pacientes/paciente';
 import { Admision } from '../admisiones/admision';
 import { PacienteService } from '../pacientes/paciente.service';
 import { AdmisionService } from '../admisiones/admision.service';
+import { EstadoService } from '../../listas/estados';
 
 @Component({
     selector: 'crearHistorias',
@@ -22,6 +23,14 @@ export class CrearHistoriasComponent implements OnInit {
     tipoEntidad : string;
     aseguradora : string;
 
+    estados: any[] = []; 
+    idEstadoPatologicoPsiquiatrico1: string;
+    idEstadoPatologicoPsiquiatrico2: string;
+    idEstadoPatologicoPsiquiatrico3: string;
+    idEstadoPatologicoNoPsiquiatrico1: string;
+    idEstadoPatologicoNoPsiquiatrico2: string;
+    idEstadoPatologicoNoPsiquiatrico3: string;
+
     loading = false;        
     
     areErrors = false;
@@ -33,7 +42,7 @@ export class CrearHistoriasComponent implements OnInit {
     constructor(
         private historiaService: HistoriaService,
         private admisionService: AdmisionService,
-        private pacienteService: PacienteService) {
+        private estadoService: EstadoService) {
         
         this.model = new Historia();
         this.model.admision = new Admision();
@@ -45,7 +54,24 @@ export class CrearHistoriasComponent implements OnInit {
     }    
 
     fillSelects(){      
-
+        this.showLoading(true);    
+        this.estadoService.getAll()
+            .subscribe(
+                data => {      
+                    this.estados = data;                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
     }
 
     guardar() {        
@@ -56,12 +82,7 @@ export class CrearHistoriasComponent implements OnInit {
             .subscribe(
                 data => {                        
                     this.clearModel(); 
-
-                    this.tipoDocumento = '';
-                    this.edad = '';
-                    this.sexo = '';
-                    this.tipoEntidad = '';
-                    this.aseguradora = '';
+                    this.clearAdmisionModel();
                                  
                     this.showLoading(false);
                 },
@@ -96,6 +117,15 @@ export class CrearHistoriasComponent implements OnInit {
     }
 
     keytab(event: Event){
+        let areErrors = false;
+        this.clearAndcloseErrors();              
+
+        if(this.model.admision.paciente.identificacion == undefined || this.model.admision.paciente.identificacion == ''){
+            this.errores.push({ message: 'Ingrese un paciente'});                        
+            this.showErrors();
+            return;
+        }
+
         this.showLoading(true);    
         this.admisionService.getAdmisionByIdentificacionPaciente(this.model.admision.paciente.identificacion)
             .subscribe(
@@ -107,6 +137,11 @@ export class CrearHistoriasComponent implements OnInit {
                         this.sexo = this.model.admision.paciente.sexo.nombre;                                                       
                         this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre;                                                       
                         this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                       
+                    }else{
+                        this.errores.push({ message: 'No se encontró un paciente con esa identificación'});                        
+                        this.showErrors();                        
+                        this.clearAdmisionModel();
+                        return;
                     }
                     
                     this.showLoading(false);
@@ -143,8 +178,17 @@ export class CrearHistoriasComponent implements OnInit {
     }
 
     clearModel(){        
-        this.model = new Historia();
+        this.model = new Historia();        
+    }
+
+    clearAdmisionModel(){
         this.model.admision = new Admision();
-        this.model.admision.paciente = new Paciente();
+        this.model.admision.paciente = new Paciente();        
+
+        this.tipoDocumento = '';
+        this.edad = '';
+        this.sexo = '';
+        this.tipoEntidad = '';
+        this.aseguradora = '';
     }
 }

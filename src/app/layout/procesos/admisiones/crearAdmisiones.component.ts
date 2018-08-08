@@ -214,12 +214,7 @@ export class CrearAdmisionesComponent implements OnInit {
             .subscribe(
                 data => {                        
                     this.clearModel(); 
-
-                    this.tipoDocumento = '';
-                    this.edad = '';
-                    this.sexo = '';
-                    this.tipoEntidad = '';
-                    this.aseguradora = '';
+                    this.clearPacienteModel(); 
 
                     this.fechaDeNacimiento = '';       
                     this.fechaDeIngreso = '';  
@@ -232,6 +227,7 @@ export class CrearAdmisionesComponent implements OnInit {
                     this.idParentesco = '';  
                     this.diagnosticoPrincipal = null;  
                     this.diagnosticoSecundario = null;  
+
                     this.showLoading(false);
                 },
                 error => {            
@@ -401,10 +397,19 @@ export class CrearAdmisionesComponent implements OnInit {
     }
 
     keytab(event: Event){
+        let areErrors = false;
+        this.clearAndcloseErrors();              
+
+        if(this.model.paciente.identificacion == undefined || this.model.paciente.identificacion == ''){
+            this.errores.push({ message: 'Ingrese un paciente'});                        
+            this.showErrors();
+            return;
+        }
+
         this.showLoading(true);    
         this.pacienteService.getByIdentificacion(this.model.paciente.identificacion)
             .subscribe(
-                data => {      
+                data => {                         
                     if(data != null){
                         this.model.paciente = data;  
                         this.tipoDocumento = this.model.paciente.tipoDocumento.nombre;                                                       
@@ -412,6 +417,11 @@ export class CrearAdmisionesComponent implements OnInit {
                         this.sexo = this.model.paciente.sexo.nombre;                                                       
                         this.tipoEntidad = this.model.paciente.tipoEntidad.nombre;                                                       
                         this.aseguradora = this.model.paciente.aseguradora.nombre;                                                       
+                    }else{
+                        this.errores.push({ message: 'No se encontró un paciente con esa identificación'});                        
+                        this.showErrors();                        
+                        this.clearPacienteModel();
+                        return;
                     }
                     
                     this.showLoading(false);
@@ -469,7 +479,16 @@ export class CrearAdmisionesComponent implements OnInit {
     }
 
     clearModel(){        
-        this.model = new Admision();
+        this.model = new Admision();        
+    }
+
+    clearPacienteModel(){
         this.model.paciente = new Paciente();
+
+        this.tipoDocumento = '';
+        this.edad = '';
+        this.sexo = '';
+        this.tipoEntidad = '';
+        this.aseguradora = '';
     }
 }
