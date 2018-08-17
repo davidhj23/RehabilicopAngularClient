@@ -211,6 +211,228 @@
                             <input class="form-control" type="text" name="fechaUltimaHospitalizacionNoPsiquiatrica" [(ngModel)]="model.fechaUltimaHospitalizacionNoPsiquiatrica">                
                         </div>                                  
                     </div>
+                    <h6>Alergicos</h6>
+                    <div class="row">
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Tipo de reacción</label>    
+                            <input class="form-control" type="text" name="tipoReaccion" [(ngModel)]="model.tipoReaccion">   
+                        </div>                                                                        
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Sustancias</label>                                
+                            <input class="form-control" type="text" name="sustancias" [(ngModel)]="model.sustancias" >                                                
+                        </div>   
+                    </div>
+                    <h6>Traumaticos</h6>
+                    <div class="row">                            
+                        <label class="control-label col-md-3">Trauma</label>
+                        <label class="control-label col-md-3">Tiempo de evolución</label>
+                        <label class="control-label col-md-3">Compromiso de conciencia</label>
+                        <label class="control-label col-md-3">Secuelas</label>
+                    </div>
+                    <div class="form-group row">                        
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="trauma1" [(ngModel)]="model.trauma1"/>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="tiempoEvolucion1" [(ngModel)]="model.tiempoEvolucion1"/>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" [(ngModel)]="idCompromisoConciencia1" name="idCompromisoConciencia1">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="secuelas1" [(ngModel)]="model.secuelas1"/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">                        
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="trauma2" [(ngModel)]="model.trauma2"/>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="tiempoEvolucion2" [(ngModel)]="model.tiempoEvolucion2"/>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" [(ngModel)]="idCompromisoConciencia2" name="idCompromisoConciencia2">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="secuelas2" [(ngModel)]="model.secuelas2"/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">                        
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="trauma3" [(ngModel)]="model.trauma3"/>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="tiempoEvolucion3" [(ngModel)]="model.tiempoEvolucion3"/>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" [(ngModel)]="idCompromisoConciencia1" name="idCompromisoConciencia1">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="secuelas3" [(ngModel)]="model.secuelas3"/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">                        
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="trauma4" [(ngModel)]="model.trauma4"/>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="tiempoEvolucion4" [(ngModel)]="model.tiempoEvolucion4"/>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" [(ngModel)]="idCompromisoConciencia4" name="idCompromisoConciencia4">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="secuelas4" [(ngModel)]="model.secuelas4"/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">                        
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="trauma5" [(ngModel)]="model.trauma5"/>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="tiempoEvolucion5" [(ngModel)]="model.tiempoEvolucion5"/>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" [(ngModel)]="idCompromisoConciencia5" name="idCompromisoConciencia5">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="secuelas5" [(ngModel)]="model.secuelas5"/>
+                        </div>
+                    </div> 
+                    <h6>Farmacologicos</h6>
+                    <div class="row">                            
+                        <label class="control-label col-md-4">Medicamentos</label>
+                        <label class="control-label col-md-2">Dosis</label>
+                        <label class="control-label col-md-2">Tiempo de uso</label>
+                        <label class="control-label col-md-2">Eficacia</label>
+                        <label class="control-label col-md-2">E. Adverso</label>
+                    </div>
+                    <div class="form-group row">                        
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" name="medicamentos1" [(ngModel)]="model.medicamentos1"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input class="form-control" type="text" name="dosis1" [(ngModel)]="model.dosis1"/>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idTiempoDeUso1" name="idTiempoDeUso1">                                
+                                <option *ngFor="let item of tiemposDeUsos" [value]="item.idTiempoDeUso">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idEficacia1" name="idEficacia1">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idEAdverso1" name="idEAdverso1">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group row">                        
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" name="medicamentos2" [(ngModel)]="model.medicamentos2"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input class="form-control" type="text" name="dosis2" [(ngModel)]="model.dosis2"/>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idTiempoDeUso2" name="idTiempoDeUso2">                                
+                                <option *ngFor="let item of tiemposDeUsos" [value]="item.idTiempoDeUso">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idEficacia2" name="idEficacia2">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idEAdverso2" name="idEAdverso2">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group row">                        
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" name="medicamentos3" [(ngModel)]="model.medicamentos3"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input class="form-control" type="text" name="dosis3" [(ngModel)]="model.dosis3"/>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idTiempoDeUso3" name="idTiempoDeUso3">                                
+                                <option *ngFor="let item of tiemposDeUsos" [value]="item.idTiempoDeUso">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idEficacia3" name="idEficacia3">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idEAdverso3" name="idEAdverso3">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group row">                        
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" name="medicamentos4" [(ngModel)]="model.medicamentos4"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input class="form-control" type="text" name="dosis4" [(ngModel)]="model.dosis4"/>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idTiempoDeUso4" name="idTiempoDeUso4">                                
+                                <option *ngFor="let item of tiemposDeUsos" [value]="item.idTiempoDeUso">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idEficacia4" name="idEficacia4">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idEAdverso4" name="idEAdverso4">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group row">                        
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" name="medicamentos5" [(ngModel)]="model.medicamentos5"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input class="form-control" type="text" name="dosis5" [(ngModel)]="model.dosis5"/>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idTiempoDeUso5" name="idTiempoDeUso5">                                
+                                <option *ngFor="let item of tiemposDeUsos" [value]="item.idTiempoDeUso">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idEficacia5" name="idEficacia5">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" [(ngModel)]="idEAdverso5" name="idEAdverso5">                                
+                                <option *ngFor="let item of opciones" [value]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div> 
+
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="page-header">

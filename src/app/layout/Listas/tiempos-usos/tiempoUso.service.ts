@@ -25,7 +25,7 @@ export class TiempoUsoService {
     }
 
     update(tiempoUso: TiempoUso): Observable<any> {
-        return this.http.put(this.url + tiempoUso.idTiempoUso, tiempoUso,  CommonService.getJwtHeaders());
+        return this.http.put(this.url + tiempoUso.idTiempoDeUso, tiempoUso,  CommonService.getJwtHeaders());
     }
 
     delete(id: string): Observable<any> {

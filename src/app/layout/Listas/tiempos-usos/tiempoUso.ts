@@ -1,4 +1,4 @@
 export class TiempoUso{
-    idTiempoUso: string;
+    idTiempoDeUso: string;
     nombre: string;    
 }

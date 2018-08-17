@@ -109,7 +109,7 @@ export class TiempoUsoComponent implements OnInit {
     }
 
     edit(model: any, editContent: any) {            
-        this.modelToEdit.idTiempoUso = model.idTiempoUso;     
+        this.modelToEdit.idTiempoDeUso = model.idTiempoDeUso;     
         this.modelToEdit.nombre = model.nombre;     
 
         this.ngbModal.open(editContent).result.then((result) => {
@@ -159,11 +159,11 @@ export class TiempoUsoComponent implements OnInit {
         return true;
     }
 
-    delete(idTiempoUso: string, content: any) {   
+    delete(idTiempoDeUso: string, content: any) {   
         this.clearAndcloseErrors();    
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
-            this.tiempoUsoService.delete(idTiempoUso)
+            this.tiempoUsoService.delete(idTiempoDeUso)
                 .subscribe(data => {                    
                     this.loadAllTiempoUsos();                    
                     this.showLoading(false);
@@ -212,9 +212,9 @@ export class TiempoUsoComponent implements OnInit {
     }
 
     clearModel(){        
-        this.model.idTiempoUso = '';        
+        this.model.idTiempoDeUso = '';        
         this.model.nombre = '';
-        this.modelToEdit.idTiempoUso = '';
+        this.modelToEdit.idTiempoDeUso = '';
         this.modelToEdit.nombre = '';
     }    
 }
