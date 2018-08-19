@@ -94,7 +94,8 @@
                         <div class="form-group col-md-2" >
                             <label class="control-label">Tipo</label>    
                             <select class="form-control" [(ngModel)]="idtipoPatologia" name="idTipoPatologia">                                
-                                <option *ngFor="let item of estados" [value]="item.idEstado">{{item.nombre}}</option>
+                                <option value="PATOLOGICO">PATOLOGICO</option>
+                                <option value="NO PATOLOGICO">NO PATOLOGICO</option>
                             </select>
                         </div>                                                                                                
                         <div class="form-group col-md-4" >
@@ -107,11 +108,101 @@
                         </div>                                                                            
                         <div class="col-md-2">
                             <label class="control-label">Estado</label>
-                            <select class="form-control" [(ngModel)]="idEstadoPatologico" name="idEstadoPatologico">                                
-                                <option *ngFor="let item of estados" [value]="item.idEstado">{{item.nombre}}</option>
+                            <select class="form-control" [(ngModel)]="estadoPatologico" name="estadoPatologico">                                
+                                <option *ngFor="let item of estados" [ngValue]="item">{{item.nombre}}</option>
                             </select>
                         </div>
+                        <div class="form-group col-md-2 align-self-end">
+                            <button class="btn btn-primary" type="button" (click)="addPatologico()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Añadir</button>
+                        </div>
                     </div>    
+
+                    <div class="row">                        
+                        <div class="col-md-12">
+                            <table class="table table-hover table-bordered" >
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Nombre</th>
+                                        <th>Timpo de evolución</th>                                
+                                        <th>Estado</th>                                                    
+                                        <th>Eliminar</th>          
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr *ngFor="let patologico of patologicos; let i = index">                  
+                                        <td class="rowTd">{{patologico.tipo}}</td>    
+                                        <td class="rowTd">{{patologico.descripcion}}</td>
+                                        <td class="rowTd">{{patologico.tiempoEvolucion}}</td>
+                                        <td class="rowTd">{{patologico.estado.nombre}}</td>                                                                        
+                                        <td class="rowTd" >                                      
+                                            <a class="btn float-left" (click)="deletePatologico(i)"><i class="fa fa-times"></i></a>                  
+                                        </td>       
+                                    </tr>            
+                                </tbody>                            
+                            </table>                              
+                        </div>
+                    </div>
+                    <h6>Hospitalización</h6>
+                    <div class="row">  
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Tipo</label>    
+                            <select class="form-control" [(ngModel)]="idtipoAntecente" name="idtipoAntecente">                                
+                                <option value="PSIQUIATRICA">PSIQUIATRICA</option>
+                                <option value="NO PSIQUIATRICA">NO PSIQUIATRICA</option>
+                            </select>
+                        </div>                                                     
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Institución</label>
+                            <input class="form-control" type="text" name="institucion" [(ngModel)]="institucion"/>
+                        </div> 
+                        <div class="form-group col-md-1" >
+                            <label class="control-label">Número</label>
+                            <input class="form-control" type="text" name="numero" [(ngModel)]="numero"/>
+                        </div>                                                                                                                    
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Última</label>                            
+                            <input class="form-control" placeholder="dd/mm/aaaa" [textMask]="{mask: mask}" [(ngModel)]="fechaUltimaHospitalizacion" type="text"/>
+                        </div>                                                                                     
+                        <div class="col-md-2">
+                            <label class="control-label">Primera vez?</label>
+                            <select class="form-control" [(ngModel)]="primeraHospitalizacion" name="primeraHospitalizacion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2 align-self-end">
+                            <button class="btn btn-primary" type="button" (click)="addAntecedente()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Añadir</button>
+                        </div>
+                    </div>    
+
+                    <div class="row">                        
+                        <div class="col-md-12">
+                            <table class="table table-hover table-bordered" >
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Institución</th>
+                                        <th>Número</th>
+                                        <th>Fecha última hospitalización</th>                                
+                                        <th>Primera hospitalización?</th>                                                    
+                                        <th>Eliminar</th>          
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr *ngFor="let antecedente of antecedentes; let i = index">                  
+                                        <td class="rowTd">{{antecedente.tipo}}</td>        
+                                        <td class="rowTd">{{antecedente.institucion}}</td>    
+                                        <td class="rowTd">{{antecedente.numero}}</td>
+                                        <td class="rowTd">{{antecedente.fechaUltimaHospitalizacion | date: 'dd/MM/yyyy'}}</td>
+                                        <td class="rowTd">{{antecedente.esLaPrimeraHospitalizacion.nombre}}</td>                                                                        
+                                        <td class="rowTd" >                                      
+                                            <a class="btn float-left" (click)="deleteAntecedente(i)"><i class="fa fa-times"></i></a>                  
+                                        </td>       
+                                    </tr>            
+                                </tbody>                            
+                            </table>                              
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-lg-12">

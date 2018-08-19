@@ -6,7 +6,8 @@ export class Antecedente{
 
     numero: string;
 	institucion: string;
-	fechaUltimaHospitalizacion: Date;			
+    fechaUltimaHospitalizacion: Date;			
+    tipo: string;
 	
 	esLaPrimeraHospitalizacion: Opcion;
 

@@ -6,7 +6,10 @@ import { Paciente } from '../pacientes/paciente';
 import { Admision } from '../admisiones/admision';
 import { PacienteService } from '../pacientes/paciente.service';
 import { AdmisionService } from '../admisiones/admision.service';
-import { EstadoService } from '../../listas/estados';
+import { EstadoService, Estado } from '../../listas/estados';
+import { Patologico } from './patologico';
+import { Antecedente } from './Antecedente';
+import { Opcion, OpcionService } from '../../listas/opciones';
 
 @Component({
     selector: 'crearHistorias',
@@ -24,12 +27,20 @@ export class CrearHistoriasComponent implements OnInit {
     aseguradora : string;
 
     estados: any[] = []; 
-    idEstadoPatologicoPsiquiatrico1: string;
-    idEstadoPatologicoPsiquiatrico2: string;
-    idEstadoPatologicoPsiquiatrico3: string;
-    idEstadoPatologicoNoPsiquiatrico1: string;
-    idEstadoPatologicoNoPsiquiatrico2: string;
-    idEstadoPatologicoNoPsiquiatrico3: string;
+    opciones: any[] = [];     
+
+    patologicos: Patologico[] = []; 
+    idtipoPatologia: string;
+    descripcion: string;
+    tiempoEvolucion: string;
+    estadoPatologico: Estado;
+
+    antecedentes: Antecedente[] = []; 
+    idtipoAntecente: string;
+    institucion: string;
+    numero: string;
+    fechaUltimaHospitalizacion: string;    
+    primeraHospitalizacion: Opcion;
 
     loading = false;        
     
@@ -42,7 +53,8 @@ export class CrearHistoriasComponent implements OnInit {
     constructor(
         private historiaService: HistoriaService,
         private admisionService: AdmisionService,
-        private estadoService: EstadoService) {
+        private estadoService: EstadoService,
+        private opcionService: OpcionService) {
         
         this.model = new Historia();
         this.model.admision = new Admision();
@@ -59,6 +71,25 @@ export class CrearHistoriasComponent implements OnInit {
             .subscribe(
                 data => {      
                     this.estados = data;                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+
+        this.showLoading(true);    
+        this.opcionService.getAll()
+            .subscribe(
+                data => {      
+                    this.opciones = data;                    
                     this.showLoading(false);
                 },
                 error => {                        
@@ -159,6 +190,54 @@ export class CrearHistoriasComponent implements OnInit {
                 }); 
     }
 
+    addPatologico(){        
+        let patologico = new Patologico();
+        patologico.tipo = this.idtipoPatologia;
+        patologico.descripcion = this.descripcion;
+        patologico.tiempoEvolucion = this.tiempoEvolucion;
+        patologico.estado = this.estadoPatologico;
+
+        this.patologicos.push(patologico);
+        this.clearPatologicoForm();
+    }
+
+    deletePatologico(index: number) {
+        this.patologicos.splice(index, 1);
+    }
+
+    addAntecedente(){     
+        let areErrors = false;
+        this.clearAndcloseErrors();  
+
+        if(this.fechaUltimaHospitalizacion == undefined || this.fechaUltimaHospitalizacion == ''){
+            this.errores.push({ message: 'Ingrese una fecha de útlima hospitalización'});
+            areErrors = true;
+        }
+        else if(!Util.validateDate(this.fechaUltimaHospitalizacion)){
+            this.errores.push({ message: 'Ingrese una fecha de útlima hospitalización válida'});
+            areErrors = true;
+        }    
+        
+        if(areErrors){
+            this.showErrors();
+            return;
+        }
+
+        let antecedente = new Antecedente();
+        antecedente.tipo = this.idtipoAntecente;
+        antecedente.institucion = this.institucion;
+        antecedente.numero = this.numero;
+        antecedente.fechaUltimaHospitalizacion = Util.getDate(this.fechaUltimaHospitalizacion);
+        antecedente.esLaPrimeraHospitalizacion = this.primeraHospitalizacion;
+
+        this.antecedentes.push(antecedente);
+        this.clearAntecedenteForm();
+    }
+
+    deleteAntecedente(index: number) {
+        this.antecedentes.splice(index, 1);
+    }
+
     showLoading(loading: boolean) {
         this.loading = loading;
     }
@@ -190,5 +269,20 @@ export class CrearHistoriasComponent implements OnInit {
         this.sexo = '';
         this.tipoEntidad = '';
         this.aseguradora = '';
+    }
+
+    clearPatologicoForm(){
+        this.idtipoPatologia = '';
+        this.descripcion = '';
+        this.tiempoEvolucion = '';
+        this.estadoPatologico = new Estado();
+    }
+
+    clearAntecedenteForm(){        
+        this.idtipoAntecente = '';
+        this.institucion = '';
+        this.numero = '';
+        this.fechaUltimaHospitalizacion = '';    
+        this.primeraHospitalizacion = new Opcion();
     }
 }
