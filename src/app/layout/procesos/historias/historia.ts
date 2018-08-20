@@ -11,7 +11,7 @@ export class Historia {
     motivoConsulta: string;
 	enfermedadActual: string;
 	
-	analisisYManejo: string;
+	analisisManejo: string;
 
     fechaDeInicio: Date;
     admision: Admision;

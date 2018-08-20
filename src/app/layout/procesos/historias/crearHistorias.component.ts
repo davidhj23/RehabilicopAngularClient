@@ -10,6 +10,9 @@ import { EstadoService, Estado } from '../../listas/estados';
 import { Patologico } from './patologico';
 import { Antecedente } from './Antecedente';
 import { Opcion, OpcionService } from '../../listas/opciones';
+import { Farmacologico } from './Farmacologico';
+import { TiempoUso, TiempoUsoService } from '../../listas/tiempos-usos';
+import { Traumatico } from './traumatico';
 
 @Component({
     selector: 'crearHistorias',
@@ -28,6 +31,7 @@ export class CrearHistoriasComponent implements OnInit {
 
     estados: any[] = []; 
     opciones: any[] = [];     
+    tiemposDeUsos: any[] = []; 
 
     patologicos: Patologico[] = []; 
     idtipoPatologia: string;
@@ -42,6 +46,19 @@ export class CrearHistoriasComponent implements OnInit {
     fechaUltimaHospitalizacion: string;    
     primeraHospitalizacion: Opcion;
 
+    traumaticos: Traumatico[] = []; 
+    trauma: string;
+	tiempoEvolucionTraumatico: string;	
+    secuelas: string;
+	compromisoConciencia: Opcion;
+
+    farmacologicos: Farmacologico[] = []; 
+    medicamento: string;
+    dosis: string;       
+	eficacia: Opcion;    
+	esAdverso: Opcion;
+    tiempoDeUso: TiempoUso;
+
     loading = false;        
     
     areErrors = false;
@@ -54,7 +71,8 @@ export class CrearHistoriasComponent implements OnInit {
         private historiaService: HistoriaService,
         private admisionService: AdmisionService,
         private estadoService: EstadoService,
-        private opcionService: OpcionService) {
+        private opcionService: OpcionService,
+        private tiempoUsoService: TiempoUsoService) {
         
         this.model = new Historia();
         this.model.admision = new Admision();
@@ -103,10 +121,33 @@ export class CrearHistoriasComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 }); 
+
+        this.showLoading(true);    
+        this.tiempoUsoService.getAll()
+            .subscribe(
+                data => {      
+                    this.tiemposDeUsos = data;                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
     }
 
     guardar() {        
         if(!this.validateCreate()) return;
+
+        this.model.patologicos = [];
+        this.model.patologicos = this.patologicos;
+        this.model.antecedentes = this.antecedentes;
 
         this.showLoading(true);    
         this.historiaService.create(this.model)
@@ -238,6 +279,37 @@ export class CrearHistoriasComponent implements OnInit {
         this.antecedentes.splice(index, 1);
     }
 
+    addTraumatico(){
+        let traumatico = new Traumatico();
+        traumatico.trauma = this.trauma;
+        traumatico.tiempoEvolucion = this.tiempoEvolucionTraumatico;       
+        traumatico.secuelas = this.secuelas;    
+        traumatico.compromisoConciencia = this.compromisoConciencia;        
+
+        this.traumaticos.push(traumatico);
+        this.clearTraumaticoForm();
+    }
+
+    deleteTraumatico(index: number) {
+        this.traumaticos.splice(index, 1);
+    }
+
+    addFarmacologico(){
+        let farmacologico = new Farmacologico();
+        farmacologico.medicamento = this.medicamento;
+        farmacologico.dosis = this.dosis;       
+        farmacologico.eficacia = this.eficacia;    
+        farmacologico.esAdverso = this.esAdverso;
+        farmacologico.tiempoDeUso = this.tiempoDeUso;
+
+        this.farmacologicos.push(farmacologico);
+        this.clearFarmacologicoForm();
+    }
+
+    deleteFarmacologico(index: number) {
+        this.farmacologicos.splice(index, 1);
+    }
+
     showLoading(loading: boolean) {
         this.loading = loading;
     }
@@ -257,7 +329,11 @@ export class CrearHistoriasComponent implements OnInit {
     }
 
     clearModel(){        
-        this.model = new Historia();        
+        this.model = new Historia();    
+        this.patologicos = [];
+        this.antecedentes = [];
+        this.traumaticos = [];
+        this.farmacologicos = [];
     }
 
     clearAdmisionModel(){
@@ -268,7 +344,7 @@ export class CrearHistoriasComponent implements OnInit {
         this.edad = '';
         this.sexo = '';
         this.tipoEntidad = '';
-        this.aseguradora = '';
+        this.aseguradora = '';        
     }
 
     clearPatologicoForm(){
@@ -284,5 +360,20 @@ export class CrearHistoriasComponent implements OnInit {
         this.numero = '';
         this.fechaUltimaHospitalizacion = '';    
         this.primeraHospitalizacion = new Opcion();
+    }
+
+    clearTraumaticoForm(){        
+        this.trauma = '';
+        this.tiempoEvolucionTraumatico = '';
+        this.secuelas = '';
+        this.compromisoConciencia = new Opcion();
+    }
+
+    clearFarmacologicoForm(){        
+        this.medicamento = '';
+        this.dosis = '';
+        this.eficacia = new Opcion();
+        this.esAdverso = new Opcion();    
+        this.tiempoDeUso = new TiempoUso();
     }
 }

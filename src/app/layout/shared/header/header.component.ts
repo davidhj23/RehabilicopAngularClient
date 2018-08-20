@@ -33,6 +33,6 @@ export class HeaderComponent implements OnInit {
         this.idle.ngOnDestroy();       
 
         this.authenticationService.logout();
-        window.location.href = '/login';
+        window.location.href = '/';
     }
 }
