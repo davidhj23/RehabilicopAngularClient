@@ -13,6 +13,7 @@ import { Opcion, OpcionService } from '../../listas/opciones';
 import { Farmacologico } from './Farmacologico';
 import { TiempoUso, TiempoUsoService } from '../../listas/tiempos-usos';
 import { Traumatico } from './traumatico';
+import { Toxico } from './toxico';
 
 @Component({
     selector: 'crearHistorias',
@@ -58,6 +59,12 @@ export class CrearHistoriasComponent implements OnInit {
 	eficacia: Opcion;    
 	esAdverso: Opcion;
     tiempoDeUso: TiempoUso;
+
+    toxicos: Toxico[] = [];
+    sustancia = '';
+    cantidad = '';
+    frecuencia = '';
+    edadInicio = '';  
 
     loading = false;        
     
@@ -310,6 +317,21 @@ export class CrearHistoriasComponent implements OnInit {
         this.farmacologicos.splice(index, 1);
     }
 
+    addToxico(){
+        let toxico = new Toxico();
+        toxico.sustancia = this.sustancia;
+        toxico.cantidad = this.cantidad;       
+        toxico.frecuencia = this.frecuencia;    
+        toxico.edadInicio = this.edadInicio;        
+
+        this.toxicos.push(toxico);
+        this.clearToxicoForm();
+    }
+
+    deleteToxico(index: number) {
+        this.toxicos.splice(index, 1);
+    }
+
     showLoading(loading: boolean) {
         this.loading = loading;
     }
@@ -375,5 +397,12 @@ export class CrearHistoriasComponent implements OnInit {
         this.eficacia = new Opcion();
         this.esAdverso = new Opcion();    
         this.tiempoDeUso = new TiempoUso();
+    }
+
+    clearToxicoForm(){        
+        this.sustancia = '';
+        this.cantidad = '';
+        this.frecuencia = '';
+        this.edadInicio = '';            
     }
 }

@@ -4,6 +4,7 @@ import { Patologico } from "./patologico";
 import { Antecedente } from "./Antecedente";
 import { Farmacologico } from "./Farmacologico";
 import { Traumatico } from "./traumatico";
+import { Toxico } from "./toxico";
 
 export class Historia {   
     idHistoria: string; 
@@ -11,7 +12,9 @@ export class Historia {
     motivoConsulta: string;
 	enfermedadActual: string;
 	
-	analisisManejo: string;
+    analisisManejo: string;
+    
+    podromosPersonalPremorbida: string;
 
     fechaDeInicio: Date;
     admision: Admision;
@@ -20,4 +23,5 @@ export class Historia {
     antecedentes: Antecedente[];
     farmacologicos: Farmacologico[];
     traumaticos: Traumatico[];
+    toxicos: Toxico[];
 }
