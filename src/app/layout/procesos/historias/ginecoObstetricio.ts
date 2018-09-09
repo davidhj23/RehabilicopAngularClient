@@ -10,7 +10,7 @@ export class GinecoObstetricio {
 	abortos: string;
 	semanas: string;
 	menarquias: string;
-	fum: string;	
+	fum: Date;	
 	
 	embarazoActual: Opcion;	
 	gesta: Gesta;	      

@@ -5,6 +5,9 @@ import { Antecedente } from "./Antecedente";
 import { Farmacologico } from "./Farmacologico";
 import { Traumatico } from "./traumatico";
 import { Toxico } from "./toxico";
+import { Cie10 } from "../../listas/cie10s";
+import { GinecoObstetricio } from "./ginecoObstetricio";
+import { User } from "../../seguridad/usuarios/user";
 
 export class Historia {   
     idHistoria: string; 
@@ -16,6 +19,14 @@ export class Historia {
     
     podromosPersonalPremorbida: string;
 
+    antecedentesFamiliaresPsiquiatricos: string;
+    antecedentesFamiliaresNoPsiquiatricos: string;
+
+    impresionDiagnostica: Cie10;
+
+    medico: User;
+    autoriza: User;
+
     fechaDeInicio: Date;
     admision: Admision;
 
@@ -24,4 +35,5 @@ export class Historia {
     farmacologicos: Farmacologico[];
     traumaticos: Traumatico[];
     toxicos: Toxico[];
+    ginecoObstetricio: GinecoObstetricio[];
 }

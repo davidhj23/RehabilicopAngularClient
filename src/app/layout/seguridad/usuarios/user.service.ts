@@ -66,6 +66,10 @@ export class UserService {
         return this.http.get(this.url + 'medicos', CommonService.getJwtHeaders());
     }
 
+    getAllPsiquiatras(): Observable<any> {
+        return this.http.get(this.url + 'psiquiatras', CommonService.getJwtHeaders());
+    }
+
     getAllEnfermeros(): Observable<any> {
         return this.http.get(this.url  + 'enfermeros', CommonService.getJwtHeaders());
     }

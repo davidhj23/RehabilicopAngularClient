@@ -14,6 +14,13 @@ import { Farmacologico } from './Farmacologico';
 import { TiempoUso, TiempoUsoService } from '../../listas/tiempos-usos';
 import { Traumatico } from './traumatico';
 import { Toxico } from './toxico';
+import { Gesta, GestaService } from '../../listas/gestas';
+import {debounceTime, distinctUntilChanged, map, tap, switchMap, catchError} from 'rxjs/operators';
+import { of } from '../../../../../node_modules/rxjs/observable/of';
+import { Cie10Service } from '../../listas/cie10s';
+import { Observable } from '../../../../../node_modules/rxjs';
+import { GinecoObstetricio } from './ginecoObstetricio';
+import { UserService } from '../../seguridad/usuarios/user.service';
 
 @Component({
     selector: 'crearHistorias',
@@ -33,6 +40,9 @@ export class CrearHistoriasComponent implements OnInit {
     estados: any[] = []; 
     opciones: any[] = [];     
     tiemposDeUsos: any[] = []; 
+    gestasCombo: any[] = []; 
+    medicos: any[] = []; 
+    psiquiatras: any[] = []; 
 
     patologicos: Patologico[] = []; 
     idtipoPatologia: string;
@@ -66,6 +76,15 @@ export class CrearHistoriasComponent implements OnInit {
     frecuencia = '';
     edadInicio = '';  
 
+    partos: '';
+	abortos: '';
+    semanas: '';
+    public semanasMask = [/\d/, /\d/, '.', /\d/]
+	menarquias: '';
+	fum: '';	
+	embarazoActual: Opcion;	
+	gesta: Gesta;	  
+
     loading = false;        
     
     areErrors = false;
@@ -79,7 +98,10 @@ export class CrearHistoriasComponent implements OnInit {
         private admisionService: AdmisionService,
         private estadoService: EstadoService,
         private opcionService: OpcionService,
-        private tiempoUsoService: TiempoUsoService) {
+        private tiempoUsoService: TiempoUsoService,
+        private gestaService: GestaService,
+        private cie10Service: Cie10Service,
+        private usuarioService: UserService) {
         
         this.model = new Historia();
         this.model.admision = new Admision();
@@ -147,6 +169,63 @@ export class CrearHistoriasComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 }); 
+
+        this.showLoading(true);    
+        this.gestaService.getAll()
+            .subscribe(
+                data => {      
+                    this.gestasCombo = data;                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+
+        this.showLoading(true);    
+        this.usuarioService.getAllMedicos()
+            .subscribe(
+                data => {      
+                    this.medicos = data;                  
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });
+
+                this.showLoading(true);    
+        this.usuarioService.getAllPsiquiatras()
+            .subscribe(
+                data => {      
+                    this.psiquiatras = data;                  
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });
     }
 
     guardar() {        
@@ -154,7 +233,18 @@ export class CrearHistoriasComponent implements OnInit {
 
         this.model.patologicos = [];
         this.model.patologicos = this.patologicos;
+        this.model.antecedentes = [];
         this.model.antecedentes = this.antecedentes;
+        this.model.farmacologicos = [];
+        this.model.farmacologicos = this.farmacologicos;
+        this.model.toxicos = [];
+        this.model.toxicos = this.toxicos;
+        this.model.traumaticos = [];
+        this.model.traumaticos = this.traumaticos;
+        this.model.ginecoObstetricio = [];
+        this.addGinecoObstetricio();      
+        
+        this.model.impresionDiagnostica = this.impresionDiagnostica;
 
         this.showLoading(true);    
         this.historiaService.create(this.model)
@@ -185,6 +275,13 @@ export class CrearHistoriasComponent implements OnInit {
         if(this.model.admision.paciente.identificacion == undefined || this.model.admision.paciente.identificacion == ''){
             this.errores.push({ message: 'Ingrese un paciente'});
             areErrors = true;
+        }
+
+        if(this.fum != undefined && this.fum != ''){
+            if(!Util.validateDate(this.fum)){
+                this.errores.push({ message: 'Ingrese un FUM válido'});
+                areErrors = true;
+            }            
         }
 
         if(areErrors){
@@ -261,7 +358,7 @@ export class CrearHistoriasComponent implements OnInit {
             this.errores.push({ message: 'Ingrese una fecha de útlima hospitalización'});
             areErrors = true;
         }
-        else if(!Util.validateDate(this.fechaUltimaHospitalizacion)){
+        else if(!Util.validateDate(this.fechaUltimaHospitalizacion)){            
             this.errores.push({ message: 'Ingrese una fecha de útlima hospitalización válida'});
             areErrors = true;
         }    
@@ -328,9 +425,52 @@ export class CrearHistoriasComponent implements OnInit {
         this.clearToxicoForm();
     }
 
+    addGinecoObstetricio(){        
+        let ginecoObstetricio = new GinecoObstetricio();
+        
+        ginecoObstetricio.partos = this.partos;
+        ginecoObstetricio.abortos = this.abortos;
+        ginecoObstetricio.semanas = this.semanas;
+        ginecoObstetricio.menarquias = this.menarquias;
+
+        if(this.fum != undefined && this.fum != ''){
+            ginecoObstetricio.fum = Util.getDate(this.fum);        
+        }
+        
+        ginecoObstetricio.embarazoActual = this.embarazoActual;	
+        ginecoObstetricio.gesta = this.gesta;
+
+        this.model.ginecoObstetricio.push(ginecoObstetricio);
+        this.clearGinecoObstetricioForm();
+    }
+
     deleteToxico(index: number) {
         this.toxicos.splice(index, 1);
     }
+
+    impresionDiagnostica: any;
+
+    searching = false;
+    searchFailed = false;
+    formatter = (x: {codigo: string, nombre: string}) => `(${x.codigo}) ${x.nombre}`;
+
+    search = (text$: Observable<string>) =>
+        text$.pipe(
+        debounceTime(200),
+        tap(() => this.searching  = true),
+        switchMap(
+            term => term.length < 3 ? [] :
+                this.cie10Service.search(term)
+                    .pipe(
+                        tap(() => this.searchFailed = false),
+                        catchError(() => {
+                            this.searchFailed = true;
+                            return of([]);
+                        })
+                    )
+        ),
+        tap(() => this.searching  = false)
+    )
 
     showLoading(loading: boolean) {
         this.loading = loading;
@@ -404,5 +544,15 @@ export class CrearHistoriasComponent implements OnInit {
         this.cantidad = '';
         this.frecuencia = '';
         this.edadInicio = '';            
+    }
+
+    clearGinecoObstetricioForm(){        
+        this.partos = '';
+        this.abortos = '';
+        this.semanas = '';
+        this.menarquias = '';
+        this.fum = '';	        
+        this.embarazoActual = new Opcion();	
+        this.gesta = new Gesta();	          
     }
 }

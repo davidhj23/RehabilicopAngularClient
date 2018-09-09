@@ -229,7 +229,7 @@
                         </div> 
                         <div class="col-md-2">
                             <label class="control-label">Compromiso conciencia</label>
-                            <select class="form-control" [(ngModel)]="compromisoConcienca" name="compromisoConcienca">                                
+                            <select class="form-control" [(ngModel)]="compromisoConciencia" name="compromisoConciencia">                                
                                 <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
                             </select>
                         </div>
@@ -254,7 +254,7 @@
                                         <td class="rowTd">{{traumatico.trauma}}</td>        
                                         <td class="rowTd">{{traumatico.tiempoEvolucion}}</td>    
                                         <td class="rowTd">{{traumatico.secuelas}}</td>
-                                        <td class="rowTd">{{traumatico.compromisoConcienca.nombre}}</td>                                        
+                                        <td class="rowTd">{{traumatico.compromisoConciencia.nombre}}</td>                                        
                                         <td class="rowTd" >                                      
                                             <a class="btn float-left" (click)="deleteTraumatico(i)"><i class="fa fa-times"></i></a>                  
                                         </td>       
@@ -325,7 +325,7 @@
                     </div>
                     <h6>Toxicos</h6>                    
                     <div class="row"> 
-                        <div class="form-group col-md-3" >
+                        <div class="form-group col-md-2" >
                             <label class="control-label">Sustancia</label>
                             <select class="form-control" [(ngModel)]="sustancia" name="sustancia">                                                                
                                 <option value="CIGARRILLO">CIGARRILLO</option>
@@ -378,7 +378,47 @@
                             </table>                              
                         </div>
                     </div>
-
+                    <h6>Gineco Obstetricios</h6>                    
+                    <div class="row"> 
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Gestas</label>
+                            <select class="form-control" [(ngModel)]="gesta" name="gesta">                                                                
+                                <option *ngFor="let item of gestasCombo" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div> 
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Partos</label>
+                            <select class="form-control" [(ngModel)]="partos" name="partos">                                                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                        </div> 
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Abortos</label>
+                            <select class="form-control" [(ngModel)]="abortos" name="abortos">                                                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                        </div> 
+                        <div class="col-md-2">
+                            <label class="control-label">Embarazo actual</label>
+                            <select class="form-control" [(ngModel)]="embarazoActual" name="embarazoActual">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-1" >
+                            <label class="control-label">Semanas</label>
+                            <input class="form-control" placeholder="00.0" [textMask]="{mask: semanasMask}" [(ngModel)]="semanas" type="text"/>
+                        </div>
+                        <div class="form-group col-md-1" >
+                            <label class="control-label">Menarquias</label>
+                            <input class="form-control" type="text" name="menarquias" [(ngModel)]="menarquias"/>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">FUM</label>                            
+                            <input class="form-control" placeholder="dd/mm/aaaa" [textMask]="{mask: mask}" [(ngModel)]="fum" type="text"/>
+                        </div>
+                    </div>
                     <div class="row">                        
                         <div class="form-group col-md-6" >
                             <div class="page-header">
@@ -391,6 +431,20 @@
                         <div class="col-lg-12">
                             <div class="page-header">
                                 <h5 class="mb-3 line-head" id="typography">Antecedentes Familiares</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-6" >
+                            <div class="page-header">
+                                <h6>Psiquiatricos</h6>                                                   
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.antecedentesFamiliaresPsiquiatricos"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6" >
+                            <div class="page-header">
+                                <h6>No Psiquiatricos</h6>                   
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.antecedentesFamiliaresNoPsiquiatricos"></textarea>
                             </div>
                         </div>
                     </div>
@@ -408,6 +462,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="form-group col-md-12" >
+                            <label class="control-label">Impresión Diagnostica</label>                            
+                            <ng-template #rt let-r="result" let-t="term">
+                                ({{r.codigo}}) {{r.nombre}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailed" 
+                                    [(ngModel)]="impresionDiagnostica" [ngbTypeahead]="search" placeholder="Cie10" 
+                                    [resultTemplate]="rt" [inputFormatter]="formatter"/>
+                            <span *ngIf="searching">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailed">No se encontró ningún Cie10.</div>                                                     
+                        </div>        
+                    </div>
                     <div class="row">                        
                         <div class="form-group col-md-6" >
                             <div class="page-header">
@@ -415,6 +482,20 @@
                                 <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.analisisManejo"></textarea>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">  
+                        <div class="form-group col-md-6" >
+                            <label class="control-label">Medico</label>                                
+                            <select class="form-control" [(ngModel)]="medico" name="medico">                                
+                                <option *ngFor="let item of medicos" [ngValue]="item.idUsuario">{{item.nombres}} {{item.apellidos}}</option>
+                            </select>
+                        </div>                                                     
+                        <div class="form-group col-md-6" >
+                            <label class="control-label">Autoriza</label>
+                            <select class="form-control" [(ngModel)]="autoriza" name="autoriza">                                
+                                <option *ngFor="let item of psiquiatras" [ngValue]="item.idUsuario">{{item.nombres}} {{item.apellidos}}</option>
+                            </select>
+                        </div> 
                     </div>
                     <div class="row">                        
                         <div class="form-group col-md-4 align-self-end">
