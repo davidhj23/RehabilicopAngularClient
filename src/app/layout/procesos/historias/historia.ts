@@ -8,6 +8,7 @@ import { Toxico } from "./toxico";
 import { Cie10 } from "../../listas/cie10s";
 import { GinecoObstetricio } from "./ginecoObstetricio";
 import { User } from "../../seguridad/usuarios/user";
+import { ExamenFisico } from "./ExamenFisico";
 
 export class Historia {   
     idHistoria: string; 
@@ -36,4 +37,11 @@ export class Historia {
     traumaticos: Traumatico[];
     toxicos: Toxico[];
     ginecoObstetricio: GinecoObstetricio[];
+    
+    examenFisico: ExamenFisico[];
+    //examenFisico2: ExamenFisico2[];
+    //examenFisico3: ExamenFisico3[];
+    //examenFisico4: ExamenFisico4[];
+    //examenFisico5: ExamenFisico5[];
+    //examenFisico6: ExamenFisico6[];
 }

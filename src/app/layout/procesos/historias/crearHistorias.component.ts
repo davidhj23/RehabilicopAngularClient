@@ -21,6 +21,8 @@ import { Cie10Service } from '../../listas/cie10s';
 import { Observable } from '../../../../../node_modules/rxjs';
 import { GinecoObstetricio } from './ginecoObstetricio';
 import { UserService } from '../../seguridad/usuarios/user.service';
+import { AparienciaService } from '../../listas/apariencias';
+import { ExamenFisico } from './ExamenFisico';
 
 @Component({
     selector: 'crearHistorias',
@@ -43,6 +45,7 @@ export class CrearHistoriasComponent implements OnInit {
     gestasCombo: any[] = []; 
     medicos: any[] = []; 
     psiquiatras: any[] = []; 
+    apariencias: any[] = [];     
 
     patologicos: Patologico[] = []; 
     idtipoPatologia: string;
@@ -101,11 +104,12 @@ export class CrearHistoriasComponent implements OnInit {
         private tiempoUsoService: TiempoUsoService,
         private gestaService: GestaService,
         private cie10Service: Cie10Service,
+        private aparienciaService: AparienciaService,
         private usuarioService: UserService) {
         
         this.model = new Historia();
         this.model.admision = new Admision();
-        this.model.admision.paciente = new Paciente();
+        this.model.admision.paciente = new Paciente();        
     }
 
     ngOnInit() {    
@@ -208,11 +212,30 @@ export class CrearHistoriasComponent implements OnInit {
                     this.showLoading(false);
                 });
 
-                this.showLoading(true);    
+        this.showLoading(true);    
         this.usuarioService.getAllPsiquiatras()
             .subscribe(
                 data => {      
                     this.psiquiatras = data;                  
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });
+
+        this.showLoading(true);    
+        this.aparienciaService.getAll()
+            .subscribe(
+                data => {      
+                    this.apariencias = data;                  
                     this.showLoading(false);
                 },
                 error => {                        
