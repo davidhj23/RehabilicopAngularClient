@@ -501,10 +501,138 @@
                             <input class="form-control" type="text" [(ngModel)]="signoVitalT" name="signoVitalT"/>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Ojos</h6>                                 
+                            </div>
+                            <label class="control-label">Midriasis</label>
+                            <select class="form-control" [(ngModel)]="midriasis" name="midriasis">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Miosis</label>
+                            <select class="form-control" [(ngModel)]="miosis" name="miosis">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Anisocordia</label>
+                            <select class="form-control" [(ngModel)]="anisocordia" name="anisocordia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Pinral</label>
+                            <select class="form-control" [(ngModel)]="pinral" name="pinral">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Cara</h6>                                 
+                            </div>
+                            <label class="control-label">Otorragia</label>
+                            <select class="form-control" [(ngModel)]="otorragia" name="otorragia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Otoliquia</label>
+                            <select class="form-control" [(ngModel)]="otoliquia" name="otoliquia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Rinoliquia</label>
+                            <select class="form-control" [(ngModel)]="rinoliquia" name="rinoliquia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Epixtasis</label>
+                            <select class="form-control" [(ngModel)]="epixtasis" name="epixtasis">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Murmullo Vesicular</label>
+                            <select class="form-control" [(ngModel)]="murmullovesicular" name="murmullovesicular">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Pulmones</h6>                                 
+                            </div>
+                            <label class="control-label">Estortes Crepitantes</label>
+                            <select class="form-control" [(ngModel)]="estortesCrepitantes" name="estortesCrepitantes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Roncus</label>
+                            <select class="form-control" [(ngModel)]="roncus" name="roncus">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Sibilancias</label>
+                            <select class="form-control" [(ngModel)]="sibilancias" name="sibilancias">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Silencio Auscultorio</label>
+                            <select class="form-control" [(ngModel)]="silencioAuscultorio" name="silencioAuscultorio">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Murmullo Vesicular</label>
+                            <select class="form-control" [(ngModel)]="murmulloVesicularPulmones" name="murmulloVesicularPulmones">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Corazón</h6>                                 
+                            </div>
+                            <label class="control-label">Frote Pericardial</label>
+                            <select class="form-control" [(ngModel)]="frotePericardial" name="frotePericardial">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Ruidos no auscultables</label>
+                            <select class="form-control" [(ngModel)]="RuidosNoAuscultables" name="RuidosNoAuscultables">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Arritmico</label>
+                            <select class="form-control" [(ngModel)]="arritmico" name="arritmico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Soplo</label>
+                            <select class="form-control" [(ngModel)]="soplo" name="soplo">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Rs Cs Rs sin soplo</label>
+                            <select class="form-control" [(ngModel)]="RsCsRsSinSoplo" name="RsCsRsSinSoplo">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <div class="page-header">
+                                <h6>Abdomen</h6>                                 
+                            </div>
+                            <label class="control-label">Hepatomegalia</label>
+                            <select class="form-control" [(ngModel)]="hepatomegalia" name="hepatomegalia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Esplenomegalia</label>
+                            <select class="form-control" [(ngModel)]="esplenomegalia" name="esplenomegalia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Masa Palpable</label>
+                            <select class="form-control" [(ngModel)]="masaPalpable" name="masaPalpable">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Signos de irritación peritonal</label>
+                            <select class="form-control" [(ngModel)]="SignosDeIrritacionPeritonal" name="SignosDeIrritacionPeritonal">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Sin alteraciones peritoneal</label>
+                            <select class="form-control" [(ngModel)]="SinAlteracionesPeritoneal" name="SinAlteracionesPeritoneal">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Iieo paralitico</label>
+                            <select class="form-control" [(ngModel)]="iieoParalitico" name="iieoParalitico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Ascitis</label>
+                            <select class="form-control" [(ngModel)]="ascitis" name="ascitis">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
                     
-                    <h6>Ojos</h6> 
-                    <h6>Corazón</h6> 
-                    <h6>Abdomen</h6> 
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="page-header">
