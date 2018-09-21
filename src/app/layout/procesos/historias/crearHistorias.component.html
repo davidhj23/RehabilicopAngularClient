@@ -632,7 +632,506 @@
                             </select>
                         </div>
                     </div>
-                    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Exteremidades</h6>                                 
+                            </div>
+                            <label class="control-label">Llenado capilar alterado</label>
+                            <select class="form-control" [(ngModel)]="llenadoCapilarAlterado" name="llenadoCapilarAlterado">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Pulso ausente</label>
+                            <select class="form-control" [(ngModel)]="PulsoAusente" name="PulsoAusente">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Deformidad</label>
+                            <select class="form-control" [(ngModel)]="deformidad" name="deformidad">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Movilidad alterada</label>
+                            <select class="form-control" [(ngModel)]="movilidadAlterada" name="movilidadAlterada">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Pulsos perifericos presentes</label>
+                            <select class="form-control" [(ngModel)]="pulsosPerifericosPresentes" name="pulsosPerifericosPresentes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Pile y faneas</h6>                                 
+                            </div>
+                            <label class="control-label">Cianosis</label>
+                            <select class="form-control" [(ngModel)]="cianosis" name="cianosis">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Ictericia</label>
+                            <select class="form-control" [(ngModel)]="ictericia" name="ictericia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Palidez Mucocutanea</label>
+                            <select class="form-control" [(ngModel)]="palidezMucocutanea" name="palidezMucocutanea">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Hematomas, Equimosis, Heridas</label>
+                            <select class="form-control" [(ngModel)]="hematomasEquimosisHeridas" name="hematomasEquimosisHeridas">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>                            
+                            <label class="control-label">Cicatrices, Tatuajes</label>
+                            <select class="form-control" [(ngModel)]="cicatricesTatuajes" name="cicatricesTatuajes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Sin Alteraciones Evidente</label>
+                            <select class="form-control" [(ngModel)]="sinAlteracionesEvidente" name="sinAlteracionesEvidente">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>SNC</h6>                                 
+                            </div>
+                            <label class="control-label">Alerta</label>
+                            <select class="form-control" [(ngModel)]="alerta" name="alerta">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Somnolencia</label>
+                            <select class="form-control" [(ngModel)]="somnolencia" name="somnolencia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Estupor</label>
+                            <select class="form-control" [(ngModel)]="estupor" name="estupor">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Comas</label>
+                            <select class="form-control" [(ngModel)]="comas" name="comas">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Agitación</label>
+                            <select class="form-control" [(ngModel)]="agitacion" name="agitacion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>SNC</h6>                                 
+                            </div>
+                            <label class="control-label">Reflejos Muscolo Tendinosoo Alterados</label>
+                            <select class="form-control" [(ngModel)]="reflejosMuscoloTendinosooAlterados" name="reflejosMuscoloTendinosooAlterados">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Signos meningeos Presentes</label>
+                            <select class="form-control" [(ngModel)]="signosmeningeosPresentes" name="signosmeningeosPresentes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Perdida de la Sensibilidad</label>
+                            <select class="form-control" [(ngModel)]="perdidaDeLaSensibilidad" name="perdidaDeLaSensibilidad">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Inconctinencia Urinaria o Fecal</label>
+                            <select class="form-control" [(ngModel)]="inconctinenciaUrinariaOFecal" name="inconctinenciaUrinariaOFecal">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Movimientos anormales</label>
+                            <select class="form-control" [(ngModel)]="movimientosAnormales" name="movimientosAnormales">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Sin Alteraciones Evidente</label>
+                            <select class="form-control" [(ngModel)]="sinAlteracionesEvidente2" name="sinAlteracionesEvidente2">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>ORGANO/SISTEMA</h6>                                 
+                            </div>
+                            <label class="control-label">Cabeza y Cuello</label>                            
+                            <select class="form-control" [(ngModel)]="cabezaYCuello" name="cabezaYCuello">                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                            <label class="control-label">Cardiopulmar</label>
+                            <select class="form-control" [(ngModel)]="cardiopulmar" name="cardiopulmar">                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                            <label class="control-label">Abdomen</label>
+                            <select class="form-control" [(ngModel)]="abdomen" name="abdomen">                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                            <label class="control-label">Genitourinario</label>
+                            <select class="form-control" [(ngModel)]="genitourinario" name="genitourinario">                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                            <label class="control-label">Extremidades</label>
+                            <select class="form-control" [(ngModel)]="extremidades" name="extremidades">                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Descripción</h6>                                 
+                            </div>                            
+                            <textarea class="form-control" type="textarea" rows="5" cols="50" [(ngModel)]="model.analisisManejo"></textarea>                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Estado Conciencia</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <select class="form-control" [(ngModel)]="sinAlteracionesEvidente3" name="sinAlteracionesEvidente3">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Fecha</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <input class="form-control" type="text" name="fecha" [(ngModel)]="fecha">   
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Orientación</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Persona</label>
+                            <select class="form-control" [(ngModel)]="persona" name="persona">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Espacio</label>
+                            <select class="form-control" [(ngModel)]="espacio" name="espacio">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Tiempo</label>
+                            <select class="form-control" [(ngModel)]="tiempo" name="tiempo">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Atención</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Euprosexico</label>
+                            <select class="form-control" [(ngModel)]="euprosexico" name="euprosexico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Hipoprosexico</label>
+                            <select class="form-control" [(ngModel)]="hipoprosexico" name="hipoprosexico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Hiperprosexico</label>
+                            <select class="form-control" [(ngModel)]="hiperprosexico" name="hiperprosexico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Efecto</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Eutimico</label>
+                            <select class="form-control" [(ngModel)]="eutimico" name="eutimico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Depresivo</label>
+                            <select class="form-control" [(ngModel)]="depresivo" name="depresivo">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Expensivo</label>
+                            <select class="form-control" [(ngModel)]="expensivo" name="expensivo">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Descripción</label>
+                            <input class="form-control" type="text" name="descripcionExamenFisico5" [(ngModel)]="descripcionExamenFisico5">   
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Pensamiento</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Origen:</label><br/>
+                            <label class="control-label">Normal</label>
+                            <select class="form-control" [(ngModel)]="normal" name="normal">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Acustica</label>
+                            <select class="form-control" [(ngModel)]="acustica" name="acustica">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Concreto</label>
+                            <select class="form-control" [(ngModel)]="concreto" name="concreto">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Pobreza Ideativa</label>
+                            <select class="form-control" [(ngModel)]="pobrezaIdeativa" name="pobrezaIdeativa">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Curso:</label><br/>
+                            <label class="control-label">Normal</label>
+                            <select class="form-control" [(ngModel)]="normal2" name="normal2">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Bridipsiquia</label>
+                            <select class="form-control" [(ngModel)]="bridipsiquia" name="bridipsiquia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Taquipsiquia</label>
+                            <select class="form-control" [(ngModel)]="taquipsiquia" name="taquipsiquia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Fugas de idea</label>
+                            <select class="form-control" [(ngModel)]="fugasDeIdea" name="fugasDeIdea">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Contenido:</label><br/>
+                            <label class="control-label">Ideas Delirantes</label>
+                            <select class="form-control" [(ngModel)]="ideasDelirantes" name="ideasDelirantes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Ideas Refenciales</label>
+                            <select class="form-control" [(ngModel)]="ideasRefenciales" name="ideasRefenciales">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Ideas Obsesivas</label>
+                            <select class="form-control" [(ngModel)]="ideasObsesivas" name="ideasObsesivas">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Pensamiento Mago</label>
+                            <select class="form-control" [(ngModel)]="pensamientoMago" name="pensamientoMago">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Lenguaje</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <label class="control-label">Comprensibles</label>
+                            <select class="form-control" [(ngModel)]="comprensibles" name="comprensibles">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>                            
+                            <label class="control-label">Disartias</label>
+                            <select class="form-control" [(ngModel)]="disartias" name="disartias">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Curso</label>
+                            <select class="form-control" [(ngModel)]="curso" name="curso">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Asfixia</label>
+                            <select class="form-control" [(ngModel)]="asfixia" name="asfixia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Sensopercepción</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Alucinaciones</label>                                 
+                            <select class="form-control" [(ngModel)]="alucinacion" name="alucinacion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6" >
+                            <label class="control-label">Tipo</label>                                                         
+                            <input class="form-control" type="text" name="tipo" [(ngModel)]="tipo">   
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Memoria</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Fijación</label>
+                            <select class="form-control" [(ngModel)]="fijacion" name="fijacion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Reciente</label>
+                            <select class="form-control" [(ngModel)]="reciente" name="reciente">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Remoto</label>
+                            <select class="form-control" [(ngModel)]="remoto" name="remoto">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Inteligencia</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <select class="form-control" [(ngModel)]="inteligencia" name="inteligencia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Introspección</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <select class="form-control" [(ngModel)]="Introspeccion" name="Introspeccion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Prospección</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <select class="form-control" [(ngModel)]="prospeccion" name="prospeccion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Juicio</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <select class="form-control" [(ngModel)]="juicio" name="juicio">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Patrón de alimentación</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <select class="form-control" [(ngModel)]="alimentacion" name="alimentacion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Tipo</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="col-md-6" >
+                            <input class="form-control" type="text" name="tipo" [(ngModel)]="tipo">   
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Patrón de sueño</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <label class="control-label">Adecuado</label>
+                            <select class="form-control" [(ngModel)]="adecuado" name="adecuado">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Hipersomnio</label>
+                            <select class="form-control" [(ngModel)]="hipersomnio" name="hipersomnio">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Insomnio</label>
+                            <select class="form-control" [(ngModel)]="insomnio" name="insomnio">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Cociliación</label>
+                            <select class="form-control" [(ngModel)]="cociliacion" name="cociliacion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Reconciliación</label>
+                            <select class="form-control" [(ngModel)]="recociliacion" name="recociliacion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Global</label>
+                            <select class="form-control" [(ngModel)]="global" name="global">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="page-header">
