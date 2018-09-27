@@ -9,6 +9,11 @@ import { Cie10 } from "../../listas/cie10s";
 import { GinecoObstetricio } from "./ginecoObstetricio";
 import { User } from "../../seguridad/usuarios/user";
 import { ExamenFisico } from "./ExamenFisico";
+import { ExamenFisico2 } from "./ExamenFisico2";
+import { ExamenFisico3 } from "./ExamenFisico3";
+import { ExamenFisico4 } from "./ExamenFisico4";
+import { ExamenFisico5 } from "./ExamenFisico5";
+import { ExamenFisico6 } from "./ExamenFisico6";
 
 export class Historia {   
     idHistoria: string; 
@@ -20,10 +25,10 @@ export class Historia {
     
     podromosPersonalPremorbida: string;
 
-    antecedentesFamiliaresPsiquiatricos: string;
-    antecedentesFamiliaresNoPsiquiatricos: string;
+    antecendentesFamiliaresPsiquiatricos: string;
+    antecendentesFamiliaresNoPsiquiatricos: string;
 
-    impresionDiagnostica: Cie10;
+    idImpresionDiagnostica: String;
 
     medico: User;
     autoriza: User;
@@ -39,9 +44,9 @@ export class Historia {
     ginecoObstetricio: GinecoObstetricio[];
     
     examenFisico: ExamenFisico[];
-    //examenFisico2: ExamenFisico2[];
-    //examenFisico3: ExamenFisico3[];
-    //examenFisico4: ExamenFisico4[];
-    //examenFisico5: ExamenFisico5[];
-    //examenFisico6: ExamenFisico6[];
+    examenFisico2: ExamenFisico2[];
+    examenFisico3: ExamenFisico3[];
+    examenFisico4: ExamenFisico4[];
+    examenFisico5: ExamenFisico5[];
+    examenFisico6: ExamenFisico6[];
 }

@@ -14,8 +14,6 @@ export class ExamenFisico {
 	signoVitalFr: string;
 	signoVitalT: string;
     
-	eficacia: Opcion;    
-    
 	midriasis: Opcion;    	
 	miosis: Opcion;    
 	anisocordia: Opcion;    
