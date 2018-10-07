@@ -10,15 +10,16 @@ import { Memoria2 } from "../../listas/memoria2";
 import { Introspeccion } from "../../listas/introspecciones";
 import { Inteligencia } from "../../listas/inteligencias";
 import { Alimentacion } from "../../listas/alimentaciones";
+import { Comprensible } from "../../listas/comprensibles";
 
 export class ExamenFisico6 {
     idExamenFisico6: string;
 	
-	comprensible: string;
+	comprensible: Comprensible;
 
 	disartrias: Opcion;    
 	curso: Curso;    
-	Asfixias: Asfixia;    
+	asfixias: Asfixia;    
 	alucinaciones: Alucinacion;    
 
 	tipo: string;
@@ -29,8 +30,8 @@ export class ExamenFisico6 {
 
 	inteligencia: Inteligencia;    
 	introspeccion: Introspeccion;    
-	prospeccion: string;   
-	juicio: string;        
+	prospeccion: Introspeccion;   
+	juicio: Introspeccion;        
 
 	alimentacion: Alimentacion;    
 	tipoAlimenticio: string;    

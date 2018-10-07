@@ -17,7 +17,7 @@ export class ExamenFisico4 {
 	perdidaDeLaSensibilidad: Opcion;    
 	inconctinenciaUrinariaOFecal: Opcion;    
     movimientosAnormales: Opcion;        
-	sinAlteracionesEvidente: Opcion;   
+	sinAlteracionesEvidentes: Opcion;   
 	
 	cabezaYCuello: string;	
 	cardioPulmar: string;	

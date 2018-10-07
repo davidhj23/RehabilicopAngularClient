@@ -89,7 +89,7 @@ import { EditarAdmisionesComponent } from './layout/procesos/admisiones/editarAd
 import { AdmisionService } from './layout/procesos/admisiones/admision.service';
 import { ConsultarHistoriasComponent } from './layout/procesos/historias/consultarHistorias.component';
 import { CrearHistoriasComponent } from './layout/procesos/historias/crearHistorias.component';
-//import { EditarHistoriasComponent } from './layout/procesos/historias/editarHistorias.component';
+import { EditarHistoriasComponent } from './layout/procesos/historias/editarHistorias.component';
 import { HistoriaService } from './layout/procesos/historias/historia.service';
 
 
@@ -183,8 +183,8 @@ import { HistoriaService } from './layout/procesos/historias/historia.service';
         EditarAdmisionesComponent,
 
         ConsultarHistoriasComponent,
-        CrearHistoriasComponent
-        //EditarHistoriasComponent
+        CrearHistoriasComponent,
+        EditarHistoriasComponent
     ],
     providers: [
         AuthGuard,

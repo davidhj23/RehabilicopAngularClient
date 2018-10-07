@@ -41,12 +41,12 @@ export class Historia {
     farmacologicos: Farmacologico[];
     traumaticos: Traumatico[];
     toxicos: Toxico[];
-    ginecoObstetricio: GinecoObstetricio[];
+    ginecoObstetricios: GinecoObstetricio[];
     
-    examenFisico: ExamenFisico[];
-    examenFisico2: ExamenFisico2[];
-    examenFisico3: ExamenFisico3[];
-    examenFisico4: ExamenFisico4[];
-    examenFisico5: ExamenFisico5[];
-    examenFisico6: ExamenFisico6[];
+    examenFisicos: ExamenFisico[];
+    examenFisicos2: ExamenFisico2[];
+    examenFisicos3: ExamenFisico3[];
+    examenFisicos4: ExamenFisico4[];
+    examenFisicos5: ExamenFisico5[];
+    examenFisicos6: ExamenFisico6[];
 }

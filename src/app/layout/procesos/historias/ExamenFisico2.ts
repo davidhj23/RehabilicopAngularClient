@@ -16,8 +16,8 @@ export class ExamenFisico2 {
 	esplenomegalia: Opcion;    
 	masaPalpable: Opcion;    
 	signosDeIrritacionPeritoneal: Opcion;    
-    sinAlteracionesEvidente: Opcion;        
-    IieoParalitico: Opcion;    
+    sinAlteracionesEvidentes: Opcion;        
+    iieoParalitico: Opcion;    
 	ascitis: Opcion;    
     
     historia: Historia;

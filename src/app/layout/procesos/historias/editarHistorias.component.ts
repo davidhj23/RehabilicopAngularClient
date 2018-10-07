@@ -38,14 +38,17 @@ import { ExamenFisico5 } from './ExamenFisico5';
 import { ExamenFisico6 } from './ExamenFisico6';
 import { User } from '../../seguridad/usuarios/user';
 import { ComprensibleService, Comprensible } from '../../listas/comprensibles';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'crearHistorias',
-    templateUrl: 'crearHistorias.component.html',
+    selector: 'editarHistorias',
+    templateUrl: 'editarHistorias.component.html',
 })
 
-export class CrearHistoriasComponent implements OnInit {       
+export class EditarHistoriasComponent implements OnInit {       
     
+    currentHistoriaId: string;
+
     model: Historia;         
 
     tipoDocumento : string;
@@ -108,72 +111,72 @@ export class CrearHistoriasComponent implements OnInit {
     semanas: '';
     public semanasMask = [/\d/, /\d/, '.', /\d/]
 	menarquias: '';
-	fum: '';	
-	embarazoActual: Opcion;	
-    gesta: Gesta;	 
+	fum: string;	
+	embarazoActual = new Opcion();	
+    gesta = new Gesta();	 
     
     // ExamenFisico 
     examenFisico: ExamenFisico[] = []; 
-    apariencia: Apariencia;
+    apariencia = new Apariencia();
     descripcionApariencia: string;    
     signoVitalTa: string;
 	signoVitalFc: string;
 	signoVitalFr: string;
 	signoVitalT: string; 
-	midriasis: Opcion;    	
-	miosis: Opcion;    
-	anisocordia: Opcion;    
-    pinral: Opcion;    
-	otorragia: Opcion;    
-	otoliquia: Opcion;    
-	rinoloquia: Opcion;    
-	epixtasis: Opcion;    
-    murmulloVesicular: Opcion;    
-    estertoresCrepitantes: Opcion;    
-	roncus: Opcion;    
-	sibilancias: Opcion;    
-    silencioAuscultorio: Opcion;    
-    murmulloVesicularPulmones: Opcion;    
+	midriasis = new Opcion(); 
+	miosis = new Opcion(); 
+	anisocordia = new Opcion(); 
+    pinral = new Opcion(); 
+	otorragia = new Opcion(); 
+	otoliquia = new Opcion(); 
+	rinoloquia = new Opcion(); 
+	epixtasis = new Opcion(); 
+    murmulloVesicular = new Opcion(); 
+    estertoresCrepitantes = new Opcion(); 
+	roncus = new Opcion(); 
+	sibilancias = new Opcion(); 
+    silencioAuscultorio = new Opcion(); 
+    murmulloVesicularPulmones = new Opcion(); 
     
     // ExamenFisico2
-    frotePericardial: Opcion;    	
-	ruidosNoAuscultables: Opcion;    
-	arritmico: Opcion;    
-	soplo: Opcion;    
-	rsCsRsSinSoplo: Opcion; 
-	hepatomegalia: Opcion;    
-	esplenomegalia: Opcion;    
-	masaPalpable: Opcion;    
-	signosDeIrritacionPeritoneal: Opcion;    
-    sinAlteracionesEvidentes: Opcion;        
-    iieoParalitico: Opcion;    
-    ascitis: Opcion;   
+    frotePericardial = new Opcion();       	
+	ruidosNoAuscultables = new Opcion();     
+	arritmico = new Opcion();   
+	soplo = new Opcion();    
+	rsCsRsSinSoplo = new Opcion();    
+	hepatomegalia = new Opcion();       
+	esplenomegalia = new Opcion();     
+	masaPalpable = new Opcion();   
+	signosDeIrritacionPeritoneal = new Opcion();   
+    sinAlteracionesEvidentes = new Opcion();      
+    iieoParalitico = new Opcion();   
+    ascitis = new Opcion();   
     
     // ExamenFisico3
-    llenadoCapilarAlterado: Opcion;    	
-	pulsoAusentes: Opcion;    
-	deformidad: Opcion;    
-	movilidadAlterada: Opcion;    
-	pulsosPerifericosPresentes: Opcion;  
-	cianosis: Opcion;    
-	ictericia: Opcion;    
-	palidezMucocutanea: Opcion;    
-	hematomasEquimosisHeridas: Opcion;    
-    cicatricesTatuajes: Opcion;        
-    sinAlteracionesEvidentes3: Opcion;   
+    llenadoCapilarAlterado = new Opcion();    	
+	pulsoAusentes = new Opcion();    
+	deformidad = new Opcion();    
+	movilidadAlterada = new Opcion();    
+	pulsosPerifericosPresentes = new Opcion();  
+	cianosis = new Opcion();    
+	ictericia = new Opcion();    
+	palidezMucocutanea = new Opcion();    
+	hematomasEquimosisHeridas = new Opcion();    
+    cicatricesTatuajes = new Opcion();        
+    sinAlteracionesEvidentes3 = new Opcion();   
 
     // ExamenFisico4
-    alerta: Opcion;    	
-	somnolencia: Opcion;    
-	estupor: Opcion;    
-	comas: Opcion;    
-	agitacion: Opcion;    
-	reflejosMuscoloTendinosooAlterados: Opcion;    
-	signosmeningeosPresentes: Opcion;    
-	perdidaDeLaSensibilidad: Opcion;    
-	inconctinenciaUrinariaOFecal: Opcion;    
-    movimientosAnormales: Opcion;        
-	sinAlteracionesEvidentes4: Opcion;   
+    alerta = new Opcion();   
+	somnolencia = new Opcion();   
+	estupor = new Opcion();   
+	comas = new Opcion();       
+	agitacion = new Opcion();   
+	reflejosMuscoloTendinosooAlterados = new Opcion();   
+	signosmeningeosPresentes = new Opcion();   
+	perdidaDeLaSensibilidad = new Opcion();    
+	inconctinenciaUrinariaOFecal = new Opcion();       
+    movimientosAnormales = new Opcion();         
+	sinAlteracionesEvidentes4 = new Opcion();   
 	cabezaYCuello: string;	
 	cardioPulmar: string;	
 	abdomen: string;
@@ -182,56 +185,56 @@ export class CrearHistoriasComponent implements OnInit {
 	descripcionExamenFisico4: string;
 
     // ExamenFisico5
-    estadoConciencia: EstadoConciencia;    	
-	fecha: string;    	
-	persona: Opcion;    
-	espacio: Opcion;    
-	tiempo: Opcion;       
-	euprosexico: Opcion;    
-	hipoprosexico: Opcion;    
-	eutimico: Opcion;    
-	depresivo: Opcion;    
-    expensivo: Opcion;        
-	hiperprosexico: Opcion;   
-	descripcionExamenFisico5: string;
-	orgienNormal: Opcion;    
-	acustica: Opcion;    
-    concreto: Opcion;        
-	pobrezaIdeativa: Opcion;   
-	cursoNormal: Opcion;    
-	bridipsiquia: Opcion;    
-    taquipsiquia: Opcion;        
-	fugasDeIdea: Opcion;   
-	ideasDelirantes: Opcion;    
-	ideasRefenciales: Opcion;    
-    ideasObsesivas: Opcion;        
-	pensamientoMago: Opcion;   
+    estadoConciencia = new EstadoConciencia();    	
+    fecha = '';    	
+    persona = new Opcion();    
+    espacio = new Opcion();    
+    tiempo = new Opcion();       
+    euprosexico = new Opcion();    
+    hipoprosexico = new Opcion();    
+    eutimico = new Opcion();    
+    depresivo = new Opcion();    
+    expensivo = new Opcion();        
+    hiperprosexico = new Opcion();   
+    descripcionExamenFisico5 = "";
+    orgienNormal = new Opcion();    
+    acustica = new Opcion();    
+    concreto = new Opcion();        
+    pobrezaIdeativa = new Opcion();   
+    cursoNormal = new Opcion();    
+    bridipsiquia = new Opcion();    
+    taquipsiquia = new Opcion();        
+    fugasDeIdea = new Opcion();   
+    ideasDelirantes = new Opcion();    
+    ideasRefenciales = new Opcion();    
+    ideasObsesivas = new Opcion();        
+    pensamientoMago = new Opcion();  
 
     // ExamenFisico6
-    comprensible: Comprensible;
-	disartrias: Opcion;    
-	curso: Curso;    
-	asfixias: Asfixia;    
-	alucinaciones: Alucinacion;    
-	tipo: string;
-	fijacion: Memoria2;    
-    reciente: Memoria2;        
-	remota: Memoria2;   
-	inteligencia: Inteligencia;    
-	introspeccion: Introspeccion;    
-	prospeccion: Introspeccion;   
-	juicio: Introspeccion;        
-	alimentacion: Alimentacion;    
-	tipoAlimenticio: string;    
-    adecuado: Opcion;        
-	hipersomnio: Opcion;   
-	insomnio: Opcion;    
-	cociliacion: Opcion;    
-    reconciliacion: Opcion;        
-    global: Opcion; 
+    comprensible = new Comprensible();
+    disartrias = new Opcion();
+    curso = new Curso();        
+    asfixias = new Asfixia();
+    alucinaciones = new Alucinacion;
+    tipo = '';
+    fijacion = new Memoria2;
+    reciente = new Memoria2;
+    remota = new Memoria2;
+    inteligencia = new Inteligencia();
+    introspeccion = new Introspeccion();
+    prospeccion = new Introspeccion();
+    juicio = new Introspeccion();
+    alimentacion = new Alimentacion();
+    tipoAlimenticio = '';
+    adecuado = new Opcion();
+    hipersomnio = new Opcion();
+    insomnio = new Opcion();
+    cociliacion = new Opcion();
+    reconciliacion = new Opcion();
+    global = new Opcion();
     
-    medico: User;
-    autoriza: User;
+    medico = new User();
+    autoriza = new User();
 
     loading = false;        
     
@@ -259,16 +262,261 @@ export class CrearHistoriasComponent implements OnInit {
         private cursoService: CursoService,
         private asfixiaService: AsfixiaService,
         private alimentacionService: AlimentacionService,
-        private estadoConcienciaService: EstadoConcienciaService) {
+        private estadoConcienciaService: EstadoConcienciaService,
+        private route: ActivatedRoute) {
         
         this.model = new Historia();
         this.model.admision = new Admision();
-        this.model.admision.paciente = new Paciente();        
+        this.model.admision.paciente = new Paciente();  
+        
+        this.route.params.subscribe( 
+            params => {
+                this.currentHistoriaId = params['id'];
+            }
+        );
     }
 
     ngOnInit() {    
         this.fillSelects();
-    }    
+
+        this.showLoading(true);    
+        this.historiaService.getById(this.currentHistoriaId)
+            .subscribe(
+                data => {                                               
+                    this.model = data;         
+
+                    this.model.admision = data.admision;  
+                    this.tipoDocumento = this.model.admision.paciente.tipoDocumento.nombre;                                                       
+                    this.edad = Util.calculateAge(this.model.admision.paciente.fechaDeNacimiento).toString();                                                       
+                    this.sexo = this.model.admision.paciente.sexo.nombre;                                                       
+                    this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre;                                                       
+                    this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                                           
+
+                    this.getImpresionDiagnostica(this.model.idImpresionDiagnostica);                    
+                    this.medico = this.model.medico;
+                    this.autoriza = this.model.autoriza;
+
+                    this.historiaService.getPatologicosByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => {                                               
+                                this.patologicos = data;   
+                        })
+
+                    this.historiaService.getAntecedentesByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => {                                                                               
+                                this.antecedentes = data;   
+                        })
+
+                    this.historiaService.getTraumaticosByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => {                                               
+                                this.traumaticos = data;   
+                        })
+
+                    this.historiaService.getFarmacologicosByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => {                                               
+                                this.farmacologicos = data;   
+                        })
+
+                    this.historiaService.getToxicosByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => {                                               
+                                this.toxicos = data;   
+                        })
+
+                    this.historiaService.getGinecoObstetriciosByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => {                                
+                                this.partos = data[0].partos;                                
+                                this.abortos = data[0].abortos;
+                                this.semanas = data[0].semanas;
+                                this.menarquias = data[0].menarquias;
+                                
+                                if(data[0].fum != undefined && data[0].fum != '')
+                                    this.fum = Util.formattedDate(data[0].fum);        
+                                                                
+                                this.embarazoActual = data[0].embarazoActual;	                                
+                                this.gesta = data[0].gesta;
+                        })
+
+                    this.historiaService.getExamenFisicoByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => {  
+                                this.apariencia = data[0].apariencia;                                                              
+                                this.descripcionApariencia = data[0].descripcionApariencia;        
+                                this.signoVitalTa = data[0].signoVitalTa;
+                                this.signoVitalFc = data[0].signoVitalFr;                      
+                                this.signoVitalFr = data[0].signoVitalFr;
+                                this.signoVitalT = data[0].signoVitalT;
+
+                                this.midriasis = data[0].midriasis;        
+                                this.miosis = data[0].miosis;	    
+                                this.anisocordia = data[0].anisocordia;	    
+                                this.pinral = data[0].pinral;	    
+                                this.otorragia = data[0].otorragia;	    
+                                this.otoliquia = data[0].otoliquia;	    
+                                this.rinoloquia = data[0].rinoloquia;	    
+                                this.epixtasis = data[0].epixtasis;	                                    
+                                this.murmulloVesicular = data[0].murmulloVesicular;	    
+                                this.estertoresCrepitantes = data[0].estertoresCrepitantes;	    
+                                this.roncus = data[0].roncus;	    
+                                this.sibilancias = data[0].sibilancias;	    
+                                this.silencioAuscultorio = data[0].silencioAuscultorio;	    
+                                this.murmulloVesicularPulmones = data[0].murmulloVesicularPulmones;
+                        })
+
+                    this.historiaService.getExamenFisico2ByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => { 
+                                this.frotePericardial = data[0].frotePericardial;
+                                this.ruidosNoAuscultables = data[0].ruidosNoAuscultables;    
+                                this.arritmico = data[0].arritmico;
+                                this.soplo = data[0].soplo;
+                                this.rsCsRsSinSoplo = data[0].rsCsRsSinSoplo;
+                                this.hepatomegalia = data[0].hepatomegalia;  
+                                this.esplenomegalia = data[0].esplenomegalia;    	
+                                this.masaPalpable = data[0].masaPalpable;    
+                                this.signosDeIrritacionPeritoneal = data[0].signosDeIrritacionPeritoneal;    
+                                this.sinAlteracionesEvidentes = data[0].sinAlteracionesEvidentes;    
+                                this.iieoParalitico = data[0].iieoParalitico;    
+                                this.ascitis = data[0].ascitis;   
+                            })
+                            
+                    this.historiaService.getExamenFisico3ByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => { 
+                                this.llenadoCapilarAlterado = data[0].llenadoCapilarAlterado;
+                                this.pulsoAusentes = data[0].pulsoAusentes;     
+                                this.deformidad = data[0].deformidad;
+                                this.movilidadAlterada = data[0].movilidadAlterada;
+                                this.pulsosPerifericosPresentes = data[0].pulsosPerifericosPresentes;
+                                this.cianosis = data[0].cianosis;  
+                                this.ictericia = data[0].ictericia;    	
+                                this.palidezMucocutanea = data[0].palidezMucocutanea;    
+                                this.hematomasEquimosisHeridas = data[0].hematomasEquimosisHeridas;    
+                                this.cicatricesTatuajes = data[0].cicatricesTatuajes;    
+                                this.sinAlteracionesEvidentes3 = data[0].sinAlteracionesEvidentes;
+                            })
+
+                    this.historiaService.getExamenFisico4ByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => { 
+                                this.alerta = data[0].alerta; 	 
+                                this.somnolencia = data[0].somnolencia;
+                                this.estupor = data[0].estupor;    
+                                this.comas = data[0].comas;    
+                                this.agitacion = data[0].agitacion;
+                                this.reflejosMuscoloTendinosooAlterados = data[0].reflejosMuscoloTendinosooAlterados;
+                                this.signosmeningeosPresentes = data[0].signosmeningeosPresentes;   
+                                this.perdidaDeLaSensibilidad = data[0].perdidaDeLaSensibilidad;
+                                this.inconctinenciaUrinariaOFecal = data[0].inconctinenciaUrinariaOFecal;
+                                this.movimientosAnormales = data[0].movimientosAnormales;        
+                                this.sinAlteracionesEvidentes4 = data[0].sinAlteracionesEvidentes; 
+
+                                this.cabezaYCuello = data[0].cabezaYCuello;	
+                                this.cardioPulmar = data[0].cardioPulmar;	
+                                this.abdomen = data[0].abdomen;
+                                this.genitourinario = data[0].genitourinario;	
+                                this.extremidades = data[0].extremidades;
+
+                                this.descripcionExamenFisico4 = data[0].descripcion;
+                            })
+
+                    this.historiaService.getExamenFisico5ByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => { 
+                                this.estadoConciencia = data[0].estadoConciencia;    
+                                
+                                if(data[0].fecha != undefined && data[0].fecha != '')
+                                    this.fecha = Util.formattedDate(data[0].fecha);  
+                                
+                                this.persona = data[0].persona;    
+                                this.espacio = data[0].espacio;    
+                                this.tiempo = data[0].tiempo;       
+                                this.euprosexico = data[0].euprosexico;    
+                                this.hipoprosexico = data[0].hipoprosexico;    
+                                this.eutimico = data[0].eutimico;    
+                                this.depresivo = data[0].depresivo;    
+                                this.expensivo = data[0].expensivo;        
+                                this.hiperprosexico = data[0].hiperprosexico;   
+                                this.descripcionExamenFisico5 = data[0].descripcion;
+                                this.orgienNormal = data[0].orgienNormal;    
+                                this.acustica = data[0].acustica;    
+                                this.concreto = data[0].concreto;        
+                                this.pobrezaIdeativa = data[0].pobrezaIdeativa;   
+                                this.cursoNormal = data[0].cursoNormal;    
+                                this.bridipsiquia = data[0].bridipsiquia;    
+                                this.taquipsiquia = data[0].taquipsiquia;        
+                                this.fugasDeIdea = data[0].fugasDeIdea;   
+                                this.ideasDelirantes = data[0].ideasDelirantes;    
+                                this.ideasRefenciales = data[0].ideasRefenciales;    
+                                this.ideasObsesivas = data[0].ideasObsesivas;        
+                                this.pensamientoMago = data[0].pensamientoMago; 
+                            })
+
+                    this.historiaService.getExamenFisico6ByIdHistoria(this.currentHistoriaId)
+                        .subscribe(
+                            data => {                                 
+                                this.comprensible = data[0].comprensible;
+                                this.disartrias = data[0].disartrias;
+                                this.curso = data[0].curso;        
+                                this.asfixias = data[0].asfixias;
+                                this.alucinaciones = data[0].alucinaciones;
+                                this.tipo = data[0].tipo;
+                                this.fijacion = data[0].fijacion;
+                                this.reciente = data[0].reciente;
+                                this.remota = data[0].remota;
+                                this.inteligencia = data[0].inteligencia;
+                                this.introspeccion = data[0].introspeccion;
+                                this.prospeccion = data[0].prospeccion;
+                                this.juicio = data[0].juicio;
+                                this.alimentacion = data[0].alimentacion;
+                                this.tipoAlimenticio = data[0].tipoAlimenticio;
+                                this.adecuado = data[0].adecuado;
+                                this.hipersomnio = data[0].hipersomnio;
+                                this.insomnio = data[0].insomnio;
+                                this.cociliacion = data[0].cociliacion;
+                                this.reconciliacion = data[0].reconciliacion;
+                                this.global = data[0].global;
+                        })
+
+                    this.showLoading(false);                   
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+    }  
+    
+    getImpresionDiagnostica(idDiagnostico: String){
+        this.showLoading(true);    
+        this.cie10Service.getById(idDiagnostico)
+            .subscribe(
+                data => {      
+                    this.impresionDiagnostica = data;                                                      
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+    }
 
     fillSelects(){      
         this.showLoading(true);    
@@ -608,24 +856,11 @@ export class CrearHistoriasComponent implements OnInit {
 
         this.model.medico = this.medico;
         this.model.autoriza = this.autoriza;
-
+        
         this.showLoading(true);    
-        this.historiaService.create(this.model)
+        this.historiaService.update(this.model)
             .subscribe(
                 data => {                        
-                    this.clearModel(); 
-                    this.clearAdmisionModel();
-                    this.clearGinecoObstetricioForm();
-                    this.clearExamenFisico();
-                    this.clearExamenFisico2();
-                    this.clearExamenFisico3();
-                    this.clearExamenFisico4();
-                    this.clearExamenFisico5();
-                    this.clearExamenFisico6();
-                    this.impresionDiagnostica = null;
-                    this.medico = null;
-                    this.autoriza = null;
-                                 
                     this.showLoading(false);
                 },
                 error => {            
@@ -638,7 +873,7 @@ export class CrearHistoriasComponent implements OnInit {
                     }                
                     this.showErrors();
                     this.showLoading(false);
-                });         
+                });        
     }
     
     validateCreate(){
@@ -818,7 +1053,7 @@ export class CrearHistoriasComponent implements OnInit {
     }
 
     addGinecoObstetricio(){        
-        let ginecoObstetricio = new GinecoObstetricio();
+        let ginecoObstetricio = new GinecoObstetricio();        
         
         ginecoObstetricio.partos = this.partos;
         ginecoObstetricio.abortos = this.abortos;
@@ -832,6 +1067,7 @@ export class CrearHistoriasComponent implements OnInit {
         ginecoObstetricio.embarazoActual = this.embarazoActual;	
         ginecoObstetricio.gesta = this.gesta;
 
+        this.model.ginecoObstetricios = [];
         this.model.ginecoObstetricios.push(ginecoObstetricio);        
     }
 

@@ -31,4 +31,52 @@ export class HistoriaService {
     delete(id: string): Observable<any> {
         return this.http.delete(this.url + id,  CommonService.getJwtHeaders())
     }
+
+    getPatologicosByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/patologicos', CommonService.getJwtHeaders());
+    }
+
+    getAntecedentesByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/antecedentes', CommonService.getJwtHeaders());
+    }
+
+    getTraumaticosByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/traumaticos', CommonService.getJwtHeaders());
+    }
+
+    getFarmacologicosByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/farmacologicos', CommonService.getJwtHeaders());
+    }
+
+    getToxicosByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/toxicos', CommonService.getJwtHeaders());
+    }
+
+    getGinecoObstetriciosByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/gineco-obstetricios', CommonService.getJwtHeaders());
+    }
+
+    getExamenFisicoByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/examen-fisico', CommonService.getJwtHeaders());
+    }
+
+    getExamenFisico2ByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/examen-fisico2', CommonService.getJwtHeaders());
+    }
+
+    getExamenFisico3ByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/examen-fisico3', CommonService.getJwtHeaders());
+    }
+
+    getExamenFisico4ByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/examen-fisico4', CommonService.getJwtHeaders());
+    }
+
+    getExamenFisico5ByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/examen-fisico5', CommonService.getJwtHeaders());
+    }
+
+    getExamenFisico6ByIdHistoria(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/examen-fisico6', CommonService.getJwtHeaders());
+    }
 }

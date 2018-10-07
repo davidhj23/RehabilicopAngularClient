@@ -37,7 +37,8 @@ export class ConsultarHistoriasComponent implements OnInit {
     private loadAllHistorias() {     
         this.showLoading(true);   
         this.historiaService.getAll().subscribe(
-            historias => {                                 
+            historias => {        
+                console.log(historias)                         
                 this.historias = historias; 
                 this.temp = this.historias;
                 this.showLoading(false);
