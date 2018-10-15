@@ -282,7 +282,7 @@ export class EditarHistoriasComponent implements OnInit {
         this.showLoading(true);    
         this.historiaService.getById(this.currentHistoriaId)
             .subscribe(
-                data => {                                               
+                data => {                                                 
                     this.model = data;         
 
                     this.model.admision = data.admision;  
@@ -292,40 +292,52 @@ export class EditarHistoriasComponent implements OnInit {
                     this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre;                                                       
                     this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                                           
 
+                    this.showLoading(false);       
                     this.getImpresionDiagnostica(this.model.idImpresionDiagnostica);                    
                     this.medico = this.model.medico;
                     this.autoriza = this.model.autoriza;
 
+                    this.showLoading(true);    
                     this.historiaService.getPatologicosByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => {                                               
-                                this.patologicos = data;   
+                                this.patologicos = data;  
+                                this.showLoading(false);             
                         })
 
+                    this.showLoading(true);    
                     this.historiaService.getAntecedentesByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => {                                                                               
-                                this.antecedentes = data;   
+                                this.antecedentes = data; 
+                                this.showLoading(false);              
                         })
 
+                    this.showLoading(true);    
                     this.historiaService.getTraumaticosByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => {                                               
-                                this.traumaticos = data;   
+                                this.traumaticos = data;  
+                                this.showLoading(false);             
                         })
 
+                    this.showLoading(true);    
                     this.historiaService.getFarmacologicosByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => {                                               
-                                this.farmacologicos = data;   
+                                this.farmacologicos = data;  
+                                this.showLoading(false);             
                         })
 
+                    this.showLoading(true);    
                     this.historiaService.getToxicosByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => {                                               
                                 this.toxicos = data;   
+                                this.showLoading(false);            
                         })
 
+                    this.showLoading(true);    
                     this.historiaService.getGinecoObstetriciosByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => {                                
@@ -339,8 +351,10 @@ export class EditarHistoriasComponent implements OnInit {
                                                                 
                                 this.embarazoActual = data[0].embarazoActual;	                                
                                 this.gesta = data[0].gesta;
+                                this.showLoading(false);            
                         })
 
+                    this.showLoading(true);    
                     this.historiaService.getExamenFisicoByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => {  
@@ -365,8 +379,10 @@ export class EditarHistoriasComponent implements OnInit {
                                 this.sibilancias = data[0].sibilancias;	    
                                 this.silencioAuscultorio = data[0].silencioAuscultorio;	    
                                 this.murmulloVesicularPulmones = data[0].murmulloVesicularPulmones;
+                                this.showLoading(false);            
                         })
 
+                    this.showLoading(true);    
                     this.historiaService.getExamenFisico2ByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => { 
@@ -382,8 +398,10 @@ export class EditarHistoriasComponent implements OnInit {
                                 this.sinAlteracionesEvidentes = data[0].sinAlteracionesEvidentes;    
                                 this.iieoParalitico = data[0].iieoParalitico;    
                                 this.ascitis = data[0].ascitis;   
+                                this.showLoading(false);            
                             })
-                            
+                    
+                    this.showLoading(true);    
                     this.historiaService.getExamenFisico3ByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => { 
@@ -398,8 +416,10 @@ export class EditarHistoriasComponent implements OnInit {
                                 this.hematomasEquimosisHeridas = data[0].hematomasEquimosisHeridas;    
                                 this.cicatricesTatuajes = data[0].cicatricesTatuajes;    
                                 this.sinAlteracionesEvidentes3 = data[0].sinAlteracionesEvidentes;
+                                this.showLoading(false);            
                             })
 
+                    this.showLoading(true);    
                     this.historiaService.getExamenFisico4ByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => { 
@@ -422,8 +442,10 @@ export class EditarHistoriasComponent implements OnInit {
                                 this.extremidades = data[0].extremidades;
 
                                 this.descripcionExamenFisico4 = data[0].descripcion;
+                                this.showLoading(false);            
                             })
 
+                    this.showLoading(true);    
                     this.historiaService.getExamenFisico5ByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => { 
@@ -454,8 +476,10 @@ export class EditarHistoriasComponent implements OnInit {
                                 this.ideasRefenciales = data[0].ideasRefenciales;    
                                 this.ideasObsesivas = data[0].ideasObsesivas;        
                                 this.pensamientoMago = data[0].pensamientoMago; 
+                                this.showLoading(false);            
                             })
 
+                    this.showLoading(true);            
                     this.historiaService.getExamenFisico6ByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => {                                 
@@ -480,9 +504,8 @@ export class EditarHistoriasComponent implements OnInit {
                                 this.cociliacion = data[0].cociliacion;
                                 this.reconciliacion = data[0].reconciliacion;
                                 this.global = data[0].global;
-                        })
-
-                    this.showLoading(false);                   
+                                this.showLoading(false);            
+                        })          
                 },
                 error => {                        
                     if(Array.isArray(error.error)){

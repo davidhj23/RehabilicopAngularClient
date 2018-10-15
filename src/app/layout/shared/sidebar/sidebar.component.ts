@@ -10,6 +10,7 @@ export class SidebarComponent implements OnInit {
     showProcesos: string = '';
     showSeguridad: string = '';
     showListas: string = '';    
+    showConfiguracion: string = '';    
 
     constructor() {
         
@@ -39,6 +40,14 @@ export class SidebarComponent implements OnInit {
             this.showListas = '0';
         } else {
             this.showListas = element;
+        }
+    }
+
+    expandConfiguracion(element: any) {
+        if (element === this.showConfiguracion) {
+            this.showConfiguracion = '0';
+        } else {
+            this.showConfiguracion = element;
         }
     }
 }

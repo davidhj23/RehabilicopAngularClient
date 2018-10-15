@@ -79,4 +79,8 @@ export class HistoriaService {
     getExamenFisico6ByIdHistoria(id: string): Observable<any> {
         return this.http.get(this.url + id + '/examen-fisico6', CommonService.getJwtHeaders());
     }
+
+    getHistoriaByIdentificacionPaciente(id: string): Observable<any>{
+        return this.http.get(this.url + 'paciente/' + id,  CommonService.getJwtHeaders());
+    }
 }

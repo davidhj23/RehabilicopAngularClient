@@ -70,6 +70,9 @@ import { EditarAdmisionesComponent } from './layout/procesos/admisiones/editarAd
 import { ConsultarHistoriasComponent } from './layout/procesos/historias/consultarHistorias.component';
 import { CrearHistoriasComponent } from './layout/procesos/historias/crearHistorias.component';
 import { EditarHistoriasComponent } from './layout/procesos/historias/editarHistorias.component';
+import { EvolucionComponent } from './layout/procesos/evoluciones/evolucion.component';
+
+import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
 
 const appRoutes: Routes = [
     { path: '', component: LoginComponent },
@@ -148,7 +151,11 @@ const appRoutes: Routes = [
 
                 { path: 'procesos/historias/consultar', component: ConsultarHistoriasComponent, canActivate: [AuthGuard], data : { permission: ["historias"] }}, 
                 { path: 'procesos/historias/nuevo', component: CrearHistoriasComponent, canActivate: [AuthGuard], data : { permission: ["crear historia"] }},
-                { path: 'procesos/historias/editar/:id', component: EditarHistoriasComponent, canActivate: [AuthGuard], data : { permission: ["editar historia"] }}
+                { path: 'procesos/historias/editar/:id', component: EditarHistoriasComponent, canActivate: [AuthGuard], data : { permission: ["editar historia"] }},
+
+                { path: 'procesos/evoluciones/evolucion', component: EvolucionComponent, canActivate: [AuthGuard], data : { permission: ["evolucion"] }}, 
+
+                { path: 'configuracion/evoluciones/parametrizar-evoluciones', component: ParametrizarEvolucionesComponent, canActivate: [AuthGuard], data : { permission: ["parametrizacion evolucion"] }}, 
                 
             ] 
     }, 

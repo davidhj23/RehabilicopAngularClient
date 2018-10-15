@@ -9,7 +9,8 @@
       <ul class="treeview-menu" >  
           <li><a class="treeview-item" [routerLink]="['/layout/procesos/pacientes/consultar']" permission="pacientes"><i class="icon fa fa-circle-o"></i> Pacientes</a></li>                  
           <li><a class="treeview-item" [routerLink]="['/layout/procesos/admisiones/consultar']" permission="admisiones"><i class="icon fa fa-circle-o"></i> Admisiones</a></li>                  
-          <li><a class="treeview-item" [routerLink]="['/layout/procesos/historias/consultar']" permission="historias"><i class="icon fa fa-circle-o"></i> Historias</a></li>                  
+          <li><a class="treeview-item" [routerLink]="['/layout/procesos/historias/consultar']" permission="historias"><i class="icon fa fa-circle-o"></i> Historia Clínica de ingreso</a></li>                  
+          <li><a class="treeview-item" [routerLink]="['/layout/procesos/evoluciones/evolucion']" permission="evolucion"><i class="icon fa fa-circle-o"></i> Evolución</a></li>                  
       </ul>      
     </li>   
     <li class="treeview" [class.is-expanded]="showListas === 'listas'" permission="listas">
@@ -78,6 +79,16 @@
           <!--li><a class="treeview-item" [routerLink]="['/layout/seguridad/roles/asignar-permisos']" permission="asignar permisos"><i class="icon fa fa-circle-o"></i> Asignar Permisos</a></li-->    
           <li><a class="treeview-item" [routerLink]="['/layout/seguridad/usuarios/consultar']" permission="usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>            
           <li><a class="treeview-item" [routerLink]="['/layout/seguridad/usuarios/restablecer-password']" permission="restablecer clave"><i class="icon fa fa-circle-o"></i> Restablecer Clave</a></li>    
+        </ul>      
+      </li> 
+      <li class="treeview" [class.is-expanded]="showConfiguracion === 'configuracion'" permission="parametrizacion">
+        <a class="app-menu__item" (click)="expandConfiguracion('configuracion')" [routerLink]="" data-toggle="treeview">
+          <i class="app-menu__icon fa fa-lock"></i>
+          <span class="app-menu__label">Configuración</span>
+          <i class="treeview-indicator fa fa-angle-right"></i>
+        </a>
+        <ul class="treeview-menu" >
+          <li><a class="treeview-item" [routerLink]="['/layout/configuracion/evoluciones/parametrizar-evoluciones']" permission="parametrizacion evolucion"><i class="icon fa fa-circle-o"></i> Evoluciones</a></li>              
         </ul>      
       </li> 
   </ul>

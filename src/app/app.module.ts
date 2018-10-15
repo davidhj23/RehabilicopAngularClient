@@ -91,7 +91,11 @@ import { ConsultarHistoriasComponent } from './layout/procesos/historias/consult
 import { CrearHistoriasComponent } from './layout/procesos/historias/crearHistorias.component';
 import { EditarHistoriasComponent } from './layout/procesos/historias/editarHistorias.component';
 import { HistoriaService } from './layout/procesos/historias/historia.service';
+import { EvolucionComponent } from './layout/procesos/evoluciones/evolucion.component';
+import { EvolucionService } from './layout/procesos/evoluciones/evolucion.service';
 
+import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
+import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones/parametrizarEvolucion.service';
 
 @NgModule({
     imports: [
@@ -184,7 +188,11 @@ import { HistoriaService } from './layout/procesos/historias/historia.service';
 
         ConsultarHistoriasComponent,
         CrearHistoriasComponent,
-        EditarHistoriasComponent
+        EditarHistoriasComponent,
+
+        EvolucionComponent,
+
+        ParametrizarEvolucionesComponent
     ],
     providers: [
         AuthGuard,
@@ -243,7 +251,10 @@ import { HistoriaService } from './layout/procesos/historias/historia.service';
         
         PacienteService,
         AdmisionService,
-        HistoriaService
+        HistoriaService,
+        EvolucionService,
+
+        ParametrizarEvolucionService
     ],
     bootstrap: [AppComponent]
 })
