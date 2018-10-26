@@ -1,8 +1,11 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, UrlSegment } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Aseguradora } from './aseguradora';
 import { AseguradoraService } from './aseguradora.service';
+import { User } from '../../seguridad/usuarios/user';
+import { UserService } from '../../seguridad/usuarios/user.service';
+import { connectableObservableDescriptor } from 'rxjs/observable/ConnectableObservable';
 
 @Component({
     selector: 'aseguradoras',
@@ -13,8 +16,15 @@ export class AseguradorasComponent implements OnInit {
     
     aseguradoras: Aseguradora[] = [];
     temp: Aseguradora[] = [];
-    model: any = {};
-    modelToEdit: any = {};
+    model = new Aseguradora();
+    modelToEdit = new Aseguradora();
+
+    auditor: User;
+    auditorToEdit: User;
+
+    auditores: User[] = [];
+
+    private selectUndefinedOptionValue: any;
 
     loading = false;        
     rowsOnPage = 5;
@@ -26,13 +36,37 @@ export class AseguradorasComponent implements OnInit {
 
     constructor(
         private aseguradoraService: AseguradoraService,
+        private usuarioService: UserService,
         private router: Router,
         private ngbModal: NgbModal) {
-        let self = this;
+        
     }
 
-    ngOnInit() {        
+    ngOnInit() {   
+        this.fillSelects();     
         this.loadAllAseguradoras();        
+    }
+
+    private fillSelects(){
+        this.showLoading(true);    
+        this.usuarioService.getAllAuditores()
+            .subscribe(
+                data => {      
+                    this.auditores = data;                  
+                    this.clearModel();                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });
     }
 
     private loadAllAseguradoras() {     
@@ -40,6 +74,10 @@ export class AseguradorasComponent implements OnInit {
         this.aseguradoraService.getAll()
             .subscribe(
                 aseguradoras => { 
+                    aseguradoras.forEach(function(element: Aseguradora) {
+                        if(element.auditor == null)
+                            element.auditor = new User();
+                    });
                     this.aseguradoras = aseguradoras; 
                     this.temp = this.aseguradoras;
                     this.showLoading(false);
@@ -69,14 +107,15 @@ export class AseguradorasComponent implements OnInit {
     }
 
     create() {
-        if(!this.validateCreate()) return;
-
+        if(!this.validateCreate()) return;        
+        this.model.auditor = (this.auditor != undefined && this.auditor.idUsuario != undefined) ? this.auditor : null;
         this.showLoading(true);    
         this.aseguradoraService.create(this.model)
             .subscribe(
                 data => {                        
                     this.clearModel();
                     this.loadAllAseguradoras();
+                    this.auditor = new User();
                     this.showLoading(false);
                 },
                 error => {                        
@@ -109,14 +148,15 @@ export class AseguradorasComponent implements OnInit {
         return true;
     }
 
-    edit(model: any, editContent: any) {            
+    edit(model: any, auditor: any, editContent: any) {            
         this.modelToEdit.idAseguradora = model.idAseguradora;     
-        this.modelToEdit.nombre = model.nombre;     
+        this.modelToEdit.nombre = model.nombre;                             
+        this.auditorToEdit = auditor;  
 
-        this.ngbModal.open(editContent).result.then((result) => {
-            
+        this.ngbModal.open(editContent).result.then((result) => {            
             this.showLoading(true);      
-            if(this.validateEdit()){                                               
+            if(this.validateEdit()){                                         
+                this.modelToEdit.auditor = (this.auditorToEdit.idUsuario != undefined) ? this.auditorToEdit : null;                    
                 this.aseguradoraService.update(this.modelToEdit)
                     .subscribe(
                         data => {
@@ -136,7 +176,7 @@ export class AseguradorasComponent implements OnInit {
                             this.showLoading(false);
                         });     
             }else{                
-                this.edit(this.modelToEdit, editContent);
+                this.edit(this.modelToEdit, auditor, editContent);
             }
         }, (reason) => {  
             this.clearAndcloseErrors();                      
@@ -215,7 +255,9 @@ export class AseguradorasComponent implements OnInit {
     clearModel(){        
         this.model.idAseguradora = '';        
         this.model.nombre = '';
+        this.model.auditor = new User();
         this.modelToEdit.idAseguradora = '';
         this.modelToEdit.nombre = '';
+        this.modelToEdit.auditor = new User();
     }
 }

@@ -73,4 +73,8 @@ export class UserService {
     getAllEnfermeros(): Observable<any> {
         return this.http.get(this.url  + 'enfermeros', CommonService.getJwtHeaders());
     }
+
+    getAllAuditores(): Observable<any> {
+        return this.http.get(this.url  + 'auditores', CommonService.getJwtHeaders());
+    }
 }

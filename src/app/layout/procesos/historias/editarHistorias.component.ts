@@ -349,8 +349,8 @@ export class EditarHistoriasComponent implements OnInit {
                                 if(data[0].fum != undefined && data[0].fum != '')
                                     this.fum = Util.formattedDate(data[0].fum);        
                                                                 
-                                this.embarazoActual = data[0].embarazoActual;	                                
-                                this.gesta = data[0].gesta;
+                                this.embarazoActual = (data[0].embarazoActual == null) ? new Gesta() : data[0].embarazoActual;
+                                this.gesta = (data[0].gesta == null) ? new Gesta() : data[0].gesta;                                
                                 this.showLoading(false);            
                         })
 
@@ -358,27 +358,27 @@ export class EditarHistoriasComponent implements OnInit {
                     this.historiaService.getExamenFisicoByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => {  
-                                this.apariencia = data[0].apariencia;                                                              
+                                this.apariencia = (data[0].apariencia == null) ? new Gesta() : data[0].apariencia;                                                              
                                 this.descripcionApariencia = data[0].descripcionApariencia;        
                                 this.signoVitalTa = data[0].signoVitalTa;
                                 this.signoVitalFc = data[0].signoVitalFr;                      
                                 this.signoVitalFr = data[0].signoVitalFr;
                                 this.signoVitalT = data[0].signoVitalT;
 
-                                this.midriasis = data[0].midriasis;        
-                                this.miosis = data[0].miosis;	    
-                                this.anisocordia = data[0].anisocordia;	    
-                                this.pinral = data[0].pinral;	    
-                                this.otorragia = data[0].otorragia;	    
-                                this.otoliquia = data[0].otoliquia;	    
-                                this.rinoloquia = data[0].rinoloquia;	    
-                                this.epixtasis = data[0].epixtasis;	                                    
-                                this.murmulloVesicular = data[0].murmulloVesicular;	    
-                                this.estertoresCrepitantes = data[0].estertoresCrepitantes;	    
-                                this.roncus = data[0].roncus;	    
-                                this.sibilancias = data[0].sibilancias;	    
-                                this.silencioAuscultorio = data[0].silencioAuscultorio;	    
-                                this.murmulloVesicularPulmones = data[0].murmulloVesicularPulmones;
+                                this.midriasis = (data[0].midriasis == null) ? new Opcion() : data[0].midriasis;
+                                this.miosis = (data[0].miosis == null) ? new Opcion() : data[0].miosis;
+                                this.anisocordia = (data[0].anisocordia == null) ? new Opcion() : data[0].anisocordia;
+                                this.pinral = (data[0].pinral == null) ? new Opcion() : data[0].pinral;
+                                this.otorragia = (data[0].otorragia == null) ? new Opcion() : data[0].otorragia;	    
+                                this.otoliquia = (data[0].otoliquia == null) ? new Opcion() : data[0].otoliquia;	    
+                                this.rinoloquia = (data[0].rinoloquia == null) ? new Opcion() : data[0].rinoloquia;
+                                this.epixtasis = (data[0].epixtasis == null) ? new Opcion() : data[0].epixtasis;	                                    
+                                this.murmulloVesicular = (data[0].murmulloVesicular == null) ? new Opcion() : data[0].murmulloVesicular;	    
+                                this.estertoresCrepitantes = (data[0].estertoresCrepitantes == null) ? new Opcion() : data[0].estertoresCrepitantes;
+                                this.roncus = (data[0].roncus == null) ? new Opcion() : data[0].roncus;	    
+                                this.sibilancias = (data[0].sibilancias == null) ? new Opcion() : data[0].sibilancias;	    
+                                this.silencioAuscultorio = (data[0].silencioAuscultorio == null) ? new Opcion() : data[0].silencioAuscultorio;	    
+                                this.murmulloVesicularPulmones = (data[0].murmulloVesicularPulmones == null) ? new Opcion() : data[0].murmulloVesicularPulmones;
                                 this.showLoading(false);            
                         })
 
@@ -386,18 +386,18 @@ export class EditarHistoriasComponent implements OnInit {
                     this.historiaService.getExamenFisico2ByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => { 
-                                this.frotePericardial = data[0].frotePericardial;
-                                this.ruidosNoAuscultables = data[0].ruidosNoAuscultables;    
-                                this.arritmico = data[0].arritmico;
-                                this.soplo = data[0].soplo;
-                                this.rsCsRsSinSoplo = data[0].rsCsRsSinSoplo;
-                                this.hepatomegalia = data[0].hepatomegalia;  
-                                this.esplenomegalia = data[0].esplenomegalia;    	
-                                this.masaPalpable = data[0].masaPalpable;    
-                                this.signosDeIrritacionPeritoneal = data[0].signosDeIrritacionPeritoneal;    
-                                this.sinAlteracionesEvidentes = data[0].sinAlteracionesEvidentes;    
-                                this.iieoParalitico = data[0].iieoParalitico;    
-                                this.ascitis = data[0].ascitis;   
+                                this.frotePericardial = (data[0].frotePericardial == null) ? new Opcion() : data[0].frotePericardial;
+                                this.ruidosNoAuscultables = (data[0].ruidosNoAuscultables == null) ? new Opcion() : data[0].ruidosNoAuscultables;
+                                this.arritmico = (data[0].arritmico == null) ? new Opcion() : data[0].arritmico;
+                                this.soplo = (data[0].soplo == null) ? new Opcion() : data[0].soplo;
+                                this.rsCsRsSinSoplo = (data[0].rsCsRsSinSoplo == null) ? new Opcion() : data[0].rsCsRsSinSoplo;
+                                this.hepatomegalia = (data[0].hepatomegalia == null) ? new Opcion() : data[0].hepatomegalia;
+                                this.esplenomegalia = (data[0].esplenomegalia == null) ? new Opcion() : data[0].esplenomegalia;
+                                this.masaPalpable = (data[0].masaPalpable == null) ? new Opcion() : data[0].masaPalpable;
+                                this.signosDeIrritacionPeritoneal = (data[0].signosDeIrritacionPeritoneal == null) ? new Opcion() : data[0].signosDeIrritacionPeritoneal;
+                                this.sinAlteracionesEvidentes = (data[0].sinAlteracionesEvidentes == null) ? new Opcion() : data[0].sinAlteracionesEvidentes;
+                                this.iieoParalitico = (data[0].iieoParalitico == null) ? new Opcion() : data[0].iieoParalitico;
+                                this.ascitis = (data[0].ascitis == null) ? new Opcion() : data[0].ascitis;
                                 this.showLoading(false);            
                             })
                     
@@ -405,17 +405,17 @@ export class EditarHistoriasComponent implements OnInit {
                     this.historiaService.getExamenFisico3ByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => { 
-                                this.llenadoCapilarAlterado = data[0].llenadoCapilarAlterado;
-                                this.pulsoAusentes = data[0].pulsoAusentes;     
-                                this.deformidad = data[0].deformidad;
-                                this.movilidadAlterada = data[0].movilidadAlterada;
-                                this.pulsosPerifericosPresentes = data[0].pulsosPerifericosPresentes;
-                                this.cianosis = data[0].cianosis;  
-                                this.ictericia = data[0].ictericia;    	
-                                this.palidezMucocutanea = data[0].palidezMucocutanea;    
-                                this.hematomasEquimosisHeridas = data[0].hematomasEquimosisHeridas;    
-                                this.cicatricesTatuajes = data[0].cicatricesTatuajes;    
-                                this.sinAlteracionesEvidentes3 = data[0].sinAlteracionesEvidentes;
+                                this.llenadoCapilarAlterado = (data[0].llenadoCapilarAlterado == null) ? new Opcion() : data[0].llenadoCapilarAlterado;
+                                this.pulsoAusentes = (data[0].pulsoAusentes == null) ? new Opcion() : data[0].pulsoAusentes;
+                                this.deformidad = (data[0].deformidad == null) ? new Opcion() : data[0].deformidad;
+                                this.movilidadAlterada = (data[0].movilidadAlterada == null) ? new Opcion() : data[0].movilidadAlterada;
+                                this.pulsosPerifericosPresentes = (data[0].pulsosPerifericosPresentes == null) ? new Opcion() : data[0].pulsosPerifericosPresentes;
+                                this.cianosis = (data[0].cianosis == null) ? new Opcion() : data[0].cianosis;
+                                this.ictericia = (data[0].ictericia == null) ? new Opcion() : data[0].ictericia;
+                                this.palidezMucocutanea = (data[0].palidezMucocutanea == null) ? new Opcion() : data[0].palidezMucocutanea;
+                                this.hematomasEquimosisHeridas = (data[0].hematomasEquimosisHeridas == null) ? new Opcion() : data[0].hematomasEquimosisHeridas;
+                                this.cicatricesTatuajes = (data[0].cicatricesTatuajes == null) ? new Opcion() : data[0].cicatricesTatuajes;
+                                this.sinAlteracionesEvidentes3 = (data[0].sinAlteracionesEvidentes3 == null) ? new Opcion() : data[0].sinAlteracionesEvidentes3;
                                 this.showLoading(false);            
                             })
 
@@ -423,17 +423,17 @@ export class EditarHistoriasComponent implements OnInit {
                     this.historiaService.getExamenFisico4ByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => { 
-                                this.alerta = data[0].alerta; 	 
-                                this.somnolencia = data[0].somnolencia;
-                                this.estupor = data[0].estupor;    
-                                this.comas = data[0].comas;    
-                                this.agitacion = data[0].agitacion;
-                                this.reflejosMuscoloTendinosooAlterados = data[0].reflejosMuscoloTendinosooAlterados;
-                                this.signosmeningeosPresentes = data[0].signosmeningeosPresentes;   
-                                this.perdidaDeLaSensibilidad = data[0].perdidaDeLaSensibilidad;
-                                this.inconctinenciaUrinariaOFecal = data[0].inconctinenciaUrinariaOFecal;
-                                this.movimientosAnormales = data[0].movimientosAnormales;        
-                                this.sinAlteracionesEvidentes4 = data[0].sinAlteracionesEvidentes; 
+                                this.alerta = (data[0].alerta == null) ? new Opcion() : data[0].alerta;
+                                this.somnolencia = (data[0].somnolencia == null) ? new Opcion() : data[0].somnolencia;
+                                this.estupor = (data[0].estupor == null) ? new Opcion() : data[0].estupor;
+                                this.comas = (data[0].comas == null) ? new Opcion() : data[0].comas;
+                                this.agitacion = (data[0].agitacion == null) ? new Opcion() : data[0].agitacion;
+                                this.reflejosMuscoloTendinosooAlterados = (data[0].reflejosMuscoloTendinosooAlterados == null) ? new Opcion() : data[0].reflejosMuscoloTendinosooAlterados;
+                                this.signosmeningeosPresentes = (data[0].signosmeningeosPresentes == null) ? new Opcion() : data[0].signosmeningeosPresentes;
+                                this.perdidaDeLaSensibilidad = (data[0].perdidaDeLaSensibilidad == null) ? new Opcion() : data[0].perdidaDeLaSensibilidad;
+                                this.inconctinenciaUrinariaOFecal = (data[0].inconctinenciaUrinariaOFecal == null) ? new Opcion() : data[0].inconctinenciaUrinariaOFecal;
+                                this.movimientosAnormales = (data[0].movimientosAnormales == null) ? new Opcion() : data[0].movimientosAnormales;
+                                this.sinAlteracionesEvidentes4 = (data[0].sinAlteracionesEvidentes4 == null) ? new Opcion() : data[0].sinAlteracionesEvidentes4;
 
                                 this.cabezaYCuello = data[0].cabezaYCuello;	
                                 this.cardioPulmar = data[0].cardioPulmar;	
@@ -449,33 +449,35 @@ export class EditarHistoriasComponent implements OnInit {
                     this.historiaService.getExamenFisico5ByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => { 
-                                this.estadoConciencia = data[0].estadoConciencia;    
+                                this.estadoConciencia = (data[0].estadoConciencia == null) ? new EstadoConciencia(): data[0].estadoConciencia;    
                                 
                                 if(data[0].fecha != undefined && data[0].fecha != '')
                                     this.fecha = Util.formattedDate(data[0].fecha);  
                                 
-                                this.persona = data[0].persona;    
-                                this.espacio = data[0].espacio;    
-                                this.tiempo = data[0].tiempo;       
-                                this.euprosexico = data[0].euprosexico;    
-                                this.hipoprosexico = data[0].hipoprosexico;    
-                                this.eutimico = data[0].eutimico;    
-                                this.depresivo = data[0].depresivo;    
-                                this.expensivo = data[0].expensivo;        
-                                this.hiperprosexico = data[0].hiperprosexico;   
+                                this.persona = (data[0].persona == null) ? new Opcion() : data[0].persona;
+                                this.espacio = (data[0].espacio == null) ? new Opcion() : data[0].espacio;
+                                this.tiempo = (data[0].tiempo == null) ? new Opcion() : data[0].tiempo;
+                                this.euprosexico = (data[0].euprosexico == null) ? new Opcion() : data[0].euprosexico;    
+                                this.hipoprosexico = (data[0].hipoprosexico == null) ? new Opcion() : data[0].hipoprosexico;    
+                                this.eutimico = (data[0].eutimico == null) ? new Opcion() : data[0].eutimico;    
+                                this.depresivo = (data[0].depresivo == null) ? new Opcion() : data[0].depresivo;    
+                                this.expensivo = (data[0].expensivo == null) ? new Opcion() : data[0].expensivo;        
+                                this.hiperprosexico = (data[0].hiperprosexico == null) ? new Opcion() : data[0].hiperprosexico;   
+
                                 this.descripcionExamenFisico5 = data[0].descripcion;
-                                this.orgienNormal = data[0].orgienNormal;    
-                                this.acustica = data[0].acustica;    
-                                this.concreto = data[0].concreto;        
-                                this.pobrezaIdeativa = data[0].pobrezaIdeativa;   
-                                this.cursoNormal = data[0].cursoNormal;    
-                                this.bridipsiquia = data[0].bridipsiquia;    
-                                this.taquipsiquia = data[0].taquipsiquia;        
-                                this.fugasDeIdea = data[0].fugasDeIdea;   
-                                this.ideasDelirantes = data[0].ideasDelirantes;    
-                                this.ideasRefenciales = data[0].ideasRefenciales;    
-                                this.ideasObsesivas = data[0].ideasObsesivas;        
-                                this.pensamientoMago = data[0].pensamientoMago; 
+
+                                this.orgienNormal = (data[0].orgienNormal == null) ? new Opcion() : data[0].orgienNormal;    
+                                this.acustica = (data[0].acustica == null) ? new Opcion() : data[0].acustica;    
+                                this.concreto = (data[0].concreto == null) ? new Opcion() : data[0].concreto;        
+                                this.pobrezaIdeativa = (data[0].pobrezaIdeativa == null) ? new Opcion() : data[0].pobrezaIdeativa;   
+                                this.cursoNormal = (data[0].cursoNormal == null) ? new Opcion() : data[0].cursoNormal;    
+                                this.bridipsiquia = (data[0].bridipsiquia == null) ? new Opcion() : data[0].bridipsiquia;   
+                                this.taquipsiquia = (data[0].taquipsiquia == null) ? new Opcion() : data[0].taquipsiquia;        
+                                this.fugasDeIdea = (data[0].fugasDeIdea == null) ? new Opcion() : data[0].fugasDeIdea;   
+                                this.ideasDelirantes = (data[0].ideasDelirantes == null) ? new Opcion() : data[0].ideasDelirantes;    
+                                this.ideasRefenciales = (data[0].ideasRefenciales == null) ? new Opcion() : data[0].ideasRefenciales;    
+                                this.ideasObsesivas = (data[0].ideasObsesivas == null) ? new Opcion() : data[0].ideasObsesivas;        
+                                this.pensamientoMago = (data[0].pensamientoMago == null) ? new Opcion() : data[0].pensamientoMago; 
                                 this.showLoading(false);            
                             })
 
@@ -483,29 +485,37 @@ export class EditarHistoriasComponent implements OnInit {
                     this.historiaService.getExamenFisico6ByIdHistoria(this.currentHistoriaId)
                         .subscribe(
                             data => {                                 
-                                this.comprensible = data[0].comprensible;
-                                this.disartrias = data[0].disartrias;
-                                this.curso = data[0].curso;        
-                                this.asfixias = data[0].asfixias;
-                                this.alucinaciones = data[0].alucinaciones;
+                                this.comprensible = (data[0].comprensible == null) ? new Comprensible() : data[0].comprensible; 
+                                this.disartrias = (data[0].disartrias == null) ? new Opcion() : data[0].disartrias; 
+                                this.curso = (data[0].curso == null) ? new Curso() : data[0].curso; 
+                                this.asfixias = (data[0].asfixias == null) ? new Asfixia() : data[0].asfixias; 
+
+                                this.alucinaciones = (data[0].alucinaciones == null) ? new Alucinacion() : data[0].alucinaciones; 
+
                                 this.tipo = data[0].tipo;
-                                this.fijacion = data[0].fijacion;
-                                this.reciente = data[0].reciente;
-                                this.remota = data[0].remota;
-                                this.inteligencia = data[0].inteligencia;
-                                this.introspeccion = data[0].introspeccion;
-                                this.prospeccion = data[0].prospeccion;
-                                this.juicio = data[0].juicio;
-                                this.alimentacion = data[0].alimentacion;
+
+                                this.fijacion = (data[0].fijacion == null) ? new Memoria2() : data[0].fijacion; 
+                                this.reciente = (data[0].reciente == null) ? new Memoria2() : data[0].reciente;                                 
+                                this.remota = (data[0].remota == null) ? new Memoria2() : data[0].remota; 
+
+                                this.inteligencia = (data[0].inteligencia == null) ? new Inteligencia() : data[0].inteligencia; 
+                                this.introspeccion = (data[0].introspeccion == null) ? new Introspeccion() : data[0].introspeccion; 
+                                this.prospeccion = (data[0].prospeccion == null) ? new Introspeccion() : data[0].prospeccion; 
+                                this.juicio = (data[0].remota == null) ? new Introspeccion() : data[0].juicio; 
+
+                                this.alimentacion = (data[0].alimentacion == null) ? new Alimentacion() : data[0].alimentacion; 
+
                                 this.tipoAlimenticio = data[0].tipoAlimenticio;
-                                this.adecuado = data[0].adecuado;
-                                this.hipersomnio = data[0].hipersomnio;
-                                this.insomnio = data[0].insomnio;
-                                this.cociliacion = data[0].cociliacion;
-                                this.reconciliacion = data[0].reconciliacion;
-                                this.global = data[0].global;
+
+                                this.adecuado = (data[0].adecuado == null) ? new Opcion() : data[0].adecuado; 
+                                this.hipersomnio = (data[0].hipersomnio == null) ? new Opcion() : data[0].hipersomnio; 
+                                this.insomnio = (data[0].insomnio == null) ? new Opcion() : data[0].insomnio; 
+                                this.cociliacion = (data[0].cociliacion == null) ? new Opcion() : data[0].cociliacion; 
+                                this.reconciliacion = (data[0].reconciliacion == null) ? new Opcion() : data[0].reconciliacion; 
+                                this.global = (data[0].global == null) ? new Opcion() : data[0].global; 
+
                                 this.showLoading(false);            
-                        })          
+                        })         
                 },
                 error => {                        
                     if(Array.isArray(error.error)){

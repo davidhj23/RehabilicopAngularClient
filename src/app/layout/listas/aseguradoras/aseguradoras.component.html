@@ -38,6 +38,13 @@
                 <label class="control-label">Nombre</label>
                 <input class="form-control" type="text" name="nombre" [(ngModel)]="model.nombre" #nombre="ngModel" required>                
               </div>          
+              <div class="form-group col-md-4" >
+                <label class="control-label">Auditor</label>
+                <select class="form-control" [(ngModel)]="auditor" name="auditor">                                
+                        <option [ngValue]="selectUndefinedOptionValue"></option>
+                    <option *ngFor="let item of auditores" [ngValue]="item">{{item.nombres}} {{item.apellidos}}</option>
+                </select>                
+              </div>          
               <div class="form-group col-md-4 align-self-end">
                 <button class="btn btn-primary" type="button" (click)="create()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
               </div>
@@ -57,6 +64,7 @@
               <thead>
                 <tr>
                   <th>Nombre</th>
+                  <th>Auditor</th>
                   <th permission="editar aseguradora">Editar</th>              
                   <th permission="eliminar aseguradora">Eliminar</th>              
                 </tr>
@@ -64,8 +72,9 @@
               <tbody *ngFor="let aseguradora of mf.data">
                 <tr>                  
                   <td class="rowTd">{{aseguradora.nombre}}</td>
+                  <td class="rowTd">{{aseguradora.auditor.nombres}} {{aseguradora.auditor.apellidos}}</td>
                   <td class="rowTd" permission="editar aseguradora">                  
-                      <a class="btn float-left" (click)="edit(aseguradora, editContent)" permission="editar aseguradora"><i class="fa fa-pencil"></i></a>                      
+                      <a class="btn float-left" (click)="edit(aseguradora, aseguradora.auditor, editContent)" permission="editar aseguradora"><i class="fa fa-pencil"></i></a>                      
                   </td>       
                   <td class="rowTd" permission="eliminar aseguradora">                                      
                     <a class="btn float-left" (click)="delete(aseguradora.idAseguradora, content)" permission="eliminar aseguradora"><i class="fa fa-times"></i></a>                  
@@ -110,7 +119,14 @@
         <div class="form-group col-md-6" >
           <label class="control-label">Nombre</label>
           <input class="form-control" type="text" name="nombre" [(ngModel)]="modelToEdit.nombre" #nombre="ngModel" required>                
-        </div>                    
+        </div>      
+        <div class="form-group col-md-6" >
+            <label class="control-label">Auditor</label>
+            <select class="form-control" [(ngModel)]="auditorToEdit.idUsuario" name="auditorToEdit">                                
+                <option [ngValue]="selectUndefinedOptionValue"></option>
+                <option *ngFor="let item of auditores" [ngValue]="item.idUsuario">{{item.nombres}} {{item.apellidos}}</option>
+            </select>                
+          </div>              
       </form>
   </div>
   <div class="modal-footer">
