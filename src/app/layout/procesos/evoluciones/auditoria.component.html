@@ -1,0 +1,90 @@
+<main class="app-content" [ngClass]="{ 'tile loading': loading }">
+    <div class="overlay" *ngIf="loading">
+        <div class="m-loader mr-4">
+            <svg class="m-circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10" />
+            </svg>
+        </div>
+        <h3 class="l-text">Loading</h3>
+    </div>
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-th-list"></i> Auditoria</h1>            
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/layout/procesos/evoluciones/auditoria']">Auditoria</a></li>
+        </ul>
+    </div>
+    <div class="row" *ngIf="areErrors">
+        <div class="col-md-12">
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-danger">
+                    <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>
+                    <div *ngFor="let e of errores">
+                        <strong>{{e.message}}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="row">
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Año</label>
+                            <select class="form-control" [(ngModel)]="model.anio" name="anio">                                
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                                <option value="2030">2030</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Mes</label>
+                            <select class="form-control" [(ngModel)]="model.mes" name="mes">                                
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Aseguradora</label>
+                            <select class="form-control" [(ngModel)]="model.aseguradora" name="aseguradora">                                                                
+                                <option *ngFor="let item of aseguradoras" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div> 
+                        <div class="form-group col-md-3 align-self-end">
+                            <button class="btn btn-primary" type="button" (click)="consultar()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Consultar</button>
+                        </div>
+                    </div>
+                </div>        
+            </div>
+            <div class="tile">
+                <div class="tile-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

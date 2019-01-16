@@ -31,4 +31,8 @@ export class AseguradoraService {
     delete(idAseguradora: String): Observable<any> {        
         return this.http.delete(this.url + idAseguradora,  CommonService.getJwtHeaders())
     }
+
+    getAseguradorasAuditor(): Observable<any> {
+        return this.http.get(this.url + 'aseguradoras-auditor/', CommonService.getJwtHeaders());
+    }
 }

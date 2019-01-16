@@ -2,8 +2,8 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ParametrizacionEvolucion } from './parametrizacionEvolucion';
-import { ParametrizarEvolucionService } from '.';
 import { Util } from '../../../_utils';
+import { ParametrizarEvolucionService } from './parametrizarEvolucion.service';
 
 @Component({
     selector: 'parametrizarEvoluciones',

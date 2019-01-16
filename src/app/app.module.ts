@@ -93,6 +93,7 @@ import { EditarHistoriasComponent } from './layout/procesos/historias/editarHist
 import { HistoriaService } from './layout/procesos/historias/historia.service';
 import { EvolucionComponent } from './layout/procesos/evoluciones/evolucion.component';
 import { EvolucionService } from './layout/procesos/evoluciones/evolucion.service';
+import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
 import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones/parametrizarEvolucion.service';
@@ -191,6 +192,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         EditarHistoriasComponent,
 
         EvolucionComponent,
+        AuditoriaComponent,
 
         ParametrizarEvolucionesComponent
     ],

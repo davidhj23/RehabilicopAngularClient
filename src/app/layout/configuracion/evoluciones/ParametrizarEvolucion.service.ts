@@ -27,4 +27,11 @@ export class ParametrizarEvolucionService {
     delete(id: string): Observable<any> {
         return this.http.delete(this.url + id,  CommonService.getJwtHeaders())
     }
+
+    getAllByAnioAndMes(anio: string, mes: string): Observable<any> {
+        let url = this.url + 'anio/' + anio + 
+                             '/mes/' + mes;
+                             
+        return this.http.get(url, CommonService.getJwtHeaders());
+    }
 }

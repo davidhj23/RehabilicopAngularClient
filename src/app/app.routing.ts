@@ -71,6 +71,7 @@ import { ConsultarHistoriasComponent } from './layout/procesos/historias/consult
 import { CrearHistoriasComponent } from './layout/procesos/historias/crearHistorias.component';
 import { EditarHistoriasComponent } from './layout/procesos/historias/editarHistorias.component';
 import { EvolucionComponent } from './layout/procesos/evoluciones/evolucion.component';
+import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
 
@@ -154,6 +155,7 @@ const appRoutes: Routes = [
                 { path: 'procesos/historias/editar/:id', component: EditarHistoriasComponent, canActivate: [AuthGuard], data : { permission: ["editar historia"] }},
 
                 { path: 'procesos/evoluciones/evolucion', component: EvolucionComponent, canActivate: [AuthGuard], data : { permission: ["evolucion"] }}, 
+                { path: 'procesos/evoluciones/auditoria', component: AuditoriaComponent, canActivate: [AuthGuard], data : { permission: ["auditar"] }}, 
 
                 { path: 'configuracion/evoluciones/parametrizar-evoluciones', component: ParametrizarEvolucionesComponent, canActivate: [AuthGuard], data : { permission: ["parametrizacion evolucion"] }}, 
                 
