@@ -80,9 +80,47 @@
                     </div>
                 </div>        
             </div>
-            <div class="tile">
+            <div class="tile" *ngFor="let paciente of pacientes">
                 <div class="tile-body">
-                    
+                    <div class="row col-md-12">
+                        <label class="control-label">Identificación: {{paciente.identificacion}}</label>
+                    </div>
+                    <div class="row col-md-12">
+                        <label class="control-label">Nombre: {{paciente.nombrePaciente}}</label>
+                    </div>
+                    <table class="table table-hover table-bordered" 
+                        [mfData]="paciente.evoluciones" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>                                                 
+                                    <th>Tipo Evolución</th>              
+                                    <th>Responsable</th>              
+                                    <th>Descripción</th>              
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let evolucion of mf.data">
+                                <tr>                  
+                                    <td class="rowTd">{{evolucion.fechaEvolucion | date: 'dd/MM/yyyy'}}</td>                                    
+                                    <td class="rowTd">{{evolucion.tipoEvolucion}}</td>
+                                    <td class="rowTd">{{evolucion.nombreResponsable}}</td>
+                                    <td class="rowTd">{{evolucion.descripcionEvolucion}}</td>
+                                </tr>            
+                            </tbody>                      
+                    </table>  
+                    <div class="row col-md-12" *ngIf="paciente.hayEvolucionesNoCumplidas">
+                        <div class="row col-md-12">
+                            <label class="control-label text-danger">
+                                Evoluciones no cumplidas:
+                                {{paciente.evolucionesNoCumplidas.length}}
+                            </label>
+                        </div>
+                        <div class="row col-md-12" *ngFor="let nc of paciente.evolucionesNoCumplidas">
+                            <label class="control-label text-danger">
+                                Fecha: {{nc.fecha| date: 'dd/MM/yyyy'}}
+                                Tipo evolución: {{nc.tipoEvolucion.nombre}}
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

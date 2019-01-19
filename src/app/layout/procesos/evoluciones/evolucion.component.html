@@ -110,11 +110,41 @@
                     </div>                    
                 </div>
             </div>
-            <!--div class="tile">
+            <div class="tile">
                 <div class="tile-body">
-                    
+                    <table class="table table-hover table-bordered" 
+                    [mfData]="evoluciones" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>                                                 
+                                <th>Identificación</th>                                                 
+                                <th>Paciente</th>                                                 
+                                <th>Tipo Evolución</th>                                              
+                                <th>Descripción</th>              
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let evolucion of mf.data">
+                            <tr>                  
+                                <td class="rowTd">{{evolucion.fecha | date: 'dd/MM/yyyy'}}</td>                                    
+                                <td class="rowTd">{{evolucion.historia.admision.paciente.identificacion}}</td>
+                                <td class="rowTd">
+                                    {{evolucion.historia.admision.paciente.nombres}}
+                                    {{evolucion.historia.admision.paciente.apellidos}}
+                                </td>
+                                <td class="rowTd">{{evolucion.tipoEvolucion.nombre}}</td>
+                                <td class="rowTd">{{evolucion.descripcion}}</td>
+                            </tr>            
+                        </tbody>   
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>                   
+                    </table>     
                 </div>
-            </div-->
+            </div>
         </div>
     </div>
 </main>

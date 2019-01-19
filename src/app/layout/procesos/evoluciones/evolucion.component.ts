@@ -34,7 +34,7 @@ export class EvolucionComponent implements OnInit {
     rowsOnPage = 5;
     
     areErrors = false;
-    errores: any[] = [];       
+    errores: any[] = []; 
 
     constructor(
         private evolucionService: EvolucionService,
@@ -49,7 +49,7 @@ export class EvolucionComponent implements OnInit {
 
     ngOnInit() {    
         this.fillSelects();    
-        this.loadEvolucionesPorMesYEmpleado();        
+        this.loadEvolucionesEmpleado();        
     }
 
     private fillSelects(){
@@ -73,7 +73,25 @@ export class EvolucionComponent implements OnInit {
                 }); 
     }
 
-    private loadEvolucionesPorMesYEmpleado() {     
+    private loadEvolucionesEmpleado() {     
+        this.showLoading(true);    
+        this.evolucionService.getEvolucionesEmpleado()
+            .subscribe(
+                data => {    
+                    this.evoluciones = data;                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
     }
 
     create() {

@@ -27,4 +27,8 @@ export class EvolucionService {
 
         return this.http.get(url,  CommonService.getJwtHeaders());
     }
+
+    getEvolucionesEmpleado(): Observable<any>{
+        return this.http.get(this.url + 'empleado',  CommonService.getJwtHeaders());
+    }
 }

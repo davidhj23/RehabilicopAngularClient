@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { EvolucionService } from './evolucion.service';
 import { AseguradoraService } from '../../listas/aseguradoras';
-import { ParametrizarEvolucionService } from '../../configuracion/evoluciones';
+import { ParametrizarEvolucionService, ParametrizacionEvolucion } from '../../configuracion/evoluciones';
+import { Evoluciones } from './evoluciones';
+import { EvolucionPaciente } from './EvolucionPaciente';
+import { Evolucion } from './evolucion';
 
 @Component({
     selector: 'auditoria',
@@ -14,12 +17,15 @@ export class AuditoriaComponent implements OnInit {
     
     aseguradoras: any[] = []; 
 
-    model: any;
+    model: any;    
 
     loading = false;        
     
     areErrors = false;
     errores: any[] = [];   
+
+    pacientes: EvolucionPaciente[] = [];        
+    rowsOnPage = 100;
 
     constructor(
         private parametrizarEvolucionService: ParametrizarEvolucionService,        
@@ -64,7 +70,7 @@ export class AuditoriaComponent implements OnInit {
             this.model.mes)
             .subscribe(
                 data => {      
-                    console.log(data);                    
+                    this.getAllEvoluciones(data);
                     this.showLoading(false);
                 },
                 error => {                        
@@ -78,15 +84,24 @@ export class AuditoriaComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 }); 
+    }
 
+    getAllEvoluciones(parametrizacion: any[]){
+        this.pacientes = [];
         this.showLoading(true);    
         this.evolucionService.getAllEvoluciones(
             this.model.aseguradora.idAseguradora,
             this.model.anio,
             this.model.mes)
             .subscribe(
-                data => {      
-                    console.log(data);                    
+                data => {                                              
+                    this.distinct(data);
+                    let today = new Date().getTime();
+                    this.addEvoluciones(
+                        data,
+                        parametrizacion.filter(x => x.fecha <= today)
+                    );                    
+
                     this.showLoading(false);
                 },
                 error => {                        
@@ -100,6 +115,45 @@ export class AuditoriaComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 }); 
+    }
+
+    distinct(allEvoluciones: any[]){        
+        const map = new Map();
+        for (const item of allEvoluciones) {
+            if(!map.has(item.idPaciente)){
+                map.set(item.idPaciente, true);
+                let paciente = new EvolucionPaciente();
+                paciente.idPaciente = item.idPaciente,
+                paciente.identificacion = item.identificacion,
+                paciente.nombrePaciente = item.nombrePaciente
+                this.pacientes.push(paciente);
+            }
+        }
+    }
+
+    addEvoluciones(allEvoluciones: any[], parametrizacion: any[]){
+        this.pacientes.forEach(x => {            
+            x.evoluciones = [];                        
+            x.evolucionesNoCumplidas = parametrizacion;
+            allEvoluciones.forEach(y => {
+                if(y.identificacion == x.identificacion)
+                {                
+                    x.evoluciones.push(y);
+                    
+                    let temp =
+                        parametrizacion
+                            .filter(z => z.fecha == y.fechaEvolucion &&
+                                z.tipoEvolucion.idTipoEvolucion.replace(/-/g, '').toUpperCase() == 
+                                    y.idTipoEvolucion);
+                    
+                    x.evolucionesNoCumplidas =
+                        x.evolucionesNoCumplidas
+                            .filter(z => z.idParametrizacionEvolucion !=
+                                temp[0].idParametrizacionEvolucion);
+                }
+            });
+            x.hayEvolucionesNoCumplidas = x.evolucionesNoCumplidas.length > 0;            
+        });
     }
 
     validateCreate(){
