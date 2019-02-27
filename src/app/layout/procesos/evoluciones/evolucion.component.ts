@@ -8,6 +8,10 @@ import { Admision } from '../admisiones/admision';
 import { Paciente } from '../pacientes/paciente';
 import { Util } from '../../../_utils';
 import { HistoriaService } from '../historias/historia.service';
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map, tap, switchMap, catchError} from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { PacienteService } from '../pacientes/paciente.service';
 
 @Component({
     selector: 'evolucion',
@@ -40,7 +44,8 @@ export class EvolucionComponent implements OnInit {
         private evolucionService: EvolucionService,
         private historiaService: HistoriaService,
         private router: Router,
-        private ngbModal: NgbModal) {
+        private ngbModal: NgbModal,
+        private pacienteService: PacienteService) {
             this.model = new Evolucion();
             this.model.historia = new Historia();
             this.model.historia.admision = new Admision();
@@ -104,6 +109,7 @@ export class EvolucionComponent implements OnInit {
             .subscribe(
                 data => {                                                          
                     this.showLoading(false);
+                    this.loadEvolucionesEmpleado();
                 },
                 error => {                        
                     if(Array.isArray(error.error)){
@@ -163,16 +169,40 @@ export class EvolucionComponent implements OnInit {
         this.areErrors = false;
     }
 
-    keytab(event: Event){
-        let areErrors = false;
+    paciente: any;
+
+    searchingPaciente = false;
+    searchFailedPaciente = false;
+    formatterPaciente = (x: {nombres: string, apellidos: string}) => `${x.nombres} ${x.apellidos}`;
+
+    searchPaciente = (text$: Observable<string>) =>
+        text$.pipe(
+        debounceTime(200),
+        tap(() => this.searchingPaciente = true),
+        switchMap(
+            term => term.length < 3 ? [] :
+                this.pacienteService.search(term)
+                    .pipe(                        
+                        tap(() => this.searchFailedPaciente = false),                        
+                        catchError(() => {
+                            this.searchFailedPaciente = true;
+                            return of([]);
+                        })
+                    )
+        ),
+        tap(() => this.searchingPaciente = false)
+    )
+
+    setPaciente(item: any){
         this.clearAndcloseErrors();              
 
-        if(this.model.historia.admision.paciente.identificacion == undefined || this.model.historia.admision.paciente.identificacion == ''){
+        if(item == undefined || item == ''){
             this.errores.push({ message: 'Ingrese un paciente'});                        
             this.showErrors();
             return;
-        }
-
+        } 
+        
+        this.model.historia.admision.paciente = item.item;
         this.showLoading(true);    
         this.historiaService.getHistoriaByIdentificacionPaciente(this.model.historia.admision.paciente.identificacion)
             .subscribe(

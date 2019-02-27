@@ -259,7 +259,8 @@ export class CrearHistoriasComponent implements OnInit {
         private cursoService: CursoService,
         private asfixiaService: AsfixiaService,
         private alimentacionService: AlimentacionService,
-        private estadoConcienciaService: EstadoConcienciaService) {
+        private estadoConcienciaService: EstadoConcienciaService,
+        private pacienteService: PacienteService) {
         
         this.model = new Historia();
         this.model.admision = new Admision();
@@ -680,16 +681,41 @@ export class CrearHistoriasComponent implements OnInit {
         return true;
     }
 
-    keytab(event: Event){
+    paciente: any;
+
+    searchingPaciente = false;
+    searchFailedPaciente = false;
+    formatterPaciente = (x: {nombres: string, apellidos: string}) => `${x.nombres} ${x.apellidos}`;
+
+    searchPaciente = (text$: Observable<string>) =>
+        text$.pipe(
+        debounceTime(200),
+        tap(() => this.searchingPaciente = true),
+        switchMap(
+            term => term.length < 3 ? [] :
+                this.pacienteService.search(term)
+                    .pipe(                        
+                        tap(() => this.searchFailedPaciente = false),                        
+                        catchError(() => {
+                            this.searchFailedPaciente = true;
+                            return of([]);
+                        })
+                    )
+        ),
+        tap(() => this.searchingPaciente = false)
+    )
+
+    setPaciente(item: any){
         let areErrors = false;
         this.clearAndcloseErrors();              
 
-        if(this.model.admision.paciente.identificacion == undefined || this.model.admision.paciente.identificacion == ''){
+        if(item == undefined || item == ''){
             this.errores.push({ message: 'Ingrese un paciente'});                        
             this.showErrors();
             return;
         }
 
+        this.model.admision.paciente = item.item;
         this.showLoading(true);    
         this.admisionService.getAdmisionByIdentificacionPaciente(this.model.admision.paciente.identificacion)
             .subscribe(

@@ -396,47 +396,45 @@ export class CrearAdmisionesComponent implements OnInit {
         return true;
     }
 
-    keytab(event: Event){
-        let areErrors = false;
+    paciente: any;
+
+    searchingPaciente = false;
+    searchFailedPaciente = false;
+    formatterPaciente = (x: {nombres: string, apellidos: string}) => `${x.nombres} ${x.apellidos}`;
+
+    searchPaciente = (text$: Observable<string>) =>
+        text$.pipe(
+        debounceTime(200),
+        tap(() => this.searchingPaciente = true),
+        switchMap(
+            term => term.length < 3 ? [] :
+                this.pacienteService.search(term)
+                    .pipe(                        
+                        tap(() => this.searchFailedPaciente = false),                        
+                        catchError(() => {
+                            this.searchFailedPaciente = true;
+                            return of([]);
+                        })
+                    )
+        ),
+        tap(() => this.searchingPaciente = false)
+    )
+
+    setPaciente(item: any){
         this.clearAndcloseErrors();              
 
-        if(this.model.paciente.identificacion == undefined || this.model.paciente.identificacion == ''){
+        if(item == undefined || item == ''){
             this.errores.push({ message: 'Ingrese un paciente'});                        
             this.showErrors();
             return;
         }
 
-        this.showLoading(true);    
-        this.pacienteService.getByIdentificacion(this.model.paciente.identificacion)
-            .subscribe(
-                data => {                         
-                    if(data != null){
-                        this.model.paciente = data;  
-                        this.tipoDocumento = this.model.paciente.tipoDocumento.nombre;                                                       
-                        this.edad = Util.formattedDate( this.model.paciente.fechaDeNacimiento);                                                       
-                        this.sexo = this.model.paciente.sexo.nombre;                                                       
-                        this.tipoEntidad = this.model.paciente.tipoEntidad.nombre;                                                       
-                        this.aseguradora = this.model.paciente.aseguradora.nombre;                                                       
-                    }else{
-                        this.errores.push({ message: 'No se encontró un paciente con esa identificación'});                        
-                        this.showErrors();                        
-                        this.clearPacienteModel();
-                        return;
-                    }
-                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
+        this.model.paciente = item.item;
+        this.tipoDocumento = this.model.paciente.tipoDocumento.nombre;                                                       
+        this.edad = Util.formattedDate( this.model.paciente.fechaDeNacimiento);                                                       
+        this.sexo = this.model.paciente.sexo.nombre;                                                       
+        this.tipoEntidad = this.model.paciente.tipoEntidad.nombre;                                                       
+        this.aseguradora = this.model.paciente.aseguradora.nombre;                                                       
     }
 
     getCamas(idSede: string){

@@ -2,6 +2,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { of } from '../../../../../node_modules/rxjs/observable/of';
+
 import { CommonService } from '../../../_services';
 import { Paciente } from './paciente';
 
@@ -34,5 +37,16 @@ export class PacienteService {
 
     delete(id: string): Observable<any> {
         return this.http.delete(this.url + id,  CommonService.getJwtHeaders())
+    }
+
+    search(search: string) {
+        if (search === '') {
+          return of([]);
+        }
+    
+        return this.http.get(this.url + 'search/' + search, CommonService.getJwtHeaders())
+                    .pipe(
+                        map(res => res)
+                    )
     }
 }

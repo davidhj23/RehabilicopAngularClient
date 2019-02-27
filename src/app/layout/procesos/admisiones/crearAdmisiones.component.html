@@ -32,6 +32,20 @@
         <div class="col-md-12">       
             <div class="tile">              
                 <div class="tile-body">
+                    <div class="row">                        
+                        <div class="form-group col-md-6" >
+                            <label class="control-label">Busqueda Paciente</label>                            
+                            <ng-template #rtPaciente let-r="result" let-t="term">
+                                {{r.nombres}} {{r.apellidos}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailed" 
+                                    [(ngModel)]="pacienteSeleccionado" [ngbTypeahead]="searchPaciente" placeholder="Nombre/Apellido Paciente" 
+                                    [resultTemplate]="rtPaciente" [inputFormatter]="formatterPaciente"
+                                    (selectItem)="setPaciente($event)"/>
+                            <span *ngIf="searching">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailedPaciente">No se encontró ningún paciente.</div>                                                     
+                        </div>
+                    </div>    
                     <div class="row">     
                         <div class="form-group col-md-1" >
                             <label class="control-label">Tipo</label>    
@@ -39,7 +53,7 @@
                         </div>                                                                        
                         <div class="form-group col-md-2" >
                             <label class="control-label">Identificación</label>                                
-                            <input class="form-control" type="text" name="identificacion" [(ngModel)]="model.paciente.identificacion" (keydown.enter)="keytab($event)" required>                                                
+                            <input class="form-control" type="text" name="identificacion" [(ngModel)]="model.paciente.identificacion" (keydown.enter)="keytab($event)" required disabled>                                                
                         </div>   
                         <div class="form-group col-md-3" >
                             <label class="control-label">Nombres</label>
