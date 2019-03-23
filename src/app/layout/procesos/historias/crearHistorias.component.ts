@@ -724,7 +724,11 @@ export class CrearHistoriasComponent implements OnInit {
                         this.model.admision = data;  
                         this.tipoDocumento = this.model.admision.paciente.tipoDocumento.nombre;                                                       
                         this.edad = Util.formattedDate( this.model.admision.paciente.fechaDeNacimiento);                                                       
-                        this.sexo = this.model.admision.paciente.sexo.nombre;                                                       
+                        
+                        if (this.model.admision.paciente.sexo != null && 
+                            this.model.admision.paciente.sexo != undefined)
+                            this.sexo = this.model.admision.paciente.sexo.nombre;                                                       
+                            
                         this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre;                                                       
                         this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                       
                     }else{

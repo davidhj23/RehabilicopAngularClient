@@ -138,18 +138,23 @@ export class AuditoriaComponent implements OnInit {
             allEvoluciones.forEach(y => {
                 if(y.identificacion == x.identificacion)
                 {                
-                    x.evoluciones.push(y);
-                    
-                    let temp =
-                        parametrizacion
-                            .filter(z => z.fecha == y.fechaEvolucion &&
-                                z.tipoEvolucion.idTipoEvolucion.replace(/-/g, '').toUpperCase() == 
-                                    y.idTipoEvolucion);
-                    
-                    x.evolucionesNoCumplidas =
-                        x.evolucionesNoCumplidas
-                            .filter(z => z.idParametrizacionEvolucion !=
-                                temp[0].idParametrizacionEvolucion);
+                    parametrizacion.forEach(z => {
+                        if(z.fecha == y.fechaEvolucion &&
+                           z.tipoEvolucion.idTipoEvolucion.replace(/-/g, '').toUpperCase() == y.idTipoEvolucion){
+                                x.evoluciones.push(y);
+                        
+                                let temp =
+                                    parametrizacion
+                                        .filter(z => z.fecha == y.fechaEvolucion &&
+                                            z.tipoEvolucion.idTipoEvolucion.replace(/-/g, '').toUpperCase() == 
+                                                y.idTipoEvolucion);
+                                
+                                x.evolucionesNoCumplidas =
+                                    x.evolucionesNoCumplidas
+                                        .filter(z => z.idParametrizacionEvolucion !=
+                                            temp[0].idParametrizacionEvolucion);
+                        }
+                    });
                 }
             });
             x.hayEvolucionesNoCumplidas = x.evolucionesNoCumplidas.length > 0;            

@@ -15,6 +15,7 @@ export class User {
     celular: string;
     ultimoAcceso: Date;
     imagenUrl: string;
+    registroMedico: string;
     roles: Rol[];
     tipoDocumento: TipoDocumento;    
 }

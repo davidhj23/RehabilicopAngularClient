@@ -1,8 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Evolucion } from './evolucion';
-import { EvolucionService } from './evolucion.service';
 import { Historia } from '../historias/historia';
 import { Admision } from '../admisiones/admision';
 import { Paciente } from '../pacientes/paciente';
@@ -12,19 +10,37 @@ import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, tap, switchMap, catchError} from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { PacienteService } from '../pacientes/paciente.service';
+import { OrdenMedica } from './ordenMedica';
+import { OrdenMedicaService } from './ordenMedica.service';
+import { MedicamentoService, Medicamento } from '../../listas/medicamentos';
+import { Dosis, DosisService } from '../../listas/dosis';
+import { User } from '../../seguridad/usuarios/user';
+import { MedicamentosOrdenMedica } from './medicamentosOrdenMedica';
+import { UserService } from '../../seguridad/usuarios/user.service';
+import { ConsultarOrdenMedicaComponent } from './consultarOrdenMedica.component';
 
 @Component({
-    selector: 'evolucion',
-    templateUrl: 'evolucion.component.html',
+    selector: 'ordenMedica',
+    templateUrl: 'ordenMedica.component.html',
 })
 
-export class EvolucionComponent implements OnInit {   
+export class OrdenMedicaComponent implements OnInit {   
     
-    model: Evolucion;
+    model: OrdenMedica;
 
-    tiposEvoluciones: Evolucion[] = [];
-    evoluciones: Evolucion[] = [];
-    temp: Evolucion[] = [];  
+    solicitantes: User[] = [];  
+    quienesEntregan: User[] = [];  
+    quienesReciben: User[] = [];  
+
+    medicamentos: Medicamento[] = [];  
+    listaDosis: Dosis[] = [];  
+
+    medicamento: Medicamento;
+    dosis: Dosis;
+    cantidadSolicitada: string;
+    cantidadEntregada: string;
+
+    medicamentosOrdenMedica: MedicamentosOrdenMedica[] = [];
 
     fecha: any;    
     
@@ -41,28 +57,106 @@ export class EvolucionComponent implements OnInit {
     errores: any[] = []; 
 
     constructor(
-        private evolucionService: EvolucionService,
+        private ordenMedicaService: OrdenMedicaService,
         private historiaService: HistoriaService,
+        private medicamentoService: MedicamentoService,
+        private dosisService: DosisService,
+        private userService: UserService,
         private router: Router,
         private ngbModal: NgbModal,
         private pacienteService: PacienteService) {
-            this.model = new Evolucion();
+            this.model = new OrdenMedica();
             this.model.historia = new Historia();
             this.model.historia.admision = new Admision();
             this.model.historia.admision.paciente = new Paciente();
     }
 
     ngOnInit() {    
-        this.fillSelects();    
-        this.loadEvolucionesEmpleado();        
+        this.fillSelects();            
     }
 
     private fillSelects(){
         this.showLoading(true);    
-        this.evolucionService.getTiposEvoluciones()
+        this.medicamentoService.getAll()
             .subscribe(
                 data => {      
-                    this.tiposEvoluciones = data;                    
+                    this.medicamentos = data;                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+
+        this.showLoading(true);    
+        this.dosisService.getAll()
+            .subscribe(
+                data => {      
+                    this.listaDosis = data;                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+
+        this.showLoading(true);    
+        this.userService.getAllMedicosyPsiquiatras()
+            .subscribe(
+                data => {      
+                    this.solicitantes = data;                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+
+        this.showLoading(true);    
+        this.userService.getAllAuxiliaresFarmacia()
+            .subscribe(
+                data => {      
+                    this.quienesEntregan = data;                    
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+
+        this.showLoading(true);    
+        this.userService.getAllEnfermeros()
+            .subscribe(
+                data => {      
+                    this.quienesReciben = data;                    
                     this.showLoading(false);
                 },
                 error => {                        
@@ -78,38 +172,73 @@ export class EvolucionComponent implements OnInit {
                 }); 
     }
 
-    private loadEvolucionesEmpleado() {     
-        this.showLoading(true);    
-        this.evolucionService.getEvolucionesEmpleado()
-            .subscribe(
-                data => {    
-                    this.evoluciones = data;                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
+    agregar(){
+        if(!this.validateAgregar()) return;     
+        
+        let med = new MedicamentosOrdenMedica();
+        med.medicamento = this.medicamento;                        
+        med.dosis = this.dosis;
+        med.cantidadSolicitada = this.cantidadSolicitada;
+        med.cantidadEntregada = this.cantidadEntregada;
+        this.medicamentosOrdenMedica.push(med);
+        this.clearAgregarForm();  
+    }
+
+    validateAgregar(){
+        let areErrors = false;
+        this.clearAndcloseErrors();        
+
+        if(this.medicamento == undefined || this.medicamento == null){
+            this.errores.push({ message: 'Seleccione un medicamento'});
+            areErrors = true;
+        }
+
+        if(this.dosis == undefined || this.dosis == null){
+            this.errores.push({ message: 'Seleccione una dosis'});
+            areErrors = true;
+        }
+
+        if(this.cantidadSolicitada == undefined || this.cantidadSolicitada == null){
+            this.errores.push({ message: 'Ingrese una cantidad solicitada'});
+            areErrors = true;
+        }else{
+            if(isNaN(Number(this.cantidadSolicitada))){             
+                this.errores.push({ message: 'Cantidad solicitada debe ser un número'});
+                areErrors = true;
+            }
+        }
+
+        /*if((this.cantidadEntregada != undefined || this.cantidadEntregada != null) &&
+            isNaN(Number(this.cantidadEntregada))){
+                this.errores.push({ message: 'Cantidad entregada debe ser un número'});
+                areErrors = true;
+        }*/
+
+        if(areErrors){
+            this.showErrors();
+            return false;
+        }
+
+        return true;
+    }
+
+    clearAgregarForm(){
+        this.medicamento = new Medicamento();
+        this.dosis = new Dosis();
+        this.cantidadSolicitada = '';
+        this.cantidadEntregada = '';
     }
 
     create() {
+        this.model.medicamentosOrdenMedica = this.medicamentosOrdenMedica;
         if(!this.validateCreate()) return;
-        
-        this.model.fecha = new Date(Number(this.fecha.year), Number(this.fecha.month) - 1, Number(this.fecha.day)) 
 
+        this.model.fechaDeCreacion = new Date();
         this.showLoading(true);    
-        this.evolucionService.create(this.model)
+        this.ordenMedicaService.create(this.model)
             .subscribe(
                 data => {                                                          
                     this.showLoading(false);
-                    this.loadEvolucionesEmpleado();
                 },
                 error => {                        
                     if(Array.isArray(error.error)){
@@ -121,31 +250,35 @@ export class EvolucionComponent implements OnInit {
                     } 
                     this.showErrors();
                     this.showLoading(false);
-                });   
+                });  
     }     
 
     validateCreate(){
         let areErrors = false;
         this.clearAndcloseErrors();        
 
-        if(this.fecha == undefined || this.fecha == null){
-            this.errores.push({ message: 'Ingrese una fecha'});
+        if(this.model.historia.admision.paciente.identificacion == undefined || this.model.historia.admision.paciente.identificacion == ''){
+            this.errores.push({ message: 'Ingrese un paciente'});
             areErrors = true;
         }
 
-        if(this.model.tipoEvolucion == undefined || this.model.tipoEvolucion == null){
-            this.errores.push({ message: 'Seleccione un tipo de evolución'});
+        if(this.model.solicitante == undefined || this.model.solicitante == null){
+            this.errores.push({ message: 'Seleccione un solicitante'});
             areErrors = true;
         }
 
-        if(this.model.descripcion == undefined || this.model.descripcion == null){
-            this.errores.push({ message: 'Ingrese una descripción'});
+        if(this.model.quienEntrega == undefined || this.model.quienEntrega == null){
+            this.errores.push({ message: 'Seleccione quien entrega'});
             areErrors = true;
         }
 
-        let fecha = this.model.fecha = new Date(Number(this.fecha.year), Number(this.fecha.month) - 1, Number(this.fecha.day)) 
-        if(fecha < this.model.historia.admision.fechaDeIngreso){
-            this.errores.push({ message: 'Ingrese una igual o mayor a la fecha de ingreso del paciente'});
+        if(this.model.quienRecibe == undefined || this.model.quienRecibe == null){
+            this.errores.push({ message: 'Seleccione quien recibe'});
+            areErrors = true;
+        }
+        
+        if(this.model.medicamentosOrdenMedica.length == 0){
+            this.errores.push({ message: 'Agregue al menos un medicamento'});
             areErrors = true;
         }
 
@@ -221,10 +354,10 @@ export class EvolucionComponent implements OnInit {
                         
                         if (this.model.historia.admision.paciente.sexo != null && 
                             this.model.historia.admision.paciente.sexo != undefined)
-                            this.sexo = this.model.historia.admision.paciente.sexo.nombre;  
+                            this.sexo = this.model.historia.admision.paciente.sexo.nombre;
 
                         this.tipoEntidad = this.model.historia.admision.paciente.tipoEntidad.nombre;                                                       
-                        this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre;                                                       
+                        this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre;                            
                     }else{
                         this.errores.push({ message: 'No se encontró un paciente con esa identificación'});                        
                         this.showErrors();                                                

@@ -50,6 +50,7 @@ import { GestasComponent } from './layout/listas/gestas/index';
 import { InteligenciasComponent } from './layout/listas/inteligencias/index';
 import { IntrospeccionesComponent } from './layout/listas/introspecciones/index';
 import { MedicamentosComponent } from './layout/listas/medicamentos/index';
+import { DosisComponent } from './layout/listas/dosis/index';
 import { Memoria2Component } from './layout/listas/memoria2/index';
 import { OrganosComponent } from './layout/listas/organos/index';
 import { ParentescosComponent } from './layout/listas/parentescos/index';
@@ -70,6 +71,9 @@ import { EditarAdmisionesComponent } from './layout/procesos/admisiones/editarAd
 import { ConsultarHistoriasComponent } from './layout/procesos/historias/consultarHistorias.component';
 import { CrearHistoriasComponent } from './layout/procesos/historias/crearHistorias.component';
 import { EditarHistoriasComponent } from './layout/procesos/historias/editarHistorias.component';
+import { ConsultarOrdenMedicaComponent } from './layout/procesos/orden-medica/consultarOrdenMedica.component';
+import { OrdenMedicaComponent } from './layout/procesos/orden-medica/ordenMedica.component';
+import { EditarOrdenMedicaComponent } from './layout/procesos/orden-medica/editarOrdenMedica.component';
 import { EvolucionComponent } from './layout/procesos/evoluciones/evolucion.component';
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
@@ -134,6 +138,7 @@ const appRoutes: Routes = [
                 { path: 'listas/inteligencias', component: InteligenciasComponent, canActivate: [AuthGuard], data : { permission: ["inteligencia"] }},
                 { path: 'listas/introspecciones', component: IntrospeccionesComponent, canActivate: [AuthGuard], data : { permission: ["introspeccion"] }},
                 { path: 'listas/medicamentos', component: MedicamentosComponent, canActivate: [AuthGuard], data : { permission: ["medicamento"] }},
+                { path: 'listas/dosis', component: DosisComponent, canActivate: [AuthGuard], data : { permission: ["dosis"] }},
                 { path: 'listas/organos', component: OrganosComponent, canActivate: [AuthGuard], data : { permission: ["organo"] }},
                 { path: 'listas/parentescos', component: ParentescosComponent, canActivate: [AuthGuard], data : { permission: ["parentesco"] }},
                 { path: 'listas/sexos', component: SexosComponent, canActivate: [AuthGuard], data : { permission: ["sexo"] }},
@@ -153,6 +158,9 @@ const appRoutes: Routes = [
                 { path: 'procesos/historias/consultar', component: ConsultarHistoriasComponent, canActivate: [AuthGuard], data : { permission: ["historias"] }}, 
                 { path: 'procesos/historias/nuevo', component: CrearHistoriasComponent, canActivate: [AuthGuard], data : { permission: ["crear historia"] }},
                 { path: 'procesos/historias/editar/:id', component: EditarHistoriasComponent, canActivate: [AuthGuard], data : { permission: ["editar historia"] }},
+                { path: 'procesos/historias/consultar-orden-medica', component: ConsultarOrdenMedicaComponent, canActivate: [AuthGuard], data : { permission: ["orden medica"] }}, 
+                { path: 'procesos/historias/orden-medica', component: OrdenMedicaComponent, canActivate: [AuthGuard], data : { permission: ["crear orden medica"] }}, 
+                { path: 'procesos/historias/editar-orden-medica/:id', component: EditarOrdenMedicaComponent, canActivate: [AuthGuard], data : { permission: ["editar orden medica"] }},
 
                 { path: 'procesos/evoluciones/evolucion', component: EvolucionComponent, canActivate: [AuthGuard], data : { permission: ["evolucion"] }}, 
                 { path: 'procesos/evoluciones/auditoria', component: AuditoriaComponent, canActivate: [AuthGuard], data : { permission: ["auditar"] }}, 

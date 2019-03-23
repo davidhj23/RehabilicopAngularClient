@@ -70,6 +70,14 @@ export class UserService {
         return this.http.get(this.url + 'psiquiatras', CommonService.getJwtHeaders());
     }
 
+    getAllMedicosyPsiquiatras(): Observable<any> {
+        return this.http.get(this.url + 'medicos-y-psiquiatras', CommonService.getJwtHeaders());
+    }
+
+    getAllAuxiliaresFarmacia(): Observable<any> {
+        return this.http.get(this.url  + 'auxiliares-farmacia', CommonService.getJwtHeaders());
+    }
+
     getAllEnfermeros(): Observable<any> {
         return this.http.get(this.url  + 'enfermeros', CommonService.getJwtHeaders());
     }

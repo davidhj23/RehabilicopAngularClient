@@ -9,12 +9,12 @@
     </div>
     <div class="app-title">     
       <div>
-        <h1><i class="fa fa-th-list"></i> Medicamentos</h1>
-        <p>Módulo de gestión de Medicamentos, Aquí usted podrá crear, editar y eliminar items de Medicamentos</p>
+        <h1><i class="fa fa-th-list"></i> Dosis</h1>
+        <p>Módulo de gestión de dosis, Aquí usted podrá crear, editar y eliminar items de dosis</p>
       </div>
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/medicamentos']">Medicamento</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/listas/dosis']">Dosis</a></li>
       </ul>
     </div>
     <div class="row" *ngIf="areErrors">
@@ -31,7 +31,7 @@
   </div>
     <div class="row">  
       <div class="col-md-12">       
-        <div class="tile" permission="crear medicamento">              
+        <div class="tile" permission="crear dosis">              
           <div class="tile-body">
             <form class="row">              
               <div class="form-group col-md-4" >
@@ -53,22 +53,22 @@
               </div>          
             </div>
             <table class="table table-hover table-bordered" 
-                  [mfData]="medicamentos" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                  [mfData]="dosis" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th permission="editar medicamento">Editar</th>              
-                  <th permission="eliminar medicamento">Eliminar</th>              
+                  <th permission="editar dosis">Editar</th>              
+                  <th permission="eliminar dosis">Eliminar</th>              
                 </tr>
               </thead>
-              <tbody *ngFor="let medicamento of mf.data">
+              <tbody *ngFor="let dosis of mf.data">
                 <tr>                  
-                  <td class="rowTd">{{medicamento.nombre}}</td>
-                  <td class="rowTd" permission="editar medicamento">                  
-                      <a class="btn float-left" (click)="edit(medicamento, editContent)" permission="editar medicamento"><i class="fa fa-pencil"></i></a>                      
+                  <td class="rowTd">{{dosis.nombre}}</td>
+                  <td class="rowTd" permission="editar dosis">                  
+                      <a class="btn float-left" (click)="edit(dosis, editContent)" permission="editar dosis"><i class="fa fa-pencil"></i></a>                      
                   </td>       
-                  <td class="rowTd" permission="eliminar medicamento">                                      
-                    <a class="btn float-left" (click)="delete(medicamento.idMedicamento, content)" permission="eliminar medicamento"><i class="fa fa-times"></i></a>                  
+                  <td class="rowTd" permission="eliminar dosis">                                      
+                    <a class="btn float-left" (click)="delete(dosis.idDosis, content)" permission="eliminar dosis"><i class="fa fa-times"></i></a>                  
                 </td>       
                 </tr>            
               </tbody>
@@ -88,7 +88,7 @@
 
 <ng-template #editContent let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Editar Medicamento</h4>
+      <h4 class="modal-title">Editar Dosis</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
@@ -121,13 +121,13 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-      <h4 class="modal-title">Eliminar Medicamento</h4>
+      <h4 class="modal-title">Eliminar Dosis</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
-      <p>¿Está seguro de querer eliminar este item de Medicamento?</p>
+      <p>¿Está seguro de querer eliminar este item de Dosis?</p>
   </div>
   <div class="modal-footer">
       <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>

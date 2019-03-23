@@ -9,4 +9,5 @@
     descripcionEvolucion: string;    
     idResponsable: string;    
     nombreResponsable: string;
+    fechaDeIngreso: Date;
 }

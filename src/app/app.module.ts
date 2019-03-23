@@ -71,6 +71,7 @@ import { GestasComponent, GestaService } from './layout/listas/gestas/index';
 import { InteligenciasComponent, InteligenciaService } from './layout/listas/inteligencias/index';
 import { IntrospeccionesComponent, IntrospeccionService } from './layout/listas/introspecciones/index';
 import { MedicamentosComponent, MedicamentoService } from './layout/listas/medicamentos/index';
+import { DosisComponent, DosisService } from './layout/listas/dosis/index';
 import { OrganosComponent, OrganoService } from './layout/listas/organos/index';
 import { ParentescosComponent, ParentescoService } from './layout/listas/parentescos/index';
 import { SexosComponent, SexoService } from './layout/listas/sexos/index';
@@ -91,6 +92,10 @@ import { ConsultarHistoriasComponent } from './layout/procesos/historias/consult
 import { CrearHistoriasComponent } from './layout/procesos/historias/crearHistorias.component';
 import { EditarHistoriasComponent } from './layout/procesos/historias/editarHistorias.component';
 import { HistoriaService } from './layout/procesos/historias/historia.service';
+import { ConsultarOrdenMedicaComponent } from './layout/procesos/orden-medica/consultarOrdenMedica.component';
+import { OrdenMedicaComponent } from './layout/procesos/orden-medica/ordenMedica.component';
+import { EditarOrdenMedicaComponent } from './layout/procesos/orden-medica/editarOrdenMedica.component';
+import { OrdenMedicaService } from './layout/procesos/orden-medica/ordenMedica.service';
 import { EvolucionComponent } from './layout/procesos/evoluciones/evolucion.component';
 import { EvolucionService } from './layout/procesos/evoluciones/evolucion.service';
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
@@ -171,6 +176,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         InteligenciasComponent,
         IntrospeccionesComponent,
         MedicamentosComponent,
+        DosisComponent,
         OrganosComponent,
         ParentescosComponent,
         SexosComponent,
@@ -188,8 +194,11 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         EditarAdmisionesComponent,
 
         ConsultarHistoriasComponent,
-        CrearHistoriasComponent,
+        CrearHistoriasComponent,        
         EditarHistoriasComponent,
+        ConsultarOrdenMedicaComponent,
+        OrdenMedicaComponent,
+        EditarOrdenMedicaComponent,
 
         EvolucionComponent,
         AuditoriaComponent,
@@ -243,6 +252,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         InteligenciaService, 
         IntrospeccionService, 
         MedicamentoService,
+        DosisService,
         OrganoService, 
         ParentescoService,
         SexoService,
@@ -254,6 +264,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         PacienteService,
         AdmisionService,
         HistoriaService,
+        OrdenMedicaService,
         EvolucionService,
 
         ParametrizarEvolucionService
