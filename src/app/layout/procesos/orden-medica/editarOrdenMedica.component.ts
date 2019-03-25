@@ -68,7 +68,7 @@ export class EditarOrdenMedicaComponent implements OnInit {
             .subscribe(
                 data => {                                                 
                     this.model = data;                             
-                    
+                    console.log(data)
                     this.tipoDocumento = this.model.historia.admision.paciente.tipoDocumento.nombre;                                                       
                     this.edad = Util.calculateAge(this.model.historia.admision.paciente.fechaDeNacimiento).toString();                                                       
                     

@@ -3,7 +3,7 @@ import { Medicamento } from "../../listas/medicamentos";
 import { Dosis } from "../../listas/dosis";
 
 export class MedicamentosOrdenMedica {   
-    idMedicamentoOrdenMedica: string; 
+    idMedicamentosOrdenMedica: string; 
 
     medicamento: Medicamento;    
     dosis: Dosis;    
