@@ -28,11 +28,15 @@ export class OrdenMedicaService {
         return this.http.post(this.url, ordenMedica, CommonService.getJwtHeaders());
     }
 
-    /*update(dosis: Dosis): Observable<any> {
-        return this.http.put(this.url + dosis.idDosis, dosis,  CommonService.getJwtHeaders());
+    getMedicamentosByIdOrdenMedica(id: string): Observable<any> {
+        return this.http.get(this.url + id + '/medicamentos', CommonService.getJwtHeaders());
     }
 
-    delete(idDosis: String): Observable<any> {        
+    update(ordenMedica: OrdenMedica): Observable<any> {
+        return this.http.put(this.url + ordenMedica.idOrdenMedica, ordenMedica,  CommonService.getJwtHeaders());
+    }
+
+    /*delete(idDosis: String): Observable<any> {        
         return this.http.delete(this.url + idDosis,  CommonService.getJwtHeaders())
     }*/
 }

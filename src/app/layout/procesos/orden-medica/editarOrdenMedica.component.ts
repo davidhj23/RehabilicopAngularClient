@@ -25,7 +25,7 @@ import { UserService } from '../../seguridad/usuarios/user.service';
 
 export class EditarOrdenMedicaComponent implements OnInit {   
     
-    currentHistoriaId: string;
+    currentOrdenId: string;
     model: OrdenMedica;
 
     medicamentosOrdenMedica: MedicamentosOrdenMedica[] = [];
@@ -57,18 +57,17 @@ export class EditarOrdenMedicaComponent implements OnInit {
 
             this.route.params.subscribe( 
                 params => {
-                    this.currentHistoriaId = params['id'];
+                    this.currentOrdenId = params['id'];
                 }
             );
     }
 
     ngOnInit() {   
         this.showLoading(true);    
-        this.ordenMedicaService.getById(this.currentHistoriaId)
+        this.ordenMedicaService.getById(this.currentOrdenId)
             .subscribe(
                 data => {                                                 
-                    this.model = data;                             
-                    console.log(data)
+                    this.model = data;                                                 
                     this.tipoDocumento = this.model.historia.admision.paciente.tipoDocumento.nombre;                                                       
                     this.edad = Util.calculateAge(this.model.historia.admision.paciente.fechaDeNacimiento).toString();                                                       
                     
@@ -86,6 +85,14 @@ export class EditarOrdenMedicaComponent implements OnInit {
                     this.medicamentosOrdenMedica = this.model.medicamentosOrdenMedica;
 
                     this.showLoading(false);    
+
+                    this.showLoading(true);    
+                    this.ordenMedicaService.getMedicamentosByIdOrdenMedica(this.currentOrdenId)
+                        .subscribe(
+                            data => {                                               
+                                this.medicamentosOrdenMedica = data;  
+                                this.showLoading(false);             
+                        })
                 },
                 error => {                        
                     if(Array.isArray(error.error)){
@@ -99,6 +106,27 @@ export class EditarOrdenMedicaComponent implements OnInit {
                     this.showLoading(false);
                 }); 
          
+    }
+
+    create(){
+        this.showLoading(true);  
+        this.model.medicamentosOrdenMedica = this.medicamentosOrdenMedica;  
+        this.ordenMedicaService.update(this.model)
+            .subscribe(
+                data => {                        
+                    this.showLoading(false);
+                },
+                error => {            
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    }                
+                    this.showErrors();
+                    this.showLoading(false);
+                });    
     }
 
     showLoading(loading: boolean) {

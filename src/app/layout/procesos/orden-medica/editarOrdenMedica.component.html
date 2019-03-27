@@ -101,12 +101,16 @@
                                     <th>Cantidad Entregada</th>                                                       
                                 </tr>
                             </thead>
-                            <tbody *ngFor="let medicamentoOrdenMedica of mf.data">
+                            <tbody *ngFor="let medicamentoOrdenMedica of mf.data; let i=inde">
                                 <tr>                  
                                     <td class="rowTd">{{medicamentoOrdenMedica.medicamento.nombre}}</td>                                    
                                     <td class="rowTd">{{medicamentoOrdenMedica.dosis.nombre}}</td>
                                     <td class="rowTd">{{medicamentoOrdenMedica.cantidadSolicitada}}</td>
-                                    <td class="rowTd">{{medicamentoOrdenMedica.cantidadEntregada}}</td>   
+                                    <td class="rowTd">                                        
+                                        <input class="form-control" type="text"
+                                            name="cantidadEntregada-{{medicamentoOrdenMedica.idMedicamentosOrdenMedica}}"
+                                            [(ngModel)]="medicamentoOrdenMedica.cantidadEntregada"/>
+                                    </td>   
                                 </tr>            
                             </tbody>   
                             <tfoot>
