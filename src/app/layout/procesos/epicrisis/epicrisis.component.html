@@ -1,0 +1,244 @@
+<main class="app-content" [ngClass]="{ 'tile loading': loading }">
+    <div class="overlay" *ngIf="loading">
+        <div class="m-loader mr-4">
+            <svg class="m-circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10" />
+            </svg>
+        </div>
+        <h3 class="l-text">Loading</h3>
+    </div>
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-th-list"></i> Epicrisis</h1>
+            <p>Módulo de gestión de Ordenes médicas, Aquí usted podrá crear y editar Epicrisis</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/layout/procesos/historias/epicrisis']">Epicrisis</a></li>
+        </ul>
+    </div>
+    <div class="row" *ngIf="areErrors">
+        <div class="col-md-12">
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-danger">
+                    <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>
+                    <div *ngFor="let e of errores">
+                        <strong>{{e.message}}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="row">                        
+                        <div class="form-group col-md-6" >
+                            <label class="control-label">Busqueda Paciente</label>                            
+                            <ng-template #rtPaciente let-r="result" let-t="term">
+                                {{r.nombres}} {{r.apellidos}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailed" 
+                                    [(ngModel)]="pacienteSeleccionado" [ngbTypeahead]="searchPaciente" placeholder="Nombre/Apellido Paciente" 
+                                    [resultTemplate]="rtPaciente" [inputFormatter]="formatterPaciente"
+                                    (selectItem)="setPaciente($event)"/>
+                            <span *ngIf="searching">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailedPaciente">No se encontró ningún paciente.</div>                                                     
+                        </div>
+                    </div>  
+                    <div class="row">
+                        <div class="form-group col-md-1">
+                            <label class="control-label">Tipo</label>
+                            <input class="form-control" type="text" name="tipoDocumento" [(ngModel)]="tipoDocumento"
+                                disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Identificación</label>
+                            <input class="form-control" type="text" name="identificacion" [(ngModel)]="model.historia.admision.paciente.identificacion"
+                                (keydown.enter)="keytab($event)" required disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Nombres</label>
+                            <input class="form-control" type="text" name="nombres" [(ngModel)]="model.historia.admision.paciente.nombres"
+                                disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Apellidos</label>
+                            <input class="form-control" type="text" name="apellidos" [(ngModel)]="model.historia.admision.paciente.apellidos"
+                                disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Edad</label>
+                            <input class="form-control" type="text" name="edad" [(ngModel)]="edad" disabled />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Sexo</label>
+                            <input class="form-control" type="text" name="sexo" [(ngModel)]="sexo" disabled />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Tipo de Entidad</label>
+                            <input class="form-control" type="text" name="tipoEntidad" [(ngModel)]="tipoEntidad"
+                                disabled />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Aseguradora</label>
+                            <input class="form-control" type="text" name="aseguradora" [(ngModel)]="aseguradora" disabled />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="control-label">DX CIE10</label>
+                            <input class="form-control" type="text" name="cie10" [(ngModel)]="cie10" disabled />
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-12" >
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Motivo de la justificación</h5>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.historia.motivoConsulta" disabled></textarea>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="row">                            
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Fecha de ingreso</label>
+                            <div class="input-group datepicker-input">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="fechaDeIngreso" [(ngModel)]="fechaDeIngreso"
+                                    ngbDatepicker #fdi="ngbDatepicker">
+                                <button class="input-group-addon" (click)="fdi.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                        </div> 
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Fecha de continuación</label>
+                            <div class="input-group datepicker-input">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="fechaDeContinuacion" [(ngModel)]="fechaDeContinuacion"
+                                    ngbDatepicker #fdc="ngbDatepicker">
+                                <button class="input-group-addon" (click)="fdc.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                        </div> 
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Fecha de egreso</label>
+                            <div class="input-group datepicker-input">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="fechaDeEgreso" [(ngModel)]="fechaDeEgreso"
+                                    ngbDatepicker #fde="ngbDatepicker">
+                                <button class="input-group-addon" (click)="fde.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                        </div> 
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Dias de estancia</label>       
+                            <input class="form-control" type="text" name="diasDeEstancia" [(ngModel)]="model.diasDeEstancia" />                                                                    
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography"></h5>
+                            </div>
+                        </div>
+                    </div>          
+                    <div class="row">
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Medicamentos</label>                                
+                            <select class="form-control" [(ngModel)]="medicamento" name="medicamento">                                
+                                <option *ngFor="let item of medicamentos" [ngValue]="item">{{item.nombre}}</option>
+                            </select>                            
+                        </div> 
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Dosis</label>                                
+                            <select class="form-control" [(ngModel)]="dosis" name="dosis">                                
+                                <option *ngFor="let item of listaDosis" [ngValue]="item">{{item.nombre}}</option>
+                            </select>                            
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Desde</label>
+                            <div class="input-group datepicker-input">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="desde" [(ngModel)]="desde"
+                                    ngbDatepicker #des="ngbDatepicker">
+                                <button class="input-group-addon" (click)="des.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Hasta</label>
+                            <div class="input-group datepicker-input">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="hasta" [(ngModel)]="hasta"
+                                    ngbDatepicker #has="ngbDatepicker">
+                                <button class="input-group-addon" (click)="has.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                        </div>                        
+                        <div class="form-group col-md-2 align-self-end">
+                            <button class="btn btn-primary" type="button" (click)="agregar()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Agregar</button>
+                        </div>
+                    </div>                     
+                    <div class="tile-body">
+                        <table class="table table-hover table-bordered" 
+                        [mfData]="tratamientoFarmacologicos" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                            <thead>
+                                <tr>
+                                    <th>Medicamento</th>                                                 
+                                    <th>Dosis</th>                                                 
+                                    <th>Cantidad Solicitada</th>                                                 
+                                    <th>Cantidad Entregada</th>                                                       
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let tratamientoFarmacologico of mf.data">
+                                <tr>                  
+                                    <td class="rowTd">{{tratamientoFarmacologico.medicamento.nombre}}</td>                                    
+                                    <td class="rowTd">{{tratamientoFarmacologico.dosis.nombre}}</td>
+                                    <td class="rowTd">{{tratamientoFarmacologico.desde  | date: 'dd/MM/yyyy'}}</td>
+                                    <td class="rowTd">{{tratamientoFarmacologico.hasta  | date: 'dd/MM/yyyy'}}</td>   
+                                </tr>            
+                            </tbody>   
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
+                                    </td>
+                                </tr>
+                            </tfoot>                   
+                        </table>   
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6" >
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">justificación</h5>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.justificacion"></textarea>
+                            </div>
+                        </div>  
+                        <div class="form-group col-md-6" >
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Plan</h5>                            
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.plan"></textarea>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6" >
+                            <label class="control-label">Medico</label>                                
+                            <select class="form-control" [(ngModel)]="medico" name="medico">                                
+                                <option *ngFor="let item of medicos" [ngValue]="item">{{item.nombres}} {{item.apellidos}}</option>
+                            </select>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2 align-self-end">
+                            <button class="btn btn-primary" type="button" (click)="create()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
+                        </div>
+                    </div>         
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

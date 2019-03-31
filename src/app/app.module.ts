@@ -96,8 +96,14 @@ import { ConsultarOrdenMedicaComponent } from './layout/procesos/orden-medica/co
 import { OrdenMedicaComponent } from './layout/procesos/orden-medica/ordenMedica.component';
 import { EditarOrdenMedicaComponent } from './layout/procesos/orden-medica/editarOrdenMedica.component';
 import { OrdenMedicaService } from './layout/procesos/orden-medica/ordenMedica.service';
+import { HojaEventualComponent } from './layout/procesos/hoja-eventual/hojaEventual.component';
+import { HojaEventualService } from './layout/procesos/hoja-eventual/hojaEventual.service';
 import { EvolucionComponent } from './layout/procesos/evoluciones/evolucion.component';
 import { EvolucionService } from './layout/procesos/evoluciones/evolucion.service';
+import { ConsultarEpicrisisComponent } from './layout/procesos/epicrisis/consultarEpicrisis.component';
+import { EpicrisisComponent } from './layout/procesos/epicrisis/epicrisis.component';
+import { EditarEpicrisisComponent } from './layout/procesos/epicrisis/editarEpicrisis.component';
+import { EpicrisisService } from './layout/procesos/epicrisis/epicrisis.service';
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
@@ -199,7 +205,11 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         ConsultarOrdenMedicaComponent,
         OrdenMedicaComponent,
         EditarOrdenMedicaComponent,
+        ConsultarEpicrisisComponent,
+        EpicrisisComponent,
+        EditarEpicrisisComponent,
 
+        HojaEventualComponent,
         EvolucionComponent,
         AuditoriaComponent,
 
@@ -265,6 +275,8 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         AdmisionService,
         HistoriaService,
         OrdenMedicaService,
+        EpicrisisService,
+        HojaEventualService,
         EvolucionService,
 
         ParametrizarEvolucionService

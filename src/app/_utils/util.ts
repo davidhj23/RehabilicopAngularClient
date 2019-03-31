@@ -49,6 +49,25 @@ export class Util {
       
         return `${day}/${month}/${year}`;
       }
+    
+    public static formattedDateForDatePicker(timestamp: any) {        
+        var d = new Date(timestamp);
+
+        let day = String(d.getDate());
+        let month = String(d.getMonth() + 1);        
+        let year = String(d.getFullYear());
+        
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+      
+        let date = {
+            year: Number(year),
+            month: Number(month),
+            day: Number(day)
+        }
+
+        return date;
+    }
 
     public static calculateAge(date: any){
         if(date){

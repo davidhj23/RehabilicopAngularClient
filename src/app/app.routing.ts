@@ -74,6 +74,12 @@ import { EditarHistoriasComponent } from './layout/procesos/historias/editarHist
 import { ConsultarOrdenMedicaComponent } from './layout/procesos/orden-medica/consultarOrdenMedica.component';
 import { OrdenMedicaComponent } from './layout/procesos/orden-medica/ordenMedica.component';
 import { EditarOrdenMedicaComponent } from './layout/procesos/orden-medica/editarOrdenMedica.component';
+
+import { ConsultarEpicrisisComponent } from './layout/procesos/epicrisis/consultarEpicrisis.component';
+import { EpicrisisComponent } from './layout/procesos/epicrisis/epicrisis.component';
+import { EditarEpicrisisComponent } from './layout/procesos/epicrisis/editarEpicrisis.component';
+
+import { HojaEventualComponent } from './layout/procesos/hoja-eventual/hojaEventual.component';
 import { EvolucionComponent } from './layout/procesos/evoluciones/evolucion.component';
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
@@ -161,6 +167,11 @@ const appRoutes: Routes = [
                 { path: 'procesos/historias/consultar-orden-medica', component: ConsultarOrdenMedicaComponent, canActivate: [AuthGuard], data : { permission: ["orden medica"] }}, 
                 { path: 'procesos/historias/orden-medica', component: OrdenMedicaComponent, canActivate: [AuthGuard], data : { permission: ["crear orden medica"] }}, 
                 { path: 'procesos/historias/editar-orden-medica/:id', component: EditarOrdenMedicaComponent, canActivate: [AuthGuard], data : { permission: ["editar orden medica"] }},
+                { path: 'procesos/historias/hoja-eventual', component: HojaEventualComponent, canActivate: [AuthGuard], data : { permission: ["hoja eventual"] }}, 
+
+                { path: 'procesos/historias/consultar-epicrisis', component: ConsultarEpicrisisComponent, canActivate: [AuthGuard], data : { permission: ["epicrisis"] }}, 
+                { path: 'procesos/historias/epicrisis', component: EpicrisisComponent, canActivate: [AuthGuard], data : { permission: ["crear epicrisis"] }}, 
+                { path: 'procesos/historias/editar-epicrisis/:id', component: EditarEpicrisisComponent, canActivate: [AuthGuard], data : { permission: ["editar epicrisis"] }},
 
                 { path: 'procesos/evoluciones/evolucion', component: EvolucionComponent, canActivate: [AuthGuard], data : { permission: ["evolucion"] }}, 
                 { path: 'procesos/evoluciones/auditoria', component: AuditoriaComponent, canActivate: [AuthGuard], data : { permission: ["auditar"] }}, 
