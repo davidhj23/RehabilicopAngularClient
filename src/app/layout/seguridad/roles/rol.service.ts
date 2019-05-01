@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { CommonService } from '../../../_services';
 import { Rol } from '.';
+import { Permiso } from '../permisos/permiso';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Injectable()
 export class RolService {
@@ -28,6 +30,18 @@ export class RolService {
     }
 
     delete(id: string): Observable<any> {
-        return this.http.delete(this.url + id,  CommonService.getJwtHeaders())
+        return this.http.delete(this.url + id, CommonService.getJwtHeaders())
+    }
+
+    getPermisosActualesByIdRol(id: string): Observable<any>{
+        return this.http.get(this.url + id + '/permisos',  CommonService.getJwtHeaders());
+    }
+
+    createPermiso(id: string, permiso: Permiso): Observable<any> {
+        return this.http.post(this.url + id + '/permisos', permiso, CommonService.getJwtHeaders());
+    }
+
+    deletePermiso(id: string, permiso: Permiso): Observable<any> {        
+        return this.http.delete(this.url + id + '/permisos/' + permiso.idPermiso, CommonService.getJwtHeaders())
     }
 }

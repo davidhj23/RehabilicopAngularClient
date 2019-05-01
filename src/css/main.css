@@ -13844,6 +13844,12 @@ be a descendant of the grid when it is being dragged.
   margin-top: 10px;
 }
 
+.animated-checkbox {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
 /* Custom Checkbox and Radio Buttons */
 .animated-checkbox input[type="checkbox"] {
   display: none;
@@ -13871,7 +13877,7 @@ be a descendant of the grid when it is being dragged.
   width: 1em;
   display: inline-block;
   margin-right: 2px;
-  vertical-align: -2px;
+  vertical-align: -2px;  
 }
 
 .animated-checkbox input[type="checkbox"]:checked + .label-text:before {
@@ -13882,7 +13888,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .animated-checkbox input[type="checkbox"]:disabled + .label-text {
-  cursor: not-allowed !important;
+  cursor: not-allowed !important;  
 }
 
 .animated-checkbox input[type="checkbox"]:disabled + .label-text:before {

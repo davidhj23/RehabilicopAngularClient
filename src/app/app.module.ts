@@ -31,6 +31,7 @@ import { EditarUsuariosComponent } from './layout/seguridad/usuarios/editarUsuar
 import { CambiarPasswordComponent } from './layout/seguridad/usuarios/cambiarPassword.component';
 import { RestablecerPasswordComponent } from './layout/seguridad/usuarios/restablecerPassword.component';
 import { RolesComponent, AsignarPermisosComponent, RolService } from './layout/seguridad/roles/index';
+import { PermisoService } from './layout/seguridad/permisos/permiso.service';
 
 import { OpcionesComponent, OpcionService } from './layout/listas/opciones/index';
 import { SedesComponent, SedeService } from './layout/listas/sedes/index';
@@ -222,6 +223,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         AuthenticationService,
         UserService,
         RolService,
+        PermisoService,
         
         OpcionService,
         SedeService,

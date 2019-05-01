@@ -97,7 +97,7 @@ const appRoutes: Routes = [
         children: 
             [
                 { path: 'seguridad/roles', component: RolesComponent, canActivate: [AuthGuard], data : { permission: ["roles"] }}, 
-                //{ path: 'seguridad/roles/asignar-permisos', component: AsignarPermisosComponent, canActivate: [AuthGuard], data : { permission: ["asignar permisos"] }}, 
+                { path: 'seguridad/roles/asignar-permisos', component: AsignarPermisosComponent, canActivate: [AuthGuard], data : { permission: ["asignar permisos"] }}, 
 
                 { path: 'seguridad/usuarios/cambiar-password', component: CambiarPasswordComponent }, 
                 { path: 'seguridad/usuarios/restablecer-password', component: RestablecerPasswordComponent, canActivate: [AuthGuard], data : { permission: ["restablecer clave"] }}, 

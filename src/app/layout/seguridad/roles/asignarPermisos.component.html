@@ -33,8 +33,51 @@
         <div class="col-md-12">       
             <div class="tile">              
                 <div class="tile-body">
-                    <form class="row">                                      
+                    <form class="row">  
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Rol</label>                                
+                            <select class="form-control" [(ngModel)]="idRol" name="rol" (change)="getPermisos($event.target.value)">                                
+                                <option *ngFor="let item of roles" [value]="item.idRol">{{item.nombre}}</option>
+                            </select>
+                        </div>                                        
                     </form>
+                </div>
+            </div>
+            <div class="tile">                 
+                <div class="tile-body">                    
+                    <div class="row">
+                        <div class="form-group col-md-4" >
+                            <label class="control-label">Filtro</label>
+                            <input class="form-control" type="text" (keyup)='filtrarTabla($event)'>                
+                        </div>          
+                    </div>
+                    <table class="table table-hover table-bordered" 
+                        [mfData]="permisosActuales" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                        <thead>
+                            <tr>
+                                <th>Permiso</th>
+                                <th class="text-center">Seleccionar</th>                                              
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let p of mf.data">
+                            <tr>                  
+                                <td class="rowTd">{{p.nombre}}</td>
+                                <div class="animated-checkbox">
+                                    <label>
+                                        <input type="checkbox" [(ngModel)]="p.seleccionado" (change)="asignar(p)">
+                                        <span class="label-text"></span>
+                                    </label>
+                                </div>                   
+                            </tr>            
+                        </tbody>   
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>                 
+                    </table>      
                 </div>
             </div>
         </div>      
