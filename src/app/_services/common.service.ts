@@ -25,7 +25,19 @@ export class CommonService {
             let headers = new HttpHeaders({ 'Accept': 'application/json', 'Authorization': jwtToken.token });
             return { headers: headers };
         }
-    }     
+    }
+    
+    public static getPdfJwtHeaders() {
+        let jwtToken = JSON.parse(localStorage.getItem('jwtToken'));
+        if (jwtToken && jwtToken.token) {             
+            let headers = new HttpHeaders(
+                { 
+                  'Accept': 'application/pdf',
+                  'Authorization': jwtToken.token
+                });
+            return { headers: headers, responseType: 'blob' as 'json' };
+        }
+    }
 
     public static getImageUrl(entity: string, imageName: string, callback: (imagePath: string) => void){
 

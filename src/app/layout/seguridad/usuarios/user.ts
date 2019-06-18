@@ -17,5 +17,6 @@ export class User {
     imagenUrl: string;
     registroMedico: string;
     roles: Rol[];
-    tipoDocumento: TipoDocumento;    
+    tipoDocumento: TipoDocumento;   
+    firma: any; 
 }

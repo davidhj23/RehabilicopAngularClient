@@ -190,6 +190,29 @@ export class EpicrisisComponent implements OnInit {
         this.hasta = new Date();
     }
 
+    getPdf(){
+        this.showLoading(true);    
+        this.epicrisisService.generateReport(this.model.historia.admision.paciente.identificacion)
+            .subscribe(
+                data => {                                                          
+                    this.showLoading(false);
+                    let file = new Blob([data], { type: 'application/pdf' });            
+                    var fileURL = URL.createObjectURL(file);
+                    window.open(fileURL);
+                },
+                error => {                      
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });  
+    }
+
     create() {
         this.model.tratamientoFarmacologico = this.tratamientoFarmacologicos;        
         if(!this.validateCreate()) return;
@@ -228,6 +251,9 @@ export class EpicrisisComponent implements OnInit {
             .subscribe(
                 data => {                                                          
                     this.showLoading(false);
+                    if(this.fechaDeEgreso != undefined){
+                        this.getPdf();
+                    }
                 },
                 error => {                        
                     if(Array.isArray(error.error)){

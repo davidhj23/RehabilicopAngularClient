@@ -51,7 +51,12 @@ export class EditarUsuariosComponent implements OnInit {
                 data => {                        
                     this.model = data;                           
                     this.idTipoDocumento = this.model.tipoDocumento.idTipoDocumento;
-                    this.idRol = this.model.roles[0].idRol;                    
+                    this.idRol = this.model.roles[0].idRol;  
+                    if(this.imageSrc != undefined 
+                        && this.imageSrc != null 
+                        && this.imageSrc != ''){                
+                        this.imageSrc = 'data:image/png;base64,' + this.model.firma;                  
+                    }
                     this.showLoading(false);
                 },
                 error => {                        
@@ -121,6 +126,12 @@ export class EditarUsuariosComponent implements OnInit {
         rol.idRol = this.idRol;
         this.model.roles.push(rol);        
         
+        if(this.imageSrc != undefined 
+            && this.imageSrc != null 
+            && this.imageSrc != ''){
+            this.model.firma = this.imageSrc.split(',')[1];
+        }
+
         this.showLoading(true);               
         this.userService.update(this.model)
             .subscribe(
@@ -183,6 +194,28 @@ export class EditarUsuariosComponent implements OnInit {
         }
 
         return true;
+    }
+    
+    private imageSrc: string = '';
+
+    handleInputChange(e: any) {
+        
+        var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+        var pattern = /image-*/;
+        var reader = new FileReader();
+        
+        if (!file.type.match(pattern)) {
+           console.log('invalid format');
+           return;
+        }
+
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsDataURL(file);
+    }
+
+    _handleReaderLoaded(e: any) {
+        let reader = e.target;
+        this.imageSrc = reader.result;
     }
 
     showLoading(loading: boolean) {

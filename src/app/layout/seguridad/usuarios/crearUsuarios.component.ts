@@ -90,7 +90,13 @@ export class CrearUsuariosComponent implements OnInit {
 
         let rol = new Rol();
         rol.idRol = this.idRol;
-        this.model.roles.push(rol);        
+        this.model.roles.push(rol);     
+        
+        if(this.imageSrc != undefined 
+            && this.imageSrc != null 
+            && this.imageSrc != ''){
+            this.model.firma = this.imageSrc.split(',')[1];
+        }
 
         this.showLoading(true);    
         this.userService.create(this.model)
@@ -156,6 +162,28 @@ export class CrearUsuariosComponent implements OnInit {
         }
 
         return true;
+    }
+
+    private imageSrc: string = '';
+
+    handleInputChange(e: any) {
+        
+        var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+        var pattern = /image-*/;
+        var reader = new FileReader();
+        
+        if (!file.type.match(pattern)) {
+           console.log('invalid format');
+           return;
+        }
+
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsDataURL(file);
+    }
+
+    _handleReaderLoaded(e: any) {
+        let reader = e.target;
+        this.imageSrc = reader.result;
     }
 
     showLoading(loading: boolean) {

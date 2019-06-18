@@ -75,4 +75,34 @@ export class Util {
              return Math.floor((timeDiff / (1000 * 3600 * 24))/365);
         }
     }
+
+    public static b64toBlob(b64Data: any, contentType='', sliceSize=512){
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+      
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          const slice = byteCharacters.slice(offset, offset + sliceSize);
+      
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+      
+          const byteArray = new Uint8Array(byteNumbers);
+          byteArrays.push(byteArray);
+        }
+          
+        const blob = new Blob(byteArrays, {type: contentType});
+        return blob;
+    }
+
+    public static base64ToArrayBuffer(base64: any) {
+        var binary_string =  window.atob(base64);
+        var len = binary_string.length;
+        var bytes = new Uint8Array( len );
+        for (var i = 0; i < len; i++)        {
+            bytes[i] = binary_string.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
 }
