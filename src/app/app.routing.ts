@@ -81,6 +81,9 @@ import { EditarEpicrisisComponent } from './layout/procesos/epicrisis/editarEpic
 
 import { HojaEventualComponent } from './layout/procesos/hoja-eventual/hojaEventual.component';
 import { EvolucionComponent } from './layout/procesos/evoluciones/evolucion.component';
+
+import { SignosVitalesComponent } from './layout/procesos/signos-vitales/SignosVitales.component';
+
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
@@ -168,6 +171,7 @@ const appRoutes: Routes = [
                 { path: 'procesos/historias/orden-medica', component: OrdenMedicaComponent, canActivate: [AuthGuard], data : { permission: ["crear orden medica"] }}, 
                 { path: 'procesos/historias/editar-orden-medica/:id', component: EditarOrdenMedicaComponent, canActivate: [AuthGuard], data : { permission: ["editar orden medica"] }},
                 { path: 'procesos/historias/hoja-eventual', component: HojaEventualComponent, canActivate: [AuthGuard], data : { permission: ["hoja eventual"] }}, 
+                { path: 'procesos/historias/signos-vitales', component: SignosVitalesComponent, canActivate: [AuthGuard], data : { permission: ["crear signos vitales"] }}, 
 
                 { path: 'procesos/historias/consultar-epicrisis', component: ConsultarEpicrisisComponent, canActivate: [AuthGuard], data : { permission: ["epicrisis"] }}, 
                 { path: 'procesos/historias/epicrisis', component: EpicrisisComponent, canActivate: [AuthGuard], data : { permission: ["crear epicrisis"] }}, 

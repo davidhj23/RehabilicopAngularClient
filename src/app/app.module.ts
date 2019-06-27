@@ -105,6 +105,8 @@ import { ConsultarEpicrisisComponent } from './layout/procesos/epicrisis/consult
 import { EpicrisisComponent } from './layout/procesos/epicrisis/epicrisis.component';
 import { EditarEpicrisisComponent } from './layout/procesos/epicrisis/editarEpicrisis.component';
 import { EpicrisisService } from './layout/procesos/epicrisis/epicrisis.service';
+import { SignosVitalesComponent } from './layout/procesos/signos-vitales/SignosVitales.component';
+import { SignosVitalesService } from './layout/procesos/signos-vitales/SignosVitales.service';
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
@@ -209,6 +211,8 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         ConsultarEpicrisisComponent,
         EpicrisisComponent,
         EditarEpicrisisComponent,
+        SignosVitalesComponent,
+
 
         HojaEventualComponent,
         EvolucionComponent,
@@ -280,6 +284,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         EpicrisisService,
         HojaEventualService,
         EvolucionService,
+        SignosVitalesService,
 
         ParametrizarEvolucionService
     ],

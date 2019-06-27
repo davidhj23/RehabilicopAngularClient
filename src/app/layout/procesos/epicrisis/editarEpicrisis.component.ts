@@ -193,6 +193,29 @@ export class EditarEpicrisisComponent implements OnInit {
          
     }
 
+    getPdf(){
+        this.showLoading(true);    
+        this.epicrisisService.generateReport(this.model.historia.admision.paciente.identificacion)
+            .subscribe(
+                data => {                                                          
+                    this.showLoading(false);
+                    let file = new Blob([data], { type: 'application/pdf' });            
+                    var fileURL = URL.createObjectURL(file);
+                    window.open(fileURL);
+                },
+                error => {                      
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });  
+    }
+
     create(){
         this.model.tratamientoFarmacologico = this.tratamientoFarmacologicos;        
         if(!this.validateCreate()) return;
@@ -204,22 +227,27 @@ export class EditarEpicrisisComponent implements OnInit {
                     Number(this.fechaDeIngreso.month) - 1,
                     Number(this.fechaDeIngreso.day)) 
         }else{
-            if(this.fechaDeContinuacion != undefined){
-                this.model.fechaDeContinuacion = 
-                    new Date(
-                        Number(this.fechaDeContinuacion.year),
-                        Number(this.fechaDeContinuacion.month) - 1,
-                        Number(this.fechaDeContinuacion.day)) 
-            }
-            else{
-                if(this.fechaDeEgreso != undefined){
-                    this.model.fechaDeEgreso = 
-                        new Date(
-                            Number(this.fechaDeEgreso.year),
-                            Number(this.fechaDeEgreso.month) - 1,
-                            Number(this.fechaDeEgreso.day)) 
-                }
-            }
+            this.model.fechaDeIngreso = null;
+        }        
+            
+        if(this.fechaDeContinuacion != undefined){
+            this.model.fechaDeContinuacion = 
+                new Date(
+                    Number(this.fechaDeContinuacion.year),
+                    Number(this.fechaDeContinuacion.month) - 1,
+                    Number(this.fechaDeContinuacion.day)) 
+        }else{
+            this.model.fechaDeContinuacion =  null;
+        }
+        
+        if(this.fechaDeEgreso != undefined){
+            this.model.fechaDeEgreso = 
+                new Date(
+                    Number(this.fechaDeEgreso.year),
+                    Number(this.fechaDeEgreso.month) - 1,
+                    Number(this.fechaDeEgreso.day)) 
+        }else{
+            this.model.fechaDeEgreso = null;
         }
         
         this.model.usuario = this.medico;
@@ -228,6 +256,9 @@ export class EditarEpicrisisComponent implements OnInit {
             .subscribe(
                 data => {                        
                     this.showLoading(false);
+                    if(this.fechaDeEgreso != undefined){                        
+                        this.getPdf();
+                    }
                 },
                 error => {            
                     if(Array.isArray(error.error)){

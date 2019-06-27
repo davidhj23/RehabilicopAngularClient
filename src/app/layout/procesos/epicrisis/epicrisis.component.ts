@@ -250,8 +250,8 @@ export class EpicrisisComponent implements OnInit {
         this.epicrisisService.create(this.model)
             .subscribe(
                 data => {                                                          
-                    this.showLoading(false);
-                    if(this.fechaDeEgreso != undefined){
+                    this.showLoading(false);              
+                    if(this.fechaDeEgreso != undefined){                        
                         this.getPdf();
                     }
                 },
