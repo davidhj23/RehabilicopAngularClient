@@ -25,7 +25,9 @@ export class EditarUsuariosComponent implements OnInit {
     loading = false;        
     
     areErrors = false;
-    errores: any[] = [];       
+    errores: any[] = [];   
+    
+    tieneImagen = false;
 
     constructor(
         private userService: UserService,
@@ -51,10 +53,9 @@ export class EditarUsuariosComponent implements OnInit {
                 data => {                        
                     this.model = data;                           
                     this.idTipoDocumento = this.model.tipoDocumento.idTipoDocumento;
-                    this.idRol = this.model.roles[0].idRol;  
-                    if(this.imageSrc != undefined 
-                        && this.imageSrc != null 
-                        && this.imageSrc != ''){                
+                    this.idRol = this.model.roles[0].idRol;                      
+                    if(this.model.firma != null){                
+                        this.tieneImagen = true;                            
                         this.imageSrc = 'data:image/png;base64,' + this.model.firma;                  
                     }
                     this.showLoading(false);

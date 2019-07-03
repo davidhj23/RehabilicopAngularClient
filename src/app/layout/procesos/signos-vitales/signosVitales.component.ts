@@ -9,6 +9,7 @@ import { SignosVitales } from './signosVitales';
 import { Historia } from '../historias/historia';
 import { Admision } from '../admisiones/admision';
 import { Paciente } from '../pacientes/paciente';
+import { EstadoConciencia, EstadoConcienciaService } from '../../listas/estados-conciencias';
 
 @Component({
     selector: 'signosVitales',
@@ -31,9 +32,16 @@ export class SignosVitalesComponent implements OnInit {
     areErrors = false;
     errores: any[] = []; 
 
+    fecha: any;     
+    public mask = [/\d/, /\d/, ':', /\d/, /\d/]
+    public temperaturaMask = [/\d/, /\d/, '.', /\d/]
+    estadoConciencia: EstadoConciencia;   
+    estadosConciencias: any[] = [];  	
+
     constructor(        
         private historiaService: HistoriaService,        
-        private pacienteService: PacienteService) {
+        private pacienteService: PacienteService,
+        private estadoConcienciaService: EstadoConcienciaService) {
 
             this.model = new SignosVitales();
             this.model.historia = new Historia();
@@ -41,8 +49,30 @@ export class SignosVitalesComponent implements OnInit {
             this.model.historia.admision.paciente = new Paciente();
     }
 
-    ngOnInit() {      
-        this.showLoading(true);                 
+    ngOnInit() {  
+        this.fillSelects();            
+    }
+
+    fillSelects()
+    {
+        this.showLoading(true);    
+        this.estadoConcienciaService.getAll()
+            .subscribe(
+                data => {      
+                    this.estadosConciencias = data;                  
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });        
     }
 
     showLoading(loading: boolean) {
@@ -132,5 +162,40 @@ export class SignosVitalesComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 }); 
+    }
+
+    agregar(){
+        if(!this.validateAgregar()) return;     
+        
+        this.model.fecha = new Date(Number(this.fecha.year), Number(this.fecha.month) - 1, Number(this.fecha.day));         
+        this.model.estadoConciencia = this.estadoConciencia;
+        console.log(this.model);
+        this.clearAgregarForm();  
+    }
+
+    validateAgregar(){
+        let areErrors = false;
+        this.clearAndcloseErrors();        
+
+        if(this.fecha == undefined || this.fecha == null){
+            this.errores.push({ message: 'Ingrese una fecha'});
+            areErrors = true;
+        }
+
+        if(areErrors){
+            this.showErrors();
+            return false;
+        }
+
+        return true;
+    }
+
+    clearAgregarForm(){                
+        this.model = new SignosVitales();
+        this.model.historia = new Historia();
+        this.model.historia.admision = new Admision();
+        this.model.historia.admision.paciente = new Paciente();
+        this.fecha = '';
+        this.estadoConciencia = new EstadoConciencia();
     }
 }

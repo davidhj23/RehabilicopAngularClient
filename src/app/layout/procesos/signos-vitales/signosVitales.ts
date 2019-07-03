@@ -7,6 +7,7 @@ export class SignosVitales {
 
     fecha: Date;
     hora: String;
+    ampm: String;
 
     tension: String;
 	temperatura: String;

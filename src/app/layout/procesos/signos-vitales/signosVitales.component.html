@@ -95,12 +95,64 @@
                         </div>
                     </div>
                     <div class="row">
-                        
-                    </div>                    
-                </div>
-            </div>
-            <div class="tile">                
-                
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Fecha</label>
+                            <div class="input-group datepicker-input">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="fecha" [(ngModel)]="fecha"
+                                    ngbDatepicker #fec="ngbDatepicker">
+                                <button class="input-group-addon" (click)="fec.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Hora</label>                                                            
+                            <input class="form-control" type="text" name="hora" [(ngModel)]="model.hora"
+                                placeholder="00:00" [textMask]="{mask: mask}" />                                                                    
+                        </div> 
+                        <div class="form-group col-md-1" >
+                            <label class="control-label">AM/PM</label>                                
+                            <select class="form-control" [(ngModel)]="model.ampm" name="ampm">                                
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>                            
+                        </div>
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">T. Arteria</label>                                                            
+                            <input class="form-control" type="text" name="tension" [(ngModel)]="model.tension"/>
+                        </div>                        
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Temperatura</label>                                                            
+                            <input class="form-control" type="text" name="temperatura" [(ngModel)]="model.temperatura"
+                                placeholder="00.0" [textMask]="{mask: temperaturaMask}" />                                                                    
+                        </div>                        
+                    </div>       
+                    <div class="row">
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Pulso</label>                                                            
+                            <input class="form-control" type="text" name="pulso" [(ngModel)]="model.pulso"/>
+                        </div>   
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Respiración</label>                                                            
+                            <input class="form-control" type="text" name="respiracion" [(ngModel)]="model.respiracion"/>
+                        </div>   
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Glucometría</label>                                                            
+                            <input class="form-control" type="text" name="glucometria" [(ngModel)]="model.glucometria"/>
+                        </div>   
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Estado conciencia</label>                                                            
+                            <select class="form-control" [(ngModel)]="estadoConciencia" name="estadoConciencia">                                
+                                <option *ngFor="let item of estadosConciencias" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                        </div>            
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4 align-self-end">
+                            <button class="btn btn-primary" type="button" (click)="agregar()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
+                        </div>
+                    </div>
+                </div>            
             </div>
         </div>
     </div>
