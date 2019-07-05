@@ -146,14 +146,58 @@
                                 <option *ngFor="let item of estadosConciencias" [ngValue]="item">{{item.nombre}}</option>
                             </select>
                         </div>            
-                    </div>
+                    </div>                                            
                     <div class="row">
                         <div class="form-group col-md-4 align-self-end">
                             <button class="btn btn-primary" type="button" (click)="agregar()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
                         </div>
                     </div>
-                </div>            
+                </div> 
             </div>
         </div>
     </div>
+        
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">                   
+                    <table class="table table-hover table-bordered" 
+                        [mfData]="allSignosVitales" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>                                                 
+                                <th>Hora</th>                                                 
+                                <th>T. Arteria</th>                                                 
+                                <th>termperatura</th>                                              
+                                <th>Pulso</th>              
+                                <th>Respiración</th>              
+                                <th>Glucometría</th>              
+                                <th>Estado conciencia</th>              
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let sv of mf.data">
+                            <tr>                  
+                                <td class="rowTd">{{sv.fecha | date: 'dd/MM/yyyy'}}</td>                                    
+                                <td class="rowTd">{{sv.hora}} {{sv.ampm}}</td>                                    
+                                <td class="rowTd">{{sv.tension}}</td>                                    
+                                <td class="rowTd">{{sv.temperatura}}</td>                                    
+                                <td class="rowTd">{{sv.pulso}}</td>                                                                        
+                                <td class="rowTd">{{sv.respiracion}}</td>                                                                        
+                                <td class="rowTd">{{sv.glucometria}}</td>                                                                        
+                                <td class="rowTd">{{sv.estadoConciencia.nombre}}</td>                                                                        
+                            </tr>            
+                        </tbody>   
+                        <tfoot>
+                            <tr>
+                                <td colspan="8">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>                   
+                    </table>  
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>

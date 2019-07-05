@@ -10,6 +10,7 @@ import { Historia } from '../historias/historia';
 import { Admision } from '../admisiones/admision';
 import { Paciente } from '../pacientes/paciente';
 import { EstadoConciencia, EstadoConcienciaService } from '../../listas/estados-conciencias';
+import { SignosVitalesService } from './SignosVitales.service';
 
 @Component({
     selector: 'signosVitales',
@@ -37,11 +38,13 @@ export class SignosVitalesComponent implements OnInit {
     public temperaturaMask = [/\d/, /\d/, '.', /\d/]
     estadoConciencia: EstadoConciencia;   
     estadosConciencias: any[] = [];  	
+    allSignosVitales: any[] = [];  
 
     constructor(        
         private historiaService: HistoriaService,        
         private pacienteService: PacienteService,
-        private estadoConcienciaService: EstadoConcienciaService) {
+        private estadoConcienciaService: EstadoConcienciaService,
+        private signosVitalesService: SignosVitalesService) {
 
             this.model = new SignosVitales();
             this.model.historia = new Historia();
@@ -142,7 +145,9 @@ export class SignosVitalesComponent implements OnInit {
                             this.sexo = this.model.historia.admision.paciente.sexo.nombre;  
 
                         this.tipoEntidad = this.model.historia.admision.paciente.tipoEntidad.nombre;                                                       
-                        this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre;                                                       
+                        this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre; 
+                        
+                        this.getSignosVitalesByPaciente(this.model.historia.admision.paciente.identificacion);
                     }else{
                         this.errores.push({ message: 'No se encontró un paciente con esa identificación'});                        
                         this.showErrors();                                                
@@ -169,8 +174,48 @@ export class SignosVitalesComponent implements OnInit {
         
         this.model.fecha = new Date(Number(this.fecha.year), Number(this.fecha.month) - 1, Number(this.fecha.day));         
         this.model.estadoConciencia = this.estadoConciencia;
-        console.log(this.model);
-        this.clearAgregarForm();  
+        
+        this.showLoading(true);    
+        this.signosVitalesService.create(this.model)
+            .subscribe(
+                data => {                                                          
+                    this.showLoading(false);                     
+                    this.getSignosVitalesByPaciente(this.model.historia.admision.paciente.identificacion);                                               
+                    this.clearAgregarForm();  
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+    }
+
+    getSignosVitalesByPaciente(idPaciente: String){
+        this.showLoading(true);    
+        this.signosVitalesService.getSignosVitalesByPaciente(idPaciente)
+            .subscribe(
+                data => {    
+                    this.allSignosVitales = data;                    
+                    console.log(this.allSignosVitales)
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });
     }
 
     validateAgregar(){
@@ -190,12 +235,15 @@ export class SignosVitalesComponent implements OnInit {
         return true;
     }
 
-    clearAgregarForm(){                
-        this.model = new SignosVitales();
-        this.model.historia = new Historia();
-        this.model.historia.admision = new Admision();
-        this.model.historia.admision.paciente = new Paciente();
+    clearAgregarForm(){                        
         this.fecha = '';
         this.estadoConciencia = new EstadoConciencia();
+        this.model.pulso = '';
+        this.model.tension = '';
+        this.model.glucometria = '';
+        this.model.respiracion = '';
+        this.model.ampm = '';
+        this.model.hora = '';
+        this.model.temperatura = '';
     }
 }
