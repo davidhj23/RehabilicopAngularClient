@@ -78,6 +78,10 @@ export class UserService {
         return this.http.get(this.url  + 'auxiliares-farmacia', CommonService.getJwtHeaders());
     }
 
+    getAllJefesEnfermerias(): Observable<any> {
+        return this.http.get(this.url  + 'jefes-enfermerias', CommonService.getJwtHeaders());
+    }
+
     getAllEnfermeros(): Observable<any> {
         return this.http.get(this.url  + 'enfermeros', CommonService.getJwtHeaders());
     }

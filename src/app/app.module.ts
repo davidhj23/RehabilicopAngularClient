@@ -109,6 +109,8 @@ import { SignosVitalesComponent } from './layout/procesos/signos-vitales/SignosV
 import { SignosVitalesService } from './layout/procesos/signos-vitales/SignosVitales.service';
 import { NotasDeEnfermeriaComponent } from './layout/procesos/notas-de-enfermeria/notasDeEnfermeria.component';
 import { NotasDeEnfermeriaService } from './layout/procesos/notas-de-enfermeria/notasDeEnfermeria.service';
+import { AdministracionDeMedicamentosComponent } from './layout/procesos/administracion-de-medicamentos/administracionDeMedicamentos.component';
+import { AdministracionDeMedicamentosService } from './layout/procesos/administracion-de-medicamentos/administracionDeMedicamentos.service';
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
@@ -215,6 +217,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         EditarEpicrisisComponent,
         SignosVitalesComponent,
         NotasDeEnfermeriaComponent,
+        AdministracionDeMedicamentosComponent,
 
         HojaEventualComponent,
         EvolucionComponent,
@@ -288,6 +291,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         EvolucionService,
         SignosVitalesService,
         NotasDeEnfermeriaService,
+        AdministracionDeMedicamentosService,
 
         ParametrizarEvolucionService
     ],

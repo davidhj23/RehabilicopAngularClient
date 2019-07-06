@@ -138,7 +138,7 @@ export class CrearAdmisionesComponent implements OnInit {
                 }); 
 
         this.showLoading(true);    
-        this.usuarioService.getAllEnfermeros()
+        this.usuarioService.getAllJefesEnfermerias()
             .subscribe(
                 data => {      
                     this.enfermeros = data;               
