@@ -107,6 +107,8 @@ import { EditarEpicrisisComponent } from './layout/procesos/epicrisis/editarEpic
 import { EpicrisisService } from './layout/procesos/epicrisis/epicrisis.service';
 import { SignosVitalesComponent } from './layout/procesos/signos-vitales/SignosVitales.component';
 import { SignosVitalesService } from './layout/procesos/signos-vitales/SignosVitales.service';
+import { NotasDeEnfermeriaComponent } from './layout/procesos/notas-de-enfermeria/notasDeEnfermeria.component';
+import { NotasDeEnfermeriaService } from './layout/procesos/notas-de-enfermeria/notasDeEnfermeria.service';
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
@@ -212,7 +214,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         EpicrisisComponent,
         EditarEpicrisisComponent,
         SignosVitalesComponent,
-
+        NotasDeEnfermeriaComponent,
 
         HojaEventualComponent,
         EvolucionComponent,
@@ -285,6 +287,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         HojaEventualService,
         EvolucionService,
         SignosVitalesService,
+        NotasDeEnfermeriaService,
 
         ParametrizarEvolucionService
     ],
