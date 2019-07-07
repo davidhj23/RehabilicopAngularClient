@@ -8,21 +8,19 @@ import { PacienteService } from '../pacientes/paciente.service';
 import { Historia } from '../historias/historia';
 import { Admision } from '../admisiones/admision';
 import { Paciente } from '../pacientes/paciente';
-import { AdministracionDeMedicamentos } from './administracionDeMedicamentos';
-import { AdministracionDeMedicamentosService } from './administracionDeMedicamentos.service';
-import { MedicamentoService, Medicamento } from '../../listas/medicamentos';
-import { DosisService, Dosis } from '../../listas/dosis';
 import { UserService } from '../../seguridad/usuarios/user.service';
-import { User } from '../../seguridad/usuarios/user';
+import { CuidadosDeEnfermeria } from './cuidadosDeEnfermeria';
+import { Cie10Service, Cie10 } from '../../listas/cie10s';
+import { CuidadosDeEnfermeriaService } from './cuidadosDeEnfermeria.service';
 
 @Component({
-    selector: 'administracionDeMedicamentos',
-    templateUrl: 'administracionDeMedicamentos.component.html',
+    selector: 'cuidadosDeEnfermeria',
+    templateUrl: 'cuidadosDeEnfermeria.component.html',
 })
 
-export class AdministracionDeMedicamentosComponent implements OnInit {   
+export class CuidadosDeEnfermeriaComponent implements OnInit {   
     
-    model: AdministracionDeMedicamentos;
+    model: CuidadosDeEnfermeria;
     
     tipoDocumento: string;
     edad: string;
@@ -38,24 +36,20 @@ export class AdministracionDeMedicamentosComponent implements OnInit {
 
     fecha: any;     
     public mask = [/\d/, /\d/, ':', /\d/, /\d/]         	
-    allAdministracionDeMedicamentos: any[] = [];  
-    medicamentos: any[] = []; 
-    frecuencias: any[] = []; 
-    enfermeros: any[] = [];
-
-    medicamento: Medicamento; 
-    frecuencia: Dosis; 
-    administra: User; 
+    allCuidadosDeEnfermeria: any[] = [];      
+    allDxEnfermeria: any[] = [];  
+    
+    dx: any; 
+    dxEnfermeria: any; 
 
     constructor(        
         private historiaService: HistoriaService,        
         private pacienteService: PacienteService,
-        private administracionDeMedicamentosService: AdministracionDeMedicamentosService,
-        private medicamentoService: MedicamentoService,
-        private dosisService: DosisService,
+        private cuidadosDeEnfermeriaService: CuidadosDeEnfermeriaService,        
+        private cie10Service: Cie10Service,
         private userService: UserService) {
 
-            this.model = new AdministracionDeMedicamentos();
+            this.model = new CuidadosDeEnfermeria();
             this.model.historia = new Historia();
             this.model.historia.admision = new Admision();
             this.model.historia.admision.paciente = new Paciente();
@@ -66,62 +60,6 @@ export class AdministracionDeMedicamentosComponent implements OnInit {
     }
 
     fillSelects(){
-        this.showLoading(true);    
-        this.medicamentoService.getAll()
-            .subscribe(
-                data => {      
-                    this.medicamentos = data;                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                }); 
-
-        this.showLoading(true);    
-        this.dosisService.getAll()
-            .subscribe(
-                data => {      
-                    this.frecuencias = data;                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                });         
-
-        this.showLoading(true);    
-        this.userService.getAllEnfermeros()
-            .subscribe(
-                data => {      
-                    this.enfermeros = data;                    
-                    this.showLoading(false);
-                },
-                error => {                        
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                });   
     }
 
     showLoading(loading: boolean) {
@@ -193,7 +131,9 @@ export class AdministracionDeMedicamentosComponent implements OnInit {
                         this.tipoEntidad = this.model.historia.admision.paciente.tipoEntidad.nombre;                                                       
                         this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre; 
                         
-                        this.getAdministracionDeMedicamentosByPaciente(this.model.historia.admision.paciente.identificacion);
+                        this.getCuidadosDeEnfermeriaByPaciente(this.model.historia.admision.paciente.identificacion);
+
+                        this.getImpresionDiagnostica(this.model.historia.idImpresionDiagnostica);
                     }else{
                         this.errores.push({ message: 'No se encontró un paciente con esa identificación'});                        
                         this.showErrors();                                                
@@ -215,20 +155,39 @@ export class AdministracionDeMedicamentosComponent implements OnInit {
                 }); 
     }
 
+    getImpresionDiagnostica(idDiagnostico: String){
+        this.showLoading(true);    
+        this.cie10Service.getById(idDiagnostico)
+            .subscribe(
+                data => {      
+                    this.dx = `(${data.codigo}) ${data.nombre}`;                                                      
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+    }
+
     agregar(){
         if(!this.validateAgregar()) return;     
         
         this.model.fecha = new Date(Number(this.fecha.year), Number(this.fecha.month) - 1, Number(this.fecha.day));                 
-        this.model.medicamento = this.medicamento;
-        this.model.frecuencia = this.frecuencia;
-        this.model.administra = this.administra;
-
+        this.model.dxEnfermeria = this.dxEnfermeria;
+        
         this.showLoading(true);    
-        this.administracionDeMedicamentosService.create(this.model)
+        this.cuidadosDeEnfermeriaService.create(this.model)
             .subscribe(
                 data => {                                                          
                     this.showLoading(false);                     
-                    this.getAdministracionDeMedicamentosByPaciente(this.model.historia.admision.paciente.identificacion);                                               
+                    this.getCuidadosDeEnfermeriaByPaciente(this.model.historia.admision.paciente.identificacion);                                               
                     this.clearAgregarForm();  
                 },
                 error => {                        
@@ -244,13 +203,12 @@ export class AdministracionDeMedicamentosComponent implements OnInit {
                 }); 
     }
 
-    getAdministracionDeMedicamentosByPaciente(idPaciente: String){
+    getCuidadosDeEnfermeriaByPaciente(idPaciente: String){
         this.showLoading(true);    
-        this.administracionDeMedicamentosService.getAdministracionDeMedicamentosByPaciente(idPaciente)
+        this.cuidadosDeEnfermeriaService.getCuidadosDeEnfermeriaByPaciente(idPaciente)
             .subscribe(
-                data => {    
-                    console.log(data)
-                    this.allAdministracionDeMedicamentos = data;                                        
+                data => {                        
+                    this.allCuidadosDeEnfermeria = data;                                        
                     this.showLoading(false);
                 },
                 error => {                        
@@ -281,28 +239,29 @@ export class AdministracionDeMedicamentosComponent implements OnInit {
             areErrors = true;
         }
 
-        if(this.model.hora == undefined || this.model.hora == null){
-            this.errores.push({ message: 'Ingrese una hora válida'});
+        if(this.model.hallazgos == undefined 
+            || this.model.hallazgos == null
+            || this.model.hallazgos == ''){
+            this.errores.push({ message: 'Ingrese hallazgos'});
             areErrors = true;
         }
 
-        if(this.model.ampm == undefined || this.model.ampm == null){
-            this.errores.push({ message: 'Ingrese una hora válida'});
-            areErrors = true;
-        }
-        
-        if(this.medicamento == undefined || this.medicamento == null){
-            this.errores.push({ message: 'Ingrese un medicamento'});
+        if(this.model.acciones == undefined 
+            || this.model.acciones == null
+            || this.model.acciones == ''){
+            this.errores.push({ message: 'Ingrese acciones'});
             areErrors = true;
         }
 
-        if(this.frecuencia == undefined || this.frecuencia == null){
-            this.errores.push({ message: 'Ingrese frecuencia'});
+        if(this.model.evaluacion == undefined 
+            || this.model.evaluacion == null
+            || this.model.evaluacion == ''){
+            this.errores.push({ message: 'Ingrese evaluaciones'});
             areErrors = true;
         }
 
-        if(this.administra == undefined || this.administra == null){
-            this.errores.push({ message: 'Ingrese quien administra'});
+        if(this.dxEnfermeria == undefined || this.dxEnfermeria == null){
+            this.errores.push({ message: 'Ingrese DX enfermería'});
             areErrors = true;
         }
 
@@ -314,15 +273,34 @@ export class AdministracionDeMedicamentosComponent implements OnInit {
         return true;
     }
 
+    searching = false;
+    searchFailed = false;
+    formatter = (x: {codigo: string, nombre: string}) => `(${x.codigo}) ${x.nombre}`;
+
+    search = (text$: Observable<string>) =>
+        text$.pipe(
+        debounceTime(200),
+        tap(() => this.searching  = true),
+        switchMap(
+            term => term.length < 3 ? [] :
+                this.cie10Service.search(term)
+                    .pipe(
+                        tap(() => this.searchFailed = false),
+                        catchError(() => {
+                            this.searchFailed = true;
+                            return of([]);
+                        })
+                    )
+        ),
+        tap(() => this.searching  = false)
+    )
+
     clearAgregarForm(){                        
-        this.fecha = null;                
-        this.model.ampm = null;
-        this.model.hora = null;
-        this.model.medicamento = null;
-        this.medicamento = null;
-        this.model.frecuencia = null;
-        this.frecuencia = null;
-        this.model.administra = null;
-        this.administra = null;
+        this.fecha = null;                        
+        this.model.hallazgos = '';  
+        this.model.acciones = '';  
+        this.model.evaluacion = '';  
+        this.model.dxEnfermeria = null;  
+        this.dxEnfermeria = null;
     }
 }

@@ -192,8 +192,31 @@ export class NotasDeEnfermeriaComponent implements OnInit {
         let areErrors = false;
         this.clearAndcloseErrors();        
 
+        if(this.model.historia.admision.paciente.identificacion == undefined 
+            || this.model.historia.admision.paciente.identificacion == null){
+            this.errores.push({ message: 'Seleccione un paciente'});
+            areErrors = true;
+        }
+
         if(this.fecha == undefined || this.fecha == null){
             this.errores.push({ message: 'Ingrese una fecha'});
+            areErrors = true;
+        }
+
+        if(this.model.hora == undefined || this.model.hora == null){
+            this.errores.push({ message: 'Ingrese una hora válida'});
+            areErrors = true;
+        }
+
+        if(this.model.ampm == undefined || this.model.ampm == null){
+            this.errores.push({ message: 'Ingrese una hora válida'});
+            areErrors = true;
+        }
+        
+        if(this.model.descripcion == undefined 
+            || this.model.descripcion == null
+            || this.model.descripcion == ''){
+            this.errores.push({ message: 'Ingrese una descripción'});
             areErrors = true;
         }
 
@@ -206,9 +229,9 @@ export class NotasDeEnfermeriaComponent implements OnInit {
     }
 
     clearAgregarForm(){                        
-        this.fecha = '';                
-        this.model.ampm = '';
-        this.model.hora = '';
+        this.fecha = null;                
+        this.model.ampm = null;
+        this.model.hora = null;
         this.model.descripcion = '';
     }
 }

@@ -222,8 +222,64 @@ export class SignosVitalesComponent implements OnInit {
         let areErrors = false;
         this.clearAndcloseErrors();        
 
+        if(this.model.historia.admision.paciente.identificacion == undefined 
+            || this.model.historia.admision.paciente.identificacion == null){
+            this.errores.push({ message: 'Seleccione un paciente'});
+            areErrors = true;
+        }
+
         if(this.fecha == undefined || this.fecha == null){
             this.errores.push({ message: 'Ingrese una fecha'});
+            areErrors = true;
+        }
+
+        if(this.model.hora == undefined || this.model.hora == null){
+            this.errores.push({ message: 'Ingrese una hora válida'});
+            areErrors = true;
+        }
+
+        if(this.model.ampm == undefined || this.model.ampm == null){
+            this.errores.push({ message: 'Ingrese una hora válida'});
+            areErrors = true;
+        }
+
+        if(this.model.tension == undefined 
+            || this.model.tension == null
+            || this.model.tension == ''){
+            this.errores.push({ message: 'Ingrese tensión'});
+            areErrors = true;
+        }
+
+        if(this.model.temperatura == undefined 
+            || this.model.temperatura == null
+            || this.model.temperatura == ''){
+            this.errores.push({ message: 'Ingrese temperatura'});
+            areErrors = true;
+        }
+
+        if(this.model.pulso == undefined 
+            || this.model.pulso == null
+            || this.model.pulso == ''){
+            this.errores.push({ message: 'Ingrese pulso'});
+            areErrors = true;
+        }
+
+        if(this.model.respiracion == undefined 
+            || this.model.respiracion == null
+            || this.model.respiracion == ''){
+            this.errores.push({ message: 'Ingrese respiración'});
+            areErrors = true;
+        }
+
+        if(this.model.glucometria == undefined 
+            || this.model.glucometria == null
+            || this.model.glucometria == ''){
+            this.errores.push({ message: 'Ingrese glucometría'});
+            areErrors = true;
+        }
+
+        if(this.estadoConciencia == undefined || this.estadoConciencia == null){
+            this.errores.push({ message: 'Ingrese estado conciencia'});
             areErrors = true;
         }
 
@@ -236,14 +292,15 @@ export class SignosVitalesComponent implements OnInit {
     }
 
     clearAgregarForm(){                        
-        this.fecha = '';
-        this.estadoConciencia = new EstadoConciencia();
+        this.fecha = null;
+        this.model.ampm = null;
+        this.model.hora = null;
+
+        this.estadoConciencia = null;
         this.model.pulso = '';
         this.model.tension = '';
         this.model.glucometria = '';
-        this.model.respiracion = '';
-        this.model.ampm = '';
-        this.model.hora = '';
+        this.model.respiracion = '';        
         this.model.temperatura = '';
     }
 }
