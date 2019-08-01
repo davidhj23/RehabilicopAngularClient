@@ -1,0 +1,309 @@
+<main class="app-content" [ngClass]="{ 'tile loading': loading }">
+    <div class="overlay" *ngIf="loading">
+        <div class="m-loader mr-4">
+            <svg class="m-circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10" />
+            </svg>
+        </div>
+        <h3 class="l-text">Loading</h3>
+    </div>
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-th-list"></i> Hospitalización</h1>            
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/layout/procesos/hospitalizacion/hospitalizacion']">Hospitalización</a></li>
+        </ul>
+    </div>
+    <div class="row" *ngIf="areErrors">
+        <div class="col-md-12">
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-danger">
+                    <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>
+                    <div *ngFor="let e of errores">
+                        <strong>{{e.message}}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="row">                        
+                        <div class="form-group col-md-6" >
+                            <label class="control-label">Busqueda Paciente</label>                            
+                            <ng-template #rtPaciente let-r="result" let-t="term">
+                                {{r.nombres}} {{r.apellidos}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailed" 
+                                    [(ngModel)]="pacienteSeleccionado" [ngbTypeahead]="searchPaciente" placeholder="Nombre/Apellido Paciente" 
+                                    [resultTemplate]="rtPaciente" [inputFormatter]="formatterPaciente"
+                                    (selectItem)="setPaciente($event)"/>
+                            <span *ngIf="searching">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailedPaciente">No se encontró ningún paciente.</div>                                                     
+                        </div>
+                    </div>  
+                    <div class="row">
+                        <div class="form-group col-md-1">
+                            <label class="control-label">Tipo</label>
+                            <input class="form-control" type="text" name="tipoDocumento" [(ngModel)]="tipoDocumento"
+                                disabled>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Identificación</label>
+                            <input class="form-control" type="text" name="identificacion" [(ngModel)]="model.historia.admision.paciente.identificacion"
+                                (keydown.enter)="keytab($event)" required disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Nombres</label>
+                            <input class="form-control" type="text" name="nombres" [(ngModel)]="model.historia.admision.paciente.nombres"
+                                disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Apellidos</label>
+                            <input class="form-control" type="text" name="apellidos" [(ngModel)]="model.historia.admision.paciente.apellidos"
+                                disabled>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Edad</label>
+                            <input class="form-control" type="text" name="edad" [(ngModel)]="edad" disabled />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Sexo</label>
+                            <input class="form-control" type="text" name="sexo" [(ngModel)]="sexo" disabled />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Tipo de Entidad</label>
+                            <input class="form-control" type="text" name="tipoEntidad" [(ngModel)]="tipoEntidad"
+                                disabled />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Aseguradora</label>
+                            <input class="form-control" type="text" name="aseguradora" [(ngModel)]="aseguradora" disabled />
+                        </div>
+                    </div> 
+                    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Via de ingreso</label>                                
+                            <select class="form-control" [(ngModel)]="viaIngreso.idViaIngreso" name="viaIngreso">                                
+                                <option *ngFor="let item of viasIngresos" [ngValue]="item.idViaIngreso">{{item.nombre}}</option>
+                            </select>                            
+                        </div> 
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Fecha de Ingreso</label>
+                            <div class="input-group datepicker-input">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="fechaIngreso" [(ngModel)]="fechaIngreso"
+                                    ngbDatepicker #fec="ngbDatepicker">
+                                <button class="input-group-addon" (click)="fec.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Hora de Ingreso</label>                                                            
+                            <input class="form-control" type="text" name="horaIngreso" [(ngModel)]="model.horaIngreso"
+                                placeholder="00:00" [textMask]="{mask: mask}" />                                                                    
+                        </div> 
+                        <div class="form-group col-md-1" >
+                            <label class="control-label">AM/PM</label>                                
+                            <select class="form-control" [(ngModel)]="model.ampmIngreso" name="ampmIngreso">                                
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>                            
+                        </div>                                    
+                    </div>   
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Condiciones del paciente</h5>                                
+                            </div>                            
+                        </div>                                                
+                    </div>                                  
+                    <div class="row">                        
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Embarazada</label>
+                            <select class="form-control" [(ngModel)]="embarazada.idOpcion" name="embarazada">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Cuantas semanas</label>                                                            
+                            <input class="form-control" type="text" name="semanas" [(ngModel)]="model.semanas"/>                                                                    
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Accidente de trabajo</label>
+                            <select class="form-control" [(ngModel)]="accidenteDeTrabajo.idOpcion" name="accidenteDeTrabajo">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Evento catastrofico</label>
+                            <select class="form-control" [(ngModel)]="eventoCatastrofico.idOpcion" name="eventoCatastrofico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Maltrato</label>
+                            <select class="form-control" [(ngModel)]="maltrato.idOpcion" name="maltrato">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Accidente de transito</label>
+                            <select class="form-control" [(ngModel)]="accidenteDeTransito.idOpcion" name="accidenteDeTransito">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Lesión por agresión</label>
+                            <select class="form-control" [(ngModel)]="lesionPorAgresion.idOpcion" name="lesionPorAgresion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Enfermedad general</label>
+                            <select class="form-control" [(ngModel)]="enfermedadGeneral.idOpcion" name="enfermedadGeneral">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Otro tipo de accidente</label>
+                            <select class="form-control" [(ngModel)]="otroTipoDeAccidente.idOpcion" name="otroTipoDeAccidente">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Lesión autoinfligida</label>
+                            <select class="form-control" [(ngModel)]="lesionAutoInfligida.idOpcion" name="lesionAutoInfligida">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="control-label">Enfermedad profesional</label>
+                            <select class="form-control" [(ngModel)]="enfermedadProfesional.idOpcion" name="enfermedadProfesional">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12" >
+                            <label class="control-label">Diagnostico de ingreso</label>                            
+                            <ng-template #rtDiagnosticoDeIngreso let-r="result" let-t="term">
+                                ({{r.codigo}}) {{r.nombre}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailedDiagnosticoDeIngreso" 
+                                    [(ngModel)]="diagnosticoDeIngreso" [ngbTypeahead]="searchDiagnosticoDeIngreso" placeholder="Cie10" 
+                                    [resultTemplate]="rtDiagnosticoDeIngreso" [inputFormatter]="formatterDiagnosticoDeIngreso"/>
+                            <span *ngIf="searchingDiagnosticoDeIngreso">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailedDiagnosticoDeIngreso">No se encontró ningún Cie10.</div>                                                     
+                        </div>        
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12" >
+                            <label class="control-label">Diagnostico de egreso</label>                            
+                            <ng-template #rtDiagnosticoDeEgreso let-r="result" let-t="term">
+                                ({{r.codigo}}) {{r.nombre}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailedDiagnosticoDeEgreso" 
+                                    [(ngModel)]="diagnosticoDeEgreso" [ngbTypeahead]="searchDiagnosticoDeEgreso" placeholder="Cie10" 
+                                    [resultTemplate]="rtDiagnosticoDeEgreso" [inputFormatter]="formatterDiagnosticoDeEgreso"/>
+                            <span *ngIf="searchingDiagnosticoDeEgreso">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailedDiagnosticoDeEgreso">No se encontró ningún Cie10.</div>                                                     
+                        </div>        
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12" >
+                            <label class="control-label">Compliación</label>                            
+                            <ng-template #rtComplicacion let-r="result" let-t="term">
+                                ({{r.codigo}}) {{r.nombre}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailedComplicacion" 
+                                    [(ngModel)]="complicacion" [ngbTypeahead]="searchComplicacion" placeholder="Cie10" 
+                                    [resultTemplate]="rtComplicacion" [inputFormatter]="formatterComplicacion"/>
+                            <span *ngIf="searchingComplicacion">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailedComplicacion">No se encontró ningún Cie10.</div>                                                     
+                        </div>        
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12" >
+                            <label class="control-label">Causa de muerte</label>                            
+                            <ng-template #rtCausaDeLaMuerte let-r="result" let-t="term">
+                                ({{r.codigo}}) {{r.nombre}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailedCausaDeLaMuerte" 
+                                    [(ngModel)]="causaDeLaMuerte" [ngbTypeahead]="searchCausaDeLaMuerte" placeholder="Cie10" 
+                                    [resultTemplate]="rtCausaDeLaMuerte" [inputFormatter]="formatterCausaDeLaMuerte"/>
+                            <span *ngIf="searchingCausaDeLaMuerte">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailedCausaDeLaMuerte">No se encontró ningún Cie10.</div>                                                     
+                        </div>        
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12" >
+                            <label class="control-label">Enfermedad sobregenerada</label>                            
+                            <ng-template #rtEnfermedadSobregenerada let-r="result" let-t="term">
+                                ({{r.codigo}}) {{r.nombre}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailedEnfermedadSobregenerada" 
+                                    [(ngModel)]="enfermedadSobregenerada" [ngbTypeahead]="searchEnfermedadSobregenerada" placeholder="Cie10" 
+                                    [resultTemplate]="rtEnfermedadSobregenerada" [inputFormatter]="formatterEnfermedadSobregenerada"/>
+                            <span *ngIf="searchingEnfermedadSobregenerada">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailedEnfermedadSobregenerada">No se encontró ningún Cie10.</div>                                                     
+                        </div>        
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-3">
+                            <label class="control-label">Fecha de Salida</label>
+                            <div class="input-group datepicker-input">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="fechaSalida" [(ngModel)]="fechaSalida"
+                                    ngbDatepicker #fecSalida="ngbDatepicker">
+                                <button class="input-group-addon" (click)="fecSalida.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Hora de Salida</label>                                                            
+                            <input class="form-control" type="text" name="horaSalida" [(ngModel)]="model.horaSalida"
+                                placeholder="00:00" [textMask]="{mask: mask}" />                                                                    
+                        </div> 
+                        <div class="form-group col-md-1" >
+                            <label class="control-label">AM/PM</label>                                
+                            <select class="form-control" [(ngModel)]="model.ampmSalida" name="ampmSalida">                                
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>                            
+                        </div> 
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Acudiente</label>                                                            
+                            <input class="form-control" type="text" name="acudiente" [(ngModel)]="model.acudiente"/>                                                                    
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4 align-self-end">
+                            <button class="btn btn-primary" type="button" (click)="agregar()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</main>

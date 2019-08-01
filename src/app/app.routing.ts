@@ -86,6 +86,7 @@ import { SignosVitalesComponent } from './layout/procesos/signos-vitales/SignosV
 import { NotasDeEnfermeriaComponent } from './layout/procesos/notas-de-enfermeria/notasDeEnfermeria.component';
 import { AdministracionDeMedicamentosComponent } from './layout/procesos/administracion-de-medicamentos/administracionDeMedicamentos.component';
 import { CuidadosDeEnfermeriaComponent } from './layout/procesos/cuidados-de-enfermeria/cuidadosDeEnfermeria.component';
+import { HospitalizacionComponent } from './layout/procesos/hospitalizacion/hospitalizacion.component';
 
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
@@ -178,6 +179,7 @@ const appRoutes: Routes = [
                 { path: 'procesos/historias/notas-de-enfermeria', component: NotasDeEnfermeriaComponent, canActivate: [AuthGuard], data : { permission: ["crear notas de enfermeria"] }}, 
                 { path: 'procesos/historias/administracion-de-medicamentos', component: AdministracionDeMedicamentosComponent, canActivate: [AuthGuard], data : { permission: ["crear administracion de medicamentos"] }}, 
                 { path: 'procesos/historias/cuidados-de-enfermeria', component: CuidadosDeEnfermeriaComponent, canActivate: [AuthGuard], data : { permission: ["crear cuidados de enfermeria"] }}, 
+                { path: 'procesos/historias/hospitalizacion', component: HospitalizacionComponent, canActivate: [AuthGuard], data : { permission: ["crear hospitalizacion"] }}, 
 
                 { path: 'procesos/historias/consultar-epicrisis', component: ConsultarEpicrisisComponent, canActivate: [AuthGuard], data : { permission: ["epicrisis"] }}, 
                 { path: 'procesos/historias/epicrisis', component: EpicrisisComponent, canActivate: [AuthGuard], data : { permission: ["crear epicrisis"] }}, 
