@@ -115,6 +115,8 @@ import { CuidadosDeEnfermeriaComponent } from './layout/procesos/cuidados-de-enf
 import { CuidadosDeEnfermeriaService } from './layout/procesos/cuidados-de-enfermeria/cuidadosDeEnfermeria.service';
 import { HospitalizacionComponent } from './layout/procesos/hospitalizacion/hospitalizacion.component';
 import { HospitalizacionService } from './layout/procesos/hospitalizacion/hospitalizacion.service';
+import { KardexComponent } from './layout/procesos/kardex/kardex.component';
+import { KardexService } from './layout/procesos/kardex/kardex.service';
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
@@ -224,6 +226,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         AdministracionDeMedicamentosComponent,
         CuidadosDeEnfermeriaComponent,
         HospitalizacionComponent,
+        KardexComponent,
 
         HojaEventualComponent,
         EvolucionComponent,
@@ -300,6 +303,7 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         AdministracionDeMedicamentosService,
         CuidadosDeEnfermeriaService,
         HospitalizacionService,
+        KardexService,
 
         ParametrizarEvolucionService
     ],
