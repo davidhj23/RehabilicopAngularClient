@@ -18,6 +18,7 @@ import { User } from '../../seguridad/usuarios/user';
 import { MedicamentosOrdenMedica } from './medicamentosOrdenMedica';
 import { UserService } from '../../seguridad/usuarios/user.service';
 import { ConsultarOrdenMedicaComponent } from './consultarOrdenMedica.component';
+import { Administracion } from './administracion';
 
 @Component({
     selector: 'ordenMedica',
@@ -36,7 +37,10 @@ export class OrdenMedicaComponent implements OnInit {
     listaDosis: Dosis[] = [];  
 
     medicamento: Medicamento;
-    dosis: Dosis;
+    dosis1: Dosis;
+    dosis2: Dosis;
+    dosis3: Dosis;
+    dosis4: Dosis;
     cantidadSolicitada: string;
     cantidadEntregada: string;
 
@@ -176,10 +180,38 @@ export class OrdenMedicaComponent implements OnInit {
         if(!this.validateAgregar()) return;     
         
         let med = new MedicamentosOrdenMedica();
-        med.medicamento = this.medicamento;                        
-        med.dosis = this.dosis;
-        med.cantidadSolicitada = this.cantidadSolicitada;
-        med.cantidadEntregada = this.cantidadEntregada;
+        med.medicamento = this.medicamento;                                
+        med.administraciones = [];   
+
+        if(this.dosis1 != null)
+        {
+            let ad = new Administracion();   
+            ad.dosis = this.dosis1;
+            med.administraciones.push(ad);
+        }
+
+        if(this.dosis2 != null)
+        {
+            let ad = new Administracion();
+            ad.dosis = this.dosis2;
+            med.administraciones.push(ad);
+        }
+
+        if(this.dosis3 != null)
+        {
+            let ad = new Administracion();
+            ad.dosis = this.dosis3;
+            med.administraciones.push(ad);
+        }
+
+        if(this.dosis4 != null)
+        {
+            let ad = new Administracion();
+            ad.dosis = this.dosis4;
+            med.administraciones.push(ad);
+        }
+
+        med.cantidadSolicitada = this.cantidadSolicitada;        
         this.medicamentosOrdenMedica.push(med);
         this.clearAgregarForm();  
     }
@@ -193,7 +225,7 @@ export class OrdenMedicaComponent implements OnInit {
             areErrors = true;
         }
 
-        if(this.dosis == undefined || this.dosis == null){
+        if(this.dosis1 == undefined || this.dosis1 == null){
             this.errores.push({ message: 'Seleccione una dosis'});
             areErrors = true;
         }
@@ -224,7 +256,10 @@ export class OrdenMedicaComponent implements OnInit {
 
     clearAgregarForm(){
         this.medicamento = new Medicamento();
-        this.dosis = new Dosis();
+        this.dosis1 = new Dosis();
+        this.dosis2 = new Dosis();
+        this.dosis3 = new Dosis();
+        this.dosis4 = new Dosis();
         this.cantidadSolicitada = '';
         this.cantidadEntregada = '';
     }

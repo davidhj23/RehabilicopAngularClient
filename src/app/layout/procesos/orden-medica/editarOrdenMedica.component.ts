@@ -89,8 +89,16 @@ export class EditarOrdenMedicaComponent implements OnInit {
                     this.showLoading(true);    
                     this.ordenMedicaService.getMedicamentosByIdOrdenMedica(this.currentOrdenId)
                         .subscribe(
-                            data => {                                               
+                            data => {                                                                         
                                 this.medicamentosOrdenMedica = data;  
+                                this.medicamentosOrdenMedica.forEach(x => {
+                                    this.ordenMedicaService.getAdministraciones(x.idMedicamentosOrdenMedica)
+                                        .subscribe(
+                                            data => {                                                                         
+                                                x.administraciones = data;                                              
+                                        })    
+                                });
+                                
                                 this.showLoading(false);             
                         })
                 },

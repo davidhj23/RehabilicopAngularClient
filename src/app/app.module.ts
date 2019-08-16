@@ -109,14 +109,10 @@ import { SignosVitalesComponent } from './layout/procesos/signos-vitales/SignosV
 import { SignosVitalesService } from './layout/procesos/signos-vitales/SignosVitales.service';
 import { NotasDeEnfermeriaComponent } from './layout/procesos/notas-de-enfermeria/notasDeEnfermeria.component';
 import { NotasDeEnfermeriaService } from './layout/procesos/notas-de-enfermeria/notasDeEnfermeria.service';
-import { AdministracionDeMedicamentosComponent } from './layout/procesos/administracion-de-medicamentos/administracionDeMedicamentos.component';
-import { AdministracionDeMedicamentosService } from './layout/procesos/administracion-de-medicamentos/administracionDeMedicamentos.service';
 import { CuidadosDeEnfermeriaComponent } from './layout/procesos/cuidados-de-enfermeria/cuidadosDeEnfermeria.component';
 import { CuidadosDeEnfermeriaService } from './layout/procesos/cuidados-de-enfermeria/cuidadosDeEnfermeria.service';
 import { HospitalizacionComponent } from './layout/procesos/hospitalizacion/hospitalizacion.component';
 import { HospitalizacionService } from './layout/procesos/hospitalizacion/hospitalizacion.service';
-import { KardexComponent } from './layout/procesos/kardex/kardex.component';
-import { KardexService } from './layout/procesos/kardex/kardex.service';
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
@@ -222,11 +218,9 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         EpicrisisComponent,
         EditarEpicrisisComponent,
         SignosVitalesComponent,
-        NotasDeEnfermeriaComponent,
-        AdministracionDeMedicamentosComponent,
+        NotasDeEnfermeriaComponent,        
         CuidadosDeEnfermeriaComponent,
         HospitalizacionComponent,
-        KardexComponent,
 
         HojaEventualComponent,
         EvolucionComponent,
@@ -299,11 +293,9 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         HojaEventualService,
         EvolucionService,
         SignosVitalesService,
-        NotasDeEnfermeriaService,
-        AdministracionDeMedicamentosService,
+        NotasDeEnfermeriaService,        
         CuidadosDeEnfermeriaService,
         HospitalizacionService,
-        KardexService,
 
         ParametrizarEvolucionService
     ],

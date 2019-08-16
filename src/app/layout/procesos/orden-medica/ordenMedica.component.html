@@ -122,20 +122,34 @@
                                 <option *ngFor="let item of medicamentos" [ngValue]="item">{{item.nombre}}</option>
                             </select>                            
                         </div> 
-                        <div class="form-group col-md-3" >
-                            <label class="control-label">Dosis</label>                                
-                            <select class="form-control" [(ngModel)]="dosis" name="dosis">                                
+                        <div class="form-group col-md-1" >                            
+                            <label class="control-label">Dosis</label>                                                            
+                            <select class="form-control" [(ngModel)]="dosis1" name="dosis1">                                
                                 <option *ngFor="let item of listaDosis" [ngValue]="item">{{item.nombre}}</option>
-                            </select>                            
+                            </select>                     
+                        </div>
+                        <div class="form-group col-md-1" >       
+                                <label class="control-label">Dosis</label>                                             
+                            <select class="form-control" [(ngModel)]="dosis2" name="dosis2">                                
+                                <option *ngFor="let item of listaDosis" [ngValue]="item">{{item.nombre}}</option>
+                            </select>                     
+                        </div>
+                        <div class="form-group col-md-1" >                                                                                                    
+                                <label class="control-label">Dosis</label> 
+                            <select class="form-control" [(ngModel)]="dosis3" name="dosis3">                                
+                                <option *ngFor="let item of listaDosis" [ngValue]="item">{{item.nombre}}</option>
+                            </select>                     
+                        </div>
+                        <div class="form-group col-md-1" >                                                                                                    
+                                <label class="control-label">Dosis</label> 
+                            <select class="form-control" [(ngModel)]="dosis4" name="dosis4">                                
+                                <option *ngFor="let item of listaDosis" [ngValue]="item">{{item.nombre}}</option>
+                            </select>                     
                         </div>
                         <div class="form-group col-md-2">
                             <label class="control-label">Cantidad solicitada</label>
                             <input class="form-control" type="text" name="cantidadSolcitada" [(ngModel)]="cantidadSolicitada" />
                         </div>
-                        <!--div class="form-group col-md-2">
-                            <label class="control-label">Cantidad entregada</label>
-                            <input class="form-control" type="text" name="cantidadEntregada" [(ngModel)]="cantidadEntregada"  />
-                        </div-->
                         <div class="form-group col-md-2 align-self-end">
                             <button class="btn btn-primary" type="button" (click)="agregar()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Agregar</button>
                         </div>
@@ -147,16 +161,18 @@
                                 <tr>
                                     <th>Medicamento</th>                                                 
                                     <th>Dosis</th>                                                 
-                                    <th>Cantidad Solicitada</th>                                                 
-                                    <th>Cantidad Entregada</th>                                                       
+                                    <th>Cantidad Solicitada</th>                                                                                                   
                                 </tr>
                             </thead>
                             <tbody *ngFor="let medicamentoOrdenMedica of mf.data">
                                 <tr>                  
                                     <td class="rowTd">{{medicamentoOrdenMedica.medicamento.nombre}}</td>                                    
-                                    <td class="rowTd">{{medicamentoOrdenMedica.dosis.nombre}}</td>
-                                    <td class="rowTd">{{medicamentoOrdenMedica.cantidadSolicitada}}</td>
-                                    <td class="rowTd">{{medicamentoOrdenMedica.cantidadEntregada}}</td>   
+                                    <td class="rowTd">
+                                        <p *ngFor="let ad of medicamentoOrdenMedica.administraciones">
+                                            {{ad.dosis.nombre}}
+                                        </p>
+                                    </td>
+                                    <td class="rowTd">{{medicamentoOrdenMedica.cantidadSolicitada}}</td>                                    
                                 </tr>            
                             </tbody>   
                             <tfoot>

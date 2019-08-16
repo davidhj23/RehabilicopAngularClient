@@ -104,7 +104,11 @@
                             <tbody *ngFor="let medicamentoOrdenMedica of mf.data; let i=inde">
                                 <tr>                  
                                     <td class="rowTd">{{medicamentoOrdenMedica.medicamento.nombre}}</td>                                    
-                                    <td class="rowTd">{{medicamentoOrdenMedica.dosis.nombre}}</td>
+                                    <td class="rowTd">
+                                        <p *ngFor="let ad of medicamentoOrdenMedica.administraciones">
+                                            {{ad.dosis.nombre}}
+                                        </p>
+                                    </td>
                                     <td class="rowTd">{{medicamentoOrdenMedica.cantidadSolicitada}}</td>
                                     <td class="rowTd">                                        
                                         <input class="form-control" type="text"

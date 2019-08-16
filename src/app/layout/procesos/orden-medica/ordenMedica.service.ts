@@ -32,6 +32,10 @@ export class OrdenMedicaService {
         return this.http.get(this.url + id + '/medicamentos', CommonService.getJwtHeaders());
     }
 
+    getAdministraciones(id: string): Observable<any> {
+        return this.http.get(this.url + '/medicamentos/' + id + '/administraciones' , CommonService.getJwtHeaders());
+    }
+
     update(ordenMedica: OrdenMedica): Observable<any> {
         return this.http.put(this.url + ordenMedica.idOrdenMedica, ordenMedica,  CommonService.getJwtHeaders());
     }

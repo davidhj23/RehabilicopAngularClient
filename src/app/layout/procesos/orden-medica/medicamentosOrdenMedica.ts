@@ -1,15 +1,19 @@
 ﻿import { OrdenMedica } from "./ordenMedica";
 import { Medicamento } from "../../listas/medicamentos";
 import { Dosis } from "../../listas/dosis";
+import { Administracion } from "./administracion";
 
 export class MedicamentosOrdenMedica {   
     idMedicamentosOrdenMedica: string; 
 
-    medicamento: Medicamento;    
-    dosis: Dosis;    
+    fecha: Date;
+
+    medicamento: Medicamento;           
 
     cantidadSolicitada: String;
     cantidadEntregada: String;
     
     ordenMedica: OrdenMedica;    
+
+    administraciones: Administracion[];
 }
