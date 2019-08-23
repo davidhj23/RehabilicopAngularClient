@@ -6,13 +6,10 @@ import { Dosis } from "../../listas/dosis";
 export class Administracion {   
     idAdministracion: string; 
 
-    dosis: Dosis;
-    
+    fecha: String;
     hora: String;
     ampm: String;
-
     valida: String;
-
     administra: User;
 
     medicamentosOrdenMedica: MedicamentosOrdenMedica;

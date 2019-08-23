@@ -87,6 +87,9 @@ import { NotasDeEnfermeriaComponent } from './layout/procesos/notas-de-enfermeri
 import { CuidadosDeEnfermeriaComponent } from './layout/procesos/cuidados-de-enfermeria/cuidadosDeEnfermeria.component';
 import { HospitalizacionComponent } from './layout/procesos/hospitalizacion/hospitalizacion.component';
 
+import { ConsultarAdministracionComponent } from './layout/procesos/administracion-de-medicamentos/consultarAdministracion.component';
+import { EditarAdministracionComponent } from './layout/procesos/administracion-de-medicamentos/editarAdministracion.component';
+
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
@@ -178,6 +181,9 @@ const appRoutes: Routes = [
                 { path: 'procesos/historias/notas-de-enfermeria', component: NotasDeEnfermeriaComponent, canActivate: [AuthGuard], data : { permission: ["crear notas de enfermeria"] }},                 
                 { path: 'procesos/historias/cuidados-de-enfermeria', component: CuidadosDeEnfermeriaComponent, canActivate: [AuthGuard], data : { permission: ["crear cuidados de enfermeria"] }}, 
                 { path: 'procesos/historias/hospitalizacion', component: HospitalizacionComponent, canActivate: [AuthGuard], data : { permission: ["crear hospitalizacion"] }},                 
+
+                { path: 'procesos/historias/consultar-administracion', component: ConsultarAdministracionComponent, canActivate: [AuthGuard], data : { permission: ["administracion de medicamentos"] }},                 
+                { path: 'procesos/historias/editar-administracion/:id', component: EditarAdministracionComponent, canActivate: [AuthGuard], data : { permission: ["administracion de medicamentos"] }},                 
 
                 { path: 'procesos/historias/consultar-epicrisis', component: ConsultarEpicrisisComponent, canActivate: [AuthGuard], data : { permission: ["epicrisis"] }}, 
                 { path: 'procesos/historias/epicrisis', component: EpicrisisComponent, canActivate: [AuthGuard], data : { permission: ["crear epicrisis"] }}, 

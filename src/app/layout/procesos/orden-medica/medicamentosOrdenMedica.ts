@@ -6,14 +6,11 @@ import { Administracion } from "./administracion";
 export class MedicamentosOrdenMedica {   
     idMedicamentosOrdenMedica: string; 
 
-    fecha: Date;
-
-    medicamento: Medicamento;           
-
+    medicamento: Medicamento;  
+    frecuencia: Dosis;
     cantidadSolicitada: String;
     cantidadEntregada: String;
     
     ordenMedica: OrdenMedica;    
-
     administraciones: Administracion[];
 }

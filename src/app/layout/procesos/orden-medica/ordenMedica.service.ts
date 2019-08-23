@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { CommonService } from '../../../_services';
 import { OrdenMedica } from './ordenMedica';
+import { MedicamentosOrdenMedica } from './medicamentosOrdenMedica';
 
 @Injectable()
 export class OrdenMedicaService {
@@ -39,8 +40,4 @@ export class OrdenMedicaService {
     update(ordenMedica: OrdenMedica): Observable<any> {
         return this.http.put(this.url + ordenMedica.idOrdenMedica, ordenMedica,  CommonService.getJwtHeaders());
     }
-
-    /*delete(idDosis: String): Observable<any> {        
-        return this.http.delete(this.url + idDosis,  CommonService.getJwtHeaders())
-    }*/
 }

@@ -37,10 +37,7 @@ export class OrdenMedicaComponent implements OnInit {
     listaDosis: Dosis[] = [];  
 
     medicamento: Medicamento;
-    dosis1: Dosis;
-    dosis2: Dosis;
-    dosis3: Dosis;
-    dosis4: Dosis;
+    frecuencia: Dosis;
     cantidadSolicitada: string;
     cantidadEntregada: string;
 
@@ -183,31 +180,13 @@ export class OrdenMedicaComponent implements OnInit {
         med.medicamento = this.medicamento;                                
         med.administraciones = [];   
 
-        if(this.dosis1 != null)
+        if(this.frecuencia != null)
         {
-            let ad = new Administracion();   
-            ad.dosis = this.dosis1;
-            med.administraciones.push(ad);
+            med.frecuencia = this.frecuencia;            
         }
 
-        if(this.dosis2 != null)
-        {
+        for (var i = 0; i < Number(this.cantidadSolicitada); i++) {
             let ad = new Administracion();
-            ad.dosis = this.dosis2;
-            med.administraciones.push(ad);
-        }
-
-        if(this.dosis3 != null)
-        {
-            let ad = new Administracion();
-            ad.dosis = this.dosis3;
-            med.administraciones.push(ad);
-        }
-
-        if(this.dosis4 != null)
-        {
-            let ad = new Administracion();
-            ad.dosis = this.dosis4;
             med.administraciones.push(ad);
         }
 
@@ -225,8 +204,8 @@ export class OrdenMedicaComponent implements OnInit {
             areErrors = true;
         }
 
-        if(this.dosis1 == undefined || this.dosis1 == null){
-            this.errores.push({ message: 'Seleccione una dosis'});
+        if(this.frecuencia == undefined || this.frecuencia == null){
+            this.errores.push({ message: 'Seleccione una frecuencia'});
             areErrors = true;
         }
 
@@ -240,12 +219,6 @@ export class OrdenMedicaComponent implements OnInit {
             }
         }
 
-        /*if((this.cantidadEntregada != undefined || this.cantidadEntregada != null) &&
-            isNaN(Number(this.cantidadEntregada))){
-                this.errores.push({ message: 'Cantidad entregada debe ser un número'});
-                areErrors = true;
-        }*/
-
         if(areErrors){
             this.showErrors();
             return false;
@@ -256,10 +229,7 @@ export class OrdenMedicaComponent implements OnInit {
 
     clearAgregarForm(){
         this.medicamento = new Medicamento();
-        this.dosis1 = new Dosis();
-        this.dosis2 = new Dosis();
-        this.dosis3 = new Dosis();
-        this.dosis4 = new Dosis();
+        this.frecuencia = new Dosis();        
         this.cantidadSolicitada = '';
         this.cantidadEntregada = '';
     }

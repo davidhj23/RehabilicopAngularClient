@@ -113,6 +113,8 @@ import { CuidadosDeEnfermeriaComponent } from './layout/procesos/cuidados-de-enf
 import { CuidadosDeEnfermeriaService } from './layout/procesos/cuidados-de-enfermeria/cuidadosDeEnfermeria.service';
 import { HospitalizacionComponent } from './layout/procesos/hospitalizacion/hospitalizacion.component';
 import { HospitalizacionService } from './layout/procesos/hospitalizacion/hospitalizacion.service';
+import { ConsultarAdministracionComponent } from './layout/procesos/administracion-de-medicamentos/consultarAdministracion.component';
+import { EditarAdministracionComponent } from './layout/procesos/administracion-de-medicamentos/editarAdministracion.component';
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
@@ -221,6 +223,8 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         NotasDeEnfermeriaComponent,        
         CuidadosDeEnfermeriaComponent,
         HospitalizacionComponent,
+        ConsultarAdministracionComponent,
+        EditarAdministracionComponent,
 
         HojaEventualComponent,
         EvolucionComponent,

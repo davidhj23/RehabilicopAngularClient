@@ -9,12 +9,11 @@
     </div>
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-th-list"></i> Orden médica</h1>
-            <p>Módulo de gestión de Ordenes médicas, Aquí usted podrá crear y editar Ordenes médicas</p>
+            <h1><i class="fa fa-th-list"></i> Administración de medicamentos</h1>            
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-            <li class="breadcrumb-item"><a [routerLink]="['/layout/procesos/historias/orden-medica']">Orden médica</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/layout/procesos/historias/editar-administracion']">Administración de medicamentos</a></li>
         </ul>
     </div>
     <div class="row" *ngIf="areErrors">
@@ -92,30 +91,55 @@
                     </div>                
                     <div class="tile-body">
                         <table class="table table-hover table-bordered" 
-                        [mfData]="medicamentosOrdenMedica" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                        [mfData]="model.medicamentosOrdenMedica" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
                             <thead>
                                 <tr>
                                     <th>Medicamento</th>                                                 
                                     <th>Frecuencia</th>                                                 
-                                    <th>Cantidad Solicitada</th>                                                 
-                                    <th>Cantidad Entregada</th>                                                       
+                                    <th></th> 
                                 </tr>
                             </thead>
                             <tbody *ngFor="let medicamentoOrdenMedica of mf.data; let i=inde">
                                 <tr>                  
                                     <td class="rowTd">{{medicamentoOrdenMedica.medicamento.nombre}}</td>                                    
                                     <td class="rowTd">{{medicamentoOrdenMedica.frecuencia.nombre}}</td>
-                                    <td class="rowTd">{{medicamentoOrdenMedica.cantidadSolicitada}}</td>
-                                    <td class="rowTd">                                        
-                                        <input class="form-control" type="text"
-                                            name="cantidadEntregada-{{medicamentoOrdenMedica.idMedicamentosOrdenMedica}}"
-                                            [(ngModel)]="medicamentoOrdenMedica.cantidadEntregada"/>
-                                    </td>   
+                                    <td class="rowTd">  
+                                        <div class="row col-md-12" *ngFor="let ad of medicamentoOrdenMedica.administraciones">                                      
+                                            <input class="form-control col-md-2" type="text" name="fecha-{{medicamentoOrdenMedica.idMedicamentosOrdenMedica}}"
+                                                placeholder="dd/mm/aaaa" [textMask]="{mask: mask}" [(ngModel)]="ad.fecha">   
+
+                                             <input class="form-control col-md-2" type="text"
+                                                name="hora-{{medicamentoOrdenMedica.idMedicamentosOrdenMedica}}"
+                                                [(ngModel)]="ad.hora"
+                                                placeholder="00:00" [textMask]="{mask: horaMask}"/>                                            
+
+                                            <select class="form-control col-md-2" 
+                                                name="ampm-{{medicamentoOrdenMedica.idMedicamentosOrdenMedica}}"
+                                                [(ngModel)]="ad.ampm">                                
+                                                    <option value="AM">AM</option>
+                                                    <option value="PM">PM</option>
+                                            </select> 
+
+                                            <select class="form-control col-md-3" 
+                                                name="valida-{{medicamentoOrdenMedica.idMedicamentosOrdenMedica}}"
+                                                [(ngModel)]="ad.valida">                                
+                                                    <option value="OK">OK</option>
+                                                    <option value="NO">NO</option>
+                                                    <option value="SUSPENDIDO">SUSPENDIDO</option>
+                                            </select>                    
+
+                                            <select class="form-control col-md-3" 
+                                                name="valida-{{medicamentoOrdenMedica.idMedicamentosOrdenMedica}}"
+                                                [(ngModel)]="ad.administra.idUsuario">                                                                                   
+                                                    <option *ngFor="let item of listaAdministra" [ngValue]="item.idUsuario">{{item.nombres}} {{item.apellidos}}</option>
+                                            </select>                    
+                                        </div>
+                                    </td>                                                                        
                                 </tr>            
                             </tbody>   
                             <tfoot>
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="7">
                                         <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
                                     </td>
                                 </tr>
