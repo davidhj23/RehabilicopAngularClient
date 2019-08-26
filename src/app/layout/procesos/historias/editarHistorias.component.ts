@@ -239,7 +239,9 @@ export class EditarHistoriasComponent implements OnInit {
     loading = false;        
     
     areErrors = false;
-    errores: any[] = [];       
+    errores: any[] = []; 
+    
+    historiaActiva = true;
     
     fechaDeInicio: string;    
     public mask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
@@ -282,7 +284,18 @@ export class EditarHistoriasComponent implements OnInit {
         this.showLoading(true);    
         this.historiaService.getById(this.currentHistoriaId)
             .subscribe(
-                data => {                                                 
+                data => { 
+                    
+                    if(data.admision.estado == 'CERRADA')
+                    {
+                        let errores = [];
+                        errores.push({ message: 'Esta historia ya está cerrada'});
+                        this.errores = errores;
+                        this.historiaActiva = false;
+                        this.showErrors();
+                        return;
+                    }
+
                     this.model = data;         
 
                     this.model.admision = data.admision;  
@@ -994,7 +1007,7 @@ export class EditarHistoriasComponent implements OnInit {
                         this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre;                                                       
                         this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                       
                     }else{
-                        this.errores.push({ message: 'No se encontró un paciente con esa identificación'});                        
+                        this.errores.push({ message: 'No se encontró un paciente con esa identificación o no tiene una historia activa'});                        
                         this.showErrors();                        
                         this.clearAdmisionModel();
                         return;

@@ -34,5 +34,5 @@ export class Admision {
     idDiagnosticoSecundario: string;
     idAdmisionista: string;
     estado: string;
-    fechaDeCierre: string;
+    fechaDeCierre: Date;
 }

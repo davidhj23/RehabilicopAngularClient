@@ -192,7 +192,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-4 align-self-end">
-                            <button class="btn btn-primary" type="button" (click)="guardar()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
+                            <button class="btn btn-primary" type="button" (click)="guardar()" *ngIf="historiaActiva"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>
                         </div>
                     </div>
                 </div>

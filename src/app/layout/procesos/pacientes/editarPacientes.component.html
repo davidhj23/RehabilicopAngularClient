@@ -129,4 +129,48 @@
             </div>
         </div>      
     </div>
+
+    <div class="row">  
+        <div class="col-md-12">             
+            <div class="tile"> 
+                <div class="tile-body">
+                    <div class="row">
+                        <div class="form-group col-md-4" >
+                            <label class="control-label">Reportes</label>               
+                        </div>          
+                    </div>
+                    <table class="table table-hover table-bordered" 
+                        [mfData]="admisiones" [mfRowsOnPage]="rowsOnPage" #mf="mfDataTable">
+                        <thead>
+                            <tr>                            
+                                <th>Fecha de Ingreso</th>
+                                <th>Fecha de Cierre</th>
+                                <th>Estado</th>
+                                <th>Reporte</th>                                          
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let admision of mf.data">
+                            <tr>
+                                <td class="rowTd">{{admision.fechaDeIngreso | date: 'dd/MM/yyyy'}}</td>                  
+                                <td class="rowTd">{{admision.fechaDeCierre | date: 'dd/MM/yyyy'}}</td>
+                                <td class="rowTd">{{admision.estado}}</td>                            
+                                <td class="rowTd">                                      
+                                    <button class="btn btn-primary" type="button" (click)="getPdf(admision.idAdmision)">
+                                        <i class="fa fa-fw fa-lg fa-file-text-o"></i>Reporte
+                                    </button>                                    
+                                </td>       
+                            </tr>            
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>      
+                </div>
+            </div>
+        </div>      
+    </div>
 </main>

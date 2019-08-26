@@ -19,6 +19,7 @@ import { TratamientoFarmacologico } from './TratamientoFarmacologico';
 import { EpicrisisService } from './epicrisis.service';
 import { Cie10, Cie10Service } from '../../listas/cie10s';
 import { modelGroupProvider } from '@angular/forms/src/directives/ng_model_group';
+import { AdmisionService } from '../admisiones/admision.service';
 
 @Component({
     selector: 'epicrisis',
@@ -64,6 +65,7 @@ export class EpicrisisComponent implements OnInit {
         private epicrisisService: EpicrisisService,
         private historiaService: HistoriaService,
         private medicamentoService: MedicamentoService,
+        private admisionService: AdmisionService,
         private dosisService: DosisService,
         private userService: UserService,
         private router: Router,
@@ -192,13 +194,33 @@ export class EpicrisisComponent implements OnInit {
 
     getPdf(){
         this.showLoading(true);    
-        this.epicrisisService.generateReport(this.model.historia.admision.paciente.identificacion)
+        this.epicrisisService.generateReport(this.model.historia.admision.idAdmision)
             .subscribe(
                 data => {                                                          
                     this.showLoading(false);
                     let file = new Blob([data], { type: 'application/pdf' });            
                     var fileURL = URL.createObjectURL(file);
                     window.open(fileURL);
+
+                    this.showLoading(true);  
+                        this.model.historia.admision.estado = 'CERRADA';
+                        this.model.historia.admision.fechaDeCierre = new Date();
+                        this.admisionService.update(this.model.historia.admision)
+                            .subscribe(
+                                data => {                                                          
+                                    this.showLoading(false);                                                  
+                                },
+                                error => {                        
+                                    if(Array.isArray(error.error)){
+                                        this.errores = error.error;
+                                    }else{
+                                        let errores = [];
+                                        errores.push(error.error);
+                                        this.errores = errores;
+                                    } 
+                                    this.showErrors();
+                                    this.showLoading(false);
+                                });  
                 },
                 error => {                      
                     if(Array.isArray(error.error)){
@@ -392,7 +414,7 @@ export class EpicrisisComponent implements OnInit {
                         this.showLoading(false);   
                         
                     }else{
-                        this.errores.push({ message: 'No se encontró un paciente con esa identificación'});                        
+                        this.errores.push({ message: 'No se encontró un paciente con esa identificación o no tiene una historia activa'});                        
                         this.showErrors();                                                
                         return;
                     }

@@ -18,6 +18,7 @@ import { User } from '../../seguridad/usuarios/user';
 import { UserService } from '../../seguridad/usuarios/user.service';
 import { TratamientoFarmacologico } from './TratamientoFarmacologico';
 import { Cie10Service } from '../../listas/cie10s';
+import { AdmisionService } from '../admisiones/admision.service';
 
 @Component({
     selector: 'editarEpicrisis',
@@ -61,6 +62,7 @@ export class EditarEpicrisisComponent implements OnInit {
         private cie10Service: Cie10Service,
         private medicamentoService: MedicamentoService,
         private dosisService: DosisService,
+        private admisionService: AdmisionService,
         private userService: UserService) {
 
             this.model = new Epicrisis();
@@ -175,8 +177,7 @@ export class EditarEpicrisisComponent implements OnInit {
                                 this.showLoading(false);              
                         })
                                           
-                    this.medico = this.model.usuario;
-                    console.log(this.medico);
+                    this.medico = this.model.usuario;                    
                     this.showLoading(false);   
                 },
                 error => {                        
@@ -195,13 +196,33 @@ export class EditarEpicrisisComponent implements OnInit {
 
     getPdf(){
         this.showLoading(true);    
-        this.epicrisisService.generateReport(this.model.historia.admision.paciente.identificacion)
+        this.epicrisisService.generateReport(this.model.historia.admision.idAdmision)
             .subscribe(
                 data => {                                                          
                     this.showLoading(false);
                     let file = new Blob([data], { type: 'application/pdf' });            
                     var fileURL = URL.createObjectURL(file);
                     window.open(fileURL);
+
+                    this.showLoading(true);  
+                        this.model.historia.admision.estado = 'CERRADA';
+                        this.model.historia.admision.fechaDeCierre = new Date();
+                        this.admisionService.update(this.model.historia.admision)
+                            .subscribe(
+                                data => {                                                          
+                                    this.showLoading(false);                                                  
+                                },
+                                error => {                        
+                                    if(Array.isArray(error.error)){
+                                        this.errores = error.error;
+                                    }else{
+                                        let errores = [];
+                                        errores.push(error.error);
+                                        this.errores = errores;
+                                    } 
+                                    this.showErrors();
+                                    this.showLoading(false);
+                                }); 
                 },
                 error => {                      
                     if(Array.isArray(error.error)){

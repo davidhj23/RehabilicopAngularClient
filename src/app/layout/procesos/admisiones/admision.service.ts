@@ -35,4 +35,8 @@ export class AdmisionService {
     getAdmisionByIdentificacionPaciente(id: string): Observable<any>{
         return this.http.get(this.url + 'paciente/' + id,  CommonService.getJwtHeaders());
     }
+
+    getTodasAdmisionByIdentificacionPaciente(id: string): Observable<any>{
+        return this.http.get(this.url + 'paciente/all/' + id,  CommonService.getJwtHeaders());
+    }
 }

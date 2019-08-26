@@ -149,7 +149,7 @@ export class SignosVitalesComponent implements OnInit {
                         
                         this.getSignosVitalesByPaciente(this.model.historia.admision.paciente.identificacion);
                     }else{
-                        this.errores.push({ message: 'No se encontró un paciente con esa identificación'});                        
+                        this.errores.push({ message: 'No se encontró un paciente con esa identificación o no tiene una historia activa'});                        
                         this.showErrors();                                                
                         return;
                     }

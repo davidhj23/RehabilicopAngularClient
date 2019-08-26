@@ -37,8 +37,8 @@ export class EpicrisisService {
         return this.http.put(this.url + epicrisis.idEpicrisis, epicrisis,  CommonService.getJwtHeaders());
     }
 
-    generateReport(identificacion: String): Observable<any> {
-        return this.http.get(this.url + 'reporte/' + identificacion, CommonService.getPdfJwtHeaders());
+    generateReport(idAdmision: String): Observable<any> {
+        return this.http.get(this.url + 'reporte/' + idAdmision, CommonService.getPdfJwtHeaders());
     }
 
     /*delete(idDosis: String): Observable<any> {        

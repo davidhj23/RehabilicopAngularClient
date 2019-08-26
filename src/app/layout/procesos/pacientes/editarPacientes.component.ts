@@ -7,18 +7,12 @@ import { EstadoCivil, EstadoCivilService } from '../../listas/estados-civiles';
 import { AseguradoraService, Aseguradora } from '../../listas/aseguradoras';
 import { TipoEntidadService, TipoEntidad } from '../../listas/tipos-entidades';
 import { Util } from '../../../_utils';
-import { Observable } from '../../../../../node_modules/rxjs';
-import { tap, catchError, switchMap, debounceTime } from '../../../../../node_modules/rxjs/operators';
-import { of } from '../../../../../node_modules/rxjs/observable/of';
-import { SedeService } from '../../listas/sedes';
-import { AtencionService } from '../../listas/atenciones';
-import { CamaService } from '../../listas/camas';
-import { ParentescoService } from '../../listas/parentescos';
-import { UserService } from '../../seguridad/usuarios/user.service';
-import { Cie10Service } from '../../listas/cie10s';
 import { RegimenService, Regimen } from '../../listas/regimenes';
 import { EscolaridadService, Escolaridad } from '../../listas/escolaridades';
 import { Sexo, SexoService } from '../../listas/sexos';
+import { AdmisionService } from '../admisiones/admision.service';
+import { EpicrisisService } from '../epicrisis/epicrisis.service';
+import { Admision } from '../admisiones/admision';
 
 @Component({
     selector: 'editarPacientes',
@@ -46,6 +40,9 @@ export class EditarPacientesComponent implements OnInit {
     idEscolaridad: string;
     idSexo: string;
 
+    admisiones: Admision[] = []; 
+    rowsOnPage = 5;
+
     loading = false;        
     
     areErrors = false;
@@ -62,7 +59,9 @@ export class EditarPacientesComponent implements OnInit {
         private tipoEntidadService: TipoEntidadService,
         private regimenService: RegimenService,
         private escolaridadService: EscolaridadService,
+        private admisionService: AdmisionService,
         private sexoService: SexoService,
+        private epicrisisService: EpicrisisService,
         private route: ActivatedRoute) {
 
         this.model = new Paciente();
@@ -103,6 +102,8 @@ export class EditarPacientesComponent implements OnInit {
                         this.idSexo = this.model.sexo.idSexo;
 
                     this.fechaDeNacimiento = Util.formattedDate(this.model.fechaDeNacimiento);   
+
+                    this.loadAllAdmisiones(this.model.identificacion);
 
                     this.showLoading(false);                   
                 },
@@ -252,6 +253,52 @@ export class EditarPacientesComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 });
+    }
+
+    loadAllAdmisiones(identificacion: string) {     
+        this.showLoading(true);   
+        this.admisionService.getTodasAdmisionByIdentificacionPaciente(identificacion)
+            .subscribe(
+                data => {                                                             
+                    this.admisiones = data; 
+                    console.log(this.admisiones)       
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });
+    }
+
+    getPdf(idAdmision: any){
+        this.showLoading(true);    
+        this.epicrisisService.generateReport(idAdmision)
+            .subscribe(
+                data => {                                                          
+                    this.showLoading(true);
+                    let file = new Blob([data], { type: 'application/pdf' });            
+                    var fileURL = URL.createObjectURL(file);
+                    window.open(fileURL);
+                    this.showLoading(false);  
+                },
+                error => {                      
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });  
     }
 
     guardar() {

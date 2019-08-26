@@ -56,7 +56,8 @@ export class EditarAdmisionesComponent implements OnInit {
     loading = false;        
     
     areErrors = false;
-    errores: any[] = [];       
+    errores: any[] = [];   
+    historiaActiva = false;
     
     fechaDeNacimiento: string;
     fechaDeIngreso: string;
@@ -89,7 +90,18 @@ export class EditarAdmisionesComponent implements OnInit {
         this.showLoading(true);    
         this.admisionService.getById(this.currentAdmisionId)
             .subscribe(
-                data => {                                               
+                data => {           
+                    
+                    if(data.estado == 'CERRADA')
+                    {
+                        let errores = [];
+                        errores.push({ message: 'Esta historia ya está cerrada'});
+                        this.errores = errores;
+                        this.historiaActiva = false;
+                        this.showErrors();
+                        return;
+                    }
+
                     this.model = data;         
 
                     this.model.paciente = data.paciente;  
