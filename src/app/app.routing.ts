@@ -89,6 +89,8 @@ import { HospitalizacionComponent } from './layout/procesos/hospitalizacion/hosp
 
 import { ConsultarAdministracionComponent } from './layout/procesos/administracion-de-medicamentos/consultarAdministracion.component';
 import { EditarAdministracionComponent } from './layout/procesos/administracion-de-medicamentos/editarAdministracion.component';
+import { ConsultarValoracionEnfermeriaComponent } from './layout/procesos/valoracion-enfermeria/consultarValoracionEnfermeria.component';
+import { VerValoracionEnfermeriaComponent } from './layout/procesos/valoracion-enfermeria/verValoracionEnfermeria.component';
 
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
@@ -191,6 +193,9 @@ const appRoutes: Routes = [
 
                 { path: 'procesos/evoluciones/evolucion', component: EvolucionComponent, canActivate: [AuthGuard], data : { permission: ["evolucion"] }}, 
                 { path: 'procesos/evoluciones/auditoria', component: AuditoriaComponent, canActivate: [AuthGuard], data : { permission: ["auditar"] }}, 
+
+                { path: 'procesos/historias/consultar-valoracion-enfermeria', component: ConsultarValoracionEnfermeriaComponent, canActivate: [AuthGuard], data : { permission: ["consultar valoracion enfermeria"] }},                 
+                { path: 'procesos/historias/ver-valoracion-enfermeria/:id', component: VerValoracionEnfermeriaComponent, canActivate: [AuthGuard], data : { permission: ["consultar valoracion enfermeria"] }},
 
                 { path: 'configuracion/evoluciones/parametrizar-evoluciones', component: ParametrizarEvolucionesComponent, canActivate: [AuthGuard], data : { permission: ["parametrizacion evolucion"] }}, 
                 

@@ -117,6 +117,9 @@ import { ConsultarAdministracionComponent } from './layout/procesos/administraci
 import { EditarAdministracionComponent } from './layout/procesos/administracion-de-medicamentos/editarAdministracion.component';
 import { AuditoriaComponent } from './layout/procesos/evoluciones/auditoria.component';
 
+import { ConsultarValoracionEnfermeriaComponent } from './layout/procesos/valoracion-enfermeria/consultarValoracionEnfermeria.component';
+import { VerValoracionEnfermeriaComponent } from './layout/procesos/valoracion-enfermeria/verValoracionEnfermeria.component';
+
 import { ParametrizarEvolucionesComponent } from './layout/configuracion/evoluciones/parametrizarEvoluciones.component';
 import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones/parametrizarEvolucion.service';
 
@@ -225,6 +228,8 @@ import { ParametrizarEvolucionService } from './layout/configuracion/evoluciones
         HospitalizacionComponent,
         ConsultarAdministracionComponent,
         EditarAdministracionComponent,
+        ConsultarValoracionEnfermeriaComponent,
+        VerValoracionEnfermeriaComponent,
 
         HojaEventualComponent,
         EvolucionComponent,

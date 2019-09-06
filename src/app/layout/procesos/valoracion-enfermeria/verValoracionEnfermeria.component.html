@@ -1,0 +1,788 @@
+<main class="app-content" [ngClass]="{ 'tile loading': loading }"> 
+    <div class="overlay" *ngIf="loading">
+        <div class="m-loader mr-4">
+            <svg class="m-circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10"/>
+            </svg>
+        </div>
+        <h3 class="l-text">Loading</h3>
+    </div>
+    <div class="app-title">     
+      <div>
+        <h1><i class="fa fa-user fa-lg"></i> Ver Valoración Enfermería</h1>        
+      </div>
+      <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/layout/procesos/historias/ver-valoracion-enfermeria']">Ver Valoración enfermería</a></li>
+      </ul>
+    </div>
+    <div class="row" *ngIf="areErrors">
+        <div class="col-md-12">
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-danger">    
+                    <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                    <div *ngFor="let e of errores">
+                        <strong>{{e.message}}</strong>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">  
+        <div class="col-md-12">       
+            <div class="tile">              
+                <div class="tile-body">
+                    <div class="row">     
+                        <div class="form-group col-md-1" >
+                            <label class="control-label">Tipo</label>    
+                            <input class="form-control" type="text" name="tipoDocumento" [(ngModel)]="tipoDocumento" disabled>   
+                        </div>                                                                        
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Identificación</label>                                
+                            <input class="form-control" type="text" name="identificacion" [(ngModel)]="model.admision.paciente.identificacion" (keydown.enter)="keytab($event)" disabled>                                                
+                        </div>   
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Nombres</label>
+                            <input class="form-control" type="text" name="nombres" [(ngModel)]="model.admision.paciente.nombres" disabled>                
+                        </div>          
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Apellidos</label>
+                            <input class="form-control" type="text" name="apellidos" [(ngModel)]="model.admision.paciente.apellidos" disabled>                
+                        </div>                                                        
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Edad</label>                            
+                            <input class="form-control" type="text" name="edad" [(ngModel)]="edad" disabled/>
+                        </div>          
+                    </div>      
+                    <div class="row"> 
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Sexo</label>
+                            <input class="form-control" type="text" name="sexo" [(ngModel)]="sexo" disabled/>                            
+                        </div>                                                                                                                     
+                        <div class="form-group col-md-3" >
+                            <label class="control-label">Tipo de Entidad</label>
+                            <input class="form-control" type="text" name="tipoEntidad" [(ngModel)]="tipoEntidad" disabled/>
+                        </div>                                                    
+                        <div class="form-group col-md-6" >
+                            <label class="control-label">Aseguradora</label>
+                            <input class="form-control" type="text" name="aseguradora" [(ngModel)]="aseguradora" disabled/>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Examen Físico</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Apariencia general</h6>                                 
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <select disabled class="form-control" [(ngModel)]="apariencia.idApariencia" name="apariencia">                                
+                                <option *ngFor="let item of apariencias" [ngValue]="item.idApariencia">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <input disabled class="form-control" type="text" [(ngModel)]="descripcionApariencia" name="descripcionApariencia"/>
+                        </div>                                               
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Signos vitales</h6>                                 
+                            </div>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label class="control-label">TA MMHG</label>                            
+                        </div>
+                        <div class="form-group col-md-1">
+                            <input disabled class="form-control" type="text" [(ngModel)]="signoVitalTa" name="signoVitalTa"/>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label class="control-label">FC LAT/MIN</label>                            
+                        </div>
+                        <div class="form-group col-md-1" >
+                            <input disabled class="form-control" type="text" [(ngModel)]="signoVitalFc" name="signoVitalFc"/>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label class="control-label">FR RESP/MIN</label>                            
+                        </div>                        
+                        <div class="form-group col-md-1" >
+                            <input disabled class="form-control" type="text" [(ngModel)]="signoVitalFr" name="signoVitalFr"/>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label class="control-label">T </label>                            
+                        </div>
+                        <div class="form-group col-md-1" >
+                            <input disabled class="form-control" type="text" [(ngModel)]="signoVitalT" name="signoVitalT"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Ojos</h6>                                 
+                            </div>
+                            <label class="control-label">Midriasis</label>
+                            <select disabled class="form-control" [(ngModel)]="midriasis.idOpcion" name="midriasis">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Miosis</label>
+                            <select disabled class="form-control" [(ngModel)]="miosis.idOpcion" name="miosis">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Anisocordia</label>
+                            <select disabled class="form-control" [(ngModel)]="anisocordia.idOpcion" name="anisocordia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Pinral</label>
+                            <select disabled class="form-control" [(ngModel)]="pinral.idOpcion" name="pinral">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Cara</h6>                                 
+                            </div>
+                            <label class="control-label">Otorragia</label>
+                            <select disabled class="form-control" [(ngModel)]="otorragia.idOpcion" name="otorragia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Otoliquia</label>
+                            <select disabled class="form-control" [(ngModel)]="otoliquia.idOpcion" name="otoliquia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Rinoliquia</label>
+                            <select disabled class="form-control" [(ngModel)]="rinoloquia.idOpcion" name="rinoloquia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Epixtasis</label>
+                            <select disabled class="form-control" [(ngModel)]="epixtasis.idOpcion" name="epixtasis">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Murmullo Vesicular</label>
+                            <select disabled class="form-control" [(ngModel)]="murmulloVesicular.idOpcion" name="murmulloVesicular">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Pulmones</h6>                                 
+                            </div>
+                            <label class="control-label">Estortes Crepitantes</label>
+                            <select disabled class="form-control" [(ngModel)]="estertoresCrepitantes.idOpcion" name="estertoresCrepitantes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Roncus</label>
+                            <select disabled class="form-control" [(ngModel)]="roncus.idOpcion" name="roncus">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Sibilancias</label>
+                            <select disabled class="form-control" [(ngModel)]="sibilancias.idOpcion" name="sibilancias">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Silencio Auscultorio</label>
+                            <select disabled class="form-control" [(ngModel)]="silencioAuscultorio.idOpcion" name="silencioAuscultorio">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Murmullo Vesicular</label>
+                            <select disabled class="form-control" [(ngModel)]="murmulloVesicularPulmones.idOpcion" name="murmulloVesicularPulmones">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Corazón</h6>                                 
+                            </div>
+                            <label class="control-label">Frote Pericardial</label>
+                            <select disabled class="form-control" [(ngModel)]="frotePericardial.idOpcion" name="frotePericardial">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Ruidos no auscultables</label>
+                            <select disabled class="form-control" [(ngModel)]="ruidosNoAuscultables.idOpcion" name="ruidosNoAuscultables">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Arritmico</label>
+                            <select disabled class="form-control" [(ngModel)]="arritmico.idOpcion" name="arritmico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Soplo</label>
+                            <select disabled class="form-control" [(ngModel)]="soplo.idOpcion" name="soplo">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Rs Cs Rs sin soplo</label>
+                            <select disabled class="form-control" [(ngModel)]="rsCsRsSinSoplo.idOpcion" name="rsCsRsSinSoplo">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <div class="page-header">
+                                <h6>Abdomen</h6>                                 
+                            </div>
+                            <label class="control-label">Hepatomegalia</label>
+                            <select disabled class="form-control" [(ngModel)]="hepatomegalia.idOpcion" name="hepatomegalia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Esplenomegalia</label>
+                            <select disabled class="form-control" [(ngModel)]="esplenomegalia.idOpcion" name="esplenomegalia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Masa Palpable</label>
+                            <select disabled class="form-control" [(ngModel)]="masaPalpable.idOpcion" name="masaPalpable">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Signos de irritación peritonal</label>
+                            <select disabled class="form-control" [(ngModel)]="signosDeIrritacionPeritoneal.idOpcion" name="signosDeIrritacionPeritoneal">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Sin alteraciones evidentes</label>
+                            <select disabled class="form-control" [(ngModel)]="sinAlteracionesEvidentes.idOpcion" name="sinAlteracionesEvidentes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Iieo paralitico</label>
+                            <select disabled class="form-control" [(ngModel)]="iieoParalitico.idOpcion" name="iieoParalitico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Ascitis</label>
+                            <select disabled class="form-control" [(ngModel)]="ascitis.idOpcion" name="ascitis">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Exteremidades</h6>                                 
+                            </div>
+                            <label class="control-label">Llenado capilar alterado</label>
+                            <select disabled class="form-control" [(ngModel)]="llenadoCapilarAlterado.idOpcion" name="llenadoCapilarAlterado">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Pulso ausente</label>
+                            <select disabled class="form-control" [(ngModel)]="pulsoAusentes.idOpcion" name="pulsoAusentes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Deformidad</label>
+                            <select disabled class="form-control" [(ngModel)]="deformidad.idOpcion" name="deformidad">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Movilidad alterada</label>
+                            <select disabled class="form-control" [(ngModel)]="movilidadAlterada.idOpcion" name="movilidadAlterada">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Pulsos perifericos presentes</label>
+                            <select disabled class="form-control" [(ngModel)]="pulsosPerifericosPresentes.idOpcion" name="pulsosPerifericosPresentes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Piel y faneas</h6>                                 
+                            </div>
+                            <label class="control-label">Cianosis</label>
+                            <select disabled class="form-control" [(ngModel)]="cianosis.idOpcion" name="cianosis">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Ictericia</label>
+                            <select disabled class="form-control" [(ngModel)]="ictericia.idOpcion" name="ictericia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Palidez Mucocutanea</label>
+                            <select disabled class="form-control" [(ngModel)]="palidezMucocutanea.idOpcion" name="palidezMucocutanea">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Hematomas, Equimosis, Heridas</label>
+                            <select disabled class="form-control" [(ngModel)]="hematomasEquimosisHeridas.idOpcion" name="hematomasEquimosisHeridas">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>                            
+                            <label class="control-label">Cicatrices, Tatuajes</label>
+                            <select disabled class="form-control" [(ngModel)]="cicatricesTatuajes.idOpcion" name="cicatricesTatuajes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Sin Alteraciones Evidente</label>
+                            <select disabled class="form-control" [(ngModel)]="sinAlteracionesEvidentes3.idOpcion" name="sinAlteracionesEvidentes3">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>SNC</h6>                                 
+                            </div>
+                            <label class="control-label">Alerta</label>
+                            <select disabled class="form-control" [(ngModel)]="alerta.idOpcion" name="alerta">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Somnolencia</label>
+                            <select disabled class="form-control" [(ngModel)]="somnolencia.idOpcion" name="somnolencia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Estupor</label>
+                            <select disabled class="form-control" [(ngModel)]="estupor.idOpcion" name="estupor">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Comas</label>
+                            <select disabled class="form-control" [(ngModel)]="comas.idOpcion" name="comas">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Agitación</label>
+                            <select disabled class="form-control" [(ngModel)]="agitacion.idOpcion" name="agitacion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>SNC</h6>                                 
+                            </div>
+                            <label class="control-label">Reflejos Muscolo Tendinosoo Alterados</label>
+                            <select disabled class="form-control" [(ngModel)]="reflejosMuscoloTendinosooAlterados.idOpcion" name="reflejosMuscoloTendinosooAlterados">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Signos meningeos Presentes</label>
+                            <select disabled class="form-control" [(ngModel)]="signosmeningeosPresentes.idOpcion" name="signosmeningeosPresentes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Perdida de la Sensibilidad</label>
+                            <select disabled class="form-control" [(ngModel)]="perdidaDeLaSensibilidad.idOpcion" name="perdidaDeLaSensibilidad">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Inconctinencia Urinaria o Fecal</label>
+                            <select disabled class="form-control" [(ngModel)]="inconctinenciaUrinariaOFecal.idOpcion" name="inconctinenciaUrinariaOFecal">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Movimientos anormales</label>
+                            <select disabled class="form-control" [(ngModel)]="movimientosAnormales.idOpcion" name="movimientosAnormales">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Sin Alteraciones Evidente</label>
+                            <select disabled class="form-control" [(ngModel)]="sinAlteracionesEvidentes4.idOpcion" name="sinAlteracionesEvidentes4">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>ORGANO/SISTEMA</h6>                                 
+                            </div>
+                            <label class="control-label">Cabeza y Cuello</label>                            
+                            <select disabled class="form-control" [(ngModel)]="cabezaYCuello" name="cabezaYCuello">                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                            <label class="control-label">Cardiopulmar</label>
+                            <select disabled class="form-control" [(ngModel)]="cardioPulmar" name="cardioPulmar">                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                            <label class="control-label">Abdomen</label>
+                            <select disabled class="form-control" [(ngModel)]="abdomen" name="abdomen">                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                            <label class="control-label">Genitourinario</label>
+                            <select disabled class="form-control" [(ngModel)]="genitourinario" name="genitourinario">                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                            <label class="control-label">Extremidades</label>
+                            <select disabled class="form-control" [(ngModel)]="extremidades" name="extremidades">                                
+                                <option value="NORMAL">NORMAL</option>
+                                <option value="ANORMAL">ANORMAL</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Descripción</h6>                                 
+                            </div>                            
+                            <textarea disabled class="form-control" type="textarea" rows="5" cols="50" [(ngModel)]="descripcionExamenFisico4"></textarea>                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Estado Conciencia</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <select disabled class="form-control" [(ngModel)]="estadoConciencia.idEstadoConciencia" name="estadoConciencia">                                
+                                <option *ngFor="let item of estadosConciencias" [ngValue]="item.idEstadoConciencia">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Fecha</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <input disabled class="form-control" type="text" name="fecha" placeholder="dd/mm/aaaa" [textMask]="{mask: mask}" [(ngModel)]="fecha">   
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Orientación</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Persona</label>
+                            <select disabled class="form-control" [(ngModel)]="persona.idOpcion" name="persona">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Espacio</label>
+                            <select disabled class="form-control" [(ngModel)]="espacio.idOpcion" name="espacio">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Tiempo</label>
+                            <select disabled class="form-control" [(ngModel)]="tiempo.idOpcion" name="tiempo">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Atención</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Euprosexico</label>
+                            <select disabled class="form-control" [(ngModel)]="euprosexico.idOpcion" name="euprosexico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Hipoprosexico</label>
+                            <select disabled class="form-control" [(ngModel)]="hipoprosexico.idOpcion" name="hipoprosexico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Hiperprosexico</label>
+                            <select disabled class="form-control" [(ngModel)]="hiperprosexico.idOpcion" name="hiperprosexico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Efecto</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Eutimico</label>
+                            <select disabled class="form-control" [(ngModel)]="eutimico.idOpcion" name="eutimico">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Depresivo</label>
+                            <select disabled class="form-control" [(ngModel)]="depresivo.idOpcion" name="depresivo">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Expensivo</label>
+                            <select disabled class="form-control" [(ngModel)]="expensivo.idOpcion" name="expensivo">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Descripción</label>
+                            <input disabled class="form-control" type="text" name="descripcionExamenFisico5" [(ngModel)]="descripcionExamenFisico5">   
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Pensamiento</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Origen:</label><br/>
+                            <label class="control-label">Normal</label>
+                            <select disabled class="form-control" [(ngModel)]="orgienNormal.idOpcion" name="orgienNormal">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Acustica</label>
+                            <select disabled class="form-control" [(ngModel)]="acustica.idOpcion" name="acustica">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Concreto</label>
+                            <select disabled class="form-control" [(ngModel)]="concreto.idOpcion" name="concreto">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Pobreza Ideativa</label>
+                            <select disabled class="form-control" [(ngModel)]="pobrezaIdeativa.idOpcion" name="pobrezaIdeativa">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Curso:</label><br/>
+                            <label class="control-label">Normal</label>
+                            <select disabled class="form-control" [(ngModel)]="cursoNormal.idOpcion" name="cursoNormal">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Bridipsiquia</label>
+                            <select disabled class="form-control" [(ngModel)]="bridipsiquia.idOpcion" name="bridipsiquia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Taquipsiquia</label>
+                            <select disabled class="form-control" [(ngModel)]="taquipsiquia.idOpcion" name="taquipsiquia">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Fugas de idea</label>
+                            <select disabled class="form-control" [(ngModel)]="fugasDeIdea.idOpcion" name="fugasDeIdea">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Contenido:</label><br/>
+                            <label class="control-label">Ideas Delirantes</label>
+                            <select disabled class="form-control" [(ngModel)]="ideasDelirantes.idOpcion" name="ideasDelirantes">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Ideas Refenciales</label>
+                            <select disabled class="form-control" [(ngModel)]="ideasRefenciales.idOpcion" name="ideasRefenciales">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Ideas Obsesivas</label>
+                            <select disabled class="form-control" [(ngModel)]="ideasObsesivas.idOpcion" name="ideasObsesivas">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Pensamiento Mago</label>
+                            <select disabled class="form-control" [(ngModel)]="pensamientoMago.idOpcion" name="pensamientoMago">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Lenguaje</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <label class="control-label">Comprensibles</label>
+                            <select disabled class="form-control" [(ngModel)]="comprensible.idComprensible" name="comprensible">                                
+                                <option *ngFor="let item of comprensibles" [ngValue]="item.idComprensible">{{item.nombre}}</option>
+                            </select>                            
+                            <label class="control-label">Disartias</label>
+                            <select disabled class="form-control" [(ngModel)]="disartrias.idOpcion" name="disartrias">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Curso</label>
+                            <select disabled class="form-control" [(ngModel)]="curso.idCurso" name="curso">                                
+                                <option *ngFor="let item of cursos" [ngValue]="item.idCurso">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Asfixia</label>
+                            <select disabled class="form-control" [(ngModel)]="asfixias.idAsfixia" name="asfixias">                                
+                                <option *ngFor="let item of asfixiasCombo" [ngValue]="item.idAsfixia">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Sensopercepción</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Alucinaciones</label>                                 
+                            <select disabled class="form-control" [(ngModel)]="alucinaciones.idAlucinacion" name="alucinaciones">                                
+                                <option *ngFor="let item of alucinacionesCombo" [ngValue]="item.idAlucinacion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6" >
+                            <label class="control-label">Tipo</label>                                                         
+                            <input disabled class="form-control" type="text" name="tipo" [(ngModel)]="tipo">   
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Memoria</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Fijación</label>
+                            <select disabled class="form-control" [(ngModel)]="fijacion.idMemoria2" name="fijacion">                                
+                                <option *ngFor="let item of memoria2Combo" [ngValue]="item.idMemoria2">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Reciente</label>
+                            <select disabled class="form-control" [(ngModel)]="reciente.idMemoria2" name="reciente">                                
+                                <option *ngFor="let item of memoria2Combo" [ngValue]="item.idMemoria2">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <label class="control-label">Remoto</label>
+                            <select disabled class="form-control" [(ngModel)]="remota.idMemoria2" name="remota">                                
+                                <option *ngFor="let item of memoria2Combo" [ngValue]="item.idMemoria2">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Inteligencia</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <select disabled class="form-control" [(ngModel)]="inteligencia.idInteligencia" name="inteligencia">                                
+                                <option *ngFor="let item of inteligencias" [ngValue]="item.idInteligencia">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Introspección</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <select disabled class="form-control" [(ngModel)]="introspeccion.idIntrospeccion" name="introspeccion">                                
+                                <option *ngFor="let item of introspecciones" [ngValue]="item.idIntrospeccion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Prospección</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <select disabled class="form-control" [(ngModel)]="prospeccion.idIntrospeccion" name="prospeccion">                                
+                                <option *ngFor="let item of introspecciones" [ngValue]="item.idIntrospeccion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Juicio</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <select disabled class="form-control" [(ngModel)]="juicio.idIntrospeccion" name="juicio">                                
+                                <option *ngFor="let item of introspecciones" [ngValue]="item.idIntrospeccion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Patrón de alimentación</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <select disabled class="form-control" [(ngModel)]="alimentacion.idAlimentacion" name="alimentacion">                                
+                                <option *ngFor="let item of alimentaciones" [ngValue]="item.idAlimentacion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Tipo</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="col-md-6" >
+                            <input disabled class="form-control" type="text" name="tipoAlimenticio" [(ngModel)]="tipoAlimenticio">   
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="form-group col-md-2" >
+                            <div class="page-header">
+                                <h6>Patrón de sueño</h6>                                 
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-2" >                            
+                            <label class="control-label">Adecuado</label>
+                            <select disabled class="form-control" [(ngModel)]="adecuado.idOpcion" name="adecuado">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Hipersomnio</label>
+                            <select disabled class="form-control" [(ngModel)]="hipersomnio.idOpcion" name="hipersomnio">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Insomnio</label>
+                            <select disabled class="form-control" [(ngModel)]="insomnio.idOpcion" name="insomnio">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Cociliación</label>
+                            <select disabled class="form-control" [(ngModel)]="cociliacion.idOpcion" name="cociliacion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Reconciliación</label>
+                            <select disabled class="form-control" [(ngModel)]="reconciliacion.idOpcion" name="reconciliacion">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                            <label class="control-label">Global</label>
+                            <select disabled class="form-control" [(ngModel)]="global.idOpcion" name="global">                                
+                                <option *ngFor="let item of opciones" [ngValue]="item.idOpcion">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Impresión Diagnostica</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12" >
+                            <label class="control-label">Impresión Diagnostica</label>                                                        
+                            <input id="typeahead-http" type="text" class="form-control"
+                                    [(ngModel)]="impresionDiagnostica"  placeholder="Cie10" 
+                                disabled/>                                                        
+                        </div>        
+                    </div>
+                    <div class="row">  
+                        <div class="form-group col-md-6" >
+                            <label class="control-label">Medico</label>                                
+                            <select disabled class="form-control" [(ngModel)]="medico.idUsuario" name="medico" disabled>                                
+                                <option *ngFor="let item of medicos" [ngValue]="item.idUsuario">{{item.nombres}} {{item.apellidos}}</option>
+                            </select>
+                        </div>                                                     
+                        <div class="form-group col-md-6" >
+                            <label class="control-label">Autoriza</label>
+                            <select disabled class="form-control" [(ngModel)]="autoriza.idUsuario" name="autoriza" disabled>                                
+                                <option *ngFor="let item of psiquiatras" [ngValue]="item.idUsuario">{{item.nombres}} {{item.apellidos}}</option>
+                            </select>
+                        </div> 
+                    </div>                    
+                </div>
+            </div>
+        </div>      
+    </div>
+</main>
