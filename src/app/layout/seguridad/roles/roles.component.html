@@ -57,8 +57,7 @@
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th permission="editar rol">Editar</th>              
-                  <th permission="eliminar rol">Eliminar</th>          
+                  <th permission="editar rol">Editar</th>                                
                 </tr>
               </thead>
               <tbody *ngFor="let rol of mf.data">
@@ -66,10 +65,7 @@
                   <td class="rowTd">{{rol.nombre}}</td>
                   <td class="rowTd" permission="editar rol">                  
                     <a class="btn float-left" (click)="edit(rol, editContent)" permission="editar rol"><i class="fa fa-pencil"></i></a>                      
-                  </td>       
-                  <td class="rowTd" permission="eliminar rol">                                      
-                    <a class="btn float-left" (click)="delete(rol.idRol, content)" permission="eliminar rol"><i class="fa fa-times"></i></a>                  
-                </td>       
+                  </td>                         
                 </tr>            
               </tbody>
               <tfoot>
