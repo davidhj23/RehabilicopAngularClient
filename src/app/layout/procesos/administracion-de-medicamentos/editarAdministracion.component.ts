@@ -124,7 +124,7 @@ export class EditarAdministracionComponent implements OnInit {
                 }); 
                 
                 this.showLoading(true);    
-                this.usuarioService.getAllEnfermeros()
+                this.usuarioService.getAllJefesEnfermerias()
                     .subscribe(
                         data => {      
                             this.listaAdministra = data;                    

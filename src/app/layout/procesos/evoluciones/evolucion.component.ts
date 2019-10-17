@@ -12,6 +12,7 @@ import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, tap, switchMap, catchError} from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { PacienteService } from '../pacientes/paciente.service';
+import { ParametrizarEvolucionService } from '../../configuracion/evoluciones';
 
 @Component({
     selector: 'evolucion',
@@ -45,7 +46,8 @@ export class EvolucionComponent implements OnInit {
         private historiaService: HistoriaService,
         private router: Router,
         private ngbModal: NgbModal,
-        private pacienteService: PacienteService) {
+        private pacienteService: PacienteService,
+        private parametrizarEvolucionService: ParametrizarEvolucionService) {
             this.model = new Evolucion();
             this.model.historia = new Historia();
             this.model.historia.admision = new Admision();
@@ -102,14 +104,52 @@ export class EvolucionComponent implements OnInit {
     create() {
         if(!this.validateCreate()) return;
         
-        this.model.fecha = new Date(Number(this.fecha.year), Number(this.fecha.month) - 1, Number(this.fecha.day)) 
+        let anio = this.fecha.year;
+        let mes = this.fecha.month;
+        let dia = this.fecha.day;
 
+        if (mes.length < 2) mes = '0' + mes;
+        if (dia.length < 2) dia = '0' + dia;
+        
         this.showLoading(true);    
-        this.evolucionService.create(this.model)
+        this.parametrizarEvolucionService.getAll()
             .subscribe(
-                data => {                                                          
+                data => {    
+                    var guardo = false;                  
+                    data.forEach((x: any) => {
+                        let fecha = Util.formattedDate(x.fecha);                           
+                        if(dia == fecha.substring(0, 2)
+                            && mes == fecha.substring(3, 5)
+                            && anio == fecha.substring(6, 10)
+                            && this.model.tipoEvolucion.nombre == x.tipoEvolucion.nombre)
+                        {
+                            guardo = true;
+                            this.model.fecha = new Date(anio, mes - 1, dia) 
+                            this.showLoading(true);    
+                            this.evolucionService.create(this.model)
+                                .subscribe(
+                                    data => {                                                          
+                                        this.showLoading(false);
+                                        this.loadEvolucionesEmpleado();
+                                    },
+                                    error => {                        
+                                        if(Array.isArray(error.error)){
+                                            this.errores = error.error;
+                                        }else{
+                                            let errores = [];
+                                            errores.push(error.error);
+                                            this.errores = errores;
+                                        } 
+                                        this.showErrors();
+                                        this.showLoading(false);
+                                    });
+                        }
+                    })  
+                    if(!guardo){
+                        this.errores.push({ message: 'Usted no tiene asignada evolución para la fecha y tipo ingresado'});
+                        this.showErrors();            
+                    }  
                     this.showLoading(false);
-                    this.loadEvolucionesEmpleado();
                 },
                 error => {                        
                     if(Array.isArray(error.error)){
@@ -121,7 +161,7 @@ export class EvolucionComponent implements OnInit {
                     } 
                     this.showErrors();
                     this.showLoading(false);
-                });   
+                });
     }     
 
     validateCreate(){

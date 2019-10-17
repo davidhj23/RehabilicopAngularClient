@@ -154,7 +154,7 @@ export class OrdenMedicaComponent implements OnInit {
                 }); 
 
         this.showLoading(true);    
-        this.userService.getAllEnfermeros()
+        this.userService.getAllJefesEnfermerias()
             .subscribe(
                 data => {      
                     this.quienesReciben = data;                    
