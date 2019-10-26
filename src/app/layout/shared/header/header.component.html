@@ -8,7 +8,8 @@
     <!-- User Menu-->
     <li ngbDropdown placement="bottom-right" class="dropdown">
       <a ngbDropdownToggle class="app-nav__item" [routerLink]="" data-toggle="dropdown" aria-label="Open Profile Menu">
-        <i class="fa fa-user fa-lg"></i>
+        <span id="loggedUser">{{ loggedUser }}</span>
+        <!--i class="fa fa-user fa-lg"></i-->        
       </a>
       <ul ngbDropdownMenu class="dropdown-menu settings-menu dropdown-menu-right" >        
           <li><a class="dropdown-item" [routerLink]="['/layout/seguridad/usuarios/cambiar-password']"><i class="fa fa-lock fa-lg"></i> Cambiar Clave</a></li>
