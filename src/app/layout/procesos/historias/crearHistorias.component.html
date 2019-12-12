@@ -108,8 +108,8 @@
                         <div class="form-group col-md-2" >
                             <label class="control-label">Tipo</label>    
                             <select class="form-control" [(ngModel)]="idtipoPatologia" name="idTipoPatologia">                                
-                                <option value="PATOLOGICO">PATOLOGICO</option>
-                                <option value="NO PATOLOGICO">NO PATOLOGICO</option>
+                                <option value="PSIQUIATRICO">PSIQUIATRICO</option>
+                                <option value="NO PSIQUIATRICO">NO PSIQUIATRICO</option>
                             </select>
                         </div>                                                                                                
                         <div class="form-group col-md-4" >
@@ -179,10 +179,8 @@
                             <input class="form-control" placeholder="dd/mm/aaaa" [textMask]="{mask: mask}" [(ngModel)]="fechaUltimaHospitalizacion" type="text"/>
                         </div>                                                                                     
                         <div class="col-md-2">
-                            <label class="control-label">Primera vez?</label>
-                            <select class="form-control" [(ngModel)]="primeraHospitalizacion" name="primeraHospitalizacion">                                
-                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
-                            </select>
+                            <label class="control-label">Causa</label>
+                            <input class="form-control" type="text" name="causa" [(ngModel)]="causa"/>                            
                         </div>
                         <div class="form-group col-md-2 align-self-end">
                             <button class="btn btn-primary" type="button" (click)="addAntecedente()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Añadir</button>
@@ -197,7 +195,7 @@
                                         <th>Institución</th>
                                         <th>Número</th>
                                         <th>Fecha última hospitalización</th>                                
-                                        <th>Primera hospitalización?</th>                                                    
+                                        <th>Causa</th>                                                    
                                         <th>Eliminar</th>          
                                     </tr>
                                 </thead>
@@ -207,7 +205,7 @@
                                         <td class="rowTd">{{antecedente.institucion}}</td>    
                                         <td class="rowTd">{{antecedente.numero}}</td>
                                         <td class="rowTd">{{antecedente.fechaUltimaHospitalizacion | date: 'dd/MM/yyyy'}}</td>
-                                        <td class="rowTd">{{antecedente.esLaPrimeraHospitalizacion.nombre}}</td>                                                                        
+                                        <td class="rowTd">{{antecedente.causa}}</td>                                                                        
                                         <td class="rowTd" >                                      
                                             <a class="btn float-left" (click)="deleteAntecedente(i)"><i class="fa fa-times"></i></a>                  
                                         </td>       
@@ -289,9 +287,7 @@
                         </div> 
                         <div class="col-md-2">
                             <label class="control-label">Tiempo de uso</label>
-                            <select class="form-control" [(ngModel)]="tiempoDeUso" name="tiempoDeUso">                                
-                                <option *ngFor="let item of tiemposDeUsos" [ngValue]="item">{{item.nombre}}</option>
-                            </select>
+                            <input class="form-control" type="text" name="tiempoDeUso" [(ngModel)]="tiempoDeUso"/>
                         </div>
                         <div class="col-md-2">
                             <label class="control-label">Eficacia</label>
@@ -301,9 +297,7 @@
                         </div>
                         <div class="col-md-2">
                             <label class="control-label">E. Adverso</label>
-                            <select class="form-control" [(ngModel)]="esAdverso" name="esAdverso">                                
-                                <option *ngFor="let item of opciones" [ngValue]="item">{{item.nombre}}</option>
-                            </select>
+                            <input class="form-control" type="text" name="eventoAdverso" [(ngModel)]="eventoAdverso"/>
                         </div>
                         <div class="form-group col-md-2 align-self-end">
                             <button class="btn btn-primary" type="button" (click)="addFarmacologico()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Añadir</button>
@@ -326,9 +320,9 @@
                                     <tr *ngFor="let farmacologico of farmacologicos; let i = index">                  
                                         <td class="rowTd">{{farmacologico.medicamento}}</td>        
                                         <td class="rowTd">{{farmacologico.dosis}}</td>    
-                                        <td class="rowTd">{{farmacologico.tiempoDeUso.nombre}}</td>                                                                        
+                                        <td class="rowTd">{{farmacologico.tiempoDeUso}}</td>                                                                        
                                         <td class="rowTd">{{farmacologico.eficacia.nombre}}</td>
-                                        <td class="rowTd">{{farmacologico.esAdverso.nombre}}</td>
+                                        <td class="rowTd">{{farmacologico.eventoAdverso}}</td>
                                         <td class="rowTd" >                                      
                                             <a class="btn float-left" (click)="deleteFarmacologico(i)"><i class="fa fa-times"></i></a>                  
                                         </td>       
@@ -403,8 +397,15 @@
                         <div class="form-group col-md-2" >
                             <label class="control-label">Partos</label>
                             <select class="form-control" [(ngModel)]="partos" name="partos">                                                                
-                                <option value="NORMAL">NORMAL</option>
-                                <option value="ANORMAL">ANORMAL</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
                             </select>
                         </div> 
                         <div class="form-group col-md-2" >
@@ -480,8 +481,8 @@
                                 <option *ngFor="let item of apariencias" [ngValue]="item">{{item.nombre}}</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-2" >
-                            <input class="form-control" type="text" [(ngModel)]="descripcionApariencia" name="descripcionApariencia"/>
+                        <div class="form-group col-md-4" >
+                            <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="descripcionApariencia" name="descripcionApariencia"></textarea>
                         </div>                                               
                     </div>
                     <div class="row">
@@ -802,7 +803,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="page-header">
-                                <h5 class="mb-3 line-head" id="typography"></h5>
+                                <h5 class="mb-3 line-head" id="typography">Examen mental</h5>
                             </div>
                         </div>
                     </div>
@@ -879,7 +880,7 @@
                     <div class="row">                        
                         <div class="form-group col-md-2" >
                             <div class="page-header">
-                                <h6>Efecto</h6>                                 
+                                <h6>Afecto</h6>                                 
                             </div>                            
                         </div>
                         <div class="form-group col-md-2" >
@@ -1164,6 +1165,46 @@
                                     [resultTemplate]="rt" [inputFormatter]="formatter"/>
                             <span *ngIf="searching">Buscando...</span>
                             <div class="invalid-feedback" *ngIf="searchFailed">No se encontró ningún Cie10.</div>                                                     
+                        </div>        
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Impresión Diagnostica</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12" >
+                            <label class="control-label">Impresión Diagnostica</label>                            
+                            <ng-template #rt2 let-r="result" let-t="term">
+                                ({{r.codigo}}) {{r.nombre}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailed2" 
+                                    [(ngModel)]="impresionDiagnostica2" [ngbTypeahead]="search2" placeholder="Cie10" 
+                                    [resultTemplate]="rt2" [inputFormatter]="formatter2"/>
+                            <span *ngIf="searching2">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailed2">No se encontró ningún Cie10.</div>                                                     
+                        </div>        
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="page-header">
+                                <h5 class="mb-3 line-head" id="typography">Impresión Diagnostica</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12" >
+                            <label class="control-label">Impresión Diagnostica</label>                            
+                            <ng-template #rt3 let-r="result" let-t="term">
+                                ({{r.codigo}}) {{r.nombre}}
+                            </ng-template>
+                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailed3" 
+                                    [(ngModel)]="impresionDiagnostica3" [ngbTypeahead]="search3" placeholder="Cie10" 
+                                    [resultTemplate]="rt2" [inputFormatter]="formatter3"/>
+                            <span *ngIf="searching3">Buscando...</span>
+                            <div class="invalid-feedback" *ngIf="searchFailed3">No se encontró ningún Cie10.</div>                                                     
                         </div>        
                     </div>
                     <div class="row">                        

@@ -9,7 +9,7 @@ export class Antecedente{
     fechaUltimaHospitalizacion: Date;			
     tipo: string;
 	
-	esLaPrimeraHospitalizacion: Opcion;
+	causa: string;
 
     historia: Historia;
 }

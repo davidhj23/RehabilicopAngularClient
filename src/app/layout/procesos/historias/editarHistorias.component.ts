@@ -85,7 +85,7 @@ export class EditarHistoriasComponent implements OnInit {
     institucion: string;
     numero: string;
     fechaUltimaHospitalizacion: string;    
-    primeraHospitalizacion: Opcion;
+    causa: string;
 
     traumaticos: Traumatico[] = []; 
     trauma: string;
@@ -97,8 +97,8 @@ export class EditarHistoriasComponent implements OnInit {
     medicamento: string;
     dosis: string;       
 	eficacia: Opcion;    
-	esAdverso: Opcion;
-    tiempoDeUso: TiempoUso;
+	eventoAdverso: string;
+    tiempoDeUso: string;
 
     toxicos: Toxico[] = [];
     sustancia = '';
@@ -311,6 +311,8 @@ export class EditarHistoriasComponent implements OnInit {
 
                     this.showLoading(false);       
                     this.getImpresionDiagnostica(this.model.idImpresionDiagnostica);                    
+                    this.getImpresionDiagnostica2(this.model.idImpresionDiagnostica2);                    
+                    this.getImpresionDiagnostica3(this.model.idImpresionDiagnostica3);                    
                     this.medico = this.model.medico;
                     this.autoriza = this.model.autoriza;
 
@@ -573,6 +575,48 @@ export class EditarHistoriasComponent implements OnInit {
             .subscribe(
                 data => {      
                     this.impresionDiagnostica = data;                                                      
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+    }
+
+    getImpresionDiagnostica2(idDiagnostico: String){
+        this.showLoading(true);    
+        this.cie10Service.getById(idDiagnostico)
+            .subscribe(
+                data => {      
+                    this.impresionDiagnostica2 = data;                                                      
+                    this.showLoading(false);
+                },
+                error => {                        
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                }); 
+    }
+
+    getImpresionDiagnostica3(idDiagnostico: String){
+        this.showLoading(true);    
+        this.cie10Service.getById(idDiagnostico)
+            .subscribe(
+                data => {      
+                    this.impresionDiagnostica3 = data;                                                      
                     this.showLoading(false);
                 },
                 error => {                        
@@ -923,6 +967,8 @@ export class EditarHistoriasComponent implements OnInit {
         this.addExamenFisico6();  
         
         this.model.idImpresionDiagnostica = this.impresionDiagnostica.idCie10;
+        this.model.idImpresionDiagnostica2 = this.impresionDiagnostica2.idCie10;
+        this.model.idImpresionDiagnostica3 = this.impresionDiagnostica3.idCie10;
 
         this.model.medico = this.medico;
         this.model.autoriza = this.autoriza;
@@ -1066,7 +1112,7 @@ export class EditarHistoriasComponent implements OnInit {
         antecedente.institucion = this.institucion;
         antecedente.numero = this.numero;
         antecedente.fechaUltimaHospitalizacion = Util.getDate(this.fechaUltimaHospitalizacion);
-        antecedente.esLaPrimeraHospitalizacion = this.primeraHospitalizacion;
+        antecedente.causa = this.causa;
 
         this.antecedentes.push(antecedente);
         this.clearAntecedenteForm();
@@ -1096,7 +1142,7 @@ export class EditarHistoriasComponent implements OnInit {
         farmacologico.medicamento = this.medicamento;
         farmacologico.dosis = this.dosis;       
         farmacologico.eficacia = this.eficacia;    
-        farmacologico.esAdverso = this.esAdverso;
+        farmacologico.eventoAdverso = this.eventoAdverso;
         farmacologico.tiempoDeUso = this.tiempoDeUso;
 
         this.farmacologicos.push(farmacologico);
@@ -1331,6 +1377,54 @@ export class EditarHistoriasComponent implements OnInit {
         tap(() => this.searching  = false)
     )
 
+    impresionDiagnostica2: any;
+
+    searching2 = false;
+    searchFailed2 = false;
+    formatter2 = (x: {codigo: string, nombre: string}) => `(${x.codigo}) ${x.nombre}`;
+
+    search2 = (text$: Observable<string>) =>
+        text$.pipe(
+        debounceTime(200),
+        tap(() => this.searching2  = true),
+        switchMap(
+            term => term.length < 3 ? [] :
+                this.cie10Service.search(term)
+                    .pipe(
+                        tap(() => this.searchFailed2 = false),
+                        catchError(() => {
+                            this.searchFailed2 = true;
+                            return of([]);
+                        })
+                    )
+        ),
+        tap(() => this.searching2  = false)
+    )
+
+    impresionDiagnostica3: any;
+
+    searching3 = false;
+    searchFailed3 = false;
+    formatter3 = (x: {codigo: string, nombre: string}) => `(${x.codigo}) ${x.nombre}`;
+
+    search3 = (text$: Observable<string>) =>
+        text$.pipe(
+        debounceTime(200),
+        tap(() => this.searching3  = true),
+        switchMap(
+            term => term.length < 3 ? [] :
+                this.cie10Service.search(term)
+                    .pipe(
+                        tap(() => this.searchFailed3 = false),
+                        catchError(() => {
+                            this.searchFailed3 = true;
+                            return of([]);
+                        })
+                    )
+        ),
+        tap(() => this.searching3 = false)
+    )
+
     showLoading(loading: boolean) {
         this.loading = loading;
     }
@@ -1381,7 +1475,7 @@ export class EditarHistoriasComponent implements OnInit {
         this.institucion = '';
         this.numero = '';
         this.fechaUltimaHospitalizacion = '';    
-        this.primeraHospitalizacion = new Opcion();
+        this.causa = '';
     }
 
     clearTraumaticoForm(){        
@@ -1395,8 +1489,8 @@ export class EditarHistoriasComponent implements OnInit {
         this.medicamento = '';
         this.dosis = '';
         this.eficacia = new Opcion();
-        this.esAdverso = new Opcion();    
-        this.tiempoDeUso = new TiempoUso();
+        this.eventoAdverso = '';    
+        this.tiempoDeUso = '';
     }
 
     clearToxicoForm(){        

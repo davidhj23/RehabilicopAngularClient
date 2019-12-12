@@ -82,7 +82,7 @@ export class CrearHistoriasComponent implements OnInit {
     institucion: string;
     numero: string;
     fechaUltimaHospitalizacion: string;    
-    primeraHospitalizacion: Opcion;
+    causa: string;
 
     traumaticos: Traumatico[] = []; 
     trauma: string;
@@ -94,8 +94,8 @@ export class CrearHistoriasComponent implements OnInit {
     medicamento: string;
     dosis: string;       
 	eficacia: Opcion;    
-	esAdverso: Opcion;
-    tiempoDeUso: TiempoUso;
+	eventoAdverso: string;
+    tiempoDeUso: string;
 
     toxicos: Toxico[] = [];
     sustancia = '';
@@ -606,6 +606,8 @@ export class CrearHistoriasComponent implements OnInit {
         this.addExamenFisico6();  
         
         this.model.idImpresionDiagnostica = this.impresionDiagnostica.idCie10;
+        this.model.idImpresionDiagnostica2 = this.impresionDiagnostica2.idCie10;
+        this.model.idImpresionDiagnostica3 = this.impresionDiagnostica3.idCie10;
 
         this.model.medico = this.medico;
         this.model.autoriza = this.autoriza;
@@ -624,6 +626,8 @@ export class CrearHistoriasComponent implements OnInit {
                     this.clearExamenFisico5();
                     this.clearExamenFisico6();
                     this.impresionDiagnostica = null;
+                    this.impresionDiagnostica2 = null;
+                    this.impresionDiagnostica3 = null;
                     this.medico = null;
                     this.autoriza = null;
                                  
@@ -790,8 +794,7 @@ export class CrearHistoriasComponent implements OnInit {
         antecedente.tipo = this.idtipoAntecente;
         antecedente.institucion = this.institucion;
         antecedente.numero = this.numero;
-        antecedente.fechaUltimaHospitalizacion = Util.getDate(this.fechaUltimaHospitalizacion);
-        antecedente.esLaPrimeraHospitalizacion = this.primeraHospitalizacion;
+        antecedente.fechaUltimaHospitalizacion = Util.getDate(this.fechaUltimaHospitalizacion);        
 
         this.antecedentes.push(antecedente);
         this.clearAntecedenteForm();
@@ -821,7 +824,7 @@ export class CrearHistoriasComponent implements OnInit {
         farmacologico.medicamento = this.medicamento;
         farmacologico.dosis = this.dosis;       
         farmacologico.eficacia = this.eficacia;    
-        farmacologico.esAdverso = this.esAdverso;
+        farmacologico.eventoAdverso = this.eventoAdverso;
         farmacologico.tiempoDeUso = this.tiempoDeUso;
 
         this.farmacologicos.push(farmacologico);
@@ -1040,6 +1043,54 @@ export class CrearHistoriasComponent implements OnInit {
         tap(() => this.searching  = false)
     )
 
+    impresionDiagnostica2: any;
+
+    searching2 = false;
+    searchFailed2 = false;
+    formatter2 = (x: {codigo: string, nombre: string}) => `(${x.codigo}) ${x.nombre}`;
+
+    search2 = (text$: Observable<string>) =>
+        text$.pipe(
+        debounceTime(200),
+        tap(() => this.searching2  = true),
+        switchMap(
+            term => term.length < 3 ? [] :
+                this.cie10Service.search(term)
+                    .pipe(
+                        tap(() => this.searchFailed2 = false),
+                        catchError(() => {
+                            this.searchFailed2 = true;
+                            return of([]);
+                        })
+                    )
+        ),
+        tap(() => this.searching2  = false)
+    )
+
+    impresionDiagnostica3: any;
+
+    searching3 = false;
+    searchFailed3 = false;
+    formatter3 = (x: {codigo: string, nombre: string}) => `(${x.codigo}) ${x.nombre}`;
+
+    search3 = (text$: Observable<string>) =>
+        text$.pipe(
+        debounceTime(200),
+        tap(() => this.searching3  = true),
+        switchMap(
+            term => term.length < 3 ? [] :
+                this.cie10Service.search(term)
+                    .pipe(
+                        tap(() => this.searchFailed3 = false),
+                        catchError(() => {
+                            this.searchFailed3 = true;
+                            return of([]);
+                        })
+                    )
+        ),
+        tap(() => this.searching3 = false)
+    )
+
     showLoading(loading: boolean) {
         this.loading = loading;
     }
@@ -1090,7 +1141,7 @@ export class CrearHistoriasComponent implements OnInit {
         this.institucion = '';
         this.numero = '';
         this.fechaUltimaHospitalizacion = '';    
-        this.primeraHospitalizacion = new Opcion();
+        this.causa = '';
     }
 
     clearTraumaticoForm(){        
@@ -1104,8 +1155,8 @@ export class CrearHistoriasComponent implements OnInit {
         this.medicamento = '';
         this.dosis = '';
         this.eficacia = new Opcion();
-        this.esAdverso = new Opcion();    
-        this.tiempoDeUso = new TiempoUso();
+        this.eventoAdverso = '';    
+        this.tiempoDeUso = '';
     }
 
     clearToxicoForm(){        

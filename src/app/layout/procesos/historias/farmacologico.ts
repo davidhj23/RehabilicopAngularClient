@@ -7,10 +7,10 @@ export class Farmacologico {
 
     medicamento: string;
     dosis: string;       
+    tiempoDeUso: string;    
+    eventoAdverso: string; 
     
-	eficacia: Opcion;    
-	esAdverso: Opcion;
-    tiempoDeUso: TiempoUso;
+	eficacia: Opcion;    	  
     
     historia: Historia;
 }

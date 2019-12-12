@@ -29,6 +29,8 @@ export class Historia {
     antecendentesFamiliaresNoPsiquiatricos: string;
 
     idImpresionDiagnostica: String;
+    idImpresionDiagnostica2: String;
+    idImpresionDiagnostica3: String;
 
     medico: User;
     autoriza: User;
