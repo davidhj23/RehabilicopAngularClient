@@ -52,7 +52,7 @@
                                 <th>Identificación</th>                                                 
                                 <th>Paciente</th>                                                 
                                 <th>Estado</th>                   
-                                <th>Editar</th>    
+                                <th>Editar</th>   
                             </tr>
                         </thead>
                         <tbody *ngFor="let ordenMedica of mf.data">
@@ -66,12 +66,12 @@
                                 <td class="rowTd">{{ordenMedica.estado}}</td>   
                                 <td class="rowTd">                  
                                     <a class="btn float-left" (click)="edit(ordenMedica)" ><i class="fa fa-pencil"></i></a>                      
-                                </td>                                    
+                                </td>                            
                             </tr>            
                         </tbody>   
                         <tfoot>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="6">
                                     <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
                                 </td>
                             </tr>
@@ -82,3 +82,19 @@
         </div>      
     </div>
 </main>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Eliminar Orden médica</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>¿Está seguro de querer eliminar esta Orden Médica?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
+        <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cerrar</button>
+    </div>
+</ng-template>

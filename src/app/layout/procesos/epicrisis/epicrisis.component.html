@@ -98,7 +98,7 @@
                         <div class="form-group col-md-12" >
                             <div class="page-header">
                                 <h5 class="mb-3 line-head" id="typography">Motivo de la justificación</h5>
-                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.historia.motivoConsulta" disabled></textarea>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" maxlength="2000" [(ngModel)]="model.historia.motivoConsulta" disabled></textarea>
                             </div>
                         </div> 
                     </div>
@@ -214,13 +214,13 @@
                         <div class="form-group col-md-6" >
                             <div class="page-header">
                                 <h5 class="mb-3 line-head" id="typography">justificación</h5>
-                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.justificacion"></textarea>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" maxlength="2000" [(ngModel)]="model.justificacion"></textarea>
                             </div>
                         </div>  
                         <div class="form-group col-md-6" >
                             <div class="page-header">
                                 <h5 class="mb-3 line-head" id="typography">Plan</h5>                            
-                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.plan"></textarea>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" maxlength="2000" [(ngModel)]="model.plan"></textarea>
                             </div>
                         </div>  
                     </div>

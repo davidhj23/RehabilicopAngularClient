@@ -40,4 +40,8 @@ export class OrdenMedicaService {
     update(ordenMedica: OrdenMedica): Observable<any> {
         return this.http.put(this.url + ordenMedica.idOrdenMedica, ordenMedica,  CommonService.getJwtHeaders());
     }
+
+    delete(id: string): Observable<any> {
+        return this.http.delete(this.url + id,  CommonService.getJwtHeaders())
+    }
 }

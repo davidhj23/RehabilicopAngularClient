@@ -56,6 +56,30 @@ export class ConsultarOrdenMedicaComponent implements OnInit {
         this.router.navigate(['/layout/procesos/historias/editar-orden-medica', model.idOrdenMedica]);
     }
 
+    delete(idOrdenMedica: string, content: any) {   
+        this.clearAndcloseErrors();     
+        this.ngbModal.open(content).result.then((result) => {
+            this.showLoading(true);
+            this.ordenMedicaService.delete(idOrdenMedica)
+                .subscribe(data => {                    
+                    this.loadOrdenesMedicas();                    
+                    this.showLoading(false);
+                }, error => {       
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                })
+        }, (reason) => {            
+        });
+    }
+
+
     showLoading(loading: boolean) {
         this.loading = loading;
     }

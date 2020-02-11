@@ -86,13 +86,13 @@
                         <div class="form-group col-md-6" >
                             <div class="page-header">
                                 <h5 class="mb-3 line-head" id="typography">Motivo de la consulta</h5>
-                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.motivoConsulta"></textarea>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" maxlength="2000" [(ngModel)]="model.motivoConsulta"></textarea>
                             </div>
                         </div>  
                         <div class="form-group col-md-6" >
                             <div class="page-header">
                                 <h5 class="mb-3 line-head" id="typography">Enfermedad actual</h5>                            
-                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.enfermedadActual"></textarea>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" maxlength="2000" [(ngModel)]="model.enfermedadActual"></textarea>
                             </div>
                         </div>  
                     </div>
@@ -438,7 +438,7 @@
                         <div class="form-group col-md-6" >
                             <div class="page-header">
                                 <h5 class="mb-3 line-head" id="typography">Podromos y Personal Premorbida</h5>
-                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.podromosPersonalPremorbida"></textarea>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" maxlength="2000" [(ngModel)]="model.podromosPersonalPremorbida"></textarea>
                             </div>
                         </div>
                     </div>
@@ -453,13 +453,13 @@
                         <div class="form-group col-md-6" >
                             <div class="page-header">
                                 <h6>Psiquiatricos</h6>                                                   
-                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.antecendentesFamiliaresPsiquiatricos"></textarea>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" maxlength="2000" [(ngModel)]="model.antecendentesFamiliaresPsiquiatricos"></textarea>
                             </div>
                         </div>
                         <div class="form-group col-md-6" >
                             <div class="page-header">
                                 <h6>No Psiquiatricos</h6>                   
-                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.antecendentesFamiliaresNoPsiquiatricos"></textarea>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" maxlength="2000" [(ngModel)]="model.antecendentesFamiliaresNoPsiquiatricos"></textarea>
                             </div>
                         </div>
                     </div>
@@ -482,7 +482,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-4" >
-                            <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="descripcionApariencia" name="descripcionApariencia"></textarea>
+                            <textarea class="form-control" type="textarea" rows="3" cols="50" maxlength="2000" [(ngModel)]="descripcionApariencia" name="descripcionApariencia"></textarea>
                         </div>                                               
                     </div>
                     <div class="row">
@@ -797,7 +797,7 @@
                             <div class="page-header">
                                 <h6>Descripción</h6>                                 
                             </div>                            
-                            <textarea class="form-control" type="textarea" rows="5" cols="50" [(ngModel)]="descripcionExamenFisico4"></textarea>                            
+                            <textarea class="form-control" type="textarea" rows="5" cols="50" maxlength="2000" [(ngModel)]="descripcionExamenFisico4"></textarea>                            
                         </div>
                     </div>
                     <div class="row">
@@ -1211,7 +1211,7 @@
                         <div class="form-group col-md-6" >
                             <div class="page-header">
                                 <h5 class="mb-3 line-head" id="typography">Analisis y Manejo</h5>
-                                <textarea class="form-control" type="textarea" rows="3" cols="50" [(ngModel)]="model.analisisManejo"></textarea>
+                                <textarea class="form-control" type="textarea" rows="3" cols="50" maxlength="2000" [(ngModel)]="model.analisisManejo"></textarea>
                             </div>
                         </div>
                     </div>
