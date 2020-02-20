@@ -128,8 +128,11 @@ export class CuidadosDeEnfermeriaComponent implements OnInit {
                             this.model.historia.admision.paciente.sexo != undefined)
                             this.sexo = this.model.historia.admision.paciente.sexo.nombre;  
 
-                        this.tipoEntidad = this.model.historia.admision.paciente.tipoEntidad.nombre;                                                       
-                        this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre; 
+                        this.tipoEntidad = this.model.historia.admision.paciente.tipoEntidad.nombre;  
+
+                        if(this.model.historia.admision.paciente.aseguradora != null){
+                            this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre;                                                        
+                        }
                         
                         this.getCuidadosDeEnfermeriaByPaciente(this.model.historia.admision.paciente.identificacion);
 

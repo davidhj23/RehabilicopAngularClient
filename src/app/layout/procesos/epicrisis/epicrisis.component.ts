@@ -401,7 +401,10 @@ export class EpicrisisComponent implements OnInit {
                             this.sexo = this.model.historia.admision.paciente.sexo.nombre;
 
                         this.tipoEntidad = this.model.historia.admision.paciente.tipoEntidad.nombre;                                                       
-                        this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre;   
+                        
+                        if(this.model.historia.admision.paciente.aseguradora != null){
+                            this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre;                                                        
+                        }
                         
                         this.showLoading(true);    
                         this.cie10Service.getById(this.model.historia.admision.idDiagnosticoPrincipal)

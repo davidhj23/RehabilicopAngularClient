@@ -172,7 +172,7 @@
                             <ng-template #rt let-r="result" let-t="term">
                                 ({{r.codigo}}) {{r.nombre}}
                             </ng-template>
-                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailed" 
+                            <input id="typeahead-http2" type="text" class="form-control" [class.is-invalid]="searchFailed" 
                                     [(ngModel)]="diagnosticoPrincipal" [ngbTypeahead]="search" placeholder="Cie10" 
                                     [resultTemplate]="rt" [inputFormatter]="formatter"/>
                             <span *ngIf="searching">Buscando...</span>
@@ -185,7 +185,7 @@
                             <ng-template #rtSecundario let-r="result" let-t="term">
                                 ({{r.codigo}}) {{r.nombre}}
                             </ng-template>
-                            <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailedSecundario" 
+                            <input id="typeahead-http3" type="text" class="form-control" [class.is-invalid]="searchFailedSecundario" 
                                     [(ngModel)]="diagnosticoSecundario" [ngbTypeahead]="searchSecundario" placeholder="Cie10" 
                                     [resultTemplate]="rtSecundario" [inputFormatter]="formatterSecundario"/>
                             <span *ngIf="searchingSecundario">Buscando...</span>

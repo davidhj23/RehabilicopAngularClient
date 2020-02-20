@@ -258,8 +258,11 @@ export class VerValoracionEnfermeriaComponent implements OnInit {
                         this.model.admision.paciente.sexo != undefined)
                         this.sexo = this.model.admision.paciente.sexo.nombre;  
 
-                    this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre;                                                       
-                    this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                                           
+                    this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre; 
+                    
+                    if(this.model.admision.paciente.aseguradora != null){
+                        this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                        
+                    }
 
                     this.showLoading(false);       
                     this.getImpresionDiagnostica(this.model.idImpresionDiagnostica);                    

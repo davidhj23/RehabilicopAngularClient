@@ -306,8 +306,11 @@ export class EditarHistoriasComponent implements OnInit {
                         this.model.admision.paciente.sexo != undefined)
                         this.sexo = this.model.admision.paciente.sexo.nombre;  
 
-                    this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre;                                                       
-                    this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                                           
+                    this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre;  
+                    
+                    if(this.model.admision.paciente.aseguradora != null){
+                        this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                        
+                    }
 
                     this.showLoading(false);       
                     this.getImpresionDiagnostica(this.model.idImpresionDiagnostica);                    
@@ -1050,8 +1053,11 @@ export class EditarHistoriasComponent implements OnInit {
                         this.tipoDocumento = this.model.admision.paciente.tipoDocumento.nombre;                                                       
                         this.edad = Util.formattedDate( this.model.admision.paciente.fechaDeNacimiento);                                                       
                         this.sexo = this.model.admision.paciente.sexo.nombre;                                                       
-                        this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre;                                                       
-                        this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                       
+                        this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre;   
+                        
+                        if(this.model.admision.paciente.aseguradora != null){
+                            this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                        
+                        }                                                     
                     }else{
                         this.errores.push({ message: 'No se encontró un paciente con esa identificación o no tiene una historia activa'});                        
                         this.showErrors();                        

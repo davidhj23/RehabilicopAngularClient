@@ -434,7 +434,10 @@ export class CrearAdmisionesComponent implements OnInit {
         this.edad = Util.formattedDate( this.model.paciente.fechaDeNacimiento);                                                       
         this.sexo = this.model.paciente.sexo.nombre;                                                       
         this.tipoEntidad = this.model.paciente.tipoEntidad.nombre;                                                       
-        this.aseguradora = this.model.paciente.aseguradora.nombre;                                                       
+        
+        if(this.model.paciente.aseguradora != null){
+            this.aseguradora = this.model.paciente.aseguradora.nombre;                                                        
+        }
     }
 
     getCamas(idSede: string){

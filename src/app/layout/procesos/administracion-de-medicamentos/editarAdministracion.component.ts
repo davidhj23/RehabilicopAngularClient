@@ -80,8 +80,11 @@ export class EditarAdministracionComponent implements OnInit {
                         this.model.historia.admision.paciente.sexo != undefined)
                         this.sexo = this.model.historia.admision.paciente.sexo.nombre;  
 
-                    this.tipoEntidad = this.model.historia.admision.paciente.tipoEntidad.nombre;                                                       
-                    this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre;
+                    this.tipoEntidad = this.model.historia.admision.paciente.tipoEntidad.nombre;  
+
+                    if(this.model.historia.admision.paciente.aseguradora != null){
+                        this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre;                                                        
+                    }
 
                     this.solicitante = this.model.solicitante.nombres + " " + this.model.solicitante.apellidos;
                     this.quienEntrega = this.model.quienEntrega.nombres + " " + this.model.quienEntrega.apellidos;

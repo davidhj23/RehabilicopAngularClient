@@ -108,10 +108,13 @@ export class EditarAdmisionesComponent implements OnInit {
                     this.tipoDocumento = this.model.paciente.tipoDocumento.nombre;                                                       
                     this.edad = Util.calculateAge(this.model.paciente.fechaDeNacimiento).toString();                                                       
                     this.sexo = this.model.paciente.sexo.nombre;                                                       
-                    this.tipoEntidad = this.model.paciente.tipoEntidad.nombre;                                                       
-                    this.aseguradora = this.model.paciente.aseguradora.nombre;                                                       
+                    this.tipoEntidad = this.model.paciente.tipoEntidad.nombre;  
+                                                                         
+                    if(this.model.paciente.aseguradora != null){
+                        this.aseguradora = this.model.paciente.aseguradora.nombre;                                                        
+                    }
+                    
                     this.idAtencion = this.model.atencion.idAtencion;    
-
                     this.idSede = this.model.sede.idSede;    
                     this.getCamas(this.idSede);
                     this.idCama = this.model.cama.idCama;

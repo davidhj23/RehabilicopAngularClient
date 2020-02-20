@@ -15,7 +15,6 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (localStorage.getItem('jwtToken')) {            
             let permissions = route.data["permission"] as Array<string>;  
-            console.log(0)                      
             if(permissions.length){
                 let result = this.userService.validatePermission(permissions[0]);
                 if(result == true){

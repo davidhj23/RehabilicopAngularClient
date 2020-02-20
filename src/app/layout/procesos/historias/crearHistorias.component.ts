@@ -733,10 +733,14 @@ export class CrearHistoriasComponent implements OnInit {
                             this.model.admision.paciente.sexo != undefined)
                             this.sexo = this.model.admision.paciente.sexo.nombre;                                                       
                             
-                        this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre;                                                       
-                        this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                       
+                        this.tipoEntidad = this.model.admision.paciente.tipoEntidad.nombre; 
+                        
+                        if(this.model.admision.paciente.aseguradora != null){
+                            this.aseguradora = this.model.admision.paciente.aseguradora.nombre;                                                        
+                        }
+
                     }else{
-                        this.errores.push({ message: 'No se encontró un paciente con esa identificación o no tiene una historia activa o no tiene una historia activa'});                        
+                        this.errores.push({ message: 'No se encontró un paciente con esa identificación o no tiene una admisión activa.'});                        
                         this.showErrors();                        
                         this.clearAdmisionModel();
                         return;
