@@ -227,6 +227,10 @@ export class OrdenMedicaComponent implements OnInit {
         return true;
     }
 
+    deleteMedicamento(index: number) {
+        this.medicamentosOrdenMedica.splice(index, 1);
+    }
+
     clearAgregarForm(){
         this.medicamento = new Medicamento();
         this.frecuencia = new Dosis();        

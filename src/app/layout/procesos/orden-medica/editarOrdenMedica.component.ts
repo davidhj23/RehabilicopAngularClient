@@ -48,7 +48,8 @@ export class EditarOrdenMedicaComponent implements OnInit {
 
     constructor(
         private ordenMedicaService: OrdenMedicaService,        
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private ngbModal: NgbModal) {
 
             this.model = new OrdenMedica();
             this.model.historia = new Historia();
@@ -89,21 +90,7 @@ export class EditarOrdenMedicaComponent implements OnInit {
 
                     this.showLoading(false);    
 
-                    this.showLoading(true);    
-                    this.ordenMedicaService.getMedicamentosByIdOrdenMedica(this.currentOrdenId)
-                        .subscribe(
-                            data => {                                                                         
-                                this.medicamentosOrdenMedica = data;  
-                                this.medicamentosOrdenMedica.forEach(x => {
-                                    this.ordenMedicaService.getAdministraciones(x.idMedicamentosOrdenMedica)
-                                        .subscribe(
-                                            data => {                                                                         
-                                                x.administraciones = data;                                              
-                                        })    
-                                });
-                                
-                                this.showLoading(false);             
-                        })
+                    this.loadMedicamentos();
                 },
                 error => {                        
                     if(Array.isArray(error.error)){
@@ -117,6 +104,25 @@ export class EditarOrdenMedicaComponent implements OnInit {
                     this.showLoading(false);
                 }); 
          
+    }
+
+    loadMedicamentos()
+    {
+        this.showLoading(true);    
+        this.ordenMedicaService.getMedicamentosByIdOrdenMedica(this.currentOrdenId)
+            .subscribe(
+                data => {                                                                         
+                    this.medicamentosOrdenMedica = data;  
+                    this.medicamentosOrdenMedica.forEach(x => {
+                        this.ordenMedicaService.getAdministraciones(x.idMedicamentosOrdenMedica)
+                            .subscribe(
+                                data => {                                                                         
+                                    x.administraciones = data;                                              
+                            })    
+                    });
+                    
+                    this.showLoading(false);             
+            })        
     }
 
     create(){
@@ -138,6 +144,30 @@ export class EditarOrdenMedicaComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 });    
+    }
+
+    deleteMedicamento(id: any, content: any) {   
+        this.clearAndcloseErrors();  
+        console.log(id)
+        this.ngbModal.open(content).result.then((result) => {
+            this.showLoading(true);
+            this.ordenMedicaService.deleteMedicamentos(id)
+                .subscribe(data => {                    
+                    this.loadMedicamentos();                    
+                    this.showLoading(false);
+                }, error => {       
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                })
+        }, (reason) => {            
+        });
     }
 
     showLoading(loading: boolean) {

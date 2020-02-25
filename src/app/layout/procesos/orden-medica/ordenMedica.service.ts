@@ -41,7 +41,12 @@ export class OrdenMedicaService {
         return this.http.put(this.url + ordenMedica.idOrdenMedica, ordenMedica,  CommonService.getJwtHeaders());
     }
 
-    delete(id: string): Observable<any> {
+    delete(id: any): Observable<any> {
         return this.http.delete(this.url + id,  CommonService.getJwtHeaders())
     }
+
+    deleteMedicamentos(id: any): Observable<any> {        
+        return this.http.delete(this.url + 'medicamentos/' + id, CommonService.getJwtHeaders())
+    }
+    
 }

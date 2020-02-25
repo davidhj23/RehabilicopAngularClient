@@ -143,14 +143,18 @@
                                 <tr>
                                     <th>Medicamento</th>                                                 
                                     <th>Frecuencia</th>                                                 
-                                    <th>Cantidad Solicitada</th>                                                                                                   
+                                    <th>Cantidad Solicitada</th>
+                                    <th>Eliminar</th>                                                                                                   
                                 </tr>
                             </thead>
                             <tbody *ngFor="let medicamentoOrdenMedica of mf.data">
                                 <tr>                  
                                     <td class="rowTd">{{medicamentoOrdenMedica.medicamento.nombre}}</td>                                    
                                     <td class="rowTd">{{medicamentoOrdenMedica.frecuencia.nombre}}</td>
-                                    <td class="rowTd">{{medicamentoOrdenMedica.cantidadSolicitada}}</td>                                    
+                                    <td class="rowTd">{{medicamentoOrdenMedica.cantidadSolicitada}}</td>
+                                    <td class="rowTd" >                                      
+                                        <a class="btn float-left" (click)="deleteMedicamento(i)"><i class="fa fa-times"></i></a>                  
+                                    </td>                                         
                                 </tr>            
                             </tbody>   
                             <tfoot>

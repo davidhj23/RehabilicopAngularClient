@@ -53,6 +53,7 @@
                                 <th>Paciente</th>                                                 
                                 <th>Estado</th>                   
                                 <th>Editar</th>   
+                                <th>Eliminar</th>     
                             </tr>
                         </thead>
                         <tbody *ngFor="let ordenMedica of mf.data">
@@ -66,7 +67,10 @@
                                 <td class="rowTd">{{ordenMedica.estado}}</td>   
                                 <td class="rowTd">                  
                                     <a class="btn float-left" (click)="edit(ordenMedica)" ><i class="fa fa-pencil"></i></a>                      
-                                </td>                            
+                                </td>  
+                                <td class="rowTd" >                                      
+                                    <a class="btn float-left" (click)="delete(ordenMedica.idOrdenMedica, content)"><i class="fa fa-times"></i></a>                  
+                                </td>                           
                             </tr>            
                         </tbody>   
                         <tfoot>
