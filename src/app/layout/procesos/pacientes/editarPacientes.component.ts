@@ -260,8 +260,7 @@ export class EditarPacientesComponent implements OnInit {
         this.admisionService.getTodasAdmisionByIdentificacionPaciente(identificacion)
             .subscribe(
                 data => {                                                             
-                    this.admisiones = data; 
-                    console.log(this.admisiones)       
+                    this.admisiones = data;      
                     this.showLoading(false);
                 },
                 error => {                        
@@ -277,9 +276,57 @@ export class EditarPacientesComponent implements OnInit {
                 });
     }
 
-    getPdf(idAdmision: any){
+    getPdfEvoluciones(idAdmision: any){
         this.showLoading(true);    
-        this.epicrisisService.generateReport(idAdmision)
+        this.pacienteService.generateReportEvoluciones(idAdmision)
+            .subscribe(
+                data => {                                                          
+                    this.showLoading(true);
+                    let file = new Blob([data], { type: 'application/pdf' });            
+                    var fileURL = URL.createObjectURL(file);
+                    window.open(fileURL);
+                    this.showLoading(false);  
+                },
+                error => {                      
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });  
+    }
+
+    getPdfOrdenesMedicas(idAdmision: any){
+        this.showLoading(true);    
+        this.pacienteService.generateReportOrdenesMedicas(idAdmision)
+            .subscribe(
+                data => {                                                          
+                    this.showLoading(true);
+                    let file = new Blob([data], { type: 'application/pdf' });            
+                    var fileURL = URL.createObjectURL(file);
+                    window.open(fileURL);
+                    this.showLoading(false);  
+                },
+                error => {                      
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });  
+    }
+
+    getPdfEpicrisis(idAdmision: any){
+        this.showLoading(true);    
+        this.pacienteService.generateReportEpicrisis(idAdmision)
             .subscribe(
                 data => {                                                          
                     this.showLoading(true);

@@ -164,7 +164,7 @@
                             <input class="form-control" type="text" name="ciudadAcompanante" [(ngModel)]="model.ciudadAcompanante" #ciudadAcompanante="ngModel" required>                
                         </div>                      
                     </div>
-                    <div class="row">
+                    <!--div class="row">
                         <div class="form-group col-md-12" >
                             <label class="control-label">Diagnostico Principal</label>                            
                             <ng-template #rt let-r="result" let-t="term">
@@ -189,7 +189,7 @@
                             <span *ngIf="searchingSecundario">Buscando...</span>
                             <div class="invalid-feedback" *ngIf="searchFailedSecundario">No se encontró ningún Cie10.</div>  
                         </div>
-                    </div>
+                    </div-->
                     <div class="row">
                         <div class="form-group col-md-4 align-self-end">
                             <button class="btn btn-primary" type="button" (click)="guardar()" *ngIf="historiaActiva"><i class="fa fa-fw fa-lg fa-check-circle"></i>Guardar</button>

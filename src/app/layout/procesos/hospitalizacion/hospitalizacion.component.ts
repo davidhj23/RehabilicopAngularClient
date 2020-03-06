@@ -57,6 +57,7 @@ export class HospitalizacionComponent implements OnInit {
     enfermedadProfesional = new Opcion(); 
 
     opciones: any[] = [];     
+    tipoAtencion: string;
 
     constructor(        
         private historiaService: HistoriaService,        
@@ -177,6 +178,7 @@ export class HospitalizacionComponent implements OnInit {
                         this.model.historia = data
                         this.model.historia.admision = this.model.historia.admision;  
                         this.tipoDocumento = this.model.historia.admision.paciente.tipoDocumento.nombre;                                                       
+                        this.tipoAtencion = this.model.historia.admision.atencion.nombre;
                         this.edad = Util.formattedDate( this.model.historia.admision.paciente.fechaDeNacimiento);                                                       
                         
                         if (this.model.historia.admision.paciente.sexo != null && 

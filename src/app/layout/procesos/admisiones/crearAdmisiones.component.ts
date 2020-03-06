@@ -206,8 +206,8 @@ export class CrearAdmisionesComponent implements OnInit {
         this.model.idMedico = this.idMedico;
         this.model.idEnfermero = this.idEnfermero;   
         
-        this.model.idDiagnosticoPrincipal = this.diagnosticoPrincipal.idCie10;
-        this.model.idDiagnosticoSecundario = this.diagnosticoSecundario.idCie10;
+        this.model.idDiagnosticoPrincipal = null;
+        this.model.idDiagnosticoSecundario = null
         
         this.showLoading(true);    
         this.admisionService.create(this.model)
@@ -378,7 +378,7 @@ export class CrearAdmisionesComponent implements OnInit {
             areErrors = true;
         }
         
-        if(this.diagnosticoPrincipal == undefined || this.diagnosticoPrincipal == null || this.diagnosticoPrincipal == ''){
+        /*if(this.diagnosticoPrincipal == undefined || this.diagnosticoPrincipal == null || this.diagnosticoPrincipal == ''){
             this.errores.push({ message: 'Ingrese un diagnostico principal'});
             areErrors = true;
         }
@@ -386,7 +386,7 @@ export class CrearAdmisionesComponent implements OnInit {
         if(this.diagnosticoSecundario == undefined || this.diagnosticoSecundario == null || this.diagnosticoSecundario == ''){
             this.errores.push({ message: 'Ingrese un diagnostico secundario'});
             areErrors = true;
-        }
+        }*/
 
         if(areErrors){
             this.showErrors();

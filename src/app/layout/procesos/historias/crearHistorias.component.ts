@@ -240,6 +240,7 @@ export class CrearHistoriasComponent implements OnInit {
     
     fechaDeInicio: string;    
     public mask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
+    tipoAtencion: any;
 
     constructor(
         private historiaService: HistoriaService,
@@ -726,7 +727,8 @@ export class CrearHistoriasComponent implements OnInit {
                 data => {      
                     if(data != null){
                         this.model.admision = data;  
-                        this.tipoDocumento = this.model.admision.paciente.tipoDocumento.nombre;                                                       
+                        this.tipoDocumento = this.model.admision.paciente.tipoDocumento.nombre;
+                        this.tipoAtencion = this.model.admision.atencion.nombre;                                                       
                         this.edad = Util.formattedDate( this.model.admision.paciente.fechaDeNacimiento);                                                       
                         
                         if (this.model.admision.paciente.sexo != null && 

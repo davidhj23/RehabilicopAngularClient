@@ -127,8 +127,8 @@ export class EditarAdmisionesComponent implements OnInit {
                     this.fechaDeIngreso = Util.formattedDate(this.model.fechaDeIngreso);                        
                     this.fechaDeRemision = Util.formattedDate(this.model.fechaDeRemision); 
 
-                    this.getDiagnosticoPrincipal(this.model.idDiagnosticoPrincipal);
-                    this.getDiagnosticoSecundario(this.model.idDiagnosticoSecundario);                    
+                    /*this.getDiagnosticoPrincipal(this.model.idDiagnosticoPrincipal);
+                    this.getDiagnosticoSecundario(this.model.idDiagnosticoSecundario); */                   
                     
                     this.showLoading(false);                   
                 },
@@ -489,7 +489,7 @@ export class EditarAdmisionesComponent implements OnInit {
             areErrors = true;
         }
         
-        if(this.diagnosticoPrincipal == undefined || this.diagnosticoPrincipal == null || this.diagnosticoPrincipal == ''){
+        /*if(this.diagnosticoPrincipal == undefined || this.diagnosticoPrincipal == null || this.diagnosticoPrincipal == ''){
             this.errores.push({ message: 'Ingrese un diagnostico principal'});
             areErrors = true;
         }
@@ -497,7 +497,7 @@ export class EditarAdmisionesComponent implements OnInit {
         if(this.diagnosticoSecundario == undefined || this.diagnosticoSecundario == null || this.diagnosticoSecundario == ''){
             this.errores.push({ message: 'Ingrese un diagnostico secundario'});
             areErrors = true;
-        }
+        }*/
 
         if(areErrors){
             this.showErrors();

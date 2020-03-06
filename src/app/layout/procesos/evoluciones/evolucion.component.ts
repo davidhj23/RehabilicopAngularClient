@@ -40,6 +40,7 @@ export class EvolucionComponent implements OnInit {
     
     areErrors = false;
     errores: any[] = []; 
+    tipoAtencion: string;
 
     constructor(
         private evolucionService: EvolucionService,
@@ -257,6 +258,7 @@ export class EvolucionComponent implements OnInit {
                         this.model.historia = data
                         this.model.historia.admision = this.model.historia.admision;  
                         this.tipoDocumento = this.model.historia.admision.paciente.tipoDocumento.nombre;                                                       
+                        this.tipoAtencion = this.model.historia.admision.atencion.nombre;
                         this.edad = Util.formattedDate( this.model.historia.admision.paciente.fechaDeNacimiento);                                                       
                         
                         if (this.model.historia.admision.paciente.sexo != null && 

@@ -45,6 +45,7 @@ export class EditarOrdenMedicaComponent implements OnInit {
     
     areErrors = false;
     errores: any[] = []; 
+    tipoAtencion: string;
 
     constructor(
         private ordenMedicaService: OrdenMedicaService,        
@@ -70,6 +71,7 @@ export class EditarOrdenMedicaComponent implements OnInit {
                 data => {                                                 
                     this.model = data;                                                 
                     this.tipoDocumento = this.model.historia.admision.paciente.tipoDocumento.nombre;                                                       
+                    this.tipoAtencion = this.model.historia.admision.atencion.nombre;
                     this.edad = Util.calculateAge(this.model.historia.admision.paciente.fechaDeNacimiento).toString();                                                       
                     
                     if (this.model.historia.admision.paciente.sexo != null && 

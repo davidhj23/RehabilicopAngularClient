@@ -146,7 +146,9 @@
                                 <th>Fecha de Ingreso</th>
                                 <th>Fecha de Cierre</th>
                                 <th>Estado</th>
-                                <th>Reporte</th>                                          
+                                <th>Evoluciones</th>                                          
+                                <th>Ordenes medicas</th>                                          
+                                <th>Epicrisis</th>                                          
                             </tr>
                         </thead>
                         <tbody *ngFor="let admision of mf.data">
@@ -155,7 +157,17 @@
                                 <td class="rowTd">{{admision.fechaDeCierre | date: 'dd/MM/yyyy'}}</td>
                                 <td class="rowTd">{{admision.estado}}</td>                            
                                 <td class="rowTd">                                      
-                                    <button class="btn btn-primary" type="button" (click)="getPdf(admision.idAdmision)">
+                                    <button class="btn btn-primary" type="button" (click)="getPdfEvoluciones(admision.idAdmision)">
+                                        <i class="fa fa-fw fa-lg fa-file-text-o"></i>Reporte
+                                    </button>                                    
+                                </td> 
+                                <td class="rowTd">                                      
+                                    <button class="btn btn-primary" type="button" (click)="getPdfOrdenesMedicas(admision.idAdmision)">
+                                        <i class="fa fa-fw fa-lg fa-file-text-o"></i>Reporte
+                                    </button>                                    
+                                </td> 
+                                <td class="rowTd">                                      
+                                    <button class="btn btn-primary" type="button" (click)="getPdfEpicrisis(admision.idAdmision)">
                                         <i class="fa fa-fw fa-lg fa-file-text-o"></i>Reporte
                                     </button>                                    
                                 </td>       
@@ -163,7 +175,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4">
+                                <td colspan="6">
                                     <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
                                 </td>
                             </tr>

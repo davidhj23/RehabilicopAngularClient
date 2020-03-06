@@ -46,6 +46,7 @@ export class EditarEpicrisisComponent implements OnInit {
     medico = new User();
 
     fechaDeIngreso: any;
+    public mask = [/\d/, /\d/, ':', /\d/, /\d/]
 	fechaDeContinuacion: any;
     fechaDeEgreso: any;
     diasDeEstancia: string;
@@ -55,6 +56,7 @@ export class EditarEpicrisisComponent implements OnInit {
     
     areErrors = false;
     errores: any[] = []; 
+    tipoAtencion: string;
 
     constructor(
         private epicrisisService: EpicrisisService,        
@@ -141,6 +143,7 @@ export class EditarEpicrisisComponent implements OnInit {
                 data => {                                                 
                     this.model = data;                                                 
                     this.tipoDocumento = this.model.historia.admision.paciente.tipoDocumento.nombre;                                                       
+                    this.tipoAtencion = this.model.historia.admision.atencion.nombre;  
                     this.edad = Util.calculateAge(this.model.historia.admision.paciente.fechaDeNacimiento).toString();                                                       
                     
                     if (this.model.historia.admision.paciente.sexo != null && 
@@ -197,49 +200,6 @@ export class EditarEpicrisisComponent implements OnInit {
          
     }
 
-    getPdf(){
-        this.showLoading(true);    
-        this.epicrisisService.generateReport(this.model.historia.admision.idAdmision)
-            .subscribe(
-                data => {                                                          
-                    this.showLoading(false);
-                    let file = new Blob([data], { type: 'application/pdf' });            
-                    var fileURL = URL.createObjectURL(file);
-                    window.open(fileURL);
-
-                    this.showLoading(true);  
-                        this.model.historia.admision.estado = 'CERRADA';
-                        this.model.historia.admision.fechaDeCierre = new Date();
-                        this.admisionService.update(this.model.historia.admision)
-                            .subscribe(
-                                data => {                                                          
-                                    this.showLoading(false);                                                  
-                                },
-                                error => {                        
-                                    if(Array.isArray(error.error)){
-                                        this.errores = error.error;
-                                    }else{
-                                        let errores = [];
-                                        errores.push(error.error);
-                                        this.errores = errores;
-                                    } 
-                                    this.showErrors();
-                                    this.showLoading(false);
-                                }); 
-                },
-                error => {                      
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                });  
-    }
-
     create(){
         this.model.tratamientoFarmacologico = this.tratamientoFarmacologicos;        
         if(!this.validateCreate()) return;
@@ -280,9 +240,9 @@ export class EditarEpicrisisComponent implements OnInit {
             .subscribe(
                 data => {                        
                     this.showLoading(false);
-                    if(this.fechaDeEgreso != undefined){                        
+                    /*if(this.fechaDeEgreso != undefined){                        
                         this.getPdf();
-                    }
+                    }*/
                 },
                 error => {            
                     if(Array.isArray(error.error)){

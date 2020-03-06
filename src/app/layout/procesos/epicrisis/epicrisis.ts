@@ -10,8 +10,15 @@ export class Epicrisis {
     tratamientoFarmacologico: TratamientoFarmacologico[];
 
     fechaDeIngreso: Date;
-	fechaDeContinuacion: Date;
+    horaIngreso: String;
+    ampmIngreso: String;
+
+    fechaDeContinuacion: Date;
+    
     fechaDeEgreso: Date;
+    horaEgreso: String;
+    ampmEgreso: String;
+
     diasDeEstancia: string;	
 	
 	justificacion: string;

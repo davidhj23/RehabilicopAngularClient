@@ -39,6 +39,7 @@ export class SignosVitalesComponent implements OnInit {
     estadoConciencia: EstadoConciencia;   
     estadosConciencias: any[] = [];  	
     allSignosVitales: any[] = [];  
+    tipoAtencion: string;
 
     constructor(        
         private historiaService: HistoriaService,        
@@ -138,6 +139,7 @@ export class SignosVitalesComponent implements OnInit {
                         this.model.historia = data
                         this.model.historia.admision = this.model.historia.admision;  
                         this.tipoDocumento = this.model.historia.admision.paciente.tipoDocumento.nombre;                                                       
+                        this.tipoAtencion = this.model.historia.admision.atencion.nombre;
                         this.edad = Util.formattedDate( this.model.historia.admision.paciente.fechaDeNacimiento);                                                       
                         
                         if (this.model.historia.admision.paciente.sexo != null && 
