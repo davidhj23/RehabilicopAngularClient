@@ -61,4 +61,8 @@ export class PacienteService {
     generateReportEpicrisis(idAdmision: String): Observable<any> {
         return this.http.get(this.url + 'reporte-epicrisis/' + idAdmision, CommonService.getPdfJwtHeaders());
     }
+
+    generateReportNotas(idAdmision: String): Observable<any> {
+        return this.http.get(this.url + 'reporte-notas/' + idAdmision, CommonService.getPdfJwtHeaders());
+    }
 }

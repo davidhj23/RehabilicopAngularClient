@@ -348,6 +348,30 @@ export class EditarPacientesComponent implements OnInit {
                 });  
     }
 
+    getPdfNotas(idAdmision: any){
+        this.showLoading(true);    
+        this.pacienteService.generateReportNotas(idAdmision)
+            .subscribe(
+                data => {                                                          
+                    this.showLoading(true);
+                    let file = new Blob([data], { type: 'application/pdf' });            
+                    var fileURL = URL.createObjectURL(file);
+                    window.open(fileURL);
+                    this.showLoading(false);  
+                },
+                error => {                      
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });  
+    }
+
     guardar() {
         if(!this.validateCreate()) return;
 
