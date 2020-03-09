@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Epicrisis } from './epicrisis';
 import { EpicrisisService } from './epicrisis.service';
+import { Util } from '../../../_utils';
 
 @Component({
     selector: 'consultarEpicrisis',
@@ -36,7 +37,8 @@ export class ConsultarEpicrisisComponent implements OnInit {
         this.epicrisisService.getAll()
             .subscribe(
                 data => {    
-                    this.listaEpicrisis = data;                    
+                    this.listaEpicrisis = data; 
+                    this.temp = this.listaEpicrisis;                    
                     this.showLoading(false);
                 },
                 error => {                        
@@ -72,5 +74,19 @@ export class ConsultarEpicrisisComponent implements OnInit {
     clearAndcloseErrors(){
         this.errores = [];
         this.areErrors = false;
+    }
+
+    filtrarTabla(event: any) { 
+        const val = event.target.value.toLowerCase();
+
+        // filter our data
+        const temp = this.temp.filter(function(d) {                        
+            return d.historia.admision.paciente.nombres.toLowerCase().indexOf(val) !== -1 || 
+                   d.historia.admision.paciente.apellidos.toLowerCase().indexOf(val) !== -1 ||
+                   d.historia.admision.paciente.identificacion.toLowerCase().indexOf(val) !== -1 || 
+                   Util.formattedDate(d.fechaDeIngreso).indexOf(val) !== -1 || !val;
+        }); 
+
+        this.listaEpicrisis = temp;
     }
 }
