@@ -237,7 +237,6 @@ svg:not(:root) {
 
 table {
   border-collapse: collapse;
-  table-layout: fixed;
 }
 
 caption {
@@ -1701,7 +1700,6 @@ pre code {
   padding: 0.75rem;
   vertical-align: top;
   border-top: 1px solid #dee2e6;
-  word-wrap:break-word;
 }
 
 .table thead th {
@@ -14897,4 +14895,8 @@ be a descendant of the grid when it is being dragged.
 
 .dropdown-menu.show {
   width: 97%;
+}
+
+.long-desc {
+  word-break: break-word;
 }
