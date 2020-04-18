@@ -50,6 +50,10 @@ export class PacienteService {
                     )
     }
 
+    generateReportHistoria(idAdmision: String): Observable<any> {
+        return this.http.get(this.url + 'reporte-historia/' + idAdmision, CommonService.getPdfJwtHeaders());
+    }
+
     generateReportEvoluciones(idAdmision: String): Observable<any> {
         return this.http.get(this.url + 'reporte-evoluciones/' + idAdmision, CommonService.getPdfJwtHeaders());
     }

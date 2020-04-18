@@ -146,6 +146,7 @@
                                 <th>Fecha de Ingreso</th>
                                 <th>Fecha de Cierre</th>
                                 <th>Estado</th>
+                                <th>Historia</th>
                                 <th>Evoluciones</th>                                          
                                 <th>Ordenes medicas</th>                                          
                                 <th>Epicrisis</th>
@@ -156,7 +157,12 @@
                             <tr>
                                 <td class="rowTd">{{admision.fechaDeIngreso | date: 'dd/MM/yyyy'}}</td>                  
                                 <td class="rowTd">{{admision.fechaDeCierre | date: 'dd/MM/yyyy'}}</td>
-                                <td class="rowTd">{{admision.estado}}</td>                            
+                                <td class="rowTd">{{admision.estado}}</td> 
+                                <td class="rowTd">                                      
+                                    <button class="btn btn-primary" type="button" (click)="getPdfHistoria(admision.idAdmision)">
+                                        <i class="fa fa-fw fa-lg fa-file-text-o"></i>Reporte
+                                    </button>                                    
+                                </td>                            
                                 <td class="rowTd">                                      
                                     <button class="btn btn-primary" type="button" (click)="getPdfEvoluciones(admision.idAdmision)">
                                         <i class="fa fa-fw fa-lg fa-file-text-o"></i>Reporte
@@ -181,7 +187,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="7">
+                                <td colspan="8">
                                     <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
                                 </td>
                             </tr>
