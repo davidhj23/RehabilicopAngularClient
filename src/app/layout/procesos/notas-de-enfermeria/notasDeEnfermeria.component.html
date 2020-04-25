@@ -147,14 +147,18 @@
                             <tr>
                                 <th>Fecha</th>                                                 
                                 <th>Hora</th>                                                 
-                                <th>Descripcion</th>                                                                                                                  
+                                <th>Descripcion</th> 
+                                <th>Eliminar</th>                                                                                                            
                             </tr>
                         </thead>
                         <tbody *ngFor="let sv of mf.data">
                             <tr>                  
                                 <td class="rowTd">{{sv.fecha | date: 'dd/MM/yyyy'}}</td>                                    
                                 <td class="rowTd">{{sv.hora}} {{sv.ampm}}</td>                                    
-                                <td class="rowTd long-desc">{{sv.descripcion}}</td>                                    
+                                <td class="rowTd long-desc">{{sv.descripcion}}</td>     
+                                <td class="rowTd">                                      
+                                    <a class="btn float-left" (click)="delete(sv.idNotasDeEnfermeria, content)" ><i class="fa fa-times"></i></a>                  
+                                </td>                               
                             </tr>            
                         </tbody>   
                         <tfoot>
@@ -171,3 +175,19 @@
     </div>
 
 </main>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Eliminar Nota de enfermeria</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>¿Está seguro de querer eliminar esta nota de enfermeria?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
+        <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cerrar</button>
+    </div>
+</ng-template>

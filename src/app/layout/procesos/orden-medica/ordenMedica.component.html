@@ -95,6 +95,10 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-3" >
+                            <label class="control-label">Fecha</label>                            
+                            <input class="form-control" placeholder="dd/mm/aaaa" [textMask]="{mask: mask}" [(ngModel)]="fecha" type="text"/>
+                        </div>     
+                        <div class="form-group col-md-3" >
                             <label class="control-label">Solicitante</label>                                
                             <select class="form-control" [(ngModel)]="model.solicitante" name="solicitante">                                
                                 <option *ngFor="let item of solicitantes" [ngValue]="item">{{item.nombres}} {{item.apellidos}}</option>

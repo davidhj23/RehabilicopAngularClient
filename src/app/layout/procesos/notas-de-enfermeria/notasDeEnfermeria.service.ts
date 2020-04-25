@@ -19,4 +19,8 @@ export class NotasDeEnfermeriaService {
     getNotasDeEnfermeriaByPaciente(idPaciente: String): Observable<any>{
         return this.http.get(this.url + 'paciente/' + idPaciente, CommonService.getJwtHeaders());
     }
+
+    delete(id: string): Observable<any> {
+        return this.http.delete(this.url + id,  CommonService.getJwtHeaders())
+    }
 }

@@ -36,6 +36,7 @@ export class EditarOrdenMedicaComponent implements OnInit {
     tipoEntidad: string;
     aseguradora: string;
 
+    fecha: string;
     solicitante: string;
     quienEntrega: string;
     quienRecibe: string;
@@ -84,6 +85,7 @@ export class EditarOrdenMedicaComponent implements OnInit {
                         this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre;                                                        
                     }
 
+                    this.fecha = Util.formattedDate(this.model.fechaDeCreacion);
                     this.solicitante = this.model.solicitante.nombres + " " + this.model.solicitante.apellidos;
                     this.quienEntrega = this.model.quienEntrega.nombres + " " + this.model.quienEntrega.apellidos;
                     this.quienRecibe = this.model.quienRecibe.nombres + " " + this.model.quienRecibe.apellidos;

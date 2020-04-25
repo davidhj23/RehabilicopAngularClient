@@ -10,6 +10,7 @@ import { Admision } from '../admisiones/admision';
 import { Paciente } from '../pacientes/paciente';
 import { NotasDeEnfermeria } from './notasDeEnfermeria';
 import { NotasDeEnfermeriaService } from './notasDeEnfermeria.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'notasDeEnfermeria',
@@ -40,7 +41,8 @@ export class NotasDeEnfermeriaComponent implements OnInit {
     constructor(        
         private historiaService: HistoriaService,        
         private pacienteService: PacienteService,
-        private notasDeEnfermeriaService: NotasDeEnfermeriaService) {
+        private notasDeEnfermeriaService: NotasDeEnfermeriaService,
+        private ngbModal: NgbModal) {
 
             this.model = new NotasDeEnfermeria();
             this.model.historia = new Historia();
@@ -231,6 +233,29 @@ export class NotasDeEnfermeriaComponent implements OnInit {
         }
 
         return true;
+    }
+
+    delete(id: string, content: any) {   
+        this.clearAndcloseErrors();  
+        this.ngbModal.open(content).result.then((result) => {
+            this.showLoading(true);
+            this.notasDeEnfermeriaService.delete(id)
+                .subscribe(data => {                    
+                    this.getNotasDeEnfermeriaByPaciente(this.model.historia.admision.paciente.identificacion);               
+                    this.showLoading(false);
+                }, error => {       
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                })
+        }, (reason) => {            
+        });
     }
 
     clearAgregarForm(){                        

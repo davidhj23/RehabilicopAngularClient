@@ -44,6 +44,7 @@ export class OrdenMedicaComponent implements OnInit {
     medicamentosOrdenMedica: MedicamentosOrdenMedica[] = [];
 
     fecha: any;    
+    public mask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
     
     tipoDocumento: string;
     edad: string;
@@ -243,7 +244,6 @@ export class OrdenMedicaComponent implements OnInit {
         this.model.medicamentosOrdenMedica = this.medicamentosOrdenMedica;
         if(!this.validateCreate()) return;
 
-        this.model.fechaDeCreacion = new Date();
         this.showLoading(true);    
         this.ordenMedicaService.create(this.model)
             .subscribe(
@@ -270,6 +270,17 @@ export class OrdenMedicaComponent implements OnInit {
         if(this.model.historia.admision.paciente.identificacion == undefined || this.model.historia.admision.paciente.identificacion == ''){
             this.errores.push({ message: 'Ingrese un paciente'});
             areErrors = true;
+        }
+
+        if(this.fecha == undefined || this.fecha == ''){
+            this.errores.push({ message: 'Ingrese una fecha'});
+            areErrors = true;
+        }
+        else if(!Util.validateDate(this.fecha)){
+            this.errores.push({ message: 'Ingrese una fecha válida'});
+            areErrors = true;
+        }else{
+            this.model.fechaDeCreacion = Util.getDate(this.fecha);
         }
 
         if(this.model.solicitante == undefined || this.model.solicitante == null){
