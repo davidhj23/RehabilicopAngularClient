@@ -207,22 +207,27 @@ export class EpicrisisComponent implements OnInit {
                     Number(this.fechaDeIngreso.month) - 1,
                     Number(this.fechaDeIngreso.day)) 
         }else{
-            if(this.fechaDeContinuacion != undefined){
-                this.model.fechaDeContinuacion = 
-                    new Date(
-                        Number(this.fechaDeContinuacion.year),
-                        Number(this.fechaDeContinuacion.month) - 1,
-                        Number(this.fechaDeContinuacion.day)) 
-            }
-            else{
-                if(this.fechaDeEgreso != undefined){
-                    this.model.fechaDeEgreso = 
-                        new Date(
-                            Number(this.fechaDeEgreso.year),
-                            Number(this.fechaDeEgreso.month) - 1,
-                            Number(this.fechaDeEgreso.day)) 
-                }
-            }
+            this.model.fechaDeIngreso = null;
+        }        
+            
+        if(this.fechaDeContinuacion != undefined){
+            this.model.fechaDeContinuacion = 
+                new Date(
+                    Number(this.fechaDeContinuacion.year),
+                    Number(this.fechaDeContinuacion.month) - 1,
+                    Number(this.fechaDeContinuacion.day)) 
+        }else{
+            this.model.fechaDeContinuacion =  null;
+        }
+        
+        if(this.fechaDeEgreso != undefined){
+            this.model.fechaDeEgreso = 
+                new Date(
+                    Number(this.fechaDeEgreso.year),
+                    Number(this.fechaDeEgreso.month) - 1,
+                    Number(this.fechaDeEgreso.day)) 
+        }else{
+            this.model.fechaDeEgreso = null;
         }
 
         this.model.usuario = this.medico;
@@ -231,10 +236,7 @@ export class EpicrisisComponent implements OnInit {
         this.epicrisisService.create(this.model)
             .subscribe(
                 data => {                                                          
-                    this.showLoading(false);              
-                    /*if(this.fechaDeEgreso != undefined){                        
-                        this.getPdf();
-                    }*/
+                    this.showLoading(false);   
                 },
                 error => {                        
                     if(Array.isArray(error.error)){

@@ -51,6 +51,7 @@ export class EditarOrdenMedicaComponent implements OnInit {
     constructor(
         private ordenMedicaService: OrdenMedicaService,        
         private route: ActivatedRoute,
+        private router: Router,
         private ngbModal: NgbModal) {
 
             this.model = new OrdenMedica();
@@ -136,6 +137,7 @@ export class EditarOrdenMedicaComponent implements OnInit {
             .subscribe(
                 data => {                        
                     this.showLoading(false);
+                    this.router.navigate(['/layout/procesos/historias/consultar-orden-medica']); 
                 },
                 error => {            
                     if(Array.isArray(error.error)){

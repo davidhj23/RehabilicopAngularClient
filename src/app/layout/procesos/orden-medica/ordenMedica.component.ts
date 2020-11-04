@@ -194,7 +194,7 @@ export class OrdenMedicaComponent implements OnInit {
 
         med.cantidadSolicitada = this.cantidadSolicitada;        
         this.medicamentosOrdenMedica.push(med);
-        this.clearAgregarForm();  
+        this.clearAgregarForm(); 
     }
 
     validateAgregar(){
@@ -249,6 +249,7 @@ export class OrdenMedicaComponent implements OnInit {
             .subscribe(
                 data => {                                                          
                     this.showLoading(false);
+                    this.router.navigate(['/layout/procesos/historias/consultar-orden-medica']); 
                 },
                 error => {                        
                     if(Array.isArray(error.error)){
