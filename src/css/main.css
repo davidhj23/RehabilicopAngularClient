@@ -14900,3 +14900,7 @@ be a descendant of the grid when it is being dragged.
 .long-desc {
   word-break: break-word;
 }
+
+.datepicker-input input[readonly] {
+  background-color: white;
+}

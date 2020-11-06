@@ -33,7 +33,7 @@ export class ConsultarAdministracionComponent implements OnInit {
 
     private loadOrdenesMedicas() {     
         this.showLoading(true);    
-        this.ordenMedicaService.getAll()
+        this.ordenMedicaService.getEnProceso()
             .subscribe(
                 data => {    
                     this.ordenesMedicas = data;                    

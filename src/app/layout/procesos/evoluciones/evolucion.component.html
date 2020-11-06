@@ -106,7 +106,7 @@
                                 <label class="control-label">Fecha</label>
                                 <div class="input-group datepicker-input">
                                     <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fecha"
-                                        ngbDatepicker #d="ngbDatepicker">
+                                        ngbDatepicker #d="ngbDatepicker" readonly>
                                     <button class="input-group-addon" (click)="d.toggle()" type="button">
                                         <span class="fa fa-calendar"></span>
                                     </button>
@@ -139,7 +139,8 @@
                                 <th>Identificación</th>                                                 
                                 <th>Paciente</th>                                                 
                                 <th>Tipo Evolución</th>                                              
-                                <th>Descripción</th>              
+                                <th>Descripción</th>  
+                                <th permission="eliminar evolucion">Eliminar</th>            
                             </tr>
                         </thead>
                         <tbody *ngFor="let evolucion of mf.data">
@@ -152,11 +153,14 @@
                                 </td>
                                 <td class="rowTd">{{evolucion.tipoEvolucion.nombre}}</td>
                                 <td class="rowTd long-desc">{{evolucion.descripcion}}</td>
+                                <td class="rowTd" permission="eliminar evolucion">                                      
+                                    <a class="btn float-left" (click)="delete(evolucion.idEvolucion, content)" permission="eliminar evolucion"><i class="fa fa-times"></i></a>                  
+                                </td> 
                             </tr>            
                         </tbody>   
                         <tfoot>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="6">
                                     <mfBootstrapPaginator [rowsOnPageSet]="[5,10,20,50,100]"></mfBootstrapPaginator>
                                 </td>
                             </tr>
@@ -167,3 +171,19 @@
         </div>
     </div>
 </main>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Eliminar Evolución</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>¿Está seguro de querer eliminar esta Evolución?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
+        <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cerrar</button>
+    </div>
+</ng-template>

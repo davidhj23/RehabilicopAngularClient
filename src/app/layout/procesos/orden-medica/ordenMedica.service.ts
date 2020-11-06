@@ -17,6 +17,14 @@ export class OrdenMedicaService {
         return this.http.get(this.url,  CommonService.getJwtHeaders());
     }
 
+    getPendientes(): Observable<any> {
+        return this.http.get(this.url + '/pendientes/',  CommonService.getJwtHeaders());
+    }
+
+    getEnProceso(): Observable<any> {
+        return this.http.get(this.url + '/en-proceso/',  CommonService.getJwtHeaders());
+    }
+
     getById(idOrdenMedica: String): Observable<any> {
         return this.http.get(this.url + idOrdenMedica,  CommonService.getJwtHeaders());
     }

@@ -42,6 +42,8 @@ export class EvolucionComponent implements OnInit {
     errores: any[] = []; 
     tipoAtencion: string;
 
+    pacienteSeleccionado: any;
+
     constructor(
         private evolucionService: EvolucionService,
         private historiaService: HistoriaService,
@@ -131,6 +133,7 @@ export class EvolucionComponent implements OnInit {
                                 .subscribe(
                                     data => {                                                          
                                         this.showLoading(false);
+                                        this.clearModel();
                                         this.loadEvolucionesEmpleado();
                                     },
                                     error => {                        
@@ -167,7 +170,13 @@ export class EvolucionComponent implements OnInit {
 
     validateCreate(){
         let areErrors = false;
-        this.clearAndcloseErrors();        
+        this.clearAndcloseErrors(); 
+
+        if(this.pacienteSeleccionado == null)
+        {
+            this.errores.push({ message: 'Ingrese un paciente'});
+            areErrors = true;
+        }
 
         if(this.fecha == undefined || this.fecha == null){
             this.errores.push({ message: 'Ingrese una fecha'});
@@ -184,10 +193,12 @@ export class EvolucionComponent implements OnInit {
             areErrors = true;
         }
 
-        let fecha = this.model.fecha = new Date(Number(this.fecha.year), Number(this.fecha.month) - 1, Number(this.fecha.day)) 
-        if(fecha < this.model.historia.admision.fechaDeIngreso){
-            this.errores.push({ message: 'Ingrese una igual o mayor a la fecha de ingreso del paciente'});
-            areErrors = true;
+        if(this.fecha != undefined && this.fecha != null){
+            let fecha = this.model.fecha = new Date(Number(this.fecha.year), Number(this.fecha.month) - 1, Number(this.fecha.day)) 
+            if(fecha < this.model.historia.admision.fechaDeIngreso){
+                this.errores.push({ message: 'Ingrese una igual o mayor a la fecha de ingreso del paciente'});
+                areErrors = true;
+            }
         }
 
         if(areErrors){
@@ -255,8 +266,7 @@ export class EvolucionComponent implements OnInit {
             .subscribe(
                 data => {      
                     if(data != null){
-                        this.model.historia = data
-                        this.model.historia.admision = this.model.historia.admision;  
+                        this.model.historia = data;
                         this.tipoDocumento = this.model.historia.admision.paciente.tipoDocumento.nombre;                                                       
                         this.tipoAtencion = this.model.historia.admision.atencion.nombre;
                         this.edad = Util.formattedDate( this.model.historia.admision.paciente.fechaDeNacimiento);                                                       
@@ -290,5 +300,47 @@ export class EvolucionComponent implements OnInit {
                     this.showErrors();
                     this.showLoading(false);
                 }); 
+    }
+
+    clearModel(){        
+        this.model = new Evolucion();
+        this.model.historia = new Historia();
+        this.model.historia.admision = new Admision();
+        this.model.historia.admision.paciente = new Paciente();
+
+        this.fecha = undefined;    
+    
+        this.tipoDocumento = '';
+        this.edad = '';
+        this.sexo = '';
+        this.tipoEntidad = '';
+        this.aseguradora = '';
+            
+        this.tipoAtencion = '';
+
+        this.pacienteSeleccionado = null; 
+    }
+
+    delete(idHistoria: string, content: any) {   
+        this.clearAndcloseErrors();     
+        this.ngbModal.open(content).result.then((result) => {
+            this.showLoading(true);
+            this.evolucionService.delete(idHistoria)
+                .subscribe(data => {                    
+                    this.loadEvolucionesEmpleado();                  
+                    this.showLoading(false);
+                }, error => {       
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                })
+        }, (reason) => {            
+        });
     }
 }

@@ -95,7 +95,7 @@
                             <label class="control-label">Fecha de ingreso</label>
                             <div class="input-group datepicker-input">
                                 <input class="form-control" placeholder="yyyy-mm-dd" name="fechaDeIngreso" [(ngModel)]="fechaDeIngreso"
-                                    ngbDatepicker #fdi="ngbDatepicker">
+                                    ngbDatepicker #fdi="ngbDatepicker" readonly>
                                 <button class="input-group-addon" (click)="fdi.toggle()" type="button">
                                     <span class="fa fa-calendar"></span>
                                 </button>
@@ -117,7 +117,7 @@
                             <label class="control-label">Fecha de continuación</label>
                             <div class="input-group datepicker-input">
                                 <input class="form-control" placeholder="yyyy-mm-dd" name="fechaDeContinuacion" [(ngModel)]="fechaDeContinuacion"
-                                    ngbDatepicker #fdc="ngbDatepicker">
+                                    ngbDatepicker #fdc="ngbDatepicker" readonly>
                                 <button class="input-group-addon" (click)="fdc.toggle()" type="button">
                                     <span class="fa fa-calendar"></span>
                                 </button>
@@ -127,7 +127,7 @@
                             <label class="control-label">Fecha de egreso</label>
                             <div class="input-group datepicker-input">
                                 <input class="form-control" placeholder="yyyy-mm-dd" name="fechaDeEgreso" [(ngModel)]="fechaDeEgreso"
-                                    ngbDatepicker #fde="ngbDatepicker">
+                                    ngbDatepicker #fde="ngbDatepicker" readonly>
                                 <button class="input-group-addon" (click)="fde.toggle()" type="button">
                                     <span class="fa fa-calendar"></span>
                                 </button>
