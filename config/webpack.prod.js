@@ -11,7 +11,7 @@ module.exports = webpackMerge(commonConfig, {
     devtool: 'source-map',
 
     output: {
-        path: path.resolve(__dirname, '../../RehabilicopWorkSpace/Rehabilicop/src/main/resources/static/dist/'),
+        path: path.resolve(__dirname, '../../RehabilicopJava/src/main/resources/static/dist'),
         publicPath: '/dist/',
         filename: '[name].[hash].js',
         chunkFilename: '[id].[hash].chunk.js'

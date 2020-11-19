@@ -53,7 +53,8 @@ export class EditarAdministracionComponent implements OnInit {
     constructor(
         private ordenMedicaService: OrdenMedicaService,        
         private usuarioService: UserService,        
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private router: Router) {
 
             this.model = new OrdenMedica();
             this.model.historia = new Historia();
@@ -154,6 +155,7 @@ export class EditarAdministracionComponent implements OnInit {
             .subscribe(
                 data => {                        
                     this.showLoading(false);
+                    this.router.navigate(['/layout/procesos/historias/consultar-administracion']); 
                 },
                 error => {            
                     if(Array.isArray(error.error)){
