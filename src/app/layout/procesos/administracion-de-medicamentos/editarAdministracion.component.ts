@@ -150,7 +150,8 @@ export class EditarAdministracionComponent implements OnInit {
 
     create(){
         this.showLoading(true);    
-        
+        this.model.puedeCerrar = true;
+        console.log(this.model)
         this.ordenMedicaService.update(this.model)
             .subscribe(
                 data => {                        

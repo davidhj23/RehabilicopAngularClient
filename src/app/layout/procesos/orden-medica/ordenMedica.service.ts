@@ -18,11 +18,11 @@ export class OrdenMedicaService {
     }
 
     getPendientes(): Observable<any> {
-        return this.http.get(this.url + '/pendientes/',  CommonService.getJwtHeaders());
+        return this.http.get(this.url + 'pendientes/',  CommonService.getJwtHeaders());
     }
 
     getEnProceso(): Observable<any> {
-        return this.http.get(this.url + '/en-proceso/',  CommonService.getJwtHeaders());
+        return this.http.get(this.url + 'en-proceso/',  CommonService.getJwtHeaders());
     }
 
     getById(idOrdenMedica: String): Observable<any> {

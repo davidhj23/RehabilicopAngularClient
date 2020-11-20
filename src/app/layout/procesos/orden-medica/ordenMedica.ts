@@ -7,6 +7,7 @@ export class OrdenMedica {
 
     fechaDeCreacion: Date;
     estado: String;
+    puedeCerrar: boolean;
     
     medicamentosOrdenMedica: MedicamentosOrdenMedica[];
 
