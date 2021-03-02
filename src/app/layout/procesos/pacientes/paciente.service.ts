@@ -69,4 +69,8 @@ export class PacienteService {
     generateReportNotas(idAdmision: String): Observable<any> {
         return this.http.get(this.url + 'reporte-notas/' + idAdmision, CommonService.getPdfJwtHeaders());
     }
+
+    reabrirUltimaHistoria(paciente: Paciente): Observable<any> {
+        return this.http.put(this.url + paciente.idUsuario + '/reabrir-ultima-historia', paciente,  CommonService.getJwtHeaders());
+    }
 }

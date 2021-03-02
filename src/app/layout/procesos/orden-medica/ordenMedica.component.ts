@@ -261,7 +261,7 @@ export class OrdenMedicaComponent implements OnInit {
                     } 
                     this.showErrors();
                     this.showLoading(false);
-                });  
+                }); 
     }     
 
     validateCreate(){
@@ -273,15 +273,22 @@ export class OrdenMedicaComponent implements OnInit {
             areErrors = true;
         }
 
-        if(this.fecha == undefined || this.fecha == ''){
+        if(this.fecha == undefined || this.fecha == '' || this.fecha == null)
+        {
             this.errores.push({ message: 'Ingrese una fecha'});
             areErrors = true;
         }
-        else if(!Util.validateDate(this.fecha)){
-            this.errores.push({ message: 'Ingrese una fecha válida'});
-            areErrors = true;
-        }else{
-            this.model.fechaDeCreacion = Util.getDate(this.fecha);
+        else
+        {
+            if(!Util.validateDate(this.fecha))
+            {
+                this.errores.push({ message: 'Ingrese una fecha válida'});
+                areErrors = true;
+            }
+            else
+            {
+                this.model.fechaDeCreacion = Util.getDate(this.fecha);
+            }
         }
 
         if(this.model.solicitante == undefined || this.model.solicitante == null){

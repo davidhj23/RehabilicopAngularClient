@@ -58,8 +58,7 @@ export class EvolucionComponent implements OnInit {
     }
 
     ngOnInit() {    
-        this.fillSelects();    
-        this.loadEvolucionesEmpleado();        
+        this.fillSelects();        
     }
 
     private fillSelects(){
@@ -83,11 +82,12 @@ export class EvolucionComponent implements OnInit {
                 }); 
     }
 
-    private loadEvolucionesEmpleado() {     
+    private loadEvolucionesEmpleado(identificacion: string) {     
         this.showLoading(true);    
-        this.evolucionService.getEvolucionesEmpleado()
+        this.evolucionService.getEvolucionesEmpleadoYPaciente(identificacion)
             .subscribe(
                 data => {    
+                    console.log(data);
                     this.evoluciones = data;                    
                     this.showLoading(false);
                 },
@@ -133,8 +133,8 @@ export class EvolucionComponent implements OnInit {
                                 .subscribe(
                                     data => {                                                          
                                         this.showLoading(false);
+                                        this.loadEvolucionesEmpleado(this.model.historia.admision.paciente.identificacion);
                                         this.clearModel();
-                                        this.loadEvolucionesEmpleado();
                                     },
                                     error => {                        
                                         if(Array.isArray(error.error)){
@@ -280,6 +280,8 @@ export class EvolucionComponent implements OnInit {
                         if(this.model.historia.admision.paciente.aseguradora != null){
                             this.aseguradora = this.model.historia.admision.paciente.aseguradora.nombre;                                                        
                         }
+
+                        this.loadEvolucionesEmpleado(this.model.historia.admision.paciente.identificacion); 
                         
                     }else{
                         this.errores.push({ message: 'No se encontró un paciente con esa identificación o no tiene una historia activa'});                        
@@ -299,7 +301,7 @@ export class EvolucionComponent implements OnInit {
                     } 
                     this.showErrors();
                     this.showLoading(false);
-                }); 
+                });           
     }
 
     clearModel(){        
@@ -327,7 +329,7 @@ export class EvolucionComponent implements OnInit {
             this.showLoading(true);
             this.evolucionService.delete(idHistoria)
                 .subscribe(data => {                    
-                    this.loadEvolucionesEmpleado();                  
+                    this.loadEvolucionesEmpleado(this.model.historia.admision.paciente.identificacion);                  
                     this.showLoading(false);
                 }, error => {       
                     if(Array.isArray(error.error)){

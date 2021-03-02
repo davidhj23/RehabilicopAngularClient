@@ -11,19 +11,19 @@ export class Util {
         let month = Number(from[1]) - 1;
         let day = Number(from[0]);
 
-        if(year < 1900 || year > 2100){
+        if(Number.isNaN(year) || year < 1900 || year > 2100){
             return false;
         }
 
-        if(month < 0 || month > 11){
+        if(Number.isNaN(month) || month < 0 || month > 11){
             return false;
         }
 
-        if(day < 1 || day > 31){
+        if(Number.isNaN(day) || day < 1 || day > 31){
             return false;
         }
         
-        return true;
+        return true; 
     }
 
     public static getDate(dateString: string){

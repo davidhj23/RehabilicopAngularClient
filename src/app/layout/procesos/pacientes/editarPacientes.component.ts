@@ -51,6 +51,8 @@ export class EditarPacientesComponent implements OnInit {
     fechaDeNacimiento: string;
     public mask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
 
+    permitirReabrirHistoria = false;
+
     constructor(
         private pacienteService: PacienteService,
         private tipoDocumentoService: TipoDocumentoService,
@@ -260,7 +262,8 @@ export class EditarPacientesComponent implements OnInit {
         this.admisionService.getTodasAdmisionByIdentificacionPaciente(identificacion)
             .subscribe(
                 data => {                                                             
-                    this.admisiones = data;      
+                    this.admisiones = data;           
+                    this.permitirReabrirHistoria = !this.admisiones.some(a => a.estado == 'ACTIVA');                    
                     this.showLoading(false);
                 },
                 error => {                        
@@ -536,6 +539,27 @@ export class EditarPacientesComponent implements OnInit {
         }
 
         return true;
+    }
+
+    reabrirUltimaHistoria() {
+        this.showLoading(true);               
+        this.pacienteService.reabrirUltimaHistoria(this.model)
+            .subscribe(
+                data => {                
+                    this.loadAllAdmisiones(this.model.identificacion);
+                    this.showLoading(false);
+                },
+                error => {                          
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });  
     }
 
     showLoading(loading: boolean) {

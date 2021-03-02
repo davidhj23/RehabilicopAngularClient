@@ -197,4 +197,18 @@
             </div>
         </div>      
     </div>
+
+    <div class="row" permission="reabrir historia" *ngIf="permitirReabrirHistoria">  
+        <div class="col-md-12">             
+            <div class="tile"> 
+                <div class="tile-body">
+                    <div class="row">
+                        <div class="form-group col-md-4 align-self-end">
+                            <button class="btn btn-danger" type="button" (click)="reabrirUltimaHistoria()"><i class="fa fa-fw fa-lg fa-check-circle"></i>Reabrir última historia </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>

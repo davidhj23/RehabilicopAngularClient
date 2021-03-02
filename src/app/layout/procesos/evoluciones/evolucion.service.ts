@@ -28,8 +28,8 @@ export class EvolucionService {
         return this.http.get(url,  CommonService.getJwtHeaders());
     }
 
-    getEvolucionesEmpleado(): Observable<any>{
-        return this.http.get(this.url + 'empleado',  CommonService.getJwtHeaders());
+    getEvolucionesEmpleadoYPaciente(idUsuario: string): Observable<any>{
+        return this.http.get(this.url + 'empleado/paciente/' + idUsuario,  CommonService.getJwtHeaders());
     }
 
     delete(id: string): Observable<any> {
