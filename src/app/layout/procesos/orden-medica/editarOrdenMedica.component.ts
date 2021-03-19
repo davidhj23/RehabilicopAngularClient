@@ -91,8 +91,6 @@ export class EditarOrdenMedicaComponent implements OnInit {
                     this.quienEntrega = this.model.quienEntrega.nombres + " " + this.model.quienEntrega.apellidos;
                     this.quienRecibe = this.model.quienRecibe.nombres + " " + this.model.quienRecibe.apellidos;
 
-                    this.medicamentosOrdenMedica = this.model.medicamentosOrdenMedica;
-
                     this.showLoading(false);    
 
                     this.loadMedicamentos();
@@ -116,18 +114,20 @@ export class EditarOrdenMedicaComponent implements OnInit {
         this.showLoading(true);    
         this.ordenMedicaService.getMedicamentosByIdOrdenMedica(this.currentOrdenId)
             .subscribe(
-                data => {                                                                         
-                    this.medicamentosOrdenMedica = data;  
+                data => {               
+                    console.log(0);                                                           
+                    this.medicamentosOrdenMedica = data;
                     this.medicamentosOrdenMedica.forEach(x => {
                         this.ordenMedicaService.getAdministraciones(x.idMedicamentosOrdenMedica)
                             .subscribe(
                                 data => {                                                                         
-                                    x.administraciones = data;                                              
+                                    x.administraciones = data; 
+                                    console.log(data);                                             
                             })    
                     });
                     
                     this.showLoading(false);             
-            })        
+            })      
     }
 
     create(){
@@ -154,7 +154,6 @@ export class EditarOrdenMedicaComponent implements OnInit {
 
     deleteMedicamento(id: any, content: any) {   
         this.clearAndcloseErrors();  
-        console.log(id)
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);
             this.ordenMedicaService.deleteMedicamentos(id)
