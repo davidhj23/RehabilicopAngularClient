@@ -54,8 +54,8 @@ export class PacienteService {
         return this.http.get(this.url + 'reporte-historia/' + idAdmision, CommonService.getPdfJwtHeaders());
     }
 
-    generateReportEvoluciones(idAdmision: String): Observable<any> {
-        return this.http.get(this.url + 'reporte-evoluciones/' + idAdmision, CommonService.getPdfJwtHeaders());
+    generateReportEvoluciones(idAdmision: String, fechaInicio: string, fechaFin: string): Observable<any> {
+        return this.http.get(this.url + 'reporte-evoluciones/' + idAdmision + '?fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFin, CommonService.getPdfJwtHeaders());
     }
 
     generateReportOrdenesMedicas(idAdmision: String): Observable<any> {

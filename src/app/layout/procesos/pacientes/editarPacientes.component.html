@@ -164,7 +164,7 @@
                                     </button>                                    
                                 </td>                            
                                 <td class="rowTd">                                      
-                                    <button class="btn btn-primary" type="button" (click)="getPdfEvoluciones(admision.idAdmision)">
+                                    <button class="btn btn-primary" type="button" (click)="getPdfEvoluciones(admision.idAdmision, content)">
                                         <i class="fa fa-fw fa-lg fa-file-text-o"></i>Reporte
                                     </button>                                    
                                 </td> 
@@ -212,3 +212,50 @@
         </div>
     </div>
 </main>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Generar Reporte</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row" *ngIf="areErroresReportes">
+            <div class="col-md-12">
+                <div class="bs-component">
+                    <div class="alert alert-dismissible alert-danger">    
+                        <button class="close" type="button" data-dismiss="alert" (click)="clearAndcloseErrors()">×</button>    
+                        <div *ngFor="let e of erroresReportes">
+                          <strong>{{e.message}}</strong>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form class="row">        
+          <div class="form-group col-md-9" >
+            <label class="control-label">Fecha Inicio</label>
+            <div class="input-group datepicker-input">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="fechaInicio" [(ngModel)]="fechaInicio"
+                    ngbDatepicker #fi="ngbDatepicker" readonly>
+                <button class="input-group-addon" (click)="fi.toggle()" type="button">
+                    <span class="fa fa-calendar"></span>
+                </button>
+            </div>
+            <label class="control-label">Fecha Fin</label>
+            <div class="input-group datepicker-input">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="fechaFin" [(ngModel)]="fechaFin"
+                    ngbDatepicker #ff="ngbDatepicker" readonly>
+                <button class="input-group-addon" (click)="ff.toggle()" type="button">
+                    <span class="fa fa-calendar"></span>
+                </button>
+            </div>             
+          </div>                    
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="c('Accept click')">Aceptar</button>
+        <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cerrar</button>
+    </div>
+  </ng-template>

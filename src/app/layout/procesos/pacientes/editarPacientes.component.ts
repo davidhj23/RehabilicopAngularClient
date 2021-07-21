@@ -13,6 +13,7 @@ import { Sexo, SexoService } from '../../listas/sexos';
 import { AdmisionService } from '../admisiones/admision.service';
 import { EpicrisisService } from '../epicrisis/epicrisis.service';
 import { Admision } from '../admisiones/admision';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'editarPacientes',
@@ -53,6 +54,9 @@ export class EditarPacientesComponent implements OnInit {
 
     permitirReabrirHistoria = false;
 
+    fechaInicio: any;    
+    fechaFin: any;    
+
     constructor(
         private pacienteService: PacienteService,
         private tipoDocumentoService: TipoDocumentoService,
@@ -64,7 +68,8 @@ export class EditarPacientesComponent implements OnInit {
         private admisionService: AdmisionService,
         private sexoService: SexoService,
         private epicrisisService: EpicrisisService,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private ngbModal: NgbModal) {
 
         this.model = new Paciente();
 
@@ -303,28 +308,37 @@ export class EditarPacientesComponent implements OnInit {
                 });  
     }
 
-    getPdfEvoluciones(idAdmision: any){
-        this.showLoading(true);    
-        this.pacienteService.generateReportEvoluciones(idAdmision)
-            .subscribe(
-                data => {                                                          
-                    this.showLoading(true);
-                    let file = new Blob([data], { type: 'application/pdf' });            
-                    var fileURL = URL.createObjectURL(file);
-                    window.open(fileURL);
-                    this.showLoading(false);  
-                },
-                error => {                      
-                    if(Array.isArray(error.error)){
-                        this.errores = error.error;
-                    }else{
-                        let errores = [];
-                        errores.push(error.error);
-                        this.errores = errores;
-                    } 
-                    this.showErrors();
-                    this.showLoading(false);
-                });  
+    getPdfEvoluciones(idAdmision: any, content: any){
+        this.ngbModal.open(content).result.then((result) => {
+            this.showLoading(true);    
+
+            let fi = Util.getDateAsStringToReport(this.fechaInicio);
+            let ff = Util.getDateAsStringToReport(this.fechaFin);
+
+            this.pacienteService.generateReportEvoluciones(idAdmision, fi, ff)
+                .subscribe(
+                    data => {                                                          
+                        this.showLoading(true);
+                        let file = new Blob([data], { type: 'application/pdf' });            
+                        var fileURL = URL.createObjectURL(file);
+                        window.open(fileURL);
+                        this.fechaInicio = undefined;    
+                        this.fechaFin = undefined;    
+                        this.showLoading(false);  
+                    },
+                    error => {                      
+                        if(Array.isArray(error.error)){
+                            this.errores = error.error;
+                        }else{
+                            let errores = [];
+                            errores.push(error.error);
+                            this.errores = errores;
+                        } 
+                        this.showErrors();
+                        this.showLoading(false);
+                    });  
+            }, (reason) => {            
+            });        
     }
 
     getPdfOrdenesMedicas(idAdmision: any){

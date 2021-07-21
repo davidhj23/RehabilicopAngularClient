@@ -105,4 +105,21 @@ export class Util {
         }
         return bytes.buffer;
     }
+
+    public static getDateAsStringToReport(fecha: any)
+    {
+        if(fecha == undefined || fecha == null){
+            return '';
+        }
+
+        let anioFecha = fecha.year;
+        let mesFecha = fecha.month;
+        let diaFecha = fecha.day;
+
+        if (mesFecha.length < 2) mesFecha = '0' + mesFecha;
+        if (diaFecha.length < 2) diaFecha = '0' + diaFecha;
+
+        let f = anioFecha + "-" + mesFecha + "-" + diaFecha;
+        return f; 
+    }
 }

@@ -102,7 +102,7 @@ export class EditarAdministracionComponent implements OnInit {
                                     this.ordenMedicaService.getAdministraciones(x.idMedicamentosOrdenMedica)
                                         .subscribe(
                                             data => {                                                                         
-                                                x.administraciones = data;    
+                                                x.administraciones = data;  
                                                 x.administraciones.forEach(x => {                                                             
                                                     if(x.administra == null)
                                                     {
