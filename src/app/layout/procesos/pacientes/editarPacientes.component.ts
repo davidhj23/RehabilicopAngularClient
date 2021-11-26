@@ -308,14 +308,38 @@ export class EditarPacientesComponent implements OnInit {
                 });  
     }
 
-    getPdfEvoluciones(idAdmision: any, content: any){
+    getPdfEvoluciones(idAdmision: any){
+        this.showLoading(true);    
+        this.pacienteService.generateReportEvoluciones(idAdmision)
+            .subscribe(
+                data => {                                                          
+                    this.showLoading(true);
+                    let file = new Blob([data], { type: 'application/pdf' });            
+                    var fileURL = URL.createObjectURL(file);
+                    window.open(fileURL);
+                    this.showLoading(false);  
+                },
+                error => {                      
+                    if(Array.isArray(error.error)){
+                        this.errores = error.error;
+                    }else{
+                        let errores = [];
+                        errores.push(error.error);
+                        this.errores = errores;
+                    } 
+                    this.showErrors();
+                    this.showLoading(false);
+                });  
+    }
+
+    getPdfEvoluciones2(idAdmision: any, content: any){
         this.ngbModal.open(content).result.then((result) => {
             this.showLoading(true);    
 
             let fi = Util.getDateAsStringToReport(this.fechaInicio);
             let ff = Util.getDateAsStringToReport(this.fechaFin);
 
-            this.pacienteService.generateReportEvoluciones(idAdmision, fi, ff)
+            this.pacienteService.generateReportEvoluciones2(idAdmision, fi, ff)
                 .subscribe(
                     data => {                                                          
                         this.showLoading(true);
